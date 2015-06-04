@@ -12,9 +12,22 @@ try
         
         case 'Load_Input_File' % Read in the taskinfo
             
-            taskinfo_default(hObj, taskinfo)
-            handles = guidata(hObj);
-            taskinfo = handles.myData.taskinfo;
+            handles = guidata(hObj);            
+            desc = taskinfo.desc;          
+            taskinfo.task  = char(desc{1});
+            taskinfo.id = char(desc{2});
+            taskinfo.order = str2double(desc{3});
+            taskinfo.slot = str2double(desc{4});
+            taskinfo.roi_x  = str2double(desc{5});
+            taskinfo.roi_y = str2double(desc{6});
+            taskinfo.roi_w = str2double(desc{7});
+            taskinfo.roi_h = str2double(desc{8});
+            taskinfo.img_w = str2double(desc{9});
+            taskinfo.img_h = str2double(desc{10});
+            taskinfo.text  = char(desc{11});
+            taskinfo.moveflag = str2double(desc{12});
+            taskinfo.zoomflag = str2double(desc{13});
+            taskinfo.description = char(desc{14});
             
         case {'Update_GUI_Elements', ...
                 'ResumeButtonPressed'} % Initialize task elements
@@ -38,7 +51,7 @@ try
                 'Position', [.2, .2, .2, .2], ...
                 'Style', 'text', ...
                 'Tag', 'textCount', ...
-                'String', taskinfo.q_op1);
+                'String', taskinfo.description);
 
             % Count task response box
             handles.editCount = uicontrol(...
@@ -52,19 +65,23 @@ try
                 'Style', 'edit', ...
                 'Tag', 'editCount', ...
                 'String', '<int>', ...
-                'KeyPressFcn', @editCount_KeyPressFcn, ...
+                'KeyPressFcn', @integer_test, ...
                 'Callback', @editCount_Callback);
 
             % Make count task response box active
             uicontrol(handles.editCount);
            
         case {'NextButtonPressed', ...
-                'PauseButtonPressed'} % Clean up the task elements
+                'PauseButtonPressed',...
+                'Backbutton_Callback'} % Clean up the task elements
             
-            % Hide management buttons
+            % Hide image and management buttons
+            
             taskmgt_default(handles, 'off');
             handles = guidata(hObj);
             
+            set(handles.iH,'visible','off');
+            set(handles.ImageAxes,'visible','off');
             delete(handles.textCount);
             delete(handles.editCount);
             handles = rmfield(handles, 'textCount');
@@ -88,11 +105,8 @@ try
                 taskinfo.text, ',', ...
                 num2str(taskinfo.moveflag), ',', ...
                 num2str(taskinfo.zoomflag), ',', ...
-                taskinfo.q_op1, ',', ...
-                taskinfo.q_op2, ',', ...
-                taskinfo.q_op3, ',', ...
-                taskinfo.q_op4, ',', ...
-                num2str(taskinfo.ans_time), ',', ...
+                taskinfo.description, ',', ...
+                num2str(taskinfo.duration), ',', ...
                 num2str(taskinfo.score)]);
             fprintf(taskinfo.fid,'\r\n');
             
@@ -107,43 +121,49 @@ catch ME
     error_show(ME)
 end
 end
-
-function editCount_KeyPressFcn(hObj, eventdata)
-try
-    %--------------------------------------------------------------------------
-    % When the text box is non-empty, the user can continue
-    %--------------------------------------------------------------------------
-    handles = guidata(findobj('Tag','GUI'));
-    editCount_string = eventdata.Key;
-
-    desc_digits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-    test = max(strcmp(editCount_string, desc_digits));
-    if test
-        set(handles.NextButton,'Enable','on');
-        
-    else
-        desc = 'Input should be an integer';
-        h_errordlg = errordlg(desc,'Application error','modal');
-        uiwait(h_errordlg)
-
-        set(handles.editCount, 'String', '');
-        set(handles.NextButton, 'Enable', 'off');
-
-        return
-    end
-
-catch ME
-    error_show(ME)
-end
-
-end
+% 
+% function editCount_KeyPressFcn(hObj, eventdata)
+% try
+%     %--------------------------------------------------------------------------
+%     % When the text box is non-empty, the user can continue
+%     %--------------------------------------------------------------------------
+%     handles = guidata(findobj('Tag','GUI'));
+%     editCount_string = eventdata.Key;
+% 
+%     desc_digits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+%     test = max(strcmp(editCount_string, desc_digits));
+%     if test
+%         set(handles.NextButton,'Enable','on');
+%         
+%     else
+%         desc = 'Input should be an integer';
+%         h_errordlg = errordlg(desc,'Application error','modal');
+%         uiwait(h_errordlg)
+% 
+%         set(handles.editCount, 'String', '');
+%         set(handles.NextButton, 'Enable', 'off');
+% 
+%         return
+%     end
+% 
+% catch ME
+%     error_show(ME)
+% end
+% 
+% end
 
 function editCount_Callback(hObj, eventdata)
     handles = guidata(findobj('Tag','GUI'));
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
-
+    valiad_input=taskinfo.valiad_input;
+    if valiad_input==1
+        set(handles.NextButton,'Enable','on');
+        valiad_input=0;
+    else
+        set(handles.NextButton, 'Enable', 'off');
+    end
+    taskinfo.valiad_input=valiad_input;
     % Pack the results
-    taskinfo.ans_time = etime(clock, handles.myData.StartTime);
     taskinfo.score = get(handles.editCount, 'String');
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
     guidata(handles.GUI, handles);

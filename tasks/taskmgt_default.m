@@ -24,10 +24,12 @@ try
     
     % Show management buttons
     if strcmpi(handles.myData.mode_desc,'MicroRT')
-        set(handles.registerbutton, 'Visible',on_off);
+        set(handles.Best_Register_Button, 'Visible',on_off);
+        set(handles.Fast_Register_Button, 'Visible',on_off);
         set(handles.videobutton, 'Visible',on_off);
     end
     set(handles.moving_indication,'visible',on_off);
+
     set(handles.zooming_indication,'visible',on_off);
     set(handles.NextButton, 'Visible',on_off);
     set(handles.ResetViewButton, 'Visible',on_off);
@@ -35,11 +37,16 @@ try
     set(handles.ResumeButton, 'Visible', on_off, ...
         'Enable', 'off');
     
+    if handles.myData.iter > 2
+        set(handles.Backbutton,'visible',on_off);
+    end
+    
+    
     % Update reader on study progress
     switch on_off
         case 'on'
             
-            desc = ['Question ', num2str(myData.iter-1), ...
+            desc = ['Task ', num2str(myData.iter-1), ...
                 ' of ', num2str(myData.ntasks)];
             desc = {desc, taskinfo.text};
             handles.text_progress = uicontrol(...

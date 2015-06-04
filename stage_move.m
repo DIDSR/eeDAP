@@ -1,7 +1,7 @@
 %  ##########################################################################
 %% ###################### MOVE STAGE SEQUENCE ###############################
 %  ##########################################################################
-function stage_move(target_pos, h_stage)
+function stage=stage_move(stage, target_pos, h_stage)
 %--------------------------------------------------------------------------
 % Move_Stage_Seq starts a []sequence that moves the stage from position A
 % to position B. THe function displays a waitbar and also adjusts
@@ -23,10 +23,10 @@ try
     h_stage_close = 0;
     if exist('h_stage', 'var') == 0
         h_stage_close = 1;
-        [h_stage, success] = stage_open();
+        [stage] = stage_open(stage.label);
         % If communications with the stage cannot be established,
         % eeDAP is closing.
-        if success == 0
+        if stage.status == 0
             desc = ['Communications with the stage is not established.',...
                 'eeDAP is closing.'] %#ok<NOPRT>
             h_errordlg = errordlg(desc,'Application error','modal');
@@ -40,23 +40,30 @@ try
     target_pos = int64(target_pos);
     
     % Get current poistion
-    Initial_Pos=stage_get_pos(h_stage);
-    
-    % Start moving to the desired position
-    send_com (h_stage, 'SPEED X=50000 Y=50000');
-    send_com (h_stage, 'SPEED X Y');
-    send_com (h_stage, 'ACCEL X=100 Y=100');
-    send_com (h_stage, 'ACCEL X Y');
+    stage=stage_get_pos(stage,stage.handle);
+    Initial_Pos = stage.Pos;
+    % Start moving to the desired position  
+    command_str_speed = ['SPEED',...
+        ' x=', num2str(stage.speed),...
+        ' y=',num2str(stage.speed)];
+    send_com (stage.handle, command_str_speed);
+    command_str_accel = ['ACCEL',...
+        ' x=', num2str(stage.accel),...
+        ' y=',num2str(stage.accel)];
+    send_com (stage.handle, command_str_accel);           
+    send_com (stage.handle, 'SPEED X Y');   
+    send_com (stage.handle, 'ACCEL X Y');
     command_str = ['move',...
         ' x=', num2str(target_pos(1)),...
         ' y=',num2str(target_pos(2))];
-    send_com (h_stage, command_str);
+    send_com (stage.handle, command_str);
     
     % Display the waitbar
     wtb=waitbar(0,'Moving the stage...', 'WindowStyle', 'modal');
     % Keep updating the waitbar
-    while stage_check_busy(h_stage)
-        current_pos=stage_get_pos(h_stage) ;
+    while stage_check_busy(stage.handle)
+        stage=stage_get_pos(stage,stage.handle) ;
+        current_pos=stage.Pos;
         pause(.5)
         distance_traveled = pdist2(...
             double(Initial_Pos),...
@@ -73,7 +80,7 @@ try
     
     % If communications to stage was not open to start, then close.
     if h_stage_close == 1
-        stage_close(h_stage);
+        stage.status = stage_close(stage.handle);
     end
     
 catch ME

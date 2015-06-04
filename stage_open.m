@@ -1,5 +1,5 @@
 
-function [h_stage, success] = stage_open()
+function stage = stage_open(label)
 try
     
     % instrfind returns the instrument object array
@@ -15,20 +15,47 @@ try
     delete(objects);
 
     % Return value if unable to open stage
-    h_stage = '';
+    stage.handle='';
+    stage.label=label;
+    
+   switch label
+        case 'SCAN8Praparate_Ludl5000'            
+            stage.speed=50000;
+            stage.accel=100;
+            stage.scale=0.1;
+        case 'SCAN8Praparate_Ludl6000'         
+            stage.speed=200000;
+            stage.accel=1;
+            stage.scale=0.025;
+        case 'BioPrecision2-LE2_Ludl5000'            
+            stage.speed=40000;
+            stage.accel=100; 
+            stage.scale=0.2;
+        case 'BioPrecision2-LE2_Ludl6000'           
+            stage.speed=150000;
+            stage.accel=1;   
+            stage.scale=0.05;
+       otherwise
+            stage.speed=50000;
+            stage.accel=100;      
+            stage.scale=0.1;
+    end  
+    
     
     % Test to see if the COM port is set in the file PortNames.mat
     try
+        % PortNames.mat contains SerialPortStage, the last port used and
+        % saved
         load('PortNames.mat');
     catch ME
-        success = SerialPortSetUp();
-        if success == 1
-            [h_stage, success] = stage_open();
+        stage.status = SerialPortSetUp();
+        if stage.status == 1
+            stage = stage_open(stage.label);
         end
         return
     end
     
-    h_stage = serial(SerialPortStage,...
+    stage.handle = serial(SerialPortStage,...
         'RequestToSend','off',...
         'Timeout',3,...
         'Baudrate',9600,...
@@ -37,42 +64,42 @@ try
 
     % Test to see if the COM port is a legitimate COM port
     try
-        fopen(h_stage);
+        fopen(stage.handle);
     catch ME
 
-        delete(h_stage);
-        h_stage = '';
+        delete(stage.handle);
+        stage.handle = '';
         desc = textscan(ME.message,'%s','delimiter','\n');
         desc = desc{1};
         desc = desc(1,:)
         h_errordlg = errordlg(desc,'Application error','modal');
         uiwait(h_errordlg)
 
-        success = SerialPortSetUp();
-        if success == 1 
-            [h_stage, success] =  stage_open();
+        stage.status = SerialPortSetUp();
+        if stage.status == 1 
+            stage = stage_open(stage.label);
         end
         return
     end
 
     % Test to see if the COM port is attached to the stage
-    desc_status = send_com (h_stage, 'STATUS');
+    desc_status = send_com (stage.handle, 'STATUS');
     if ~strcmp(desc_status, 'N') && ~strcmp(desc_status, 'B')
         
-        delete(h_stage);
-        h_stage = '';
+        delete(stage.handle);
+        stage.handle = '';
         desc = 'The selected COM port is not connected to the stage.'
         h_errordlg = errordlg(desc,'Application error','modal');
         uiwait(h_errordlg)
 
-        success = SerialPortSetUp();
-        if success == 1 
-            [h_stage, success] =  stage_open();
+        stage.status = SerialPortSetUp();
+        if stage.status == 1 
+            stage = stage_open(stage.label);
         end
         return
     end
 
-    success = 1;
+    stage.status = 1;
     
 catch ME
     error_show(ME)

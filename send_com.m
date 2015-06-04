@@ -9,15 +9,15 @@ function ST_answer=send_com (S, CommandStr)
     %--------------------------------------------------------------------------
     try
         
-    %Get the lenght of the command
+    % Write the command to the stage controller
     for i=1:size(CommandStr,2)
         fwrite(S,CommandStr(i));
     end
-    % send the termination char
+    % Send the termination char to the stage controller
     fwrite(S,13);
     
+    % Read the response from the stage controller
     % The response of the stage to 'STATUS' doesn't have the terminator.
-    % THerefore if the command it 'STATUS' the code only reads one command
     if strcmp(CommandStr,'STATUS')
         ST_answer=fscanf(S,'%s',1);
     else
@@ -49,6 +49,7 @@ function ST_answer=send_com (S, CommandStr)
         errordlg('Process aborted by HALT command!','Stage Error');
         ST_answer=-1;
     end
+    
     catch
         disp('Error in send_com (S, CommandStr)');
         errordlg('Unable to send a command to the stage!','Stage Error');

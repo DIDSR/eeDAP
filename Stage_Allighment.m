@@ -32,8 +32,8 @@ try
     % Read input arguments
     handles_old = varargin{1};
     handles.Administrator_Input_Screen = handles_old.Administrator_Input_Screen;
-    
     myData = handles_old.myData;
+    handles.myData = myData;
     settings = myData.settings;
     current = handles_old.current;
     reg_flag = current.reg_flag; %#ok<NASGU>
@@ -45,8 +45,8 @@ try
     if myData.yesno_micro==1
         handles.cam = camera_open(settings.cam_format);
         handles.cam_figure = camera_preview(handles.cam, settings);
-        stage_set_origin();
-        stage_move([50000,50000]);
+        myData.stage = stage_set_origin(myData.stage);
+        myData.stage=stage_move(myData.stage,[50000,50000]);
         
     end
 
@@ -54,8 +54,7 @@ try
     set(handles.Stage_Allighment,'Position', [0, 0, 1, 1]);
     sz = get(0,'ScreenSize'); %#ok<NASGU>
     
-    % Create the TIFFComp ActiveX component
-    handles.activex1 = actxcontrol('TIFFCOMP.TIFFCompCtrl.1',[0,0,0,0],hObject);
+   
     
     % Initialze the state of the GUI
     set(handles.take_stage1,'Enable','on');
@@ -68,7 +67,7 @@ try
     set(handles.Video,'Enable','on');
     set(handles.refine_registration,'Enable','off');
     set(handles.load_last_calibration,'Enable','on');
-    
+    set(handles.Done,'Enable','off');
     % Initialize registration parameters corresponding to slot_i
     current.position_i = 1;
     current.wsi_info = wsi_info;
@@ -105,8 +104,8 @@ try
     current.thumb_h = 1000;
     current.thumb_x0 = 0;
     current.thumb_y0 = 0;
-    current.thumb_extract_w = wsi_info.wsi_w;
-    current.thumb_extract_h = wsi_info.wsi_h;
+    current.thumb_extract_w = wsi_info.wsi_w(1);
+    current.thumb_extract_h = wsi_info.wsi_h(1);
     if current.thumb_extract_w > current.thumb_extract_h
         current.thumb_w = 1000;
         current.thumb_h = 0;
@@ -170,8 +169,10 @@ try
     handles = guidata(Stage_Allighment_handle);
     myData = handles.myData;
     current = handles.current;
+    wsi_w = current.wsi_info.wsi_w(1);
+    wsi_h = current.wsi_info.wsi_h(1);
     stagedata = handles.myData.stagedata;
-    
+    settings = myData.settings;
     % High-power magnification registration
     if current.reg_flag==1
         cam_h = myData.settings.cam_h;
@@ -192,7 +193,20 @@ try
         current.thumb_extract_h = cam_w*myData.settings.cam_lres2scan;
         current.thumb_left = pos(1) - current.thumb_extract_w/2;
         current.thumb_top = pos(2) - current.thumb_extract_h/2;
-        
+        thumb_right = pos(1) - current.thumb_extract_w/2;
+        thumb_bottom = pos(2) - current.thumb_extract_w/2;
+        if current.thumb_left<1
+            current.thumb_left=1;
+        end
+        if current.thumb_top<1
+            current.thumb_top=1;
+        end
+        if thumb_right>wsi_w
+           current.thumb_left = current.thumb_left + thumb_right - wsi_w;
+        end
+        if thumb_bottom>wsi_h
+           current.thumb_top = current.thumb_top + thumb_bottom - wsi_h;
+        end
     end
     
     current.thumb_w = 0;
@@ -200,9 +214,20 @@ try
     if current.thumb_extract_w > current.thumb_extract_h
         current.thumb_w = 1000;
         current.thumb_h = 0;
+        current.thumb_scale = 1000.0/current.thumb_extract_w;
+    else
+        current.thumb_scale = 1000.0/current.thumb_extract_h;
+    end
+    
+    if settings.RotateWSI == 0 || settings.RotateWSI== 180
+        current.thumb_w = current.thumb_scale*current.thumb_extract_h;           %3,9 o'clock
+        current.thumb_h = current.thumb_scale*current.thumb_extract_w;
+    else
+        current.thumb_w = current.thumb_scale*current.thumb_extract_w;           %6,12 o'clock
+        current.thumb_h = current.thumb_scale*current.thumb_extract_h;
     end
 
-    ExtractROI(handles.activex1,...
+    ExtractROI_BIO(current.wsi_info,...
         current.wsi_info.fullname,...
         current.thumb_file,...
         current.thumb_left,...
@@ -211,11 +236,18 @@ try
         current.thumb_extract_h,...
         current.thumb_w,...
         current.thumb_h,...
+        handles.myData.settings.RotateWSI,...
         current.wsi_info.rgb_lut);
     
-    current.thumb_w = get(handles.activex1, 'OutputWidth');
-    current.thumb_h = get(handles.activex1, 'OutputHeight');
-    
+    if settings.RotateWSI == 0 || settings.RotateWSI== 180       
+        current.thumb_w = floor(current.thumb_w);           %3,9 o'clock
+        current.thumb_h = floor(current.thumb_h);
+    else
+        temp = current.thumb_w;
+        current.thumb_w = floor(current.thumb_h);           %6,12 o'clock
+        current.thumb_h = floor(temp);
+    end
+
     current.thumb_image = imread(current.thumb_file);
     current.thumb_image_handle = image(current.thumb_image, 'Parent', handles.thumb_axes);
     axis(handles.thumb_axes,'image');
@@ -258,7 +290,8 @@ try
     
     % Get stage position_i and camera image
     if handles.myData.yesno_micro==1
-        temp = stage_get_pos();
+        myData.stage = stage_get_pos(myData.stage);
+        temp = myData.stage.Pos;
         current.cam_x0 = temp(1);
         current.cam_y0 = temp(2);
         cam_image = camera_take_image(handles.cam);
@@ -321,7 +354,7 @@ try
         extract_top  = current.cam_y0-extract_h/2;
         
         % Extraction of the low-resolution WSI Patch 1
-        ExtractROI(handles.activex1,...
+        ExtractROI_BIO(current.wsi_info,...
             wsi_file,...
             cam_file,...
             extract_left,...
@@ -329,7 +362,8 @@ try
             extract_w,...
             extract_h,...
             cam_h,...
-            cam_w);
+            cam_w,...
+            handles.myData.settings.RotateWSI);
         
         % Read the fake camera image
         cam_image = imread(cam_file);
@@ -369,8 +403,8 @@ try
     position_i = handles.current.position_i;
     
     wsi_file = current.wsi_info.fullname; %#ok<NASGU>
-    wsi_w = current.wsi_info.wsi_w;
-    wsi_h = current.wsi_info.wsi_h;
+    wsi_w = current.wsi_info.wsi_w(1);
+    wsi_h = current.wsi_info.wsi_h(1);
     cam_w = current.cam_w; %#ok<NASGU>
     cam_h = current.cam_h; %#ok<NASGU>
     thumb_w = current.thumb_w;
@@ -414,12 +448,18 @@ try
         roi_extract_h = roi_w*cam_hres2scan;
         roi_extract_w = roi_h*cam_hres2scan;
     end
-    
+    RotateWSI = settings.RotateWSI;
+    switch RotateWSI
     % Notes:
     % eeDAP images are WSI images rotated 90 degree clockwise
     % Rotate = Transpose then reverse YDir
-    roi_x0 = y_center*thumb_extract_w/thumb_h;
-    roi_y0  = (thumb_w - x_center)*thumb_extract_h/thumb_w;
+        case 270        % 6 o'clock
+            roi_x0 = y_center*thumb_extract_w/thumb_h;
+            roi_y0  = (thumb_w - x_center)*thumb_extract_h/thumb_w;
+        case 90        % 12 o'clock
+            roi_x0 = (thumb_h - y_center)*thumb_extract_w/thumb_h;
+            roi_y0  = x_center*thumb_extract_h/thumb_w;
+    end
     % The coordinates are relative to the thumbnail, map to wsi coordinates
     roi_x0 = roi_x0 + thumb_left - 1;
     roi_y0 = roi_y0 + thumb_top - 1;
@@ -624,8 +664,7 @@ try
     
     if handles.current.load_stage_data(1) == 1
         display('automatically navigate to position 1')
-        stage_move(handles.myData.stagedata.stage_positions(1,:));
-        
+        handles.myData.stage=stage_move(handles.myData.stage,handles.myData.stagedata.stage_positions(1,:));     
         set(handles.take_stage1,'String','Take Stage Position 1');
         handles.current.load_stage_data(1) = 2;
         guidata(handles.Stage_Allighment,handles);
@@ -665,7 +704,7 @@ try
     
     if handles.current.load_stage_data(2) == 1
         display('automatically navigate to position 2')
-        stage_move(handles.myData.stagedata.stage_positions(2,:));
+        handles.myData.stage=stage_move(handles.myData.stage,handles.myData.stagedata.stage_positions(2,:));
         
         set(handles.take_stage2,'String','Take Stage Position 2');
         handles.current.load_stage_data(2) = 2;
@@ -704,7 +743,7 @@ try
     
     if handles.current.load_stage_data(3) == 1
         display('automatically navigate to position 3')
-        stage_move(handles.myData.stagedata.stage_positions(3,:));
+        handles.myData.stage=stage_move(handles.myData.stage,handles.myData.stagedata.stage_positions(3,:));
         
         set(handles.take_stage3,'String','Take Stage Position 3');
         handles.current.load_stage_data(3) = 2;
@@ -987,7 +1026,7 @@ try
     handles.myData.stagedata = stagedata;
     handles.current.load_stage_data = ones(1,3);
     guidata(handles.Stage_Allighment,handles);
-    
+    set(handles.Done,'Enable','on');
     display_thumb(handles.Stage_Allighment)
     
 catch ME
@@ -1167,4 +1206,13 @@ function Done_Callback(hObject, eventdata, handles)
 % hObject    handle to Done (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+            handles_old = guidata(handles.Administrator_Input_Screen);
+            handles_old.current.success(handles.current.slot_i) = 1;
+            handles_old.myData = handles.myData;
+            guidata(handles.Administrator_Input_Screen,handles_old);
+            % Close the image preview figure
+            close(handles.cam_figure)
+            delete(handles.cam)
+            
+            close(handles.Stage_Allighment);
 end

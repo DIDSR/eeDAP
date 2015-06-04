@@ -46,7 +46,7 @@
 %       be shown next to each checkbox or radiobox. They determine the
 %       possible answer options the user has.
 %
-%       ans_time[] --Array containing the time difference in seconds between
+%       duration[] --Array containing the time difference in seconds between
 %       the start of the test and the omment when given evaluation task was
 %       completed
 %
@@ -180,13 +180,12 @@ try
     % The mode_index and the filename for the test are extracted from the
     % cell structure varargin. varargin stores the input arguments for the
     % whole Matlab application
+    addpath('gui_graphics', 'icc_profiles', 'tasks');
     handles_old = varargin{1};
     handles.Administrator_Input_Screen = handles_old.Administrator_Input_Screen;
     myData = handles_old.myData;
-    
     % handles.current will hold info related to the current task and ROI
     handles.current = struct;
-    
     % The images used in the GUI are loaded into the memory and into the
     % structure myData
     myData.graphics.zooming_allowed=imread('zooming_allowed.bmp');
@@ -213,12 +212,12 @@ try
                 % close(cam_figure)
                 
                 % Open communications to stage
-                [handles.stage, success] = stage_open();
+                handles.myData.stage = stage_open(handles.myData.stage.label);
                 % To close:
                 % delete(handles.stage)
                 % If communications with the stage cannot be established,
                 % eeDAP is closing.
-                if success == 0
+                if  handles.myData.stage.status == 0
                     desc = ['Communications with the stage is not established.',...
                         'eeDAP is closing.'] %#ok<NOPRT>
                     h_errordlg = errordlg(desc,'Application error','modal');
@@ -235,7 +234,6 @@ try
     % The GUI objects are initiated
     Initiate_GUI_Elements(handles);
     handles = guidata(handles.GUI);
-    
     guidata(hObj, handles);
     
 catch ME
@@ -252,7 +250,6 @@ try
     % non-GUI data. The output then is the modified handles structure with
     % all the GUI objects moved to the right positions
     %--------------------------------------------------------------------------
-    
     myData = handles.myData;
     
     % The following 4 lines ensure initiating the variables used for
@@ -331,7 +328,7 @@ try
     
     set(handles.GUI, ...
         'units', 'normalized', ...
-        'Position', [.1, .1, .75, .75], ...
+        'outerPosition', [0 0 1 1], ...
         'Color', myData.settings.BG_color, ...
         'busyaction', 'queue', ...
         'doublebuffer', 'on', ...
@@ -349,8 +346,9 @@ try
         'defaultuicontrolfontsize', 10, ...
         'defaultuicontrolfontname', 'Verdana', ...
         'defaultuicontrolinterruptible', 'off',...
-        'visible','on')
-    
+        'visible','off');
+
+
     % The initial properties of the axis obejct for plotting the stimuli
     % images are set
     set(handles.ImageAxes, 'Visible', 'off', ...
@@ -413,7 +411,12 @@ try
         'BackgroundColor',myData.settings.BG_color,...
         'ForegroundColor',myData.settings.FG_color,...
         'Visible', 'off');
-    set(handles.registerbutton,...
+    set(handles.Fast_Register_Button,...
+        'FontSize', myData.settings.FontSize,...
+        'BackgroundColor',myData.settings.BG_color,...
+        'ForegroundColor',myData.settings.FG_color,...
+        'Visible', 'off');
+    set(handles.Best_Register_Button,...
         'FontSize', myData.settings.FontSize,...
         'BackgroundColor',myData.settings.BG_color,...
         'ForegroundColor',myData.settings.FG_color,...
@@ -423,6 +426,12 @@ try
         'BackgroundColor',myData.settings.BG_color,...
         'ForegroundColor',myData.settings.FG_color,...
         'Visible', 'off');
+    set(handles.Backbutton,...
+        'FontSize', myData.settings.FontSize,...
+        'BackgroundColor',myData.settings.BG_color,...
+        'ForegroundColor',myData.settings.FG_color,...
+        'Visible', 'off');   
+    
     
     % Update handles.GUI
     guidata(handles.GUI, handles);
@@ -437,6 +446,9 @@ end
 
 function varargout = GUI_OutputFcn(hObj, eventdata, handles)
 varargout{1} = 1;
+guiFrame = get(gcf,'javaFrame');
+set(guiFrame,'Maximized',1);
+set(handles.GUI,'visible','on')
 end
 
 
@@ -457,18 +469,23 @@ try
     
     myData=handles.myData;
     set(handles.NextButton, 'Enable', 'off');
-    
-    % Task completed
+    set(handles.Backbutton, 'Enable', 'on');
+
+    % Close out current task and record duration
     taskinfo = myData.tasks_out{myData.iter};
-    
+    handles.myData.EndTime = clock;
+    taskinfo.duration = etime(handles.myData.EndTime, handles.myData.StartTime)+taskinfo.duration;
+    handles.myData.tasks_out{handles.myData.iter} = taskinfo;
+    guidata(handles.GUI, handles);
     % Close out completed task
     st = dbstack;
-    taskinfo.calling_function = st(1).name;
-    handles.myData.taskinfo = taskinfo;
-    guidata(handles.GUI, handles);
-    taskinfo.task_handle(handles.GUI);
-    handles = guidata(handles.GUI);
-    
+     if ~strcmp(st(2).name,'Backbutton_Callback')
+         taskinfo.calling_function = st(1).name;
+         handles.myData.taskinfo = taskinfo;
+         guidata(handles.GUI, handles);
+         taskinfo.task_handle(handles.GUI);
+         handles = guidata(handles.GUI);
+     end
     % If the completed task was a 'finish' task, then return
     switch taskinfo.id
         case 'finish'
@@ -481,15 +498,18 @@ try
     % Begin the next task
     handles.myData.iter = handles.myData.iter+1;
     guidata(handles.GUI, handles);
-    Update_GUI_Elements(handles);
+
+    taskinfo = handles.myData.tasks_out{handles.myData.iter};
+
+    handles.myData.taskinfo = taskinfo;
+    handles.myData.StartTime = clock;    
+    guidata(handles.GUI,handles);
     handles = guidata(handles.GUI);
     myData = handles.myData;
-    taskinfo = myData.tasks_out{myData.iter};
-    
     % If the current task is 'finish' task, then return
     switch taskinfo.id
         case 'finish'
-            
+            Update_GUI_Elements(handles);
             return
             
     end
@@ -498,7 +518,6 @@ try
     switch myData.mode_desc
         case 'MicroRT'
             if handles.myData.yesno_micro == 1
-                
                 stagedata = myData.stagedata{taskinfo.slot};
                 
                 % map wsi_new to stage_new
@@ -532,15 +551,28 @@ try
                 end
                 taskinfo.stage_x = stage_new(1);
                 taskinfo.stage_y = stage_new(2);
-                stage_move(stage_new, handles.stage);
+                myData.stage = stage_move(myData.stage,stage_new, myData.stage.handle);
+                taskimage_load(hObj);
+                handles = guidata(handles.GUI);
+                set(handles.iH,'visible','off');
+                set(handles.ImageAxes,'visible','off')
+                   
+                %auto fast register
+                Fast_Register_Button_Callback(hObj, eventdata, handles)
+                
             end
     end
-    
-    % Save taskinfo, mydata in handles and update handles.GUI
+% Save taskinfo, which contains new stage location
     myData.tasks_out{myData.iter} = taskinfo;
     handles.myData = myData;
     guidata(handles.GUI, handles);
-    
+    Update_GUI_Elements(handles);
+    handles = guidata(handles.GUI);
+    myData = handles.myData;
+    taskinfo = myData.taskinfo;  
+    myData.tasks_out{myData.iter} = taskinfo;
+    handles.myData = myData;
+    guidata(handles.GUI, handles);
 catch ME
     error_show(ME)
 end
@@ -550,6 +582,7 @@ end
 function Update_GUI_Elements(handles)
 try
     %--------------------------------------------------------------------------
+    % This function gets the current task (taskinfo), saves it in handles.myData
     % This function ensures that only the GUI objects required for the
     % current evaluation task are visible. This function is execute every time
     % after the user presses 'Next' button
@@ -559,17 +592,18 @@ try
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
     
     % New GUI design.
-    % The task_handle will initialize the GUI for the task hand.
-    % Every task will be handled in its own file.
+    % taskinfo.calling_function is Update_GUI_Elements
+    % taskinfo.task_handle will initialize the GUI for the new task.
     st = dbstack;
     taskinfo.calling_function = st(1).name;
     handles.myData.taskinfo = taskinfo;
     guidata(handles.GUI, handles);
     taskinfo.task_handle(handles.GUI);
-    handles = guidata(handles.GUI);
-    taskinfo = handles.myData.taskinfo;
+
     
     % Treat two special cases
+    handles = guidata(handles.GUI);
+    taskinfo = handles.myData.taskinfo;
     switch taskinfo.id
         case {'start', 'finish'}
             return
@@ -578,7 +612,6 @@ try
     % This shows the progress in the overall test
     display(['task.id     = ', taskinfo.id])
     display(['task.order  = ', num2str(taskinfo.order)])
-
     guidata(handles.GUI,handles);
     
 catch ME
@@ -621,12 +654,13 @@ function PauseButtonPressed(hObj, eventdata, handles) %#ok<DEFNU>
 try
 
     % This function creates an image with text to be displayed to the user
-    billboard(handles, '\bfPause')
-    
+
     % Task being paused
-    taskinfo = handles.myData.tasks_out{handles.myData.iter};
-    
     % Close task being paused
+    taskinfo = handles.myData.tasks_out{handles.myData.iter};
+    handles.myData.EndTime=clock;
+    taskinfo.duration = etime(handles.myData.EndTime, handles.myData.StartTime)+taskinfo.duration;
+    handles.myData.tasks_out{handles.myData.iter} = taskinfo;
     st = dbstack;
     taskinfo.calling_function = st(1).name;
     handles.myData.taskinfo = taskinfo;
@@ -637,6 +671,7 @@ try
     set(handles.ResumeButton, ...
         'Visible', 'on', ...
         'Enable','on');
+    billboard(handles, '\bfPause')
     
 catch ME
     error_show(ME)
@@ -648,7 +683,7 @@ try
 
     % Task being paused
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
-    
+    handles.myData.StartTime = clock;
     % Start task being paused
     st = dbstack;
     taskinfo.calling_function = st(1).name;
@@ -681,7 +716,7 @@ try
         case 'MicroRT'
             
             target_pos = [taskinfo.stage_x, taskinfo.stage_y];
-            stage_move(target_pos, handles.stage)
+            handles.myData.stage = stage_move(handles.myData.stage,target_pos,handles.myData.stage.handle);
     end
     
     %    myData.tasks_out{myData.iter} = taskinfo;
@@ -694,36 +729,47 @@ end
 end
 
 
-function registerbutton_Callback(hObject, eventdata, handles) %#ok<DEFNU>
+function Fast_Register_Button_Callback(hObject, eventdata, handles) %#ok<DEFNU>
 try
-    % hObject    handle to registerbutton (see GCBO)
+    % hObject    handle to Fast_Register_Button (see GCBO)
     % eventdata  reserved - to be defined in a future version of MATLAB
     % handles    structure with handles and user data (see GUIDATA)
     
     myData = handles.myData;
+    settings = myData.settings;
+
+    % snap a picture: cam_image
+    cam_image = camera_take_image(handles.cam);
     cam_w = myData.settings.cam_w;
     cam_h = myData.settings.cam_h;
     cam_roi_w = 300;
     cam_roi_h = 300;
+    % Extract a central ROI of the camera image and map to gray levels
+    x = cam_w/2 - ceil(cam_roi_w/2-1) : cam_w/2 + floor(cam_roi_w/2);
+    y = cam_h/2 - ceil(cam_roi_h/2-1):cam_h/2 + floor(cam_roi_h/2);
+    cam_image = rgb2gray(cam_image(y,x,:));
     
     % Map roi_image into gray values
     roi_image = rgb2gray(handles.ImX);
+    [temp_h,temp_w] = size(roi_image);
+    if temp_h>temp_w
+        square_h = ceil(temp_h/2)-ceil(temp_w/2-1):ceil(temp_h/2)+floor(temp_w/2-1);
+        roi_image = roi_image(square_h,:);
+    elseif temp_h<temp_w
+        square_w = ceil(temp_w/2)-ceil(temp_h/2-1):ceil(temp_w/2)+floor(temp_h/2-1);
+        roi_image = roi_image(:,square_w);
+    else 
+        roi_image = roi_image;
+    end
     % Rescale roi_image to cam_image
     cam2scan = handles.myData.settings.cam_hres2scan;
     scan2cam = 1.0/cam2scan;
     roi_image = imresize(roi_image, scan2cam);
     [roi_h, roi_w] = size(roi_image);
     
-    % Get the stage position and snap a picture: cam_image
-    stage_current = int64(stage_get_pos(handles.stage));
-    cam_image = camera_take_image(handles.cam);
-    % Extract a central ROI of the camera image and map to gray levels
-    x = cam_w/2 - ceil(cam_roi_w/2-1) : cam_w/2 + floor(cam_roi_w/2);
-    y = cam_h/2 - ceil(cam_roi_h/2-1):cam_h/2 + floor(cam_roi_h/2);
-    cam_image = rgb2gray(cam_image(y,x,:));
-    
-    %    'GET THE ROI SIZE FROM SETTINGS cam_roi_w, cam_roi_h'
-    %    keyboard
+    % Get the stage position
+    handles.myData.stage = stage_get_pos(handles.myData.stage,myData.stage.handle);
+    stage_current = int64(handles.myData.stage.Pos);
     
     % Cross correlate the stage and wsi images
     if cam_roi_w > roi_w && cam_roi_h > roi_h
@@ -752,8 +798,7 @@ try
     offset_stage = int64(myData.settings.offset_stage);
     stage_new = stage_new - offset_stage;
     
-    stage_move(stage_new, handles.stage)
-    
+    handles.myData.stage = stage_move(handles.myData.stage,stage_new, handles.myData.stage.handle);
 catch ME
     error_show(ME)
 end
@@ -945,6 +990,139 @@ try
     w_stage=M_solved(1,3).*v1_stage+M_solved(2,3).*v2_stage;
     pos_stage=int64(transpose(w_stage+Calib_Point_stage_A));
     
+catch ME
+    error_show(ME)
+end
+end
+
+
+% --- Executes on button press in Backbutton.
+function Backbutton_Callback(hObj, eventdata, handles)
+% hObject    handle to Backbutton (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+try 
+    myData=handles.myData;
+    taskinfo = myData.tasks_out{myData.iter};
+    handles.myData.EndTime = clock;
+    taskinfo.duration = etime(handles.myData.EndTime, handles.myData.StartTime)+taskinfo.duration;
+    handles.myData.StartTime = clock;
+    handles.myData.tasks_out{handles.myData.iter} = taskinfo;
+  
+    st = dbstack;
+    taskinfo.calling_function = st(1).name;
+    handles.myData.taskinfo = taskinfo;
+    guidata(handles.GUI, handles);
+    taskinfo.task_handle(handles.GUI);    
+    handles = guidata(handles.GUI);
+    handles.myData.iter = handles.myData.iter-2;    
+    guidata(handles.GUI, handles);
+    
+    NextButtonPressed(hObj, eventdata, handles); 
+    set(handles.Backbutton, 'Enable', 'off');
+    
+catch ME
+    error_show(ME)
+end
+end
+
+
+% --- Executes on button press in Best_Register_Button.
+function Best_Register_Button_Callback(hObject, eventdata, handles)
+% hObject    handle to Best_Register_Button (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+try
+    % hObject    handle to registerbutton (see GCBO)
+    % eventdata  reserved - to be defined in a future version of MATLAB
+    % handles    structure with handles and user data (see GUIDATA)
+    
+    myData = handles.myData;
+    settings = myData.settings;
+    cam_w = myData.settings.cam_w;
+    cam_h = myData.settings.cam_h;
+%     cam_roi_w = 300 + max(abs(offset_cam));
+%     cam_roi_h = 300 + max(abs(offset_cam));    
+    % Map roi_image into gray values
+    roi_image = rgb2gray(handles.ImX);
+    [temp_h,temp_w] = size(roi_image);
+    if temp_h>temp_w
+        square_h = ceil(temp_h/2)-ceil(temp_w/2-1):ceil(temp_h/2)+floor(temp_w/2-1);
+        roi_image = roi_image(square_h,:);
+    elseif temp_h<temp_w
+        square_w = ceil(temp_w/2)-ceil(temp_h/2-1):ceil(temp_w/2)+floor(temp_h/2-1);
+        roi_image = roi_image(:,square_w);
+    else 
+        roi_image = roi_image;
+    end
+    % Rescale roi_image to cam_image
+    cam2scan = handles.myData.settings.cam_hres2scan;
+    scan2cam = 1.0/cam2scan;
+    roi_image = imresize(roi_image, scan2cam);
+    [roi_h, roi_w] = size(roi_image);
+    
+    % Get the stage position and snap a picture: cam_image
+    handles.myData.stage = stage_get_pos(handles.myData.stage,handles.myData.stage.handle);
+    stage_current = int64(handles.myData.stage.Pos);
+    offset_stage = int64(myData.settings.offset_stage);
+    stage_new = stage_current + offset_stage;
+    handles.myData.stage = stage_move(handles.myData.stage,stage_new,handles.myData.stage.handle);
+    handles.myData.stage = stage_get_pos(handles.myData.stage,handles.myData.stage.handle);
+    stage_current = int64(handles.myData.stage.Pos);
+    cam_image = camera_take_image(handles.cam);
+    
+
+    
+    %    'GET THE ROI SIZE FROM SETTINGS cam_roi_w, cam_roi_h'
+    %    keyboard
+    
+    % Cross correlate the stage and wsi images
+    if min(roi_w,roi_h)<600
+            % Extract a central ROI of the camera image and map to gray levels
+        cam_roi_w = cam_w;
+        cam_roi_h = cam_h;
+        wsi_roi_w = min(roi_w,300);
+        wsi_roi_h = min(roi_h,300);
+        x_wsi = ceil(roi_w/2) - ceil(wsi_roi_w/2-1) : floor(roi_w/2) + floor(wsi_roi_w/2);
+        y_wsi = ceil(roi_h/2) - ceil(wsi_roi_h/2-1) : floor(roi_h/2) + floor(wsi_roi_h/2);
+        cam_image = rgb2gray(cam_image);
+        roi_image = roi_image(y_wsi,x_wsi);
+        CXC=normxcorr2(roi_image,cam_image);
+        search_w = cam_roi_w;
+        search_h = cam_roi_h;
+        order = -1;
+    else 
+        cam_roi_w = 300;
+        cam_roi_h = 300;    
+        x = cam_w/2 - ceil(cam_roi_w/2-1) : cam_w/2 + floor(cam_roi_w/2);
+        y = cam_h/2 - ceil(cam_roi_h/2-1):cam_h/2 + floor(cam_roi_h/2);
+        cam_image = rgb2gray(cam_image(y,x,:));
+        CXC=normxcorr2(cam_image,roi_image);
+        search_w = roi_w;
+        search_h = roi_h;
+        order = 1;
+    end
+    
+    % Find the offset and move the stage
+    % CXC is padded by t_size(1)/2
+    % (half the template width) on the left and right
+    % CXC is padded by t_size(2)/2
+    % (half the template height) on top and bottom
+    cam2stage = handles.myData.settings.cam_hres2stage;
+    [CXC_y,CXC_x]=size(CXC);
+    CXC_x_use = round(CXC_x/2) - ceil(search_w/2-1) : round(CXC_x/2) + ceil(search_w/2);
+    CXC_y_use = round(CXC_y/2) - ceil(search_h/2-1) : round(CXC_y/2) + ceil(search_h/2);
+    CXC=CXC(CXC_y_use,CXC_x_use);
+    [~, imax] = max(CXC(:));
+    [ypeak, xpeak] = ind2sub(size(CXC),imax(1));
+    xoffset = cam2stage*(search_w/2 - xpeak);
+    yoffset = cam2stage*(search_h/2 - ypeak);
+    offset_roi = order*int64([xoffset, yoffset]);
+    stage_new = stage_current + offset_roi;
+    offset_stage = int64(myData.settings.offset_stage);
+    stage_new = stage_new - offset_stage;
+    
+    handles.myData.stage = stage_move(handles.myData.stage,stage_new, handles.myData.stage.handle);
 catch ME
     error_show(ME)
 end

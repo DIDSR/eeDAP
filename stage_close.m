@@ -1,7 +1,7 @@
 %  ##########################################################################
 %% ######################## CLOSE SERIAL PORT ###############################
 %  ##########################################################################
-function stage_close(S)
+function status=stage_close(S)
 
     %--------------------------------------------------------------------------
     % This function closes the serial port of the stage. Reference to the serial 
@@ -10,5 +10,5 @@ function stage_close(S)
     fclose(S);
     delete(S);
     clear S;
-
+    status=0;
 end

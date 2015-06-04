@@ -3,6 +3,7 @@ try
     
     handles = guidata(hObj);
     myData = handles.myData;
+    settings=myData.settings;
     taskinfo = myData.taskinfo;
     calling_function = handles.myData.taskinfo.calling_function;
     
@@ -26,6 +27,7 @@ try
             % Show management buttons
             taskmgt_default(handles, 'on');
             handles = guidata(hObj);
+            handles.panning_Zooming_Tool.markexists=0;
             
             handles.textX = uicontrol(...
                 'Parent', handles.task_panel, ...
@@ -132,18 +134,19 @@ try
             x = pos(1,1);
             y = pos(1,2);
             % Map the position from ROI coordinates to WSI coordinates
-            % First, make x and y relative to a center origin
-            x_shift = taskinfo.img_w/2 - x;
-            y_shift = taskinfo.img_h/2 - y;
-            % Next, rotate x and y to the wsi coordinate system
-            x_rot =   cos(1.5*pi)*x_shift + sin(1.5*pi)*y_shift;
-            y_rot = - sin(1.5*pi)*x_shift + cos(1.5*pi)*y_shift;
-            % Finally, apply difference to original extraction location
-            x_wsi = taskinfo.roi_x + x_rot;
-            y_wsi = taskinfo.roi_y + y_rot;
+            RotateWSI = settings.RotateWSI;
+            switch RotateWSI
+                case 270                     %6 o'clock
+                    x_wsi = taskinfo.roi_x - taskinfo.img_w/2 + y;
+                    y_wsi = taskinfo.roi_y + taskinfo.img_h/2 - x;
+                case 90                     %12 o'clock
+                    x_wsi = taskinfo.roi_x + taskinfo.img_w/2 - y;
+                    y_wsi = taskinfo.roi_y - taskinfo.img_h/2 + x;
+            end    
             
             % Reload the image
             taskimage_load(hObj);
+            handles = guidata(hObj);
             % Create the mark, make it size 80
             handles.panning_Zooming_Tool.mark = rectangle('Position',...
                 [x-40,y-40,80,80],'Curvature',[1,1],...
@@ -163,21 +166,23 @@ try
             % Pack the user data into taskinfo
             taskinfo.nmarks = 1;
             taskinfo.xy_marks = [x_wsi,y_wsi];
-            taskinfo.ans_time = etime(clock, handles.myData.StartTime);
             
             % Pack the results
             myData.tasks_out{handles.myData.iter} = taskinfo;
             
         case {'NextButtonPressed', ...
-                'PauseButtonPressed'} % Clean up the task elements
+                'PauseButtonPressed',...
+                'Backbutton_Callback'} % Clean up the task elements
 
-            % Hide management buttons
+            % Hide image and management buttons
             taskmgt_default(handles, 'off');
             handles = guidata(hObj);
             
-
-            taskimage_archive(handles);
-            
+            set(handles.iH,'visible','off');
+            if handles.panning_Zooming_Tool.markexists==1
+                set(handles.panning_Zooming_Tool.mark,'visible','off');
+            end            
+            set(handles.ImageAxes,'visible','off');
             delete(handles.textX);
             delete(handles.textY);
             delete(handles.textROI);
@@ -217,7 +222,7 @@ try
                 taskinfo.q_op2, ',', ...
                 taskinfo.q_op3, ',', ...
                 taskinfo.q_op4, ',', ...
-                num2str(taskinfo.ans_time), ',', ...
+                num2str(taskinfo.duration), ',', ...
                 num2str(taskinfo.xy_marks(1)), ',', ...
                 num2str(taskinfo.xy_marks(2))]);
             fprintf(taskinfo.fid,'\r\n');

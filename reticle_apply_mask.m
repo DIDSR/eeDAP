@@ -14,24 +14,24 @@ try
     bot_w_mask = 1;
     top_w_mask = mask_w;
     if img_h < mask_h
-        bot_h_mask = mask_h/2 - img_h/2 + 1;
-        top_h_mask = mask_h/2 + img_h/2;
+        bot_h_mask = floor(mask_h/2 - img_h/2 + 1);
+        top_h_mask = floor(mask_h/2 + img_h/2);
     end
     if img_w < mask_w
-        bot_w_mask = mask_w/2 - img_w/2 + 1;
-        top_w_mask = mask_w/2 + img_w/2;
+        bot_w_mask = floor(mask_w/2 - img_w/2 + 1);
+        top_w_mask = floor(mask_w/2 + img_w/2);
     end
     bot_h_img = 1;
     top_h_img = img_h;
     bot_w_img = 1;
     top_w_img = img_w;
     if mask_h < img_h
-        bot_h_img = img_h/2 - mask_h/2 + 1;
-        top_h_img = img_h/2 + mask_h/2;
+        bot_h_img = floor(img_h/2 - mask_h/2 + 1);
+        top_h_img = floor(img_h/2 + mask_h/2);
     end
     if mask_w < img_w
-        bot_w_img = img_w/2 - mask_w/2 + 1;
-        top_w_img = img_w/2 + mask_w/2;
+        bot_w_img = floor(img_w/2 - mask_w/2 + 1);
+        top_w_img = floor(img_w/2 + mask_w/2);
     end
 
     % Apply black mask

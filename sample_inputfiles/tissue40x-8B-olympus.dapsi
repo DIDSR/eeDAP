@@ -21,9 +21,14 @@ Reminder:
 taskorder=2 user specified order
 taskorder=1 listed order
 taskorder=0 random order
+saveimages = 1  save WSI and camera images
+saveimages = 2  only save WSI image
+saveimages = 3  only save camera image
+saveimages = 4  don't save WSI and camera images
 
 
-
+Input File Task Formats
+Task,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
 
 
 
@@ -31,7 +36,7 @@ SETTINGS
 NUMBER_OF_WSI    = 1
 wsi_slot_1       = C:\000_whole_slides\tissue40x-8B.ndpi
 rgb_lut_slot_1   = icc_profiles\rgb_lut_gamma_inv1p8.txt
-label_pos        = 6
+label_pos        = 12
 reticleID        = KR-32536
 cam_format       = RGB24_1024x768
 cam_pixel_size   = 6.9
@@ -39,21 +44,21 @@ mag_cam          = 0.5
 mag_lres         = 10
 mag_hres         = 40
 scan_scale       = 0.2279
-stage_scale      = 0.2
+stage_label      = BioPrecision2-LE2_Ludl6000
 BG_Color_RGB     = 0.55 = 0.55 = 0.55
 FG_Color_RGB     = 0.00 = 0.00 = 0.00
 AxesBG_Color_RGB = 0.10 = 0.20 = 0.10
 FontSize         = 13
-taskorder        = 1
+saveimages      = 1
+taskorder        = 0
 
 BODY
-Task,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
 start
 finish
 radio1of4,1st0001,-1,1,038459,16192,300,300,300,300,Qtext_radio1of1,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count,2nd0001,-1,1,027728,11381,300,300,300,300,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count,2nd0001,-1,1,027728,11381,300,300,300,300,Qtext_count,1,1,description
 slider,3rd0001,-1,1,19220,49879,300,300,300,300,Qtext_slider,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-mark1,4th0001,-1,1,041163,33208,300,300,300,300,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,4th0001,-1,1,041163,33208,300,700,300,700,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
 mark1_out,5th0001,-1,1,041163,33208,700,700,700,700,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-mark1_out,6th0001,-1,1,041163,33208,700,700,700,700,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-mark1_out,7th0001,-1,1,041163,33208,700,700,700,700,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mitotic_train,6th0001,-1,1,041163,33208,700,700,700,700,1,1,0,1,0,1,0,1,0,0,83
+mitotic_expert,7th0001,-1,1,041163,33208,700,700,700,700,1,1

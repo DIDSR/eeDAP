@@ -22,7 +22,7 @@ try
     taskinfo.q_op2 = char(desc{15});
     taskinfo.q_op3 = char(desc{16});
     taskinfo.q_op4 = char(desc{17});
-    
+ 
     handles.myData.taskinfo = taskinfo;
     guidata(hObj, handles);
     

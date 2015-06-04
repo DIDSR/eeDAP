@@ -80,12 +80,14 @@ try
                 'SelectedObject', []);
             
         case {'NextButtonPressed', ...
-                'PauseButtonPressed'} % Clean up the task elements
+                'PauseButtonPressed',...
+                'Backbutton_Callback'} % Clean up the task elements
             
-            % Hide management buttons
+            % Hide image and management buttons
             taskmgt_default(handles, 'off');
             handles = guidata(hObj);
-            
+            set(handles.iH,'visible','off');
+            set(handles.ImageAxes,'visible','off');
             delete(handles.radiobutton1);
             delete(handles.radiobutton2);
             delete(handles.radiobutton3);
@@ -117,7 +119,7 @@ try
                 taskinfo.q_op2, ',', ...
                 taskinfo.q_op3, ',', ...
                 taskinfo.q_op4, ',', ...
-                num2str(taskinfo.ans_time), ',', ...
+                num2str(taskinfo.duration), ',', ...
                 num2str(taskinfo.buttonID), ',', ...
                 taskinfo.button_desc]);
             fprintf(taskinfo.fid,'\r\n');
@@ -140,7 +142,6 @@ try
     handles = guidata(findobj('Tag','GUI'));
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
 
-    taskinfo.ans_time = etime(clock, handles.myData.StartTime);
     taskinfo.button_desc = get(eventdata.NewValue, 'Tag');
     switch taskinfo.button_desc
         case 'radiobutton1'

@@ -19,28 +19,30 @@ try
         case 'Update_GUI_Elements' % Update with the task elements
             
             set(handles.NextButton, 'Visible', 'on');
-
+            set(handles.Backbutton,'Visible','on');
             % This function creates an image with text to be displayed to the user
             billboard(handles,'\bfThank You');
             
-            Save_Results(handles);
+ 
             set(handles.NextButton, 'Enable','on');
             uicontrol(handles.NextButton);
             
             % Close communications to camera and preview
             % Close the serial port
-            switch handles.myData.mode_desc
+
+            
+        case 'NextButtonPressed' % Clean up the task elements
+           switch handles.myData.mode_desc
                 case 'MicroRT'
                     if handles.myData.yesno_micro == 1
                         
                         close(handles.cam_figure)
                         delete(handles.cam)
                         
-                        delete(handles.stage);
+                        delete(handles.myData.stage.handle);
                     end
             end
-            
-        case 'NextButtonPressed' % Clean up the task elements
+                Save_Results(handles);
 
             return
             
@@ -52,9 +54,9 @@ try
     
     % Update handles.myData.taskinfo and pack
     myData.taskinfo = taskinfo;
-    handles.myData = myData;
+    handles.myData = myData;    
     guidata(hObj, handles);
-    
+
 catch ME
     error_show(ME)
 end
@@ -114,7 +116,7 @@ try
     fprintf(fid,strcat('mag_lres','=',num2str(settings.mag_lres),'\r\n'));
     fprintf(fid,strcat('mag_hres','=',num2str(settings.mag_hres),'\r\n'));
     fprintf(fid,strcat('scan_scale','=',num2str(settings.scan_scale),'\r\n'));
-    fprintf(fid,strcat('stage_scale','=',num2str(settings.stage_scale),'\r\n'));
+    fprintf(fid,strcat('stage_label','=',num2str(myData.stage.label),'\r\n'));
     desc = ['BG_Color_RGB=',...
         num2str(myData.settings.BG_color(1)),'=',...
         num2str(myData.settings.BG_color(2)),'=',...
@@ -134,6 +136,7 @@ try
         '\r\n'];
     fprintf(fid,desc);
     fprintf(fid,strcat('FontSize','=',num2str(myData.settings.FontSize),'\r\n'));
+    fprintf(fid,strcat('saveimages','=',num2str(myData.settings.saveimages),'\r\n'));
     fprintf(fid,strcat('taskorder','=',num2str(myData.settings.taskorder),'\r\n'));
     fprintf(fid,'\r\n');
     
@@ -141,11 +144,7 @@ try
     
     % The arrays containing information about the evaluation task and the
     % answers of the evaluator are saved into the file that was opened.
-    fprintf(fid,['Task,TaskID,TaskOrder,Slot,'...
-        'ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,'...
-        'Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4']);
-    fprintf(fid,'\r\n');
-    
+
     st = dbstack;
     calling_function = st(1).name;
 

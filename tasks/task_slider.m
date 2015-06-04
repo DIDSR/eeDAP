@@ -120,15 +120,14 @@ try
             uicontrol(handles.editvalue);
             
         case {'NextButtonPressed', ...
-                'PauseButtonPressed'} % Clean up the task elements
+                'PauseButtonPressed',...
+                'Backbutton_Callback'} % Clean up the task elements
 
-            % Hide management buttons
+            % Hide image and management buttons
             taskmgt_default(handles, 'off');
             handles = guidata(hObj);
-            
-
-            taskimage_archive(handles);
-           
+            set(handles.iH,'visible','off');
+            set(handles.ImageAxes,'visible','off');
             delete(handles.slider);
             delete(handles.editvalue);
             delete(handles.textleft);
@@ -164,7 +163,7 @@ try
                 taskinfo.q_op2, ',', ...
                 taskinfo.q_op3, ',', ...
                 taskinfo.q_op4, ',', ...
-                num2str(taskinfo.ans_time), ',', ...
+                num2str(taskinfo.duration), ',', ...
                 num2str(taskinfo.score)]);
             fprintf(taskinfo.fid,'\r\n');
             
@@ -193,7 +192,6 @@ try
     set(handles.NextButton, 'Enable', 'on');
     uicontrol(handles.NextButton);
 
-    taskinfo.ans_time = etime(clock, handles.myData.StartTime);
     taskinfo.score = score;
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
     guidata(handles.GUI, handles);
@@ -263,7 +261,6 @@ function editvalue_Callback(hObj, eventdata)
     uicontrol(handles.NextButton);
     
     % Pack the results
-    taskinfo.ans_time = etime(clock, handles.myData.StartTime);
     taskinfo.score = score;
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
     guidata(handles.GUI, handles);

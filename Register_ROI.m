@@ -9,9 +9,9 @@ try
 
     current = handles.current;
     position_i = current.position_i;
-
+    settings=handles.myData.settings;
     % Extract ROI and write to disk
-    ExtractROI(handles.activex1,...
+    ExtractROI_BIO(current.wsi_info,...
         current.wsi_info.fullname,...
         current.roi_file,...
         current.roi_left,...
@@ -20,10 +20,16 @@ try
         current.roi_extract_h,...
         current.roi_h,...
         current.roi_w,...
+        handles.myData.settings.RotateWSI,...
         current.wsi_info.rgb_lut);
-    current.roi_w = get(handles.activex1, 'OutputWidth');
-    current.roi_h = get(handles.activex1, 'OutputHeight');
-
+    if settings.RotateWSI == 0 || settings.RotateWSI== 180       
+        current.roi_w = floor(current.roi_w);           %3,9 o'clock
+        current.roi_h = floor(current.roi_h);
+    else
+        temp = current.roi_w;
+        current.roi_w = floor(current.roi_h);           %6,12 o'clock
+        current.roi_h = floor(temp);
+    end
     % Prepare to perform normalized cross correlation
     roi_image = imread(current.roi_file);
     cam_image = current.cam_image;
@@ -75,8 +81,16 @@ try
     % Notes:
     % eeDAP images are WSI images rotated 90 degree clockwise
     % Rotate = Transpose then reverse YDir
+    RotateWSI = settings.RotateWSI;
+    switch RotateWSI
+        case 270          % 6 o'clock
     X1_offset = yoffset*current.cam2scan;
     Y1_offset = -xoffset*current.cam2scan;
+        case 90          % 12 o'clock
+    X1_offset = -yoffset*current.cam2scan;
+    Y1_offset = xoffset*current.cam2scan;
+    end
+            
     % Add the offset to the roi_position
 %    roi_x0 =  current.wsi_positions(1) - X1_offset;
 %    roi_y0 =  current.wsi_positions(2) - Y1_offset;
@@ -91,7 +105,7 @@ try
     current.roi_top = current.roi_y0 - current.roi_extract_h/2;
     
     % Extraction of the low-resolution WSI Patch 1
-    ExtractROI(handles.activex1,...
+    ExtractROI_BIO(current.wsi_info,...
         current.wsi_info.fullname,...
         current.roi_file,...
         current.roi_left,...
@@ -100,12 +114,18 @@ try
         current.roi_extract_h,...
         current.roi_h,...
         current.roi_w,...
+        handles.myData.settings.RotateWSI,...
         current.wsi_info.rgb_lut);
     
     % Save ROI properties in current structure
-    current.roi_w = get(handles.activex1, 'OutputWidth');
-    current.roi_h = get(handles.activex1, 'OutputHeight');
-
+    if settings.RotateWSI == 0 || settings.RotateWSI== 180       
+        current.roi_w = floor(current.roi_w);           %3,9 o'clock
+        current.roi_h = floor(current.roi_h);
+    else
+        temp = current.roi_w;
+        current.roi_w = floor(current.roi_h);           %6,12 o'clock
+        current.roi_h = floor(temp);
+    end
     current.registration_good = 0;
     handles.current = current;
     guidata(handles.Stage_Allighment,handles);

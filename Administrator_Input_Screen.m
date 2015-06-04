@@ -59,8 +59,6 @@ try
     % available. It allows programming MicroRT mode without the microscope.
     handles.myData.yesno_micro = 1;
     
-    % Create the TIFFComp ActiveX component
-    handles.activex1 = actxcontrol('TIFFCOMP.TIFFCompCtrl.1',[0,0,0,0],handles.Administrator_Input_Screen);
     
     % Position the window to the exact center of the screen
     scrsz = get(0, 'ScreenSize');
@@ -185,7 +183,6 @@ try
     
     Purge_Temporary_Images(handles);
     
-    %    Use_TIFFComp(handles)
     wtb=waitbar(0,'Extracting ROIs....', 'WindowStyle', 'modal');
     
     for i=2:handles.myData.ntasks+1
@@ -201,9 +198,10 @@ try
         Left = taskinfo.roi_x-(taskinfo.roi_w/2);
         Top  = taskinfo.roi_y-(taskinfo.roi_h/2);
         
-        success = ExtractROI(handles.activex1, WSIfile, ROIname,...
+        success = ExtractROI_BIO(wsi_info, WSIfile, ROIname,...
             Left, Top, taskinfo.roi_w, taskinfo.roi_h,...
             taskinfo.img_w, taskinfo.img_h,...
+            handles.myData.settings.RotateWSI,...
             wsi_info.rgb_lut);
         
         if ~success
@@ -421,12 +419,18 @@ end
 end
 
 function position_eye_callback(hObject, eventdata) %#ok<*INUSD>
-set(hObject, 'UserData', stage_get_pos);
+handles = guidata(findobj('Tag','Administrator_Input_Screen'));
+stage=stage_get_pos(handles.myData.stage);
+Pos=stage.Pos;
+set(hObject, 'UserData', Pos);
 
 end
 
 function position_cam_callback(hObject, eventdata)
-set(hObject, 'UserData', stage_get_pos);
+handles = guidata(findobj('Tag','Administrator_Input_Screen'));
+stage=stage_get_pos(handles.myData.stage);
+Pos=stage.Pos;
+set(hObject, 'UserData', Pos);
 
 end
 
@@ -498,8 +502,8 @@ try
                 'Enable', 'on', ...
                 'String', 'Configure Camera');
             
-            temp = stage_get_pos(); %#ok<NASGU>
-            if temp == 0
+            handles.myData.stage = stage_get_pos(handles.myData.stage); %#ok<NASGU>
+            if handles.myData.stage.Pos == 0
                 return
             end
             
@@ -538,9 +542,9 @@ try
             
             % cam pixels to stage pixels
             settings.cam_lres2stage = ...
-                settings.cam_scale_lres/settings.stage_scale;
+                settings.cam_scale_lres/handles.myData.stage.scale;
             settings.cam_hres2stage = ...
-                settings.cam_scale_hres/settings.stage_scale;
+                settings.cam_scale_hres/handles.myData.stage.scale;
             
             % scan pixels to cam pixels
             settings.scan2cam_lres = 1.0/settings.cam_lres2scan;
@@ -551,7 +555,7 @@ try
             settings.stage2cam_hres = 1.0/settings.cam_hres2stage;
             
             % scan pixels to stage pixels
-            settings.scan2stage = settings.scan_scale/settings.stage_scale;
+            settings.scan2stage = settings.scan_scale/handles.myData.stage.scale;
             
             % stage pixels to scan pixels
             settings.stage2scan = 1.0/settings.scan2stage;

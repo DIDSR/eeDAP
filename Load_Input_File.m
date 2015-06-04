@@ -14,8 +14,7 @@ try
     %--------------------------------------------------------------------------
     
     myData = handles.myData;
-    AX1 = handles.activex1;
-    
+    addpath('bfmatlab');
     %----------------------------------------------------------------------
     %----------------------------------------------------------------------
     settings = struct;
@@ -87,14 +86,21 @@ try
             end
             
         else
+            name = [name ': does not match expected label: ' strtrim(char(field{1}))];
             io_error(name);
         end
         
-        % Get WSI width and height
-        AX1.OpenInput(wsi_fullname);
-        WSIdata = get(AX1);
-        wsi_w = WSIdata.InputWidth;
-        wsi_h = WSIdata.InputHeight;
+        % Get WSI information
+        WSI_data = bfGetReader(wsi_fullname);
+        % get size of each resolution, Ignore the last two because there
+        % are image with label
+        numberOfImages = WSI_data.getSeriesCount();
+        for j = 0 : numberOfImages - 3
+            WSI_data.setSeries(j);
+            wsi_w(j+1)= WSI_data.getSizeX();
+            wsi_h(j+1)= WSI_data.getSizeY();
+        end
+        wsi_files{i}.WSI_data = WSI_data;
         wsi_files{i}.fullname=wsi_fullname;
         wsi_files{i}.wsi_w = wsi_w;
         wsi_files{i}.wsi_h = wsi_h;
@@ -135,7 +141,9 @@ try
             io_error(name);
         end
     end
-    
+    myData.wsi_files = wsi_files;
+    handles.myData=myData;
+    guidata(handles.Administrator_Input_Screen,handles);
     tline = fgets(fid);
     % The Reticle ID is recorded into settings structure
     [setting_name, setting_value]=strread(tline, '%s %s', 'delimiter', '='); %#ok<*REMFF1,*FPARK>
@@ -144,6 +152,24 @@ try
         settings.label_pos=char(setting_value);
     else
         io_error(name);
+    end
+     % label_pos on glass slide relative to the microscope operator
+    % in units of the clock (0,3,6,9,12)
+    % The typical microscope image in the eyepiece is rotated by 6 hours
+    % relative to the position on the stage.
+    % The typical label position of a WSI is at 9 o'clock
+    label_pos=str2num(settings.label_pos);
+    label_pos = mod(label_pos, 12);
+    % RotateWSI maps the rotation to the code expected by TIFFcomp
+    switch label_pos
+        case 0  % Label position of microscope image in eyepiece is 6:00
+            settings.RotateWSI = 1*90;  % Rotate WSI CW 9 hours;  9:00 wsi->6:00 in eyepiece = 12:00 on stage
+        case 3  % Label position of microscope image in eyepiece is 9:00
+            settings.RotateWSI = 0*90;  % No WSI rotation needed; 9:00 wsi->9:00 in eyepiece = 3:00 on stage
+        case 6  % Label position of microscope image in eyepiece is 12:00
+            settings.RotateWSI = 3*90;  % Rotate WSI CW 3 hours;  9:00 wsi->12:00 in eyepiece = 6:00 on stage
+        case 9  % Label position of microscope image in eyepiece is 3:00
+            settings.RotateWSI = 2*90;  % Rotate wsi CW 6 hours;  9:00 wsi->3:00 in eyepiece = 9:00 on stage
     end
     tline = fgets(fid);
     % The Reticle ID is recorded into settings structure
@@ -202,13 +228,15 @@ try
     else
         io_error(name);
     end
+
+    
     tline = fgets(fid);
-    [setting_name, setting_value]=strread(tline, '%s %f', 'delimiter', '=');
-    name = 'stage_scale';
+    [setting_name, setting_value]=strread(tline, '%s %s', 'delimiter', '=');
+    name = 'stage_label';
     if strcmp(strtrim(setting_name),name)==1
-        settings.stage_scale=setting_value;
+        myData.stage.label=char(setting_value);
     else
-        io_error(name);
+        io_error(name); 
     end
     
     % Create reticle mask for the scanned image
@@ -259,6 +287,14 @@ try
     end
     tline = fgets(fid);
     [setting_name, setting_value]=strread(tline, '%s %d', 'delimiter', '=');
+    name = 'saveimages';
+    if strcmp(strtrim(setting_name),name)==1
+        settings.saveimages=setting_value;
+    else
+        io_error(name);
+    end    
+    tline = fgets(fid);
+    [setting_name, setting_value]=strread(tline, '%s %d', 'delimiter', '=');
     name = 'taskorder';
     if strcmp(strtrim(setting_name),name)==1
         settings.taskorder=setting_value;
@@ -269,7 +305,6 @@ try
     while (~feof(fid)) && isempty(strfind(fgets(fid),'BODY'))
     end
     
-    tline = fgets(fid);   %#ok<NASGU> % This is the column labels
     
     %----------------------------------------------------------------------
     % Each row in the BODY of the input file defines an ROI and a task
@@ -296,6 +331,7 @@ try
     % Call the task_type function. Here we read in the taskinfo.
     taskinfo.calling_function = calling_function;
     handles.myData.taskinfo = taskinfo;
+    handles.myData.taskinfo.duration = 0;
     guidata(handles.Administrator_Input_Screen, handles);
     taskinfo.task_handle(handles.Administrator_Input_Screen);
     % Update the handles and task_start structure
@@ -315,6 +351,7 @@ try
     % Call the task_type function. Here we read in the taskinfo.
     taskinfo.calling_function = calling_function;
     handles.myData.taskinfo = taskinfo;
+    handles.myData.taskinfo.duration = 0;
     guidata(handles.Administrator_Input_Screen, handles);
     taskinfo.task_handle(handles.Administrator_Input_Screen);
     % Update the handles and task_finish structure
@@ -347,6 +384,7 @@ try
         taskinfo.task_handle(handles.Administrator_Input_Screen);
         % Update the handles and taskinfo structure
         handles = guidata(handles.Administrator_Input_Screen);
+        handles.myData.taskinfo.duration = 0;
         tasks_in{ntasks} = handles.myData.taskinfo; %#ok<AGROW>
         
     end

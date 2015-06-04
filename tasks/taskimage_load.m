@@ -27,12 +27,14 @@ try
         temp=size(handles.ImX);
         imageydim=temp(1);
         imagexdim=temp(2);
-        
-        set(handles.ImageAxes, 'Position', [30 200 imagexdim imageydim]);
-
+        set(handles.ImageAxes,'Units', 'pixels')
+        set(handles.task_panel, 'Units','pixels');
+        position1 = int64(get(handles.task_panel, 'Position'));
+        set(handles.task_panel, 'Units','normalized');
+        set(handles.ImageAxes,'Position', [5, position1(4)+5, imagexdim, imageydim]);
         % Clear the axes and display the image
         cla(handles.ImageAxes);
-        iH = image(handles.ImX, 'parent', handles.ImageAxes);
+        iH = image(handles.ImX,'parent', handles.ImageAxes);
         set(iH, 'hittest', 'off');
         axis(handles.ImageAxes, 'image');
         set(handles.ImageAxes, ...
@@ -60,12 +62,12 @@ try
                 'plotboxaspectratio', panning_Zooming_Tool.pbar);
         end
     end
-    
+
+    handles.iH=iH;
     myData.taskinfo = taskinfo;
     handles.myData = myData;
     handles.panning_Zooming_Tool = panning_Zooming_Tool;
     guidata(hObj, handles);
-    
 catch ME
     error_show(ME)
 end
