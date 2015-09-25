@@ -193,8 +193,8 @@ try
         current.thumb_extract_h = cam_w*myData.settings.cam_lres2scan;
         current.thumb_left = pos(1) - current.thumb_extract_w/2;
         current.thumb_top = pos(2) - current.thumb_extract_h/2;
-        thumb_right = pos(1) - current.thumb_extract_w/2;
-        thumb_bottom = pos(2) - current.thumb_extract_w/2;
+        thumb_right = pos(1) + current.thumb_extract_w/2;
+        thumb_bottom = pos(2) + current.thumb_extract_h/2;
         if current.thumb_left<1
             current.thumb_left=1;
         end
@@ -202,10 +202,10 @@ try
             current.thumb_top=1;
         end
         if thumb_right>wsi_w
-           current.thumb_left = current.thumb_left + thumb_right - wsi_w;
+           current.thumb_left = current.thumb_left - thumb_right + wsi_w;
         end
         if thumb_bottom>wsi_h
-           current.thumb_top = current.thumb_top + thumb_bottom - wsi_h;
+           current.thumb_top = current.thumb_top - thumb_bottom + wsi_h;
         end
     end
     
