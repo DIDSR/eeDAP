@@ -1088,8 +1088,8 @@ try
         cam_image = rgb2gray(cam_image);
         roi_image = roi_image(y_wsi,x_wsi);
         CXC=normxcorr2(roi_image,cam_image);
-        search_w = cam_roi_w;
-        search_h = cam_roi_h;
+        search_w = cam_roi_w-wsi_roi_w;
+        search_h = cam_roi_h-wsi_roi_h;
         order = -1;
     else 
         cam_roi_w = 300;
@@ -1098,8 +1098,8 @@ try
         y = cam_h/2 - ceil(cam_roi_h/2-1):cam_h/2 + floor(cam_roi_h/2);
         cam_image = rgb2gray(cam_image(y,x,:));
         CXC=normxcorr2(cam_image,roi_image);
-        search_w = roi_w;
-        search_h = roi_h;
+        search_w = roi_w-cam_roi_w;
+        search_h = roi_h-cam_roi_h;
         order = 1;
     end
     

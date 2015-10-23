@@ -118,7 +118,47 @@ try
                 top = x0  - l_0250um;
                 bot = top - l_0500um;
                 mask(y0+l_1000um,bot:top,:) = 0;
+        
+        
+          case 'KR-871'
+                
+                % The reticle features are contained in 10000um x 10000um
+                % The reticle mask defined below is upside down compared to
+                % the drawing, thank you matlab.
 
+                % The following are lengths of lines (um) in pixels
+                l_14000um = 2*int64(14000/pixel_size/2);
+                l_1000um = int64(1000/pixel_size);
+%                l_0500um = int64( 500/pixel_size);
+%                l_0250um = int64( 250/pixel_size);
+
+                % Define the reticle region with a 10 pixel boarder
+                border = max([max(abs(offset))+10,25]);
+                width = l_14000um+2*border;
+                mask = uint8( ones(width, width) );
+                x0 = width/2 + offset(1);
+                y0 = width/2 + offset(2);
+
+                for i=1:5     %5 squares
+                    length=l_1000um*i;
+                    up = y0-length;
+                    down= y0 + length;
+                    left= x0- length;
+                    right= x0+length;
+                     mask(up,left:right,:) = 0;
+                     mask(down,left:right,:) = 0;
+                     mask(up:down,left,:) = 0;
+                     mask(up:down,right,:) = 0;                     
+                end
+                
+                %reticle
+                up=y0-l_14000um/2;
+                down=y0+l_14000um/2;
+                mask(up:down,x0,:)=0;
+                left=x0-l_14000um/2;
+                right=x0+l_14000um/2;
+                mask(y0,left:right,:)=0;
+                
         end
 
         % h_figure = figure

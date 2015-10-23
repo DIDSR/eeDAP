@@ -40,10 +40,10 @@ task_mitotic_counts,TaskID,TaskOrder,Slot,MoveFlag,ZoomFlag
 
 SETTINGS
 NUMBER_OF_WSI    = 1
-wsi_slot_1       = C:\000_whole_slides\tissue40x-8B.ndpi
+wsi_slot_1       = C:\Users\ReaderStudy\Desktop\imrmc\main_image\CCB010352HE.svs
 rgb_lut_slot_1   = icc_profiles\rgb_lut_gamma_inv1p8.txt
 label_pos        = 6
-reticleID        = KR-871
+reticleID        = KR-32536
 cam_format       = RGB24_1024x768
 cam_pixel_size   = 6.9
 mag_cam          = 1.0
@@ -56,13 +56,15 @@ FG_Color_RGB     = 0.00 = 0.00 = 0.00
 AxesBG_Color_RGB = 0.10 = 0.20 = 0.10
 FontSize         = 13
 saveimages       = 3
-taskorder        = 0
+taskorder        = 1
 
 BODY
 start
 finish
-radio1of4,1st0001,-1,1,038459,16192,219,219,219,219,Qtext_radio1of1,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count,2nd0001,-1,1,027728,11381,439,439,439,439,Qtext_count,1,1,description
-slider,3rd0001,-1,1,19220,49879,658,658,658,658,Qtext_slider,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-mark1,4th0001,-1,1,041163,33208,878,878,878,878,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-mark1_out,5th0001,-1,1,041163,33208,1097,1097,1097,1097,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count,1st0001,-1,1,4433,3910,973,973,973,973,Qtext_count,1,1,description
+count,2nd0001,-1,1,4433,4883,973,973,973,973,Qtext_count,1,1,description
+count,3rd0001,-1,1,5406,3910,973,973,973,973,Qtext_count,1,1,description
+count,4th0001,-1,1,5406,4883,973,973,973,973,Qtext_count,1,1,description
+count,5th0001,-1,1,8149,3496,973,973,973,973,Qtext_count,1,1,description
+
+
