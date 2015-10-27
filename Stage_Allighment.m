@@ -957,7 +957,7 @@ end
 function Abort_Callback(hObject, eventdata, handles) %#ok<*INUSD,DEFNU>
 try
     
-    close all force
+    close(handles.Stage_Allighment);
     
 catch ME
     error_show(ME)
