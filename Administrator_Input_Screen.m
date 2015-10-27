@@ -307,8 +307,9 @@ try
                 uiwait(handle_Stage_Allighment);
                 handles = guidata(handles.Administrator_Input_Screen);
                 if handles.current.success(slot_i)==0
-                    keyboard
-                    close(handles.Administrator_Input_Screen)
+                    close all force
+%                    keyboard
+%                    close(handles.Administrator_Input_Screen)
                     return
                 end
             end
