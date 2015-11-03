@@ -336,15 +336,15 @@ try
     settings = handles.myData.settings;
     handles.cam = camera_open(settings.cam_format);
     handles.cam_figure = camera_preview(handles.cam, settings);
-    
     pos_eye = [0,0];
     pos_cam = [0,0];
+    choose_skip = 0;
     set(handles.cam_figure,....
         'NumberTitle', 'off',...
         'Name', 'Register eyepiece and camera',...
         'Units', 'characters');
     position = get(handles.cam_figure, 'Position');
-    position(1) = position(3)/2 - 32;
+    position(1) = position(3)/2-32-16;
     position(2) = 2;
     position(3) = 32;
     position(4) = 2;
@@ -367,16 +367,37 @@ try
         'Callback', @position_cam_callback,...
         'UserData', pos_cam...
         );
+    position(1) = position(1)+32;
+    skip = uicontrol(...
+        'Parent', handles.cam_figure,...
+        'Style', 'pushbutton',...
+        'Units', 'characters',...
+        'Position', position,...
+        'String', 'Use last offset',...
+        'Enable', 'off',...
+        'Callback', @position_skip_callback,...
+        'UserData', choose_skip...
+        );
     %    set(handles.cam_figure, 'WindowStyle', 'modal');
-    
-    while( pos_eye(1) == 0 || pos_eye(2) == 0 || ...
-            pos_cam(1) == 0 || pos_cam(2) == 0)
-        pause(.2);
-        pos_eye = get(position_cam, 'UserData');
-        pos_cam = get(position_eye, 'UserData');
+    if exist('offset_stage.mat')
+        set(skip,'Enable','on');
     end
+        while(choose_skip == 0 && (pos_eye(1) == 0 || pos_eye(2) == 0 || ...
+               pos_cam(1) == 0 || pos_cam(2) == 0))
+            pause(.2);
+            pos_eye = get(position_cam, 'UserData');
+            pos_cam = get(position_eye, 'UserData');
+            choose_skip = get(skip,'UserData');
+        end
     
-    offset_stage = pos_eye - pos_cam;
+    
+    if choose_skip==1
+        stage_information = load('offset_stage');
+        offset_stage = getfield(stage_information,'offset_stage');
+    else
+        offset_stage = pos_eye - pos_cam;
+    end
+    save('offset_stage.mat','offset_stage');
     offset_cam = offset_stage * settings.stage2cam_hres;
     settings.offset_stage = offset_stage;
     settings.offset_cam = offset_cam;
@@ -432,6 +453,11 @@ handles = guidata(findobj('Tag','Administrator_Input_Screen'));
 stage=stage_get_pos(handles.myData.stage);
 Pos=stage.Pos;
 set(hObject, 'UserData', Pos);
+
+end
+function position_skip_callback(hObject, eventdata)
+     handles = guidata(findobj('Tag','Administrator_Input_Screen'));
+     set(hObject, 'UserData', 1);
 
 end
 

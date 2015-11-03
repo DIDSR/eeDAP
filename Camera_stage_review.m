@@ -68,7 +68,7 @@ handles.imagenumber = 1;
 handles.position_flag_y=0;
 handles.position_flag_x=0;
 handles.stageflag=0;
-
+handles.firsttime = 1;
 handles.output=hObject;
 % Update handles structure
 guidata(hObject, handles);
@@ -97,27 +97,38 @@ try
 % hObject    handle to Take_image (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-   FolderName = 'camera_images';
-   if ~exist(FolderName,'file')
-            mkdir(FolderName);
-   end   
+
+    
    img=camera_take_image(handles.cam);
    if handles.stageflag==1
-   handles.stage = stage_get_pos(handles.stage);
-   x = handles.stage.Pos(1);
-   y = handles.stage.Pos(2);
-   set(handles.current_position_x,'String',x);
-   set(handles.current_position_y,'String',y);
-   imwrite(img,strcat(FolderName,'\',...
-                 'X_',num2str(x),...
-                 '_Y_',num2str(y),...
-                 '_cam.tif'));
+       handles.stage = stage_get_pos(handles.stage);
+       x = handles.stage.Pos(1);
+       y = handles.stage.Pos(2);
+       set(handles.current_position_x,'String',x);
+       set(handles.current_position_y,'String',y);
+       defaultimagename= [ 'X_',num2str(x),'_Y_',num2str(y),'.jpg'];
    else
-   imwrite(img,strcat(FolderName,'\',...
-                 num2str(handles.imagenumber),...
-                 '_cam.tif'));
-   handles.imagenumber = handles.imagenumber+1;
+       defaultimagename =  [num2str(handles.imagenumber),'_cam.jpg'];
    end
+   
+   if handles.firsttime==1
+       [saveimagename,savepathname]=uiputfile({'*.jpg;*.tif;*.png;*.gif','All Image Files'}, 'Save image',defaultimagename);
+   else
+       [saveimagename,savepathname]=uiputfile({'*.jpg;*.tif;*.png;*.gif','All Image Files'}, 'Save image',[handles.lastdirectory,defaultimagename]);
+   end
+   
+   if saveimagename~=0
+       imwrite(img,[savepathname,saveimagename]);
+   else
+       return;
+   end
+   
+   if strcmp( saveimagename,defaultimagename ) & handles.stageflag==0
+      handles.imagenumber = handles.imagenumber+1;
+   end
+   
+   handles.firsttime=0;
+   handles.lastdirectory = savepathname;
    guidata(hObject, handles);
 catch ME
     error_show(ME)
