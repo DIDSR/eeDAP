@@ -284,7 +284,7 @@ function getBrowserType() {
 $(document).ready(function() {
 	if (document.DrExplain_Make_Tooltips)
 		return;
-	if (!false)
+	if (!true)
 		return;
 
 	var wndImgs = $(".de_wndimg");

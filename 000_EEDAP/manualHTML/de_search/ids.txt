@@ -1,267 +1,267 @@
 1
- Ti... Advanced License is required!
+ Title
  index.htm
 2
- I. Intr... Advanced License is required!
+ I. Introduction
  i__introduction.htm
 3
- Abbrev... Advanced License is required!
+ Abbreviations
  abbreviations.htm
 4
- Wind... Advanced License is required!
+ Windows 
  windows_.htm
 5
- II. Wo... Advanced License is required!
+ II. WorkFlow
  ii__workflow.htm
 6
- Launch... Advanced License is required!
+ Launch EEdap
  launch_eedap.htm
 7
- eeDAP ... Advanced License is required!
+ eeDAP windows
  eedap_windows.htm
 8
- eeDAP... Advanced License is required!
+ eeDAP Linux
  eedap_linux.htm
 9
- eeDAP Administrator I... Advanced License is required!
+ eeDAP Administrator Input Screen window(c)
  eedap_administrator_input_screen_window_c_.htm
 10
- MicroRT Mode - Seria... Advanced License is required!
+ MicroRT Mode - Serial port configuration
  micrort_mode___serial_port_configuration.htm
 11
- Slide Registe... Advanced License is required!
+ Slide Registeration window
  slide_registeration_window.htm
 12
- Register eyepiece... Advanced License is required!
+ Register eyepiece and camera window
  register_eyepiece_and_camera_window.htm
 13
- GUI Welcome... Advanced License is required!
+ GUI Welcome page window
  gui_welcome_page_window.htm
 14
- Experiment... Advanced License is required!
+ Experiment Interface
  experiment_interface.htm
 15
- Preview with cr... Advanced License is required!
+ Preview with cross hairs window
  preview_with_cross_hairs_window.htm
 16
- Thank Yo... Advanced License is required!
+ Thank You window
  thank_you_window.htm
 17
- Stage and Camera Cont... Advanced License is required!
+ Stage and Camera Control Utility Functions
  stage_and_camera_control_utility_functions.htm
 18
- Camera_stage_... Advanced License is required!
+ Camera_stage_review window
  camera_stage_review_window_1.htm
 19
- Run ee... Advanced License is required!
+ Run eeDAP***
  run_eedap___.htm
 20
- III. Software Requ... Advanced License is required!
+ III. Software Requirements and Set Up
  iii__software_requirements_and_set_up.htm
 21
- Read and extr... Advanced License is required!
+ Read and extract WSI image
  read_and_extract_wsi_image.htm
 22
- BIO f... Advanced License is required!
+ BIO formats
  bio_formats.htm
 23
- er... Advanced License is required!
+ error
  error.htm
 24
- Image file ... Advanced License is required!
+ Image file is too large
  image_file_is_too_large.htm
 25
- Out of... Advanced License is required!
+ Out of memory
  out_of_memory.htm
 26
- Image Scop... Advanced License is required!
+ Image Scope by Aperio
  image_scope_by_aperio.htm
 27
- Matlab compiler ... Advanced License is required!
+ Matlab compiler runtime libraries
  matlab_compiler_runtime_libraries.htm
 28
- IV. Hardware requ... Advanced License is required!
+ IV. Hardware requirement and Set Up
  iv__hardware_requirement_and_set_up.htm
 29
- St... Advanced License is required!
+ Stage
  stage.htm
 30
- Lude ... Advanced License is required!
+ Lude Stage
  lude_stage.htm
 31
- Set... Advanced License is required!
+ Set up
  set_up.htm
 32
- Wind... Advanced License is required!
+ Windows 7
  windows_7_1.htm
 33
- Li... Advanced License is required!
+ Linux
  linux_1.htm
 34
- Te... Advanced License is required!
+ Test
  test_1.htm
 35
- Cam... Advanced License is required!
+ Camera
  camera.htm
 36
- Requir... Advanced License is required!
+ Requirements
  requirements.htm
 37
- Point Grey Grasshoppe... Advanced License is required!
+ Point Grey Grasshopper color (GRAS-03K2C-C)
  point_grey_grasshopper_color__gras_03k2c_c_.htm
 38
- Point Grey Flea2 c... Advanced License is required!
+ Point Grey Flea2 color (FL2G-50S5C-C)
  point_grey_flea2_color__fl2g_50s5c_c_.htm
 39
- Native pi... Advanced License is required!
+ Native pixel format
  native_pixel_format.htm
 40
- Default... Advanced License is required!
+ Default format
  default_format.htm
 41
- Alternati... Advanced License is required!
+ Alternative format
  alternative_format.htm
 42
- Se... Advanced License is required!
+ Setup
  setup.htm
 43
- Wind... Advanced License is required!
+ Windows 7
  windows_7_2.htm
 44
- Li... Advanced License is required!
+ Linux
  linux_2.htm
 45
- Te... Advanced License is required!
+ Test
  test_2.htm
 46
- Alig... Advanced License is required!
+ Alignment
  alignment.htm
 47
- Scan... Advanced License is required!
+ Scanners
  scanners.htm
 48
- Hamamatsu Nanozoome... Advanced License is required!
+ Hamamatsu Nanozoomer 2.0HT (at NIH ATC)
  hamamatsu_nanozoomer_2_0ht__at_nih_atc_.htm
 49
- Aperio CS (at NIH AT... Advanced License is required!
+ Aperio CS (at NIH ATC and FDA White Oak)
  aperio_cs__at_nih_atc_and_fda_white_oak_.htm
 50
- Aperio T2 (... Advanced License is required!
+ Aperio T2 (at NIH ATC)
  aperio_t2__at_nih_atc_.htm
 51
- Aperio Sc... Advanced License is required!
+ Aperio Scanscope XT
  aperio_scanscope_xt.htm
 52
- Micro... Advanced License is required!
+ Microscopes
  microscopes.htm
 53
- Axioplan 2 Imaging microsc... Advanced License is required!
+ Axioplan 2 Imaging microscope with an Axiophot 2 head
  axioplan_2_imaging_microscope_with_an_axiophot_2_head.htm
 54
- Olympu... Advanced License is required!
+ Olympus BX43
  olympus_bx43.htm
 55
- Reti... Advanced License is required!
+ Reticles
  reticles.htm
 56
- Klarmann Ru... Advanced License is required!
+ Klarmann Rulings KR-429
  klarmann_rulings_kr_429.htm
 57
- Klarmann Rul... Advanced License is required!
+ Klarmann Rulings KR-32536
  klarmann_rulings_kr_32536.htm
 58
- V. FDA hardware... Advanced License is required!
+ V. FDA hardware specifications
  v__fda_hardware_specifications.htm
 59
- Cam... Advanced License is required!
+ Cameras
  cameras.htm
 60
- Disp... Advanced License is required!
+ Displays
  displays.htm
 61
- VI. Progra... Advanced License is required!
+ VI. Program Variables
  vi__program_variables.htm
 62
- Assigned in t... Advanced License is required!
+ Assigned in the Input File
  assigned_in_the_input_file.htm
 63
- myData.... Advanced License is required!
+ myData.settings
  mydata_settings.htm
 64
- List of Variables Assi... Advanced License is required!
+ List of Variables Assigned in the Input File
  list_of_variables_assigned_in_the_input_file.htm
 65
- myData.tasks_in,... Advanced License is required!
+ myData.tasks_in, myData.tasks_out
  mydata_tasks_in__mydata_tasks_out.htm
 66
- myData.w... Advanced License is required!
+ myData.wsi_files
  mydata_wsi_files.htm
 67
- Qtype: Que... Advanced License is required!
+ Qtype: Question types
  qtype__question_types.htm
 68
- VII. eeDAP... Advanced License is required!
+ VII. eeDAP Developers
  vii__eedap_developers.htm
 69
- Creating the stand... Advanced License is required!
+ Creating the stand-alone application
  creating_the_stand_alone_application.htm
 70
- Deploymen... Advanced License is required!
+ Deployment project
  deployment_project.htm
 71
- Build the stand-... Advanced License is required!
+ Build the stand-alone application
  build_the_stand_alone_application.htm
 72
- Package the stand... Advanced License is required!
+ Package the stand-alone application
  package_the_stand_alone_application.htm
 73
- VIII. MicroRT... Advanced License is required!
+ VIII. MicroRT Registration
  viii__micrort_registration.htm
 74
- Semi-Automate... Advanced License is required!
+ Semi-Automated Registration
  semi_automated_registration.htm
 75
- Low Resolutio... Advanced License is required!
+ Low Resolution Registration
  low_resolution_registration.htm
 76
- High Resolutio... Advanced License is required!
+ High Resolution Registration
  high_resolution_registration.htm
 77
- Manual Re... Advanced License is required!
+ Manual Registration
  manual_registration.htm
 78
- IX. camera and stag... Advanced License is required!
+ IX. camera and stage review application
  ix__camera_and_stage_review_application.htm
 79
- Camera_stage_... Advanced License is required!
+ Camera_stage_review window
  camera_stage_review_window_2.htm
 80
- X. Inp... Advanced License is required!
+ X. Input File
  x__input_file.htm
 81
- Input Fi... Advanced License is required!
+ Input File Header
  input_file_header.htm
 82
- Input F... Advanced License is required!
+ Input File Body
  input_file_body.htm
 83
- Input File Body: O... Advanced License is required!
+ Input File Body: Opening and Editing
  input_file_body__opening_and_editing.htm
 84
- Input File Body: List of R... Advanced License is required!
+ Input File Body: List of ROIs and Corresponding Tasks
  input_file_body__list_of_rois_and_corresponding_tasks.htm
 85
- Default task... Advanced License is required!
+ Default task input format
  default_task_input_format.htm
 86
- Customized Input File Body: Lis... Advanced License is required!
+ Customized Input File Body: List of ROIs and Corresponding Task
  customized_input_file_body__list_of_rois_and_corresponding_task.htm
 87
- Selectin... Advanced License is required!
+ Selecting ROIs???
  selecting_rois___.htm
 88
- XI. Out... Advanced License is required!
+ XI. Output File
  xi__output_file.htm
 89
- XII. Directo... Advanced License is required!
+ XII. Directory Structure
  xii__directory_structure.htm
