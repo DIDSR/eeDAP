@@ -195,6 +195,7 @@ try
     
     % save myData
     handles.myData = myData;
+    handles.reticle = 1;
     settings = myData.settings;
     guidata(handles.GUI, handles)
     
@@ -431,7 +432,11 @@ try
         'BackgroundColor',myData.settings.BG_color,...
         'ForegroundColor',myData.settings.FG_color,...
         'Visible', 'off');   
-    
+    set (handles.Reticlebutton,...
+        'FontSize', myData.settings.FontSize,...
+        'BackgroundColor',myData.settings.BG_color,...
+        'ForegroundColor',myData.settings.FG_color,...
+        'Visible', 'off');
     
     % Update handles.GUI
     guidata(handles.GUI, handles);
@@ -707,7 +712,7 @@ try
     
     myData = handles.myData;
     taskinfo = myData.tasks_out{myData.iter};
-    
+    set(handles.NextButton,'Enable', 'off');
     % Redraw the Image from the Temporary Image Folder
     taskimage_load(hObj);
     handles = guidata(hObj);
@@ -1126,4 +1131,25 @@ try
 catch ME
     error_show(ME)
 end
+end
+
+
+
+
+% --- Executes on button press in Reticlebutton.
+function Reticlebutton_Callback(hObject, eventdata, handles)
+% hObject    handle to Reticlebutton (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+if handles.reticle == 1 
+    handles.reticle = 0;
+    set(handles.Reticlebutton,'String','Show reticle');
+else
+    handles.reticle = 1;
+    set(handles.Reticlebutton,'String','Hide reticle');
+end
+guidata(handles.GUI, handles);
+taskimage_load(hObject);
+set(handles.NextButton,'Enable', 'off');
+
 end
