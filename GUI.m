@@ -712,16 +712,23 @@ try
     
     myData = handles.myData;
     taskinfo = myData.tasks_out{myData.iter};
-    set(handles.NextButton,'Enable', 'off');
     % Redraw the Image from the Temporary Image Folder
-    taskimage_load(hObj);
+    %taskimage_load(hObj);
     handles = guidata(hObj);
     
     switch myData.mode_desc
         case 'MicroRT'
             
             target_pos = [taskinfo.stage_x, taskinfo.stage_y];
+            currentNextStatus = get(handles.NextButton,'enable');
+            set(handles.NextButton,'enable','off');
+            set(handles.Fast_Register_Button,'enable','off');
+            set(handles.Best_Register_Button,'enable','off');
             handles.myData.stage = stage_move(handles.myData.stage,target_pos,handles.myData.stage.handle);
+            set(handles.NextButton,'enable',currentNextStatus);
+            set(handles.Fast_Register_Button,'enable','on');
+            set(handles.Best_Register_Button,'enable','on');
+            
     end
     
     %    myData.tasks_out{myData.iter} = taskinfo;
@@ -1150,6 +1157,13 @@ else
 end
 guidata(handles.GUI, handles);
 taskimage_load(hObject);
-set(handles.NextButton,'Enable', 'off');
+handles = guidata(hObject);
+st = dbstack;
+taskinfo = handles.myData.tasks_out{handles.myData.iter};
+taskinfo.calling_function = st(1).name;
+handles.myData.taskinfo = taskinfo;
+guidata(handles.GUI, handles);
+taskinfo.task_handle(handles.GUI);
+%set(handles.NextButton,'Enable', 'off');
 
 end

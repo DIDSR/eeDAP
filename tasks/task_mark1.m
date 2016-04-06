@@ -169,6 +169,20 @@ try
             % Pack the results
             myData.tasks_out{handles.myData.iter} = taskinfo;
             
+            
+        case 'Reticlebutton_Callback' % keep mark result after hide/show reticle
+            if handles.panning_Zooming_Tool.markexists==1
+                textROIX= get(handles.textROIX);
+                textROIY= get(handles.textROIY);
+                x = str2num(textROIX.String);
+                y = str2num(textROIY.String);
+                handles.panning_Zooming_Tool.mark = rectangle('Position',...
+                    [x-40,y-40,80,80],'Curvature',[1,1],...
+                    'LineWidth',4,'LineStyle','--','EdgeColor','r','Tag','mark');
+                handles.panning_Zooming_Tool.markexists=1;
+            end
+                  
+            
         case {'NextButtonPressed', ...
                 'PauseButtonPressed',...
                 'Backbutton_Callback'} % Clean up the task elements
