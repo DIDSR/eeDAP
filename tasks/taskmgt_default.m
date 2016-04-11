@@ -36,7 +36,7 @@ try
     set(handles.PauseButton, 'Visible',on_off);
     set(handles.ResumeButton, 'Visible', on_off, ...
         'Enable', 'off');
-    
+    set(handles.Reticlebutton, 'Visible', on_off);
     if handles.myData.iter > 2
         set(handles.Backbutton,'visible',on_off);
     end

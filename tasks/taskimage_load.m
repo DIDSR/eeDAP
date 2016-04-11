@@ -21,9 +21,11 @@ try
     if ~isnan(handles.ImX)
 
         % Apply reticle mask
-        handles.ImX = reticle_apply_mask(...
-            handles.ImX,...
-            settings.scan_mask);
+        if handles.reticle == 1
+            handles.ImX = reticle_apply_mask(...
+                handles.ImX,...
+                settings.scan_mask);
+        end
         temp=size(handles.ImX);
         imageydim=temp(1);
         imagexdim=temp(2);
