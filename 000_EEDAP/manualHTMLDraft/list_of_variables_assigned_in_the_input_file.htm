@@ -75,7 +75,7 @@
             <table class="b-pageContent__layout">
                 <tr class="b-pageContent__row m-pageContent__row__header" id="pageContentHeader">
                     <td class="b-pageContent__side m-pageContent__side__header">
-                        <div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">Download eeDAP at <a href="https://github.com/DIDSR/eeDAP/releases"><span style="color:#0000ff;text-decoration:underline;">https://github.com/DIDSR/eeDAP/releases</span></a></div>
+                        <div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">eeDAP Github website: <a href="https://github.com/DIDSR/eeDAP"><span style="color:#0000ff;text-decoration:underline;">https://github.com/DIDSR/eeDAP</span></a></div>
                     </td>
                 </tr>
                 <tr>
@@ -239,9 +239,9 @@
             <tr>
                 <td id="headerSide__nav" class="b-article__headerSide m-article__headerSide__nav">
                     <div id="headerSide__nav__breadCrumbs" class="b-breadCrumbs">
-                        <ul class="b-breadCrumbs__items"><li class="b-breadCrumbs__item"><a href="vi__program_variables.htm" class="b-breadCrumbs__link">VI. Program Variables</a></li>
+                        <ul class="b-breadCrumbs__items"><li class="b-breadCrumbs__item"><a href="v__eedap_developers.htm" class="b-breadCrumbs__link">V. eeDAP Developers</a></li>
 
-<li class="b-breadCrumbs__item"><a href="mydata_settings.htm" class="b-breadCrumbs__link">myData.settings</a></li>
+<li class="b-breadCrumbs__item"><a href="input_variables.htm" class="b-breadCrumbs__link">Input Variables</a></li>
 
 <li class="b-breadCrumbs__item">List of Variables Assigned in the Input File</li>
 </ul>                    </div>
@@ -249,7 +249,7 @@
                 <td id="headerSide__buttons" class="b-article__headerSide m-article__headerSide__buttons">
                     <div class="b-controlButtons">
                         <ul class="b-controlButtons__items">
-                            <li class="b-controlButtons__item m-controlButtons__item__prev"><a href="mydata_settings.htm" class="b-controlButtons__link" title="Previous page"><span class="b-controlButtons__link_icon"></span><span class="b-controlButtons__link_text">&#xa0;Previous page</span></a></li>
+                            <li class="b-controlButtons__item m-controlButtons__item__prev"><a href="assigned_in_the_input_file.htm" class="b-controlButtons__link" title="Previous page"><span class="b-controlButtons__link_icon"></span><span class="b-controlButtons__link_text">&#xa0;Previous page</span></a></li>
                             <li class="b-controlButtons__item m-controlButtons__item__next"><a href="mydata_tasks_in__mydata_tasks_out.htm" class="b-controlButtons__link" title="Next page"><span class="b-controlButtons__link_text">Next page&#xa0;</span><span class="b-controlButtons__link_icon"></span></a></li>
                                                 </ul>
                     </div>
@@ -279,7 +279,7 @@
                             .addClass("b-article__headerSide m-article__headerSide__buttons")
                             .append(
                                 $("<div></div>").addClass("b-controlButtons")
-                                .html($("<ul></ul>").addClass("b-controlButtons__items").html("    <li class=\"b-controlButtons__item m-controlButtons__item__prev\"><a href=\"mydata_settings.htm\" class=\"b-controlButtons__link\" title=\"Previous page\"><span class=\"b-controlButtons__link_icon\"></span><span class=\"b-controlButtons__link_text\">&#xa0;Previous page</span></a></li>\n    <li class=\"b-controlButtons__item m-controlButtons__item__next\"><a href=\"mydata_tasks_in__mydata_tasks_out.htm\" class=\"b-controlButtons__link\" title=\"Next page\"><span class=\"b-controlButtons__link_text\">Next page&#xa0;</span><span class=\"b-controlButtons__link_icon\"></span></a></li>\n"))
+                                .html($("<ul></ul>").addClass("b-controlButtons__items").html("    <li class=\"b-controlButtons__item m-controlButtons__item__prev\"><a href=\"assigned_in_the_input_file.htm\" class=\"b-controlButtons__link\" title=\"Previous page\"><span class=\"b-controlButtons__link_icon\"></span><span class=\"b-controlButtons__link_text\">&#xa0;Previous page</span></a></li>\n    <li class=\"b-controlButtons__item m-controlButtons__item__next\"><a href=\"mydata_tasks_in__mydata_tasks_out.htm\" class=\"b-controlButtons__link\" title=\"Next page\"><span class=\"b-controlButtons__link_text\">Next page&#xa0;</span><span class=\"b-controlButtons__link_icon\"></span></a></li>\n"))
                             )
                         )
                     )
@@ -324,6 +324,8 @@
     <div>To properly display this page you need a browser with JavaScript support.</div>
     </noscript>
                 <div class="description_on_page"><div class="p" style="text-align: center; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="ic"><h1><strong>List of Variables Assigned in the Input File</strong></h1></div></div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><h1><span class="de_496AA02164">Under: </span><span class="de_31A4EF827C">myData.settings</span></h1></div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160;</div>
 <div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">cam_w&#160; &#160; </div>
 <div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">int [determined from camera]&#160; &#160; </div>
 <div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">Width [pixels] of the camera image.</div>
@@ -372,11 +374,11 @@
 <div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">&#160;</div>
 <div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160;&#160; <strong> Taskorder</strong> defines the place in the order that each task will be executed. After a study is executed, the place in the order that each task is executed will be saved in the field myData.tasks.order.&#160; </div>
 <div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160;</div>
-<ul class="de_list"><li class="list-element list-counter-13" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; counter-reset: list-counter-13;">
+<ul class="de_list"><li class="list-element list-counter-20" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; counter-reset: list-counter-20;">
 <div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>0: The order of tasks is randomized. The field myData.tasks.order is ignored on input.&#160; </div>
-</li><li class="list-element list-counter-13" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; ">
+</li><li class="list-element list-counter-20" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; ">
 <div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>1: The order of tasks follows the listed order. The field myData.tasks.order is ignored on input. </div>
-</li><li class="list-element list-counter-13" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; ">
+</li><li class="list-element list-counter-20" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; ">
 <div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>2: The order of tasks follows the order given by the field myData.tasks.order.&#160; &#160; </div>
 </li></ul><div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160;</div>
 <div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">The field of view of the microscope (diameter of the field at the specimen) equals the field number divided by the magnification of the objective.&#160; &#160; </div>

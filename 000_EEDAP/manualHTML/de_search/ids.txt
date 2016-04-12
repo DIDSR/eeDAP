@@ -5,263 +5,221 @@
  I. Introduction
  i__introduction.htm
 3
- Abbreviations
- abbreviations.htm
+ II. Getting Started
+ ii__getting_started.htm
 4
- Windows 
- windows_.htm
+ Download eeDAP
+ download_eedap.htm
 5
- II. WorkFlow
- ii__workflow.htm
+ Install eeDAP
+ install_eedap.htm
 6
- Launch EEdap
- launch_eedap.htm
+ Running eeDAP
+ running_eedap.htm
 7
- eeDAP windows
- eedap_windows.htm
+ Tasks Instructions
+ tasks_instructions.htm
 8
- eeDAP Linux
- eedap_linux.htm
+ III. Hardware and Software Requirement
+ iii__hardware_and_software_requirement.htm
 9
- eeDAP Administrator Input Screen window(c)
- eedap_administrator_input_screen_window_c_.htm
-10
- MicroRT Mode - Serial port configuration
- micrort_mode___serial_port_configuration.htm
-11
- Slide Registeration window
- slide_registeration_window.htm
-12
- Register eyepiece and camera window
- register_eyepiece_and_camera_window.htm
-13
- GUI Welcome page window
- gui_welcome_page_window.htm
-14
- Experiment Interface
- experiment_interface.htm
-15
- Preview with cross hairs window
- preview_with_cross_hairs_window.htm
-16
- Thank You window
- thank_you_window.htm
-17
- Stage and Camera Control Utility Functions
- stage_and_camera_control_utility_functions.htm
-18
- Camera_stage_review window
- camera_stage_review_window_1.htm
-19
- Run eeDAP***
- run_eedap___.htm
-20
- III. Software Requirements and Set Up
- iii__software_requirements_and_set_up.htm
-21
- Read and extract WSI image
- read_and_extract_wsi_image.htm
-22
- BIO formats
- bio_formats.htm
-23
- error
- error.htm
-24
- Image file is too large
- image_file_is_too_large.htm
-25
- Out of memory
- out_of_memory.htm
-26
- Image Scope by Aperio
- image_scope_by_aperio.htm
-27
- Matlab compiler runtime libraries
- matlab_compiler_runtime_libraries.htm
-28
- IV. Hardware requirement and Set Up
- iv__hardware_requirement_and_set_up.htm
-29
  Stage
  stage.htm
-30
- Lude Stage
- lude_stage.htm
-31
+10
  Set up
  set_up.htm
-32
+11
  Windows 7
  windows_7_1.htm
-33
+12
  Linux
  linux_1.htm
-34
+13
  Test
  test_1.htm
-35
+14
  Camera
  camera.htm
-36
+15
  Requirements
  requirements.htm
-37
- Point Grey Grasshopper color (GRAS-03K2C-C)
- point_grey_grasshopper_color__gras_03k2c_c_.htm
-38
- Point Grey Flea2 color (FL2G-50S5C-C)
- point_grey_flea2_color__fl2g_50s5c_c_.htm
-39
- Native pixel format
- native_pixel_format.htm
-40
- Default format
- default_format.htm
-41
- Alternative format
- alternative_format.htm
-42
+16
  Setup
  setup.htm
-43
+17
  Windows 7
  windows_7_2.htm
-44
+18
  Linux
  linux_2.htm
-45
+19
  Test
  test_2.htm
-46
+20
  Alignment
  alignment.htm
-47
- Scanners
- scanners.htm
-48
- Hamamatsu Nanozoomer 2.0HT (at NIH ATC)
- hamamatsu_nanozoomer_2_0ht__at_nih_atc_.htm
-49
- Aperio CS (at NIH ATC and FDA White Oak)
- aperio_cs__at_nih_atc_and_fda_white_oak_.htm
-50
- Aperio T2 (at NIH ATC)
- aperio_t2__at_nih_atc_.htm
-51
- Aperio Scanscope XT
- aperio_scanscope_xt.htm
-52
+21
  Microscopes
  microscopes.htm
-53
+22
  Axioplan 2 Imaging microscope with an Axiophot 2 head
  axioplan_2_imaging_microscope_with_an_axiophot_2_head.htm
-54
+23
  Olympus BX43
  olympus_bx43.htm
-55
+24
  Reticles
  reticles.htm
-56
- Klarmann Rulings KR-429
- klarmann_rulings_kr_429.htm
-57
+25
+ Klarmann Rulling: KR-871
+ klarmann_rulling__kr_871.htm
+26
  Klarmann Rulings KR-32536
  klarmann_rulings_kr_32536.htm
-58
- V. FDA hardware specifications
- v__fda_hardware_specifications.htm
-59
- Cameras
- cameras.htm
-60
- Displays
- displays.htm
-61
- VI. Program Variables
- vi__program_variables.htm
-62
- Assigned in the Input File
- assigned_in_the_input_file.htm
-63
- myData.settings
- mydata_settings.htm
-64
- List of Variables Assigned in the Input File
- list_of_variables_assigned_in_the_input_file.htm
-65
- myData.tasks_in, myData.tasks_out
- mydata_tasks_in__mydata_tasks_out.htm
-66
- myData.wsi_files
- mydata_wsi_files.htm
-67
- Qtype: Question types
- qtype__question_types.htm
-68
- VII. eeDAP Developers
- vii__eedap_developers.htm
-69
- Creating the stand-alone application
- creating_the_stand_alone_application.htm
-70
- Deployment project
- deployment_project.htm
-71
- Build the stand-alone application
- build_the_stand_alone_application.htm
-72
- Package the stand-alone application
- package_the_stand_alone_application.htm
-73
- VIII. MicroRT Registration
- viii__micrort_registration.htm
-74
- Semi-Automated Registration
- semi_automated_registration.htm
-75
- Low Resolution Registration
- low_resolution_registration.htm
-76
- High Resolution Registration
- high_resolution_registration.htm
-77
- Manual Registration
- manual_registration.htm
-78
- IX. camera and stage review application
- ix__camera_and_stage_review_application.htm
-79
- Camera_stage_review window
- camera_stage_review_window_2.htm
-80
- X. Input File
- x__input_file.htm
-81
+27
+ Klarmann Rulings KR-429
+ klarmann_rulings_kr_429.htm
+28
+ Software Requirements
+ software_requirements.htm
+29
+ Read and extract WSI image
+ read_and_extract_wsi_image.htm
+30
+ BIO Formats
+ bio_formats.htm
+31
+ Error
+ error.htm
+32
+ Image File is too Large
+ image_file_is_too_large.htm
+33
+ Out of Memory
+ out_of_memory.htm
+34
+ Image Scope by Aperio
+ image_scope_by_aperio.htm
+35
+ Matlab compiler runtime libraries
+ matlab_compiler_runtime_libraries.htm
+36
+ IV. Input File
+ iv__input_file.htm
+37
  Input File Header
  input_file_header.htm
-82
+38
  Input File Body
  input_file_body.htm
-83
- Input File Body: Opening and Editing
- input_file_body__opening_and_editing.htm
-84
- Input File Body: List of ROIs and Corresponding Tasks
- input_file_body__list_of_rois_and_corresponding_tasks.htm
-85
+39
  Default task input format
  default_task_input_format.htm
-86
+40
  Customized Input File Body: List of ROIs and Corresponding Task
  customized_input_file_body__list_of_rois_and_corresponding_task.htm
-87
- Selecting ROIs???
- selecting_rois___.htm
-88
- XI. Output File
- xi__output_file.htm
-89
- XII. Directory Structure
- xii__directory_structure.htm
+41
+ Input File Body: Opening and Editing
+ input_file_body__opening_and_editing.htm
+42
+ V. Output File
+ v__output_file.htm
+43
+ VI. WorkFlow
+ vi__workflow.htm
+44
+ eeDAP Administrator Input Screen window(c)
+ eedap_administrator_input_screen_window_c_.htm
+45
+ MicroRT Registration
+ micrort_registration.htm
+46
+ MicroRT Mode - Serial port configuration
+ micrort_mode___serial_port_configuration.htm
+47
+ Semi-Automated Registration
+ semi_automated_registration.htm
+48
+ Low Resolution Registration
+ low_resolution_registration.htm
+49
+ High Resolution Registration
+ high_resolution_registration.htm
+50
+ Manual Registration
+ manual_registration.htm
+51
+ Slide Registeration Window
+ slide_registeration_window.htm
+52
+ Register Eyepiece and Camera Window
+ register_eyepiece_and_camera_window.htm
+53
+ GUI Welcome Page Window
+ gui_welcome_page_window.htm
+54
+ Experiment Interface
+ experiment_interface.htm
+55
+ Preview with Cross Hairs Window
+ preview_with_cross_hairs_window.htm
+56
+ Thank You Window
+ thank_you_window.htm
+57
+ VII. Stage and Camera Control Utility Functions
+ vii__stage_and_camera_control_utility_functions.htm
+58
+ Camera Stage Review window
+ camera_stage_review_window.htm
+59
+ VIII. Directory Structure
+ viii__directory_structure.htm
+60
+ IV. FDA Hardware Specifications
+ iv__fda_hardware_specifications.htm
+61
+ Cameras
+ cameras.htm
+62
+ Point Grey Grasshopper Color (GRAS-03K2C-C)
+ point_grey_grasshopper_color__gras_03k2c_c_.htm
+63
+ Point Grey Flea2 Color (FL2G-50S5C-C)
+ point_grey_flea2_color__fl2g_50s5c_c_.htm
+64
+ Point Grey Grasshopper3 Color (GS3-U3-50S5C-C)
+ point_grey_grasshopper3_color__gs3_u3_50s5c_c_.htm
+65
+ Displays
+ displays.htm
+66
+ Scanners
+ scanners.htm
+67
+ V. eeDAP Developers
+ v__eedap_developers.htm
+68
+ Creating the Stand-Alone Application
+ creating_the_stand_alone_application.htm
+69
+ Deployment Project
+ deployment_project.htm
+70
+ Build the Stand-Alone Application
+ build_the_stand_alone_application.htm
+71
+ Package the stand-alone application
+ package_the_stand_alone_application.htm
+72
+ Input Variables
+ input_variables.htm
+73
+ Assigned in the Input File
+ assigned_in_the_input_file.htm
+74
+ List of Variables Assigned in the Input File
+ list_of_variables_assigned_in_the_input_file.htm
+75
+ myData.tasks_in, myData.tasks_out
+ mydata_tasks_in__mydata_tasks_out.htm

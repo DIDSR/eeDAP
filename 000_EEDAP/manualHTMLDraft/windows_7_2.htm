@@ -75,7 +75,7 @@
             <table class="b-pageContent__layout">
                 <tr class="b-pageContent__row m-pageContent__row__header" id="pageContentHeader">
                     <td class="b-pageContent__side m-pageContent__side__header">
-                        <div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">Download eeDAP at <a href="https://github.com/DIDSR/eeDAP/releases"><span style="color:#0000ff;text-decoration:underline;">https://github.com/DIDSR/eeDAP/releases</span></a></div>
+                        <div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">eeDAP Github website: <a href="https://github.com/DIDSR/eeDAP"><span style="color:#0000ff;text-decoration:underline;">https://github.com/DIDSR/eeDAP</span></a></div>
                     </td>
                 </tr>
                 <tr>
@@ -239,7 +239,7 @@
             <tr>
                 <td id="headerSide__nav" class="b-article__headerSide m-article__headerSide__nav">
                     <div id="headerSide__nav__breadCrumbs" class="b-breadCrumbs">
-                        <ul class="b-breadCrumbs__items"><li class="b-breadCrumbs__item"><a href="iv__hardware_requirement_and_set_up.htm" class="b-breadCrumbs__link">IV. Hardware requirement and Set Up</a></li>
+                        <ul class="b-breadCrumbs__items"><li class="b-breadCrumbs__item"><a href="iii__hardware_and_software_requirement.htm" class="b-breadCrumbs__link">III. Hardware and Software Requirement</a></li>
 
 <li class="b-breadCrumbs__item"><a href="camera.htm" class="b-breadCrumbs__link">Camera</a></li>
 
@@ -326,15 +326,16 @@
     <div>To properly display this page you need a browser with JavaScript support.</div>
     </noscript>
                 <div class="description_on_page"><div class="p" style="text-align: center; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="ic"><h1><strong>Windows 7</strong></h1></div></div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">In windowns 7, after plugging in the camera, disable the default Windows driver and update the driver for the attached device to the industry standard DCAM compatible firewire (IEEE 1394 interface) driver. Carnegie Melon (CMU) has a general DCAM driver that may work (1394camera646.exe = version 6.46). It can be downloaded at </div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">http://www.cs.cmu.edu/~iwan/1394/index.html</div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">We found out about the CMU driver at </div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">http://www.mathworks.com/products/imaq/supportedio.html</div>
-<ul class="de_list"><li class="list-element list-counter-9" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; counter-reset: list-counter-9;">
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>Click on device manufacturer.</div>
-</li><li class="list-element list-counter-9" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; ">
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>Click on industry standard DCAM IEEE 1394</div>
-</li></ul><div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">There is also a demo application at the CMU web site (1394CameraDemo32.exe). It behaves similarly to the Matlab &quot;imaqtool&quot; mentioned above. I think it gets installed when the CMU driver is installed, location C://Program Files (x86)\CMU\1394Camera\bin. It is used to test the camera and different operating modes.</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">After plugging in the camera, you should disable the default Windows driver and update the driver for the attached device to the industry standard DCAM compatible firewire (IEEE 1394 interface) driver.</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">Carnegie Melon (CMU) has a general DCAM driver (1394camera646.exe) at: <a href="http://www.cs.cmu.edu/~iwan/1394/index.html"><span class="de_2B94C39861">http://www.cs.cmu.edu/~iwan/1394/index.html</span></a></div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160;</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">Download and Install:</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">1. In Download tab, click “I agree to the Terms of the LGPL”.</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">2. Download 1394camera646.exe</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">3. Click Installation tab and install the driver following the instruction</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160;</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">Test:</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">In the driver installed folder, there are several demo applications (1394CameraDemo32.exe). They behave similarly to the Matlab &quot;imaqtool&quot; mentioned above. You could use it to test whether the camera is installed correctly. </div>
 </div>                                    			
                 			                <h6 class="b-article__generatorCopyright">
                     <a href="http://www.drexplain.com" class="b-link b-article__generatorCopyrightLink">Made with help of Dr.Explain</a>
