@@ -195,6 +195,7 @@ try
     
     % save myData
     handles.myData = myData;
+    handles.reticle = 1;
     settings = myData.settings;
     guidata(handles.GUI, handles)
     
@@ -431,7 +432,11 @@ try
         'BackgroundColor',myData.settings.BG_color,...
         'ForegroundColor',myData.settings.FG_color,...
         'Visible', 'off');   
-    
+    set (handles.Reticlebutton,...
+        'FontSize', myData.settings.FontSize,...
+        'BackgroundColor',myData.settings.BG_color,...
+        'ForegroundColor',myData.settings.FG_color,...
+        'Visible', 'off');
     
     % Update handles.GUI
     guidata(handles.GUI, handles);
@@ -707,16 +712,23 @@ try
     
     myData = handles.myData;
     taskinfo = myData.tasks_out{myData.iter};
-    
     % Redraw the Image from the Temporary Image Folder
-    taskimage_load(hObj);
+    %taskimage_load(hObj);
     handles = guidata(hObj);
     
     switch myData.mode_desc
         case 'MicroRT'
             
             target_pos = [taskinfo.stage_x, taskinfo.stage_y];
+            currentNextStatus = get(handles.NextButton,'enable');
+            set(handles.NextButton,'enable','off');
+            set(handles.Fast_Register_Button,'enable','off');
+            set(handles.Best_Register_Button,'enable','off');
             handles.myData.stage = stage_move(handles.myData.stage,target_pos,handles.myData.stage.handle);
+            set(handles.NextButton,'enable',currentNextStatus);
+            set(handles.Fast_Register_Button,'enable','on');
+            set(handles.Best_Register_Button,'enable','on');
+            
     end
     
     %    myData.tasks_out{myData.iter} = taskinfo;
@@ -1126,4 +1138,32 @@ try
 catch ME
     error_show(ME)
 end
+end
+
+
+
+
+% --- Executes on button press in Reticlebutton.
+function Reticlebutton_Callback(hObject, eventdata, handles)
+% hObject    handle to Reticlebutton (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+if handles.reticle == 1 
+    handles.reticle = 0;
+    set(handles.Reticlebutton,'String','Show reticle');
+else
+    handles.reticle = 1;
+    set(handles.Reticlebutton,'String','Hide reticle');
+end
+guidata(handles.GUI, handles);
+taskimage_load(hObject);
+handles = guidata(hObject);
+st = dbstack;
+taskinfo = handles.myData.tasks_out{handles.myData.iter};
+taskinfo.calling_function = st(1).name;
+handles.myData.taskinfo = taskinfo;
+guidata(handles.GUI, handles);
+taskinfo.task_handle(handles.GUI);
+%set(handles.NextButton,'Enable', 'off');
+
 end
