@@ -22,7 +22,7 @@ function varargout = Camera_stage_review(varargin)
 
 % Edit the above text to modify the response to help Camera_stage_review
 
-% Last Modified by GUIDE v2.5 29-Jun-2015 15:59:11
+% Last Modified by GUIDE v2.5 25-Apr-2016 16:52:17
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -54,24 +54,18 @@ function Camera_stage_review_OpeningFcn(hObject, eventdata, handles, varargin)
 % varargin   command line arguments to Camera_stage_review (see VARARGIN)
 
 % Choose default command line output for Camera_stage_review
-settings.mag_cam=1;
-settings.cam_pixel_size=6.9;
-settings.cam_format=char('RGB24_1024x768');
-settings.reticleID=char('KR-871');
-settings.cam_mask = reticle_make_mask(...
-        settings.reticleID,...
-        settings.cam_pixel_size/settings.mag_cam,...
-        [0,0]);
-handles.cam=camera_open(settings.cam_format);
-camera_image_display(handles,handles.cam,settings);
-handles.imagenumber = 1;
-handles.position_flag_y=0;
-handles.position_flag_x=0;
-handles.stageflag=0;
-handles.firsttime = 1;
-handles.output=hObject;
-% Update handles structure
-guidata(hObject, handles);
+    desc = {'\bfWelcome to Use'...
+    ,'Please choose the camera format'};
+    welcome_page(handles,desc );
+    set(handles.Take_image,'Enable','off');
+    handles.imagenumber = 1;
+    handles.position_flag_y=0;
+    handles.position_flag_x=0;
+    handles.stageflag=0;
+    handles.firsttime = 1;
+    handles.output=hObject;
+    % Update handles structure
+    guidata(hObject, handles);
 end
 
 % UIWAIT makes Camera_stage_review wait for user response (see UIRESUME)
@@ -101,7 +95,12 @@ try
     
    img=camera_take_image(handles.cam);
    if handles.stageflag==1
-       handles.stage = stage_get_pos(handles.stage);
+       if strcmp(handles.mode_desc(end-4:end),'Prior')
+           handles.stage = stage_get_pos_prior(handles.stage);
+       else
+           handles.stage = stage_get_pos(handles.stage);
+       end
+      
        x = handles.stage.Pos(1);
        y = handles.stage.Pos(2);
        set(handles.current_position_x,'String',x);
@@ -143,7 +142,12 @@ function Move_stage_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 stage_new = [str2num(handles.target_position_x),str2num(handles.target_position_y)];
-handles.stage = stage_move(handles.stage,stage_new);
+if strcmp(handles.mode_desc(end-4:end),'Prior')
+    handles.stage = stage_move_prior(handles.stage,stage_new);
+else
+    handles.stage = stage_move(handles.stage,stage_new);
+end
+%handles.stage = stage_move(handles.stage,stage_new);
 set(handles.current_position_x,'String',handles.target_position_x);
 set(handles.current_position_y,'String',handles.target_position_y);
 handles.position_flag_y=0;
@@ -210,7 +214,12 @@ function Get_position_Callback(hObject, eventdata, handles)
 % hObject    handle to Get_position (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-handles.stage = stage_get_pos(handles.stage);
+if strcmp(handles.mode_desc(end-4:end),'Prior')
+    handles.stage = stage_get_pos_prior(handles.stage);
+else
+    handles.stage = stage_get_pos(handles.stage);
+end
+%handles.stage = stage_get_pos(handles.stage);
 x = handles.stage.Pos(1);
 y = handles.stage.Pos(2);
 set(handles.current_position_x,'String',x);
@@ -266,15 +275,23 @@ modes=get(handles.Choose_System,'String');
 mode_index = get(handles.Choose_System, 'Value');
 mode_desc = deblank(modes{mode_index});
 handles.mode_desc = mode_desc;
-handles.stage=stage_open(mode_desc);
-handles.stage = stage_set_origin(handles.stage);
-handles.stage=stage_move(handles.stage,[50000,50000]);
-set(handles.Get_position,'Enable','on');
-set(handles.current_position_x,'Enable','on');
-set(handles.current_position_y,'Enable','on');
-set(handles.target_position_x,'Enable','on');
-set(handles.target_position_y,'Enable','on');
-handles.stageflag=1;
+if mode_index ~= 1  
+    if strcmp(handles.mode_desc(end-4:end),'Prior')
+        handles.stage=stage_open_prior(mode_desc);
+        handles.stage = stage_set_origin_prior(handles.stage);
+        handles.stage=stage_move_prior(handles.stage,[5000,5000]);
+    else
+        handles.stage=stage_open(mode_desc);
+        handles.stage = stage_set_origin(handles.stage);
+        handles.stage=stage_move(handles.stage,[50000,50000]);
+    end
+    set(handles.Get_position,'Enable','on');
+    set(handles.current_position_x,'Enable','on');
+    set(handles.current_position_y,'Enable','on');
+    set(handles.target_position_x,'Enable','on');
+    set(handles.target_position_y,'Enable','on');
+    handles.stageflag=1;
+end
 guidata(hObject, handles);   
 end
 
@@ -299,7 +316,9 @@ try
     imWidth = vidRes(1);
     imHeight = vidRes(2);
     set(handles.ImageAxes,'Units', 'pixels')
-    set(handles.ImageAxes,'Position', [5, 5, imWidth, imHeight]);
+    startWidth = floor((1252-imWidth)/2);
+    startHeight = floor((1051-imHeight)/2);
+    set(handles.ImageAxes,'Position', [startWidth, startHeight, imWidth, imHeight]);
     hImage = image( uint8(zeros(imHeight, imWidth, nBands) ),'parent', handles.ImageAxes);
     set(hImage, 'UserData', settings)
     setappdata(hImage,'UpdatePreviewWindowFcn',@preview_image_with_cross); 
@@ -347,5 +366,83 @@ end
 end
 
 
+% --- Choose camera format
+function Choose_Camera_Callback(hObject, eventdata, handles)
+try
+    settings.mag_cam=1;
+    settings.cam_pixel_size=6.9;
+    modes=get(handles.Choose_Camera,'String');
+    mode_index = get(handles.Choose_Camera, 'Value');
+    cam_mode = deblank(modes{mode_index});
+    if mode_index ~= 1  
+        handles.cam_mode = cam_mode;
+        if strcmp(handles.cam_mode(1:3),'USB')
+            settings.cam_kind = char('USB');
+            settings.cam_format=char('F7_RGB_1224x1024_Mode1');
+        else
+             settings.cam_kind = char('firewire');
+             settings.cam_format=char('RGB24_1024x768');
+        end
+        settings.reticleID=char('KR-871');
+        settings.cam_mask = reticle_make_mask(...
+                settings.reticleID,...
+                settings.cam_pixel_size/settings.mag_cam,...
+                [0,0]);
+        handles.cam=camera_open(settings.cam_kind,settings.cam_format);
+        camera_image_display(handles,handles.cam,settings);
+        set(handles.Take_image,'Enable','on');
+    else
+        desc = {'\bfWelcome to Use'...
+            ,'Please choose the camera format'};
+        welcome_page(handles, desc);
+        set(handles.Take_image,'Enable','off');
+    end
+    guidata(hObject, handles);
+catch ME
+    error_show(ME)
+end
 
+end
 
+% --- Executes during object creation, after setting all properties.
+function Choose_Camera_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to Choose_Camera (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+end
+function  welcome_page(handles, desc)
+try
+   % This function creates an image with text to be displayed to the user
+     set(handles.ImageAxes,...
+         'Units', 'pixels',...
+         'Position', [1, 1, 1252, 1051],...
+         'Visible', 'off');
+    position = int64(get(handles.ImageAxes, 'Position'));
+    temp_image = ones([position(4), position(3), 3])-.5;
+    i=(1:double(position(3)))/double(position(3));
+    for j=1:position(4)
+        temp_image(j,:,1) = i;
+    end
+    img_object = image(temp_image, 'Parent', handles.ImageAxes); %#ok<NASGU>
+    axis image
+    set(handles.ImageAxes, 'Visible', 'off');
+    fontsize=0.05;
+    text('Parent', handles.ImageAxes,...
+        'FontName', 'Times',...
+        'FontUnits', 'normalized',...
+        'FontSize', fontsize,...
+        'HorizontalAlignment', 'center',...
+        'VerticalAlignment', 'middle',...
+        'Position', [position(3)/2, position(4)/2],...
+        'String', desc);
+   
+catch ME
+    error_show(ME)
+end
+end

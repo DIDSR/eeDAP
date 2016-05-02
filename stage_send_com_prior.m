@@ -1,7 +1,7 @@
 %  ##########################################################################
 %% ########################## SEND COMMAND ##################################
 %  ##########################################################################
-function ST_answer=stage_send_com (S, CommandStr)
+function ST_answer=stage_send_com_prior (S, CommandStr)
     %--------------------------------------------------------------------------
     % This function sends commands to the stage. THe opened serial port S
     % is passed as the first argument. The secong argument is the string of
@@ -16,41 +16,41 @@ function ST_answer=stage_send_com (S, CommandStr)
     % send the termination char
     fwrite(S,13);
     
-    % The response of the stage to 'STATUS' doesn't have the terminator.
-    % THerefore if the command it 'STATUS' the code only reads one command
-    if strcmp(CommandStr,'STATUS')
-        ST_answer=fscanf(S,'%s',1);
-    else
-        ST_answer=fgetl(S);
-    end
+    ST_answer=fgetl(S);
+
     
     % These are the error messages that can come from the stage
-    if strcmp('N: -1',ST_answer) 
-        disp('Unknown command');
+    if strcmp('E,1',ST_answer) 
+        disp('NO STAGE');
+        errordlg('NO STAGE!','Stage Error');
         ST_answer=-1;
     end
-    if strcmp('N: -2',ST_answer) 
-        disp('Illegal point type or axis, or module not installed');
-        errordlg('Illegal point type or axis, or module not installed!','Stage Error');
+    if strcmp('E,2',ST_answer) 
+        disp('Stage not idle');
+        errordlg('Stage not idle!','Stage Error');
         ST_answer=-1;
     end
-    if strcmp('N: -3',ST_answer) 
-        disp('Not enough parameters (e.g. move r=)');
-        errordlg('Not enough parameters (e.g. move r=)!','Stage Error');
+    if strcmp('E,3',ST_answer) 
+        disp('No drive');
+        errordlg('No drive for stage!','Stage Error');
         ST_answer=-1;
     end
-    if strcmp('N: -4',ST_answer) 
-        disp('Parameter out of range');
-        errordlg('Parameter out of range!','Stage Error');
+    if strcmp('E,4',ST_answer) 
+        disp('String Parse');
+        errordlg('String Parse!','Stage Error');
         ST_answer=-1;
     end
-    if strcmp('N: -21',ST_answer) 
-        disp('Process aborted by HALT command');
-        errordlg('Process aborted by HALT command!','Stage Error');
+    if strcmp('E,5',ST_answer) 
+        disp('Command Not Found');
+        ST_answer=-1;
+    end
+    if strcmp('E,8',ST_answer) 
+        disp('Value out of range');
+        errordlg('Value out of range!','Stage Error');
         ST_answer=-1;
     end
     catch
-        disp('Error in stage_send_com (S, CommandStr)');
+        disp('Error in stage_send_com_prior (S, CommandStr)');
         errordlg('Unable to send a command to the stage!','Stage Error');
         ST_answer=-1;
     end

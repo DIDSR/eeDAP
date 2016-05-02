@@ -334,7 +334,7 @@ function align_eye_cam(handles) %#ok<*INUSD>
 try
     
     settings = handles.myData.settings;
-    handles.cam = camera_open(settings.cam_format);
+    handles.cam = camera_open(settings.cam_kind,settings.cam_format);
     handles.cam_figure = camera_preview(handles.cam, settings);
     pos_eye = [0,0];
     pos_cam = [0,0];
@@ -442,7 +442,12 @@ end
 
 function position_eye_callback(hObject, eventdata) %#ok<*INUSD>
 handles = guidata(findobj('Tag','Administrator_Input_Screen'));
-stage=stage_get_pos(handles.myData.stage);
+stage_label = handles.myData.stage.label;
+if strcmp(stage_label(end-4:end),'Prior')
+    stage=stage_get_pos_prior(handles.myData.stage);
+else
+    stage=stage_get_pos(handles.myData.stage);
+end
 Pos=stage.Pos;
 set(hObject, 'UserData', Pos);
 
@@ -450,7 +455,12 @@ end
 
 function position_cam_callback(hObject, eventdata)
 handles = guidata(findobj('Tag','Administrator_Input_Screen'));
-stage=stage_get_pos(handles.myData.stage);
+stage_label = handles.myData.stage.label;
+if strcmp(stage_label(end-4:end),'Prior')
+    stage=stage_get_pos_prior(handles.myData.stage);
+else
+    stage=stage_get_pos(handles.myData.stage);
+end
 Pos=stage.Pos;
 set(hObject, 'UserData', Pos);
 
@@ -528,8 +538,12 @@ try
             set(hObject_configure_camera, ...
                 'Enable', 'on', ...
                 'String', 'Configure Camera');
-            
-            handles.myData.stage = stage_get_pos(handles.myData.stage); %#ok<NASGU>
+            stage_label = handles.myData.stage.label;
+            if strcmp(stage_label(end-4:end),'Prior')
+                handles.myData.stage = stage_get_pos_prior(handles.myData.stage);
+            else
+                handles.myData.stage = stage_get_pos(handles.myData.stage); %#ok<NASGU>
+            end
             if handles.myData.stage.Pos == 0
                 return
             end
@@ -545,7 +559,7 @@ try
             
             % Determine and derive additional camera settings
             if handles.myData.yesno_micro==1
-                cam=camera_open();
+                cam=camera_open(settings.cam_kind,settings.cam_format);
                 if cam == 0
                     return
                 end

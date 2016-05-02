@@ -43,10 +43,18 @@ try
     % Initiate the camera preview window
     % handles.cam = camera object
     if myData.yesno_micro==1
-        handles.cam = camera_open(settings.cam_format);
+        handles.cam = camera_open(settings.cam_kind,settings.cam_format);
         handles.cam_figure = camera_preview(handles.cam, settings);
-        myData.stage = stage_set_origin(myData.stage);
-        myData.stage=stage_move(myData.stage,[50000,50000]);
+        stage_label = myData.stage.label;
+        if strcmp(stage_label(end-4:end),'Prior')
+            myData.stage = stage_set_origin_prior(myData.stage);
+            myData.stage=stage_move_prior(myData.stage,[5000,5000]);
+        else
+            myData.stage = stage_set_origin(myData.stage);
+            myData.stage=stage_move(myData.stage,[50000,50000]);
+        end
+        %myData.stage = stage_set_origin(myData.stage);
+        %myData.stage=stage_move(myData.stage,[50000,50000]);
         
     end
 
@@ -290,7 +298,13 @@ try
     
     % Get stage position_i and camera image
     if handles.myData.yesno_micro==1
-        myData.stage = stage_get_pos(myData.stage);
+        stage_label = handles.myData.stage.label;
+        if strcmp(stage_label(end-4:end),'Prior')
+            myData.stage = stage_get_pos_prior(myData.stage);
+        else
+            myData.stage = stage_get_pos(myData.stage);
+        end
+        %myData.stage = stage_get_pos(myData.stage);
         temp = myData.stage.Pos;
         current.cam_x0 = temp(1);
         current.cam_y0 = temp(2);
@@ -664,7 +678,13 @@ try
     
     if handles.current.load_stage_data(1) == 1
         display('automatically navigate to position 1')
-        handles.myData.stage=stage_move(handles.myData.stage,handles.myData.stagedata.stage_positions(1,:));     
+        stage_label = handles.myData.stage.label;
+        if strcmp(stage_label(end-4:end),'Prior')
+            handles.myData.stage=stage_move_prior(handles.myData.stage,handles.myData.stagedata.stage_positions(1,:));     
+        else
+            handles.myData.stage=stage_move(handles.myData.stage,handles.myData.stagedata.stage_positions(1,:));     
+        end
+        %handles.myData.stage=stage_move(handles.myData.stage,handles.myData.stagedata.stage_positions(1,:));     
         set(handles.take_stage1,'String','Take Stage Position 1');
         handles.current.load_stage_data(1) = 2;
         guidata(handles.Stage_Allighment,handles);
@@ -704,7 +724,13 @@ try
     
     if handles.current.load_stage_data(2) == 1
         display('automatically navigate to position 2')
-        handles.myData.stage=stage_move(handles.myData.stage,handles.myData.stagedata.stage_positions(2,:));
+        stage_label = handles.myData.stage.label;
+        if strcmp(stage_label(end-4:end),'Prior')
+            handles.myData.stage=stage_move_prior(handles.myData.stage,handles.myData.stagedata.stage_positions(2,:));     
+        else
+            handles.myData.stage=stage_move(handles.myData.stage,handles.myData.stagedata.stage_positions(2,:));     
+        end
+        %handles.myData.stage=stage_move(handles.myData.stage,handles.myData.stagedata.stage_positions(2,:));
         
         set(handles.take_stage2,'String','Take Stage Position 2');
         handles.current.load_stage_data(2) = 2;
@@ -743,7 +769,13 @@ try
     
     if handles.current.load_stage_data(3) == 1
         display('automatically navigate to position 3')
-        handles.myData.stage=stage_move(handles.myData.stage,handles.myData.stagedata.stage_positions(3,:));
+        stage_label = handles.myData.stage.label;
+        if strcmp(stage_label(end-4:end),'Prior')
+            handles.myData.stage=stage_move_prior(handles.myData.stage,handles.myData.stagedata.stage_positions(3,:));     
+        else
+            handles.myData.stage=stage_move(handles.myData.stage,handles.myData.stagedata.stage_positions(3,:));     
+        end
+        %handles.myData.stage=stage_move(handles.myData.stage,handles.myData.stagedata.stage_positions(3,:));
         
         set(handles.take_stage3,'String','Take Stage Position 3');
         handles.current.load_stage_data(3) = 2;
