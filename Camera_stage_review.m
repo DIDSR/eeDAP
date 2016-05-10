@@ -54,7 +54,7 @@ function Camera_stage_review_OpeningFcn(hObject, eventdata, handles, varargin)
 % varargin   command line arguments to Camera_stage_review (see VARARGIN)
 
 % Choose default command line output for Camera_stage_review
-    desc = {'\bfWelcome to Use'...
+    desc = {'\bfWelcome'...
     ,'Please choose the camera format'};
     welcome_page(handles,desc );
     set(handles.Take_image,'Enable','off');
@@ -371,7 +371,7 @@ try
         camera_image_display(handles,handles.cam,settings);
         set(handles.Take_image,'Enable','on');
     else
-        desc = {'\bfWelcome to Use'...
+        desc = {'\bfWelcome'...
             ,'Please choose the camera format'};
         welcome_page(handles, desc);
         set(handles.Take_image,'Enable','off');
