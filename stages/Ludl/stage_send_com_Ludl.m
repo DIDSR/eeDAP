@@ -1,7 +1,7 @@
 %  ##########################################################################
 %% ########################## SEND COMMAND ##################################
 %  ##########################################################################
-function ST_answer=send_com (S, CommandStr)
+function ST_answer=stage_send_com_Ludl (S, CommandStr)
     %--------------------------------------------------------------------------
     % This function sends commands to the stage. THe opened serial port S
     % is passed as the first argument. The secong argument is the string of
@@ -51,7 +51,7 @@ function ST_answer=send_com (S, CommandStr)
     end
     
     catch
-        disp('Error in send_com (S, CommandStr)');
+        disp('Error in Ludl: stage_send_com (S, CommandStr)');
         errordlg('Unable to send a command to the stage!','Stage Error');
         ST_answer=-1;
     end

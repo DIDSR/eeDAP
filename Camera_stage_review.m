@@ -95,12 +95,7 @@ try
     
    img=camera_take_image(handles.cam);
    if handles.stageflag==1
-       if strcmp(handles.mode_desc(end-4:end),'Prior')
-           handles.stage = stage_get_pos_prior(handles.stage);
-       else
-           handles.stage = stage_get_pos(handles.stage);
-       end
-      
+       handles.stage = stage_get_pos(handles.stage);
        x = handles.stage.Pos(1);
        y = handles.stage.Pos(2);
        set(handles.current_position_x,'String',x);
@@ -142,12 +137,7 @@ function Move_stage_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 stage_new = [str2num(handles.target_position_x),str2num(handles.target_position_y)];
-if strcmp(handles.mode_desc(end-4:end),'Prior')
-    handles.stage = stage_move_prior(handles.stage,stage_new);
-else
-    handles.stage = stage_move(handles.stage,stage_new);
-end
-%handles.stage = stage_move(handles.stage,stage_new);
+handles.stage = stage_move(handles.stage,stage_new);
 set(handles.current_position_x,'String',handles.target_position_x);
 set(handles.current_position_y,'String',handles.target_position_y);
 handles.position_flag_y=0;
@@ -214,12 +204,7 @@ function Get_position_Callback(hObject, eventdata, handles)
 % hObject    handle to Get_position (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-if strcmp(handles.mode_desc(end-4:end),'Prior')
-    handles.stage = stage_get_pos_prior(handles.stage);
-else
-    handles.stage = stage_get_pos(handles.stage);
-end
-%handles.stage = stage_get_pos(handles.stage);
+handles.stage = stage_get_pos(handles.stage);
 x = handles.stage.Pos(1);
 y = handles.stage.Pos(2);
 set(handles.current_position_x,'String',x);
@@ -276,15 +261,9 @@ mode_index = get(handles.Choose_System, 'Value');
 mode_desc = deblank(modes{mode_index});
 handles.mode_desc = mode_desc;
 if mode_index ~= 1  
-    if strcmp(handles.mode_desc(end-4:end),'Prior')
-        handles.stage=stage_open_prior(mode_desc);
-        handles.stage = stage_set_origin_prior(handles.stage);
-        handles.stage=stage_move_prior(handles.stage,[5000,5000]);
-    else
-        handles.stage=stage_open(mode_desc);
-        handles.stage = stage_set_origin(handles.stage);
-        handles.stage=stage_move(handles.stage,[50000,50000]);
-    end
+    addpath('stages/Prior','stages/Ludl');
+    handles.stage=stage_open(mode_desc);
+    handles.stage = stage_set_origin(handles.stage);
     set(handles.Get_position,'Enable','on');
     set(handles.current_position_x,'Enable','on');
     set(handles.current_position_y,'Enable','on');
@@ -380,7 +359,7 @@ try
             settings.cam_kind = char('USB');
             settings.cam_format=char('F7_RGB_1224x1024_Mode1');
         else
-             settings.cam_kind = char('firewire');
+             settings.cam_kind = char('Firewire');
              settings.cam_format=char('RGB24_1024x768');
         end
         settings.reticleID=char('KR-871');

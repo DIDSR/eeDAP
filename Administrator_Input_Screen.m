@@ -51,7 +51,7 @@ try
     handles.myData.wsi_files = [];
     handles.myData.graphics = struct;
 
-    addpath('gui_graphics', 'icc_profiles', 'tasks');
+    addpath('gui_graphics', 'icc_profiles', 'tasks','stages/Prior','stages/Ludl');
 
     handles.myData.sourcedir = [cd, '\'];
 
@@ -215,7 +215,6 @@ try
         handles.myData.tasks_out{i} = taskinfo;
         
     end
-    
     guidata(handles.Administrator_Input_Screen, handles);
     close(wtb);
     
@@ -442,12 +441,7 @@ end
 
 function position_eye_callback(hObject, eventdata) %#ok<*INUSD>
 handles = guidata(findobj('Tag','Administrator_Input_Screen'));
-stage_label = handles.myData.stage.label;
-if strcmp(stage_label(end-4:end),'Prior')
-    stage=stage_get_pos_prior(handles.myData.stage);
-else
-    stage=stage_get_pos(handles.myData.stage);
-end
+stage=stage_get_pos(handles.myData.stage);
 Pos=stage.Pos;
 set(hObject, 'UserData', Pos);
 
@@ -455,12 +449,7 @@ end
 
 function position_cam_callback(hObject, eventdata)
 handles = guidata(findobj('Tag','Administrator_Input_Screen'));
-stage_label = handles.myData.stage.label;
-if strcmp(stage_label(end-4:end),'Prior')
-    stage=stage_get_pos_prior(handles.myData.stage);
-else
-    stage=stage_get_pos(handles.myData.stage);
-end
+stage=stage_get_pos(handles.myData.stage);
 Pos=stage.Pos;
 set(hObject, 'UserData', Pos);
 
@@ -538,12 +527,7 @@ try
             set(hObject_configure_camera, ...
                 'Enable', 'on', ...
                 'String', 'Configure Camera');
-            stage_label = handles.myData.stage.label;
-            if strcmp(stage_label(end-4:end),'Prior')
-                handles.myData.stage = stage_get_pos_prior(handles.myData.stage);
-            else
-                handles.myData.stage = stage_get_pos(handles.myData.stage); %#ok<NASGU>
-            end
+            handles.myData.stage = stage_get_pos(handles.myData.stage); %#ok<NASGU>
             if handles.myData.stage.Pos == 0
                 return
             end

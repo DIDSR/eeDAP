@@ -38,6 +38,7 @@ wsi_slot_1       = C:\000_whole_slides\tissue40x-8B.ndpi
 rgb_lut_slot_1   = icc_profiles\rgb_lut_gamma_inv1p8.txt
 label_pos        = 12
 reticleID        = KR-32536
+cam_kind	 = Firewire
 cam_format       = RGB24_1024x768
 cam_pixel_size   = 6.9
 mag_cam          = 0.5

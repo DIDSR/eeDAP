@@ -27,7 +27,7 @@ try
     delete(objects);
     if strcmp( cam_kind,'USB')
        cam_adaptor = 'pointgrey';
-    elseif strcmp( cam_kind,'firewire')
+    elseif strcmp( cam_kind,'Firewire')
        cam_adaptor = 'dcam';
     end
     % Create the video object to communicate with the camera 

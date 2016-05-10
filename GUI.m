@@ -180,7 +180,7 @@ try
     % The mode_index and the filename for the test are extracted from the
     % cell structure varargin. varargin stores the input arguments for the
     % whole Matlab application
-    addpath('gui_graphics', 'icc_profiles', 'tasks');
+    addpath('gui_graphics', 'icc_profiles', 'tasks','stages/Prior','stages/Ludl');
     handles_old = varargin{1};
     handles.Administrator_Input_Screen = handles_old.Administrator_Input_Screen;
     myData = handles_old.myData;
@@ -198,7 +198,6 @@ try
     handles.reticle = 1;
     settings = myData.settings;
     guidata(handles.GUI, handles)
-    
     % Open communications to camera and begin preview
     % Open communications to stage
     switch myData.mode_desc
@@ -213,13 +212,7 @@ try
                 % close(cam_figure)
                 
                 % Open communications to stage
-                stage_label = handles.myData.stage.label;
-                if strcmp(stage_label(end-4:end),'Prior')
-                    handles.myData.stage = stage_open_prior(handles.myData.stage.label);
-                else
                     handles.myData.stage = stage_open(handles.myData.stage.label);
-                end
-                %handles.myData.stage = stage_open(handles.myData.stage.label);
                 % To close:
                 % delete(handles.stage)
                 % If communications with the stage cannot be established,
@@ -562,13 +555,7 @@ try
                 end
                 taskinfo.stage_x = stage_new(1);
                 taskinfo.stage_y = stage_new(2);
-                stage_label = handles.myData.stage.label;
-                if strcmp(stage_label(end-4:end),'Prior')
-                    myData.stage = stage_move_prior(myData.stage,stage_new, myData.stage.handle);
-                else
-                    myData.stage = stage_move(myData.stage,stage_new, myData.stage.handle);
-                end
-                %myData.stage = stage_move(myData.stage,stage_new, myData.stage.handle);
+                myData.stage = stage_move(myData.stage,stage_new, myData.stage.handle);
                 taskimage_load(hObj);
                 handles = guidata(handles.GUI);
                 set(handles.iH,'visible','off');
@@ -736,13 +723,7 @@ try
             set(handles.NextButton,'enable','off');
             set(handles.Fast_Register_Button,'enable','off');
             set(handles.Best_Register_Button,'enable','off');
-            stage_label = handles.myData.stage.label;
-            if strcmp(stage_label(end-4:end),'Prior')
-                handles.myData.stage = stage_move_prior(handles.myData.stage,target_pos,handles.myData.stage.handle);
-            else
-                handles.myData.stage = stage_move(handles.myData.stage,target_pos,handles.myData.stage.handle);
-            end
-            %handles.myData.stage = stage_move(handles.myData.stage,target_pos,handles.myData.stage.handle);
+            handles.myData.stage = stage_move(handles.myData.stage,target_pos,handles.myData.stage.handle);
             set(handles.NextButton,'enable',currentNextStatus);
             set(handles.Fast_Register_Button,'enable','on');
             set(handles.Best_Register_Button,'enable','on');
@@ -798,13 +779,7 @@ try
     [roi_h, roi_w] = size(roi_image);
     
     % Get the stage position
-    stage_label = handles.myData.stage.label;
-    if strcmp(stage_label(end-4:end),'Prior')
-        handles.myData.stage = stage_get_pos_prior(handles.myData.stage,myData.stage.handle);
-    else
-        handles.myData.stage = stage_get_pos(handles.myData.stage,myData.stage.handle); 
-    end
-   % handles.myData.stage = stage_get_pos(handles.myData.stage,myData.stage.handle);
+    handles.myData.stage = stage_get_pos(handles.myData.stage,myData.stage.handle); 
     stage_current = int64(handles.myData.stage.Pos);
     
     % Cross correlate the stage and wsi images
@@ -833,12 +808,7 @@ try
     stage_new = stage_current + offset_roi;
     offset_stage = int64(myData.settings.offset_stage);
     stage_new = stage_new - offset_stage;
-    if strcmp(stage_label(end-4:end),'Prior')
-        handles.myData.stage = stage_move_prior(handles.myData.stage,stage_new, handles.myData.stage.handle);
-    else
-        handles.myData.stage = stage_move(handles.myData.stage,stage_new, handles.myData.stage.handle);
-    end
-    %handles.myData.stage = stage_move(handles.myData.stage,stage_new, handles.myData.stage.handle);
+    handles.myData.stage = stage_move(handles.myData.stage,stage_new, handles.myData.stage.handle);
 catch ME
     error_show(ME)
 end
@@ -1102,25 +1072,12 @@ try
     [roi_h, roi_w] = size(roi_image);
     
     % Get the stage position and snap a picture: cam_image
-    stage_label = handles.myData.stage.label;
-    if strcmp(stage_label(end-4:end),'Prior')
-        handles.myData.stage = stage_get_pos_prior(handles.myData.stage,handles.myData.stage.handle);
-    else
-        handles.myData.stage = stage_get_pos(handles.myData.stage,handles.myData.stage.handle); 
-    end
-      %  handles.myData.stage = stage_get_pos(handles.myData.stage,handles.myData.stage.handle);
+    handles.myData.stage = stage_get_pos(handles.myData.stage,handles.myData.stage.handle); 
     stage_current = int64(handles.myData.stage.Pos);
     offset_stage = int64(myData.settings.offset_stage);
     stage_new = stage_current + offset_stage;
-    if strcmp(stage_label(end-4:end),'Prior')
-        handles.myData.stage = stage_move_prior(handles.myData.stage,stage_new,handles.myData.stage.handle);
-        handles.myData.stage = stage_get_pos_prior(handles.myData.stage,handles.myData.stage.handle);
-    else
-        handles.myData.stage = stage_move(handles.myData.stage,stage_new,handles.myData.stage.handle);
-        handles.myData.stage = stage_get_pos(handles.myData.stage,handles.myData.stage.handle); 
-    end
-    %handles.myData.stage = stage_move(handles.myData.stage,stage_new,handles.myData.stage.handle);
-    %handles.myData.stage = stage_get_pos(handles.myData.stage,handles.myData.stage.handle);
+    handles.myData.stage = stage_move(handles.myData.stage,stage_new,handles.myData.stage.handle);
+    handles.myData.stage = stage_get_pos(handles.myData.stage,handles.myData.stage.handle); 
     stage_current = int64(handles.myData.stage.Pos);
     cam_image = camera_take_image(handles.cam);
     
@@ -1174,12 +1131,7 @@ try
     stage_new = stage_current + offset_roi;
     offset_stage = int64(myData.settings.offset_stage);
     stage_new = stage_new - offset_stage;
-    if strcmp(stage_label(end-4:end),'Prior')
-        handles.myData.stage = stage_move_prior(handles.myData.stage,stage_new, handles.myData.stage.handle);
-    else
-        handles.myData.stage = stage_move(handles.myData.stage,stage_new, handles.myData.stage.handle);
-    end
-    %handles.myData.stage = stage_move(handles.myData.stage,stage_new, handles.myData.stage.handle);
+    handles.myData.stage = stage_move(handles.myData.stage,stage_new, handles.myData.stage.handle);
 catch ME
     error_show(ME)
 end

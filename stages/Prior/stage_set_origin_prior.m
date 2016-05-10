@@ -45,6 +45,7 @@ try
     if h_stage_close == 1
         stage.status=stage_close(stage.handle);
     end
+    stage=stage_move_prior(stage,[5000,5000]);  
         
 %  ##########################################################################
 %% ###################### MOVE STAGE SEQUENCE ###############################

@@ -38,6 +38,7 @@ wsi_slot_1       = C:\000_whole_slides\100113_ThorLabs_20x.ndpi
 rgb_lut_slot_1   = icc_profiles\rgb_lut_identity.txt
 label_pos        = 6
 reticleID        = KR-871
+cam_kind	 = Firewire
 cam_format       = RGB24_1024x768
 cam_pixel_size   = 6.9
 mag_cam          = 1.0
