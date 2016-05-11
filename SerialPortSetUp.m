@@ -3,7 +3,7 @@ try
     
     success = 0;
     
-    for i=1:1:12
+    for i=1:1:20
         Ports{i}=strcat('COM',num2str(i));
     end
     

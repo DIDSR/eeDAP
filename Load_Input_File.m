@@ -182,6 +182,14 @@ try
     end
     tline = fgets(fid);
     [setting_name, setting_value]=strread(tline, '%s %s', 'delimiter', '=');
+    name = 'cam_kind';
+    if strcmp(strtrim(setting_name),name)==1
+        settings.cam_kind=char(setting_value);
+    else
+        io_error(name);
+    end
+    tline = fgets(fid);
+    [setting_name, setting_value]=strread(tline, '%s %s', 'delimiter', '=');
     name = 'cam_format';
     if strcmp(strtrim(setting_name),name)==1
         settings.cam_format=char(setting_value);

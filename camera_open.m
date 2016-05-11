@@ -1,5 +1,5 @@
 
-function cam=camera_open(cam_format)
+function cam=camera_open(cam_kind,cam_format)
 try
 
     % imaqtool: launches an interactive GUI to allow you to explore,
@@ -25,12 +25,16 @@ try
     % delete any currently running (stale) video inputs
     objects = imaqfind;
     delete(objects);
-    
+    if strcmp( cam_kind,'USB')
+       cam_adaptor = 'pointgrey';
+    elseif strcmp( cam_kind,'Firewire')
+       cam_adaptor = 'dcam';
+    end
     % Create the video object to communicate with the camera 
     if exist('cam_format','var')
-        cam = videoinput('dcam',1,cam_format) %#ok<NOPRT>
+        cam = videoinput(cam_adaptor,1,cam_format) %#ok<NOPRT>
     else
-        cam = videoinput('dcam',1) %#ok<NOPRT>
+        cam = videoinput(cam_adaptor,1) %#ok<NOPRT>
     end
     imaqhwinfo(cam)
     cam.Tag = 'Microscope Camera Object';
@@ -57,7 +61,9 @@ try
     % Set value of a video source object property.
     cam_src = getselectedsource(cam);
     cam_src.Tag = 'Microscope Camera Source';
-
+    if strcmp( cam_kind,'USB')
+       cam_src.WhiteBalanceRBMode = 'Off';
+    end
 catch ME
     error_show(ME)
 end

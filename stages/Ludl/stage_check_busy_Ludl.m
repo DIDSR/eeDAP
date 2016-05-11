@@ -1,7 +1,7 @@
-function busy = stage_check_busy(S)
+function busy = stage_check_busy_Ludl(S)
 try
     
-    success=send_com (S, 'STATUS');
+    success=stage_send_com_Ludl (S, 'STATUS');
     if isempty(success)
         busy = 1;
         return

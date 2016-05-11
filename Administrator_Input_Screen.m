@@ -51,7 +51,7 @@ try
     handles.myData.wsi_files = [];
     handles.myData.graphics = struct;
 
-    addpath('gui_graphics', 'icc_profiles', 'tasks');
+    addpath('gui_graphics', 'icc_profiles', 'tasks','stages/Prior','stages/Ludl');
 
     handles.myData.sourcedir = [cd, '\'];
 
@@ -215,7 +215,6 @@ try
         handles.myData.tasks_out{i} = taskinfo;
         
     end
-    
     guidata(handles.Administrator_Input_Screen, handles);
     close(wtb);
     
@@ -334,7 +333,7 @@ function align_eye_cam(handles) %#ok<*INUSD>
 try
     
     settings = handles.myData.settings;
-    handles.cam = camera_open(settings.cam_format);
+    handles.cam = camera_open(settings.cam_kind,settings.cam_format);
     handles.cam_figure = camera_preview(handles.cam, settings);
     pos_eye = [0,0];
     pos_cam = [0,0];
@@ -528,7 +527,6 @@ try
             set(hObject_configure_camera, ...
                 'Enable', 'on', ...
                 'String', 'Configure Camera');
-            
             handles.myData.stage = stage_get_pos(handles.myData.stage); %#ok<NASGU>
             if handles.myData.stage.Pos == 0
                 return
@@ -545,7 +543,7 @@ try
             
             % Determine and derive additional camera settings
             if handles.myData.yesno_micro==1
-                cam=camera_open();
+                cam=camera_open(settings.cam_kind,settings.cam_format);
                 if cam == 0
                     return
                 end

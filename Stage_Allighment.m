@@ -39,15 +39,13 @@ try
     reg_flag = current.reg_flag; %#ok<NASGU>
     slot_i = current.slot_i;
     wsi_info = myData.wsi_files{slot_i};
-    
+    addpath('stages/Prior','stages/Ludl');
     % Initiate the camera preview window
     % handles.cam = camera object
     if myData.yesno_micro==1
-        handles.cam = camera_open(settings.cam_format);
+        handles.cam = camera_open(settings.cam_kind,settings.cam_format);
         handles.cam_figure = camera_preview(handles.cam, settings);
-        myData.stage = stage_set_origin(myData.stage);
-        myData.stage=stage_move(myData.stage,[50000,50000]);
-        
+        myData.stage = stage_set_origin(myData.stage);       
     end
 
     % Set the default size of the window and the axes
@@ -664,7 +662,7 @@ try
     
     if handles.current.load_stage_data(1) == 1
         display('automatically navigate to position 1')
-        handles.myData.stage=stage_move(handles.myData.stage,handles.myData.stagedata.stage_positions(1,:));     
+        handles.myData.stage=stage_move(handles.myData.stage,handles.myData.stagedata.stage_positions(1,:));       
         set(handles.take_stage1,'String','Take Stage Position 1');
         handles.current.load_stage_data(1) = 2;
         guidata(handles.Stage_Allighment,handles);
@@ -704,8 +702,7 @@ try
     
     if handles.current.load_stage_data(2) == 1
         display('automatically navigate to position 2')
-        handles.myData.stage=stage_move(handles.myData.stage,handles.myData.stagedata.stage_positions(2,:));
-        
+        handles.myData.stage=stage_move(handles.myData.stage,handles.myData.stagedata.stage_positions(2,:));           
         set(handles.take_stage2,'String','Take Stage Position 2');
         handles.current.load_stage_data(2) = 2;
         guidata(handles.Stage_Allighment,handles);
@@ -743,8 +740,7 @@ try
     
     if handles.current.load_stage_data(3) == 1
         display('automatically navigate to position 3')
-        handles.myData.stage=stage_move(handles.myData.stage,handles.myData.stagedata.stage_positions(3,:));
-        
+        handles.myData.stage=stage_move(handles.myData.stage,handles.myData.stagedata.stage_positions(3,:));     
         set(handles.take_stage3,'String','Take Stage Position 3');
         handles.current.load_stage_data(3) = 2;
         guidata(handles.Stage_Allighment,handles);

@@ -180,7 +180,7 @@ try
     % The mode_index and the filename for the test are extracted from the
     % cell structure varargin. varargin stores the input arguments for the
     % whole Matlab application
-    addpath('gui_graphics', 'icc_profiles', 'tasks');
+    addpath('gui_graphics', 'icc_profiles', 'tasks','stages/Prior','stages/Ludl');
     handles_old = varargin{1};
     handles.Administrator_Input_Screen = handles_old.Administrator_Input_Screen;
     myData = handles_old.myData;
@@ -198,14 +198,13 @@ try
     handles.reticle = 1;
     settings = myData.settings;
     guidata(handles.GUI, handles)
-    
     % Open communications to camera and begin preview
     % Open communications to stage
     switch myData.mode_desc
         case 'MicroRT'
             if myData.yesno_micro==1
                 % Open communications to camera and begin preview
-                handles.cam=camera_open();
+                handles.cam=camera_open(settings.cam_kind,settings.cam_format);
                 handles.cam_figure = ...
                     camera_preview(handles.cam, settings);
                 % To close:
@@ -213,7 +212,7 @@ try
                 % close(cam_figure)
                 
                 % Open communications to stage
-                handles.myData.stage = stage_open(handles.myData.stage.label);
+                    handles.myData.stage = stage_open(handles.myData.stage.label);
                 % To close:
                 % delete(handles.stage)
                 % If communications with the stage cannot be established,
@@ -780,7 +779,7 @@ try
     [roi_h, roi_w] = size(roi_image);
     
     % Get the stage position
-    handles.myData.stage = stage_get_pos(handles.myData.stage,myData.stage.handle);
+    handles.myData.stage = stage_get_pos(handles.myData.stage,myData.stage.handle); 
     stage_current = int64(handles.myData.stage.Pos);
     
     % Cross correlate the stage and wsi images
@@ -809,7 +808,6 @@ try
     stage_new = stage_current + offset_roi;
     offset_stage = int64(myData.settings.offset_stage);
     stage_new = stage_new - offset_stage;
-    
     handles.myData.stage = stage_move(handles.myData.stage,stage_new, handles.myData.stage.handle);
 catch ME
     error_show(ME)
@@ -1074,12 +1072,12 @@ try
     [roi_h, roi_w] = size(roi_image);
     
     % Get the stage position and snap a picture: cam_image
-    handles.myData.stage = stage_get_pos(handles.myData.stage,handles.myData.stage.handle);
+    handles.myData.stage = stage_get_pos(handles.myData.stage,handles.myData.stage.handle); 
     stage_current = int64(handles.myData.stage.Pos);
     offset_stage = int64(myData.settings.offset_stage);
     stage_new = stage_current + offset_stage;
     handles.myData.stage = stage_move(handles.myData.stage,stage_new,handles.myData.stage.handle);
-    handles.myData.stage = stage_get_pos(handles.myData.stage,handles.myData.stage.handle);
+    handles.myData.stage = stage_get_pos(handles.myData.stage,handles.myData.stage.handle); 
     stage_current = int64(handles.myData.stage.Pos);
     cam_image = camera_take_image(handles.cam);
     
@@ -1133,7 +1131,6 @@ try
     stage_new = stage_current + offset_roi;
     offset_stage = int64(myData.settings.offset_stage);
     stage_new = stage_new - offset_stage;
-    
     handles.myData.stage = stage_move(handles.myData.stage,stage_new, handles.myData.stage.handle);
 catch ME
     error_show(ME)
