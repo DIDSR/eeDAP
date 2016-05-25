@@ -184,6 +184,7 @@ try
     handles_old = varargin{1};
     handles.Administrator_Input_Screen = handles_old.Administrator_Input_Screen;
     myData = handles_old.myData;
+    % myData = varargin{1};
     % handles.current will hold info related to the current task and ROI
     handles.current = struct;
     % The images used in the GUI are loaded into the memory and into the
@@ -197,6 +198,7 @@ try
     handles.myData = myData;
     handles.reticle = 1;
     settings = myData.settings;
+    handles.output = hObj;
     guidata(handles.GUI, handles)
     % Open communications to camera and begin preview
     % Open communications to stage
@@ -226,6 +228,7 @@ try
                     return
                 end
             end
+            guidata(handles.GUI, handles)
             Generate_Transformation_Matrix(handles);
             handles = guidata(handles.GUI);
             
@@ -233,6 +236,7 @@ try
     
     % The GUI objects are initiated
     Initiate_GUI_Elements(handles);
+    
     handles = guidata(handles.GUI);
     guidata(hObj, handles);
     
@@ -325,7 +329,6 @@ try
         'color'                     , 'r', ...
         'parent'                    , axH, ...
         'tag'                       , 'ZoomLine');
-    
     set(handles.GUI, ...
         'units', 'normalized', ...
         'outerPosition', [0 0 1 1], ...
@@ -439,7 +442,6 @@ try
     
     % Update handles.GUI
     guidata(handles.GUI, handles);
-    
     % Initiate the first task
     Update_GUI_Elements(handles);
     
@@ -449,8 +451,9 @@ end
 end
 
 function varargout = GUI_OutputFcn(hObj, eventdata, handles)
-varargout{1} = 1;
-guiFrame = get(gcf,'javaFrame');
+varargout{1} = handles.output;
+warning('off','MATLAB:HandleGraphics:ObsoletedProperty:JavaFrame'); 
+guiFrame = get(handles.GUI,'javaFrame');
 set(guiFrame,'Maximized',1);
 set(handles.GUI,'visible','on')
 end
