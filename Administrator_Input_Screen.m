@@ -318,9 +318,11 @@ try
             
     end
     save('GUI.mat','handles');
-    GUI(handles);
-    close(handles.Administrator_Input_Screen);
-    
+    handles_GUI=  GUI(handles);
+
+    uiwait(handles_GUI);
+    %close(handles.Administrator_Input_Screen);
+
     
 catch ME
     error_show(ME)
