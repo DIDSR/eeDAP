@@ -1,16 +1,14 @@
-QTEXT
- 75
-QTYPE
- 75
+QI
+ 3
 QUESTION
- 54,39
+ 43,28
 Q_OP1
- 39
+ 28
 Q_OP2
- 39
+ 28
 Q_OP3
- 39
+ 28
 Q_OP4
- 39
+ 28
 Q_TEXT
- 39
+ 28

@@ -22,10 +22,10 @@
     <link rel="stylesheet" href="de_style.css" type="text/css" media="all" />
     <link rel="stylesheet" href="custom.css" type="text/css" media="all" />
 
-    <script type="text/javascript" src="js/all.js"></script>
-    <script type="text/javascript" src="js/drexplain.data.index.js"></script>
-    <script type="text/javascript" src="js/all2.js"></script>
-    <script type="text/javascript" src="js/oembed.js"></script>
+    <script type="text/javascript" src="js/all.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/drexplain.data.index.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/all2.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/oembed.js" charset="utf-8"></script>
     <script type="text/javascript">
     //<![CDATA[
         $(document).ready(function() {
@@ -250,7 +250,7 @@
                     <div class="b-controlButtons">
                         <ul class="b-controlButtons__items">
                             <li class="b-controlButtons__item m-controlButtons__item__prev"><a href="camera.htm" class="b-controlButtons__link" title="Previous page"><span class="b-controlButtons__link_icon"></span><span class="b-controlButtons__link_text">&#xa0;Previous page</span></a></li>
-                            <li class="b-controlButtons__item m-controlButtons__item__next"><a href="setup.htm" class="b-controlButtons__link" title="Next page"><span class="b-controlButtons__link_text">Next page&#xa0;</span><span class="b-controlButtons__link_icon"></span></a></li>
+                            <li class="b-controlButtons__item m-controlButtons__item__next"><a href="camera_setup_and_test.htm" class="b-controlButtons__link" title="Next page"><span class="b-controlButtons__link_text">Next page&#xa0;</span><span class="b-controlButtons__link_icon"></span></a></li>
                                                 </ul>
                     </div>
                 </td>
@@ -279,7 +279,7 @@
                             .addClass("b-article__headerSide m-article__headerSide__buttons")
                             .append(
                                 $("<div></div>").addClass("b-controlButtons")
-                                .html($("<ul></ul>").addClass("b-controlButtons__items").html("    <li class=\"b-controlButtons__item m-controlButtons__item__prev\"><a href=\"camera.htm\" class=\"b-controlButtons__link\" title=\"Previous page\"><span class=\"b-controlButtons__link_icon\"></span><span class=\"b-controlButtons__link_text\">&#xa0;Previous page</span></a></li>\n    <li class=\"b-controlButtons__item m-controlButtons__item__next\"><a href=\"setup.htm\" class=\"b-controlButtons__link\" title=\"Next page\"><span class=\"b-controlButtons__link_text\">Next page&#xa0;</span><span class=\"b-controlButtons__link_icon\"></span></a></li>\n"))
+                                .html($("<ul></ul>").addClass("b-controlButtons__items").html("    <li class=\"b-controlButtons__item m-controlButtons__item__prev\"><a href=\"camera.htm\" class=\"b-controlButtons__link\" title=\"Previous page\"><span class=\"b-controlButtons__link_icon\"></span><span class=\"b-controlButtons__link_text\">&#xa0;Previous page</span></a></li>\n    <li class=\"b-controlButtons__item m-controlButtons__item__next\"><a href=\"camera_setup_and_test.htm\" class=\"b-controlButtons__link\" title=\"Next page\"><span class=\"b-controlButtons__link_text\">Next page&#xa0;</span><span class=\"b-controlButtons__link_icon\"></span></a></li>\n"))
                             )
                         )
                     )
@@ -325,11 +325,94 @@
     </noscript>
                 <div class="description_on_page"><div class="p" style="text-align: center; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="ic"><h1><strong>Requirements</strong></h1></div></div>
 <div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">The code is written to work with a DCAM compatible camera. &#160; </div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">eeDAP requires camera images to be RGB24 (8 bit for each channel), have a width &gt; 640, and height &gt; 480.&#160; &#160; </div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">FDA uses 3 Point Grey cameras for this eeDAP software</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">eeDAP requires camera images to be RGB24 (8 bit for each channel).&#160; &#160; </div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">eeDAP requires camera images to have width &gt; 640 and height &gt; 480.&#160; &#160; </div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">FDA uses 2 Point Grey cameras for this eeDAP software</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160;</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><table class="de_tbl_564 detbl" style="width: 98%; margin-left: 0; margin-right: auto;">
+<col style="width: 25%;" class="de_col_1_141" />
+<col style="width: 75%;" class="de_col_2_423" />
+<tr style="height: 0px;">
+<td class="de_td_141" style = "padding: 2px; padding-bottom: 1px; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000;  width: 25%; vertical-align: top;" colspan = "1" rowspan = "1" >
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><strong>Name of Camera</strong></div>
+</td><td class="de_td_423" style = "padding: 2px; padding-bottom: 1px; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000;  width: 75%; vertical-align: top;" colspan = "1" rowspan = "1" >
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><strong>Description </strong></div>
+</td></tr><tr style="height: 305px;">
+<td class="de_td_141" style = "padding: 2px; padding-bottom: 1px; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000;  width: 25%; vertical-align: top;" colspan = "1" rowspan = "1" >
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><strong>Point Grey Grasshopper Color (GRAS-03K2C-C)</strong></div>
+</td><td class="de_td_423" style = "padding: 2px; padding-bottom: 1px; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000;  width: 75%; vertical-align: top;" colspan = "1" rowspan = "1" >
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><strong>Default Format</strong>:</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160; &#160; &#160; &#160; &#160; &#160; &#160; The default Matlab format code is RGB24_640x480, which has an aspect ratio of 1.333. The pixel size and format of the default format equals that of the native sensor specs.&#160; </div>
+<ul class="de_list"><li class="list-element list-counter-7" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; counter-reset: list-counter-7;">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>sensor size = 1/3&quot;&#160; </div>
+</li><li class="list-element list-counter-7" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; ">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>sensor size = 640x480 pixels (0.3MP) </div>
+</li><li class="list-element list-counter-7" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; ">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>pixel size = 7.4um</div>
+</li></ul><div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160;</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">When attached to the microscope, the scale factors are equal to the pixel size divided by the camera adapter magnification (if any) and the objective magnification. When there is no camera magnification:&#160; </div>
+<ul class="de_list"><li class="list-element list-counter-8" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; counter-reset: list-counter-8;">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>0.185um/pixel at 40x </div>
+</li><li class="list-element list-counter-8" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; ">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>0.370um/pixel at 20x </div>
+</li><li class="list-element list-counter-8" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; ">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>0.740um/pixel at 10x </div>
+</li><li class="list-element list-counter-8" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; ">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>1.480um/pixel at 5x </div>
+</li><li class="list-element list-counter-8" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; ">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>1.850um/pixel at 4x </div>
+</li><li class="list-element list-counter-8" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; ">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>2.960um/pixel at 2.5x</div>
+</li></ul></td></tr><tr style="height: 0px;">
+<td class="de_td_141" style = "padding: 2px; padding-bottom: 1px; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000;  width: 25%; vertical-align: top;" colspan = "1" rowspan = "1" >
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><strong>Point Grey Flea2 Color (FL2G-50S5C-C)</strong></div>
+</td><td class="de_td_423" style = "padding: 2px; padding-bottom: 1px; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000;  width: 75%; vertical-align: top;" colspan = "1" rowspan = "1" >
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><strong>Native Pixel Format</strong>:</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160; &#160; &#160; &#160; &#160; &#160; &#160; The Matlab format code that uses all of the native pixels is F7_RGB24_2448x2048. It is a non-standard format (Format_7) with aspect ratio 1.953 and the following specs:&#160; </div>
+<ul class="de_list"><li class="list-element list-counter-9" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; counter-reset: list-counter-9;">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>sensor size = 2/3&quot; </div>
+</li><li class="list-element list-counter-9" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; ">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>sensor size = 2448x2048 pixels (5.0MP)</div>
+</li><li class="list-element list-counter-9" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; ">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>pixel size = 3.45um</div>
+</li></ul><div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160;</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><strong>Default Format</strong>: </div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160; &#160; &#160; &#160; &#160; &#160; &#160; The default Matlab format code is RGB24_1024x768, which has a standard aspect ratio of 1.333. The default pixels are 2x2 bins of the native pixels. Consequently, the pixel size is 6.9um. &#160; </div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160;</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">When attached to the microscope, the scale factors are equal to the pixel size divided by the camera adapter magnification (if any) and the objective magnification.&#160; &#160; </div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">When there is no camera magnification, the pixel size of the default Matlab format (6.9um) is divided by the objective magnification.&#160; </div>
+<ul class="de_list"><li class="list-element list-counter-10" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; counter-reset: list-counter-10;">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>0.1725um/pixel at 40x&#160; </div>
+</li><li class="list-element list-counter-10" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; ">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>0.3450um/pixel at 20x&#160; </div>
+</li><li class="list-element list-counter-10" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; ">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>0.6900um/pixel at 10x </div>
+</li><li class="list-element list-counter-10" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; ">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>1.3800um/pixel at 5x&#160; </div>
+</li><li class="list-element list-counter-10" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; ">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>1.7250um/pixel at 5x </div>
+</li><li class="list-element list-counter-10" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; ">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>2.7600um/pixel at 2.5x&#160; </div>
+</li><li class="list-element list-counter-10" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; ">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>3.4500um/pizel at 2x</div>
+</li></ul><div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160;</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><strong>Alternative Format</strong>:</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">The Matlab format code F7_RGB24_1600x1200 uses the native pixels but a smaller standard format.</div>
+</td></tr><tr style="height: 0px;">
+<td class="de_td_141" style = "padding: 2px; padding-bottom: 1px; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000;  width: 25%; vertical-align: top;" colspan = "1" rowspan = "1" >
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><strong>Point Grey Grasshopper3 Color (GS3-U3-50S5C-C)</strong></div>
+</td><td class="de_td_423" style = "padding: 2px; padding-bottom: 1px; border-left-style: solid; border-left-width: 1px; border-left-color: #000000; border-right-style: solid; border-right-width: 1px; border-right-color: #000000; border-top-style: solid; border-top-width: 1px; border-top-color: #000000; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #000000;  width: 75%; vertical-align: top;" colspan = "1" rowspan = "1" >
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><strong>Default Format</strong>: </div>
+<ul class="de_list"><li class="list-element list-counter-11" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; counter-reset: list-counter-11;">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>sensor size = 2/3&quot;</div>
+</li><li class="list-element list-counter-11" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; ">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>sensor size = <span class="de_4AF4BF9DD6">1384 x 1036</span></div>
+</li><li class="list-element list-counter-11" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; ">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div><span class="de_51752156DC">pixal = 6.45 um</span></div>
+</li></ul></td></tr></table></div>
 </div>                                    			
                 			                <h6 class="b-article__generatorCopyright">
-                    <a href="http://www.drexplain.com" class="b-link b-article__generatorCopyrightLink">Made with help of Dr.Explain</a>
+                    <a class="b-link b-article__generatorCopyrightLink" href="http://www.drexplain.com" rel="nofollow">Made with help of Dr.Explain</a>
                 </h6>
                 <br /><b>Unregistered version</b></div>
 </body>

@@ -22,10 +22,10 @@
     <link rel="stylesheet" href="de_style.css" type="text/css" media="all" />
     <link rel="stylesheet" href="custom.css" type="text/css" media="all" />
 
-    <script type="text/javascript" src="js/all.js"></script>
-    <script type="text/javascript" src="js/drexplain.data.index.js"></script>
-    <script type="text/javascript" src="js/all2.js"></script>
-    <script type="text/javascript" src="js/oembed.js"></script>
+    <script type="text/javascript" src="js/all.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/drexplain.data.index.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/all2.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/oembed.js" charset="utf-8"></script>
     <script type="text/javascript">
     //<![CDATA[
         $(document).ready(function() {
@@ -245,7 +245,7 @@
                 <td id="headerSide__buttons" class="b-article__headerSide m-article__headerSide__buttons">
                     <div class="b-controlButtons">
                         <ul class="b-controlButtons__items">
-                            <li class="b-controlButtons__item m-controlButtons__item__prev"><a href="input_file_body__opening_and_editing.htm" class="b-controlButtons__link" title="Previous page"><span class="b-controlButtons__link_icon"></span><span class="b-controlButtons__link_text">&#xa0;Previous page</span></a></li>
+                            <li class="b-controlButtons__item m-controlButtons__item__prev"><a href="wsi_formats.htm" class="b-controlButtons__link" title="Previous page"><span class="b-controlButtons__link_icon"></span><span class="b-controlButtons__link_text">&#xa0;Previous page</span></a></li>
                             <li class="b-controlButtons__item m-controlButtons__item__next"><a href="vi__workflow.htm" class="b-controlButtons__link" title="Next page"><span class="b-controlButtons__link_text">Next page&#xa0;</span><span class="b-controlButtons__link_icon"></span></a></li>
                                                 </ul>
                     </div>
@@ -275,7 +275,7 @@
                             .addClass("b-article__headerSide m-article__headerSide__buttons")
                             .append(
                                 $("<div></div>").addClass("b-controlButtons")
-                                .html($("<ul></ul>").addClass("b-controlButtons__items").html("    <li class=\"b-controlButtons__item m-controlButtons__item__prev\"><a href=\"input_file_body__opening_and_editing.htm\" class=\"b-controlButtons__link\" title=\"Previous page\"><span class=\"b-controlButtons__link_icon\"></span><span class=\"b-controlButtons__link_text\">&#xa0;Previous page</span></a></li>\n    <li class=\"b-controlButtons__item m-controlButtons__item__next\"><a href=\"vi__workflow.htm\" class=\"b-controlButtons__link\" title=\"Next page\"><span class=\"b-controlButtons__link_text\">Next page&#xa0;</span><span class=\"b-controlButtons__link_icon\"></span></a></li>\n"))
+                                .html($("<ul></ul>").addClass("b-controlButtons__items").html("    <li class=\"b-controlButtons__item m-controlButtons__item__prev\"><a href=\"wsi_formats.htm\" class=\"b-controlButtons__link\" title=\"Previous page\"><span class=\"b-controlButtons__link_icon\"></span><span class=\"b-controlButtons__link_text\">&#xa0;Previous page</span></a></li>\n    <li class=\"b-controlButtons__item m-controlButtons__item__next\"><a href=\"vi__workflow.htm\" class=\"b-controlButtons__link\" title=\"Next page\"><span class=\"b-controlButtons__link_text\">Next page&#xa0;</span><span class=\"b-controlButtons__link_icon\"></span></a></li>\n"))
                             )
                         )
                     )
@@ -320,16 +320,17 @@
     <div>To properly display this page you need a browser with JavaScript support.</div>
     </noscript>
                 <div class="description_on_page"><div class="p" style="text-align: center; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="ic"><h1><strong>V. Output File</strong></h1></div></div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><span class="de_4AF4BF9DD6">An “Output_Files” folder will be created in the folder where the input file is. eeDAP writes to this folder the experiment output files (file extension .dapso). The naming convention is “Mode.ReaderName.Date .InputFileRootName.dapso”. eeDAP also writes to a subfolder (name similar to output file) images captured by the microscope’s camera and WSI depend on the setting of &quot;saveimages&quot; in input file . The images captured are taken when the task is completed, and the Administrator selects the “Next” button, advancing to the next task. The captured images provide further opportunities for verification of registration and other considerations.</span></div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><span class="de_4AF4BF9DD6">eeDAP Output files are very similar in appearance to input files. They are comma delimited and have a Header (mostly free-text) and Body (comma-separated variables). Please refer to the “Input File” section for basics on the content of the Output file and instructions for opening and editing the Output file. Once this file is open the header will be displayed, figure to the right. Much of this information should be repetitive from the input file’s header.</span></div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><span class="de_4AF4BF9DD6">The main differences between the Input file and the Output file are as follows:</span></div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><span class="de_4AF4BF9DD6">-The Header begins with the Output file filename, which specifies the reading mode, reader name, date, time and the input file name -</span></div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><span class="de_4AF4BF9DD6">-The Body includes additional column for task Duration (amount of time the reader spent on each task in recorded in seconds) and reader's task results.</span></div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><span class="de_4AF4BF9DD6">An “Output_Files” folder will be created in the folder where the input file is located. eeDAP writes to this folder the for experiment output files (file extension .dapso). The naming convention is “<strong>Mode.ReaderName.Date .InputFileRootName.dapso</strong>”. eeDAP also writes to a subfolder (name similar to output file) images captured by the microscope’s camera and WSI depending on the setting of &quot;saveimages&quot; in input file . The images captured are taken when the task is completed, and the Administrator selects the “<strong>Next</strong>” button, advancing to the next task. The captured images provide further opportunities for verification of registration and other considerations.</span></div>
 <div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160;</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><span class="de_4AF4BF9DD6">eeDAP Output files are very similar in appearance to input files. They are comma delimited and have a Header (mostly free-text) and Body (comma-separated variables). Refer to the </span><a class="local_link" href="iv__input_file.htm"><span class="de_FE04B87F3C">Input File</span></a><span class="de_4AF4BF9DD6"> section for basics on the content of the Output file and instructions for opening and editing the Output file. Once this file is open the header will be displayed. Much of this information should be repetitive from the input file’s header.</span></div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160;</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><span class="de_4AF4BF9DD6">The main differences between the Input file and the Output file are as follows:</span></div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;"><span class="de_4AF4BF9DD6">- The<strong> </strong></span><a class="local_link" href="input_file_header.htm"><span class="de_FE04B87F3C"><strong>Header</strong></span></a><span class="de_4AF4BF9DD6"><strong> </strong>begins with the Output file filename, which specifies the </span><span class="de_E0D79DE1AC">reading mode</span><span class="de_4AF4BF9DD6">,</span><span class="de_E0D79DE1AC"> reader name</span><span class="de_4AF4BF9DD6">,</span><span class="de_E0D79DE1AC"> date</span><span class="de_4AF4BF9DD6">,</span><span class="de_E0D79DE1AC"> time</span><span class="de_4AF4BF9DD6"> and the </span><span class="de_E0D79DE1AC">input file name</span></div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;"><span class="de_4AF4BF9DD6">- The </span><a class="local_link" href="input_file_body__list_of_rois_and_corresponding_tasks.htm"><span class="de_FE04B87F3C"><strong>Body</strong></span></a><span class="de_4AF4BF9DD6"><strong> </strong>includes an additional column for the </span><span class="de_E0D79DE1AC">task duration</span><span class="de_4AF4BF9DD6"> (amount of time the reader spent on each task in recorded in seconds) and some other columns related to the reader’s answers.</span></div>
 <div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160;</div>
 </div>                                    			
                 			                <h6 class="b-article__generatorCopyright">
-                    <a href="http://www.drexplain.com" class="b-link b-article__generatorCopyrightLink">Made with help of Dr.Explain</a>
+                    <a class="b-link b-article__generatorCopyrightLink" href="http://www.drexplain.com" rel="nofollow">Made with help of Dr.Explain</a>
                 </h6>
                 <br /><b>Unregistered version</b></div>
 </body>

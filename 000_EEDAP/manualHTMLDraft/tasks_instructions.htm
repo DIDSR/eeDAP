@@ -22,10 +22,10 @@
     <link rel="stylesheet" href="de_style.css" type="text/css" media="all" />
     <link rel="stylesheet" href="custom.css" type="text/css" media="all" />
 
-    <script type="text/javascript" src="js/all.js"></script>
-    <script type="text/javascript" src="js/drexplain.data.index.js"></script>
-    <script type="text/javascript" src="js/all2.js"></script>
-    <script type="text/javascript" src="js/oembed.js"></script>
+    <script type="text/javascript" src="js/all.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/drexplain.data.index.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/all2.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/oembed.js" charset="utf-8"></script>
     <script type="text/javascript">
     //<![CDATA[
         $(document).ready(function() {
@@ -239,7 +239,7 @@
             <tr>
                 <td id="headerSide__nav" class="b-article__headerSide m-article__headerSide__nav">
                     <div id="headerSide__nav__breadCrumbs" class="b-breadCrumbs">
-                        <ul class="b-breadCrumbs__items"><li class="b-breadCrumbs__item"><a href="ii__getting_started.htm" class="b-breadCrumbs__link">II. Getting Started</a></li>
+                        <ul class="b-breadCrumbs__items"><li class="b-breadCrumbs__item"><a href="ii__getting_started_with_eedap.htm" class="b-breadCrumbs__link">II. Getting Started with eeDAP</a></li>
 
 <li class="b-breadCrumbs__item">Tasks Instructions</li>
 </ul>                    </div>
@@ -247,7 +247,7 @@
                 <td id="headerSide__buttons" class="b-article__headerSide m-article__headerSide__buttons">
                     <div class="b-controlButtons">
                         <ul class="b-controlButtons__items">
-                            <li class="b-controlButtons__item m-controlButtons__item__prev"><a href="running_eedap.htm" class="b-controlButtons__link" title="Previous page"><span class="b-controlButtons__link_icon"></span><span class="b-controlButtons__link_text">&#xa0;Previous page</span></a></li>
+                            <li class="b-controlButtons__item m-controlButtons__item__prev"><a href="run_software.htm" class="b-controlButtons__link" title="Previous page"><span class="b-controlButtons__link_icon"></span><span class="b-controlButtons__link_text">&#xa0;Previous page</span></a></li>
                             <li class="b-controlButtons__item m-controlButtons__item__next"><a href="iii__hardware_and_software_requirement.htm" class="b-controlButtons__link" title="Next page"><span class="b-controlButtons__link_text">Next page&#xa0;</span><span class="b-controlButtons__link_icon"></span></a></li>
                                                 </ul>
                     </div>
@@ -277,7 +277,7 @@
                             .addClass("b-article__headerSide m-article__headerSide__buttons")
                             .append(
                                 $("<div></div>").addClass("b-controlButtons")
-                                .html($("<ul></ul>").addClass("b-controlButtons__items").html("    <li class=\"b-controlButtons__item m-controlButtons__item__prev\"><a href=\"running_eedap.htm\" class=\"b-controlButtons__link\" title=\"Previous page\"><span class=\"b-controlButtons__link_icon\"></span><span class=\"b-controlButtons__link_text\">&#xa0;Previous page</span></a></li>\n    <li class=\"b-controlButtons__item m-controlButtons__item__next\"><a href=\"iii__hardware_and_software_requirement.htm\" class=\"b-controlButtons__link\" title=\"Next page\"><span class=\"b-controlButtons__link_text\">Next page&#xa0;</span><span class=\"b-controlButtons__link_icon\"></span></a></li>\n"))
+                                .html($("<ul></ul>").addClass("b-controlButtons__items").html("    <li class=\"b-controlButtons__item m-controlButtons__item__prev\"><a href=\"run_software.htm\" class=\"b-controlButtons__link\" title=\"Previous page\"><span class=\"b-controlButtons__link_icon\"></span><span class=\"b-controlButtons__link_text\">&#xa0;Previous page</span></a></li>\n    <li class=\"b-controlButtons__item m-controlButtons__item__next\"><a href=\"iii__hardware_and_software_requirement.htm\" class=\"b-controlButtons__link\" title=\"Next page\"><span class=\"b-controlButtons__link_text\">Next page&#xa0;</span><span class=\"b-controlButtons__link_icon\"></span></a></li>\n"))
                             )
                         )
                     )
@@ -322,33 +322,40 @@
     <div>To properly display this page you need a browser with JavaScript support.</div>
     </noscript>
                 <div class="description_on_page"><div class="p" style="text-align: center; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="ic"><h1><strong>Tasks Instructions</strong></h1></div></div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&quot;select_region&quot; (Select Region)</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">In real study the order of task can be random. </div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&quot;<strong>select_region</strong>&quot; (Select Region)</div>
 <div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">1. Click on image in the region of the cell that is specified in the description </div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">2. Test will automatically give you the correct X-Y coordinates on the ROI and WSI</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160;&#160; &#160; &#160; &#160; &#160; &#160; 2. Test will automatically give you the correct X-Y coordinates on the ROI and WSI <span class="de_823826CA2C">(Figure 1)</span></div>
+<div class="p" style="text-align: left; direction: rtl; margin-right: 0px; text-indent: 0px;">&#160;</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&quot;<strong>count</strong>&quot;</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">1.Enter the number of cells that appear to accommodate the description <span class="de_823826CA2C">(Figure 2)</span></div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">2. Click outside of the box<span class="de_823826CA2C"> &#160; &#160; </span></div>
 <div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160;</div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&quot;count&quot;</div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">1.Enter the number of cells that appear to accommodate the description </div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160;</div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&quot;radio1of4&quot; </div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">1. Select the one of the options that accommodates the description </div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&quot;<strong>radio1of4</strong>&quot; </div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">1. Select the one of the options that accommodates the description (<span class="de_823826CA2C">Figure 3)</span></div>
 <div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">&#160;</div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&quot;slider&quot;</div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">1. On a scale 0-100, rate the tissue using the slider or typing in the number </div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&quot;<strong>slider</strong>&quot;</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">1. On a scale 0-100, rate the tissue using the slider or typing in the number (<span class="de_823826CA2C">Figure 4)</span>&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="de_823826CA2C">&#160; </span></div>
 <div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">&#160;</div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&quot;mitotic_train&quot; </div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&quot;<strong>mitotic_train</strong>&quot; </div>
 <div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">1. Check all the boxes that apply to the image</div>
 <div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">2. Using the slider or by typing the number, give the tissue a score </div>
 <div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">3. Click on <strong>&quot;expert results&quot;</strong> (Boxes highlighted are incorrect, Highlighted number is correct)</div>
 <div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">&#160;</div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&quot;mitotic_expert&quot;</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&quot;<strong>mitotic_expert</strong>&quot;</div>
 <div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">1. Write a discripition of what you observe in the image above</div>
 <div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">2. Click <strong>&quot;Next Part&quot;</strong></div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">3. Check all the boxes that apply to the image above</div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">4. Using the slider or by typing the number, give the tissue a score </div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">&#160;</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160; &#160; &#160; &#160; &#160; &#160; 3. Check all the boxes that apply to the image above</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160; &#160; &#160; &#160; &#160; &#160; 4. Using the slider or by typing the number, give the tissue a score </div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160;</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><img  alt="" style="border: solid 0px;  " width="270" height="212" class=" de_780D01ADE8" src="drex_tasks_instructions_custom.png"/>&#160; &#160; &#160; &#160; <img  alt="" style="border: solid 0px;  " width="247" height="217" class=" de_780D01ADE8" src="drex_tasks_instructions_custom_2.png"/>&#160; &#160; &#160; </div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><span class="de_9E323DDAA2">Figure 1</span><span class="de_823826CA2C"> &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; </span><span class="de_9E323DDAA2">&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; Figure 2</span></div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160;</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><img  alt="" style="border: solid 0px;  " width="222" height="216" class=" de_780D01ADE8" src="drex_tasks_instructions_custom_3.png"/> &#160; &#160; <img  alt="" style="border: solid 0px;  " width="384" height="202" class=" de_780D01ADE8" src="drex_tasks_instructions_custom_4.png"/></div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><span class="de_9E323DDAA2">Figure 3&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; Figure 4</span></div>
 </div>                                    			
                 			                <h6 class="b-article__generatorCopyright">
-                    <a href="http://www.drexplain.com" class="b-link b-article__generatorCopyrightLink">Made with help of Dr.Explain</a>
+                    <a class="b-link b-article__generatorCopyrightLink" href="http://www.drexplain.com" rel="nofollow">Made with help of Dr.Explain</a>
                 </h6>
                 <br /><b>Unregistered version</b></div>
 </body>
