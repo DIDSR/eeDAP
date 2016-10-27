@@ -94,8 +94,11 @@ try
         WSI_data = bfGetReader(wsi_fullname);
         % get size of each resolution, Ignore the last two because there
         % are image with label
+        WSI_data.setSeries(0);
+        wsi_w(1)= WSI_data.getSizeX();
+        wsi_h(1)= WSI_data.getSizeY();
         numberOfImages = WSI_data.getSeriesCount();
-        for j = 0 : numberOfImages - 3
+        for j = 1 : numberOfImages - 3
             WSI_data.setSeries(j);
             wsi_w(j+1)= WSI_data.getSizeX();
             wsi_h(j+1)= WSI_data.getSizeY();
