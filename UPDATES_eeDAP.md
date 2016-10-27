@@ -1,6 +1,6 @@
 # Updates
 
-### eeDAP4.0 (Windows)
+### [eeDAP4.0 (Windows)](https://github.com/DIDSR/eeDAP/releases/tag/4.0)
 *5/11/16*
 
 New hardware supported:
@@ -18,7 +18,7 @@ Improve "Best Registration" button performance.
 
 Improve Camera_stage_review utility application interface and "take image" button.
 
-### iMRMC3p1
+### [iMRMC3p1](https://github.com/DIDSR/eeDAP/releases/tag/v3.1)
 *7/16/15*
 
 Add Camera_stage_review APP is for test and review camera and stage
@@ -28,7 +28,7 @@ Add Best Registration button
 There are two versions for windows and linux system in the zip file. Please choose base on your system
 
 
-### iMRMC3p0
+### [iMRMC3p0](https://github.com/DIDSR/eeDAP/releases/tag/3.0)
 *6/4/15*
 
 Auto-registration of every ROI (speeds up the study)
@@ -44,18 +44,14 @@ Use “BioFormats” procedures to eliminate proprietary routine for reading pro
 Migrate documentation to DrExplain which outputs html and pdf versions
 
 
-### eeDAP2p0
+### eeDAP2p0 and Previous Versions
 *2/14/14*
+
+This project was originally hosted on googlecode, which shut down. There is an archive of that work at
+http://archive.is/eedap.googlecode.com
 
 Make sure to refer to the user manual for instructions on software install. 
 
 Feel free to download the sample WSI to test the application. The software is a little sensitive to long file names (including the directory). It is recommended that you create a directory at the root, for example c:\000_whole_slides\100113_ThorLabs_20x.ndpi
-
-### Previous versions
-This project was originally hosted on googlecode, which shut down. There is an archive at
-http://archive.is/eedap.googlecode.com
-
-
-
 
 
