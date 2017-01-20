@@ -3,13 +3,15 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
-\usepackage{geometry}%
+\usepackage{geometry}
+\usepackage[numbers]{natbib}
+\usepackage{hyperref}%
 \setcounter{MaxMatrixCols}{30}
 %TCIDATA{OutputFilter=latex2.dll}
 %TCIDATA{Version=5.50.0.2960}
 %TCIDATA{CSTFile=SPIE Proceedings Style.cst}
 %TCIDATA{Created=Monday, January 09, 2017 11:17:45}
-%TCIDATA{LastRevised=Monday, January 09, 2017 12:54:11}
+%TCIDATA{LastRevised=Friday, January 20, 2017 17:33:41}
 %TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
 %TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
 %TCIDATA{BibliographyScheme=BibTeX}
@@ -106,23 +108,29 @@ software. More details can be found in a paper by Gallas et al.
 The eeDAP hardware includes a microscope with a camera (mounted for
 simultaneous viewing with the eyepiece), a motorized stage (programmable with
 a stage controller and joystick), and computer with a monitor as shown in
-Figure 1. There is also a reticle in the microscope eyepiece. The reticle in
-the eyepiece is also synthesized in software; the reticle marks are
-superimposed on the digital WSI and on the camera image. The reticle serves
-two purposes. The reticle marks allow for the localization of specific
-features during image registration. The reticle marks are also used to help
-reduce the area of the FOV or to specify individual cells to evaluate.
+Figure~\ref{fig_full-eeDAPhardware}. There is also a reticle in the microscope
+eyepiece. The reticle in the eyepiece is also synthesized in software; virtual
+reticle marks are superimposed on the digital WSI image and on the camera
+image. The reticle serves two purposes. The reticle marks allow for the
+localization of specific features during image registration. The reticle marks
+are also used to help reduce the area of the FOV or to specify individual
+cells to evaluate (create a \emph{study} FOV).
 
 eeDAP supports usb and FireWire (IEEE 1394) cameras. The camera pixel sizes
 tested are smaller than 10um. At 40x magnification, this corresponds to camera
 pixels that cover areas smaller than 0.25 x 0.25 um\textsuperscript{2}; in the
 common parlance, we say that the camera resolution is 0.25 um/pixel. Regarding
 the motorized stage, eeDAP supports communications with Ludl and Prior stages.
-The step size for the stages tested are smaller than 0.1 um.
+The step size for the stages tested are smaller than 0.1 um. The computer
+needs to be a Windows 7 operating system fast enough with memory and space to
+manage large WSI\ images (\symbol{126}10GB). Additionally, the computer must
+be able to communicate with the camera (usb or IEEE 1394) and with the stage
+(RS-232). There are no specific requirements of the display, and in fact, the
+display may be considered a component of the WSI\ system to be evaluated.
 
 \begin{figure}[ptbh]
 \label{fig_full-eeDAPhardware}
-\includegraphics[width=6.50000in]{C:/000_github/000_EEDAP/MDDT/figures/full-eeDAPhardware.pdf}\caption{The
+\includegraphics[width=6.50000in]{C:/000_github/eedap.gh-pages.docs/MDDT/figures/full-eeDAPhardware.pdf}\caption{The
 eeDAP hardware: microscope, camera, computer-controlled stage with joystick,
 and a computer with monitor (not shown).}%
 \end{figure}
@@ -136,16 +144,15 @@ MATLAB \cite{MatlabRuntime2016}. Using eeDAP does not require a full licensed
 version of MATLAB. It can be run as a precompiled stand-alone application. The
 precompiled stand-alone application requires that the free MATLAB compiler
 runtime (MCR) library be installed \cite{MatlabRuntime2016}. The software uses
-the Bio-formats library to read WSI images and extract FOVs
+the Bio-formats library to read digital WSI images and extract FOVs
 \cite{BioFormats2016}. Normally the resolution of 40x WSI images is about 0.25
 um/pixel. The Bio-formats library supports several proprietary WSI image
-formats such as svs, ndpi and tiff. Previous versions of eeDAP used
-ImageScope, a product of Aperio (a Leica Biosystems Division), which contains
-an ActiveX control named TIFFcomp to read proprietary WSI images. The change
-to bio-formats was made because it is better supported, it has fewer
-limitations (TIFFcomp could only be used with 32-bit MATLAB on Windows), and
-it is available under the GNU public \textquotedblright
-copyleft\textquotedblright\ licenses.
+formats such as svs, ndpi and tiff. Please note that the Bio-formats library
+was not used in earlier versions of eeDAP; specifically, it was not used in
+the version described in the paper by Gallas et al.
+\cite{Gallas2014_J-Med-Img_v1p037501}. The change to Bio-formats was made
+because it is better supported, it works on 64-bit systems, and it is
+available under the GNU public \textquotedblright copyleft\textquotedblright\ licenses.
 
 The eeDAP software is made up of three GUIs: \textbf{study initialization,
 global image registration, and data collection}. During \textbf{study
@@ -163,18 +170,34 @@ stage to move to a location that is the same as the WSI location. The global
 image registration requires three anchors, three pairs of stage-WSI registered
 coordinates. Each anchor is generated by a local registration: an (x,y) stage
 coordinate and an (x,y) WSI coordinate that correspond to the same specimen
-location. The local registration is an interactive process with a study
+location. The local registration is an interactive process with the study
 administrator. The study administrator navigates the microscope to a landmark,
-takes a snapshot of the microscope FOV, and eeDAP records the stage
-coordinates. Then the study administrator clicks near the corresponding
-location in the WSI image displayed in the GUI. eeDAP then finds the local
-registration by maximizing the match of the camera image and WSI.
+takes a snapshot of the microscope FOV with the microscope mounted camera, and
+eeDAP records the stage coordinates. Then the study administrator clicks near
+the corresponding location in the WSI image displayed in the GUI.
+Figure~\ref{fig_full-eeDAPregistration} shows global registration GUI and the
+camera image of a landmark location chosen by the study administrator. It also
+shows the corresponding location in the WSI image; the location the study
+administrator should click on next. eeDAP then finds the local registration by
+maximizing the match of the camera image and the patch of WSI selected by the
+study administrator.
+
+Once we have solved for the global registration between the WSI image and the
+stage (via the camera image), we have to register the camera image and the
+eyepiece. This is an interactive process with the study administrator. While
+looking through the microscope, the study administrator navigates the stage so
+that a reticle mark lands at a precise location. After clicking on the GUI to
+record that location, the study administrator navigates the stage so that the
+virtual reticle mark superimposed on the camera image lands on the same
+precise location and clicks on the GUI to record that location. The difference
+in the two positions determines the shift needed to register the eyepiece view
+and the camera view.
 
 \begin{figure}[ptbh]
 \label{fig_full-eeDAPregistration}
-\includegraphics[width=6.50000in]{C:/000_github/000_EEDAP/MDDT/figures/full-eeDAPregistration.pdf}
-\caption{Screen shot of the image registration GUI, including the window
-showng the camera image.}%
+\includegraphics[width=6.50000in]{C:/000_github/eedap.gh-pages.docs/MDDT/figures/full-eeDAPregistration.pdf}\caption{Screen
+shot of the image registration GUI, including the window showng the camera
+image.}%
 \end{figure}
 
 The \textbf{data collection} GUI is the same for digital and microscope modes.
@@ -185,15 +208,27 @@ In microscope mode, a study administrator sits at the computer and interacts
 with the data collection GUI. Meanwhile, the pathologist is engaged with the
 microscope. The pathologist speaks his or her responses for the study
 administrator to enter into the GUI. The study administrator also has the
-responsibility of verifying that the microscope is accurately registered. If
-it is not, there are buttons to perform an automated local registration of the
-current FOV.
+responsibility of verifying that the microscope is accurately registered.
+
+Figure~\ref{fig_full-eeDAPdataCollectionGUI} shows the data collection GUI
+with the WSI patch and the corresponding camera image. In both of these images
+are virtual reticle marks, though they are difficult to see in the figure. The
+study administrator verifies accurate registration by comparing the images and
+the virtual reticle marks. If registration is not accurate, there are buttons
+to perform an automated local registration of the current FOV. Finally, the
+FOV that the pathologist sees in the microscope is round and it is larger than
+what they see on the GUI, but they are supposed to be the same. The mismatch
+comes from a slight misuse the term FOV. We should really say that eeDAP
+allows for pathologists to evaluate the exact same \emph{study} FOVs in both
+modalities. A study FOV\ is based on the reticle.
 
 \begin{figure}[ptbh]
 \label{fig_full-eeDAPdataCollectionGUI}
-\includegraphics[width=6.50000in]{C:/000_github/000_EEDAP/MDDT/figures/full-eeDAPdataCollectionGUI.pdf}
-\caption{Screenshot of eeDAP data collection GUI with camera image of
-microscope view to verify accurate registration.}%
+\includegraphics[width=6.50000in]{C:/000_github/eedap.gh-pages.docs/MDDT/figures/full-eeDAPdataCollectionGUI.pdf}\caption{Screenshot
+of eeDAP data collection GUI with camera image of microscope view. In both of
+these images are virtual reticle marks, though they are difficult to see in
+the figure. The reticle marks help verify registration and to define a study
+FOV.}%
 \end{figure}
 
 For the cameras and stages tested, we are able to repeatably and reliably
@@ -204,23 +239,31 @@ evaluate the same FOVs in both modes.
 
 \label{context-of-use}
 
+\subsection{COU Statement}
+
+eeDAP is a Clinical Outcome Assessment used in reader studies for whole slide
+imaging premarket submissions (PMA or 510k deNovo) to compare the accuracy or
+reproducibility of pathologist evaluations of digital images on a display to
+those of glass slides on a microscope. The pathologist evaluations of patient
+tissue are the clinical outcomes. The accuracy or reproducibility is the
+clinical outcome assessment that reflects image quality.
+
 \subsection{The device or product area for which the MDDT is to be qualified.}
 
 \label{the-device-or-product-area-for-which-the-mddt-is-to-be-qualified.}
 
-eeDAP is to be qualified for the evaluation of whole slide imaging systems
-(WSI systems) , also known as virtual microscopy systems, which can digitize
-whole slides at microscopic resolution in a short period of time
-\cite{Rojo2006_Int-J-Surg-Pathol_v14p285}. WSI systems are part of the vision
-for digital pathology (DP). DP incorporates the acquisition, management, and
-interpretation of pathology information, including WSIs. The imaging chain of
-a WSI system consists of multiple components including the light source,
-optics, motorized stage, and a sensor for image acquisition. WSI systems also
-have embedded software for identifying tissue on the slide, auto-focusing,
-selecting and combining different fields of view (FOVs) in a composite image,
-and image processing (color management, image compression, etc.). Details
-regarding the components of WSI systems can be found in a paper by Gu and
-Ogilvie \cite{Gu2005_book}.
+eeDAP is to be qualified for the evaluation of WSI systems, also known as
+virtual microscopy systems, which can digitize whole slides at microscopic
+resolution in a short period of time \cite{Rojo2006_Int-J-Surg-Pathol_v14p285}%
+. WSI systems are part of the vision for digital pathology (DP). DP
+incorporates the acquisition, management, and interpretation of pathology
+information, including WSIs. The imaging chain of a WSI system consists of
+multiple components including the light source, optics, motorized stage, and a
+sensor for image acquisition. WSI systems also have embedded software for
+identifying tissue on the slide, auto-focusing, selecting and combining
+different fields of view (FOVs) in a composite image, and image processing
+(color management, image compression, etc.). Details regarding the components
+of WSI systems can be found in a paper by Gu and Ogilvie \cite{Gu2005_book}.
 
 The potential public impact of WSI systems are well documented and include
 telepathology, digital consultation and slide sharing, pathology education,
@@ -228,9 +271,9 @@ indexing and retrieval of cases, and the use of automated image analysis
 \cite{Pantanowitz2011_J-Pathol-Inform_v2p36,
 Weinstein2009_Hum-Pathol_v40p1057, Al-Janabi2012_Histopathology_v61p1}.
 
-In addition to WSI systems, eeDAP is to be qualified for the evaluation of WSI
-image analysis tools and CAD algorithms (computer aided diagnosis, detection,
-prognosis, etc.). Examples of such tools include:
+In addition to WSI systems, eeDAP could be used in the development and
+evaluation of WSI image analysis tools and CAD algorithms (computer aided
+diagnosis, detection, prognosis, etc.). Examples of such tools include:
 
 \begin{itemize}
 \item Color standardization/normalization
@@ -246,11 +289,11 @@ prognosis, etc.). Examples of such tools include:
 \item Diagnosis and prognosis, subtyping, and staging of cancer and non-cancer diseases
 \end{itemize}
 
-\subsection{The stage(s) of device development (e.g., early feasibility study,
-pivotal study, etc.)}
-
-\label{the-stages-of-device-development-e.g.-early-feasibility-study-pivotal-study-etc.}%
-
+We do not plan to qualify eeDAP for the development of WSI systems or the
+development and evaluation of these adjunct products in this proposal in order
+to keep the COU focused. However, if eeDAP is qualified for the evaluation of
+WSI systems, it should also have value for the additional uses. A future MDDT
+proposal can consider expanding the COU if needed.
 
 The stage of WSI development is advanced. WSI devices have received approval
 elsewhere in the world (references? European Union, UK and Ireland, and
@@ -272,6 +315,31 @@ annotations + outcomes). Consequently, it is expected that the pace of image
 analysis development will increase and more applications will be ready for
 clinical use in the near future.
 
+\subsection{The stage(s) of device development (e.g., early feasibility study,
+pivotal study, etc.) the MDDT will support}
+
+\label{the-stages-of-device-development-e.g.-early-feasibility-study-pivotal-study-etc.}%
+
+
+eeDAP is to be qualified to provide data for the analytic validation of a WSI
+system as is expected in a premarket submission. The specific regulatory path
+has not been established yet, but it is likely PMA or 510k deNovo. For
+analytic validation, the manufacturer must demonstrate that the WSI system
+creates digital images accurately and reliably for interpretation in the hands
+of the pathologist. Analytic validation complements the clinical performance
+studies and the technical performance assessment
+\cite{FDA2016_Guidance-DigiPathTechnical}: the technical performance of the
+WSI system and the components in the imaging chain, from image acquisition to
+image display. As the WSI technology matures, analytic validation has the
+potential to play a larger role in the approval process. Specifically, it is
+possible that analytic performance could be shown to be effective surrogate
+for clinical performance. If true, analytic performance could support the
+approval or clearance of WSI devices with a clinical study. Furthermore, it is
+possible that technical performance could predict analytic performance in the
+future as we understand both better. If true, technical performance could
+ultimately support the approval or clearance of WSI devices without analytic
+or clinical studies.
+
 \subsection{The specific role of the MDDT (for clinical uses this includes the
 study population or disease characteristics, as well as specific use --
 diagnosis, patient selection, clinical endpoints).}
@@ -279,13 +347,39 @@ diagnosis, patient selection, clinical endpoints).}
 \label{the-specific-role-of-the-mddt-for-clinical-uses-this-includes-the-study-population-or-disease-characteristics-as-well-as-specific-use-diagnosis-patient-selection-clinical-endpoints.}%
 
 
-The main role of eeDAP is to collect task-based evaluations of tissue features
-and cell features digitally and on the microscope. These task-based
-evaluations yield a performance result for pathologists using the WSI and
-using the microscope (a reference method). The comparison of these performance
-results can provide evidence to the effectiveness of a WSI system for
-regulatory approvals and clearances. Likewise, task-based evaluations can be
-used to provide evidence of effectiveness of image analysis tools and CADs.
+The rold of eeDAP is to be a platform for the design and execution of studies
+of pathologists performing task-based evaluations of tissue and cell features
+that are critical to diagnosis or differential diagnosis of disease. Such
+studies characterize image quality and the accuracy and reliability of the
+digital WSI images in the hands of the pathologist. When there is a reference
+(truth) result for the task, the endpoints of these studies characterize
+pathologist accuracy. When a reference result is not available (too burdensome
+or destroys the tissue), the endpoints of these studies measure the precision
+or reproducibility of pathologist evaluations: reader agreement from a single
+scan can provide a measure of\ precision, and reader agreement across multiple
+scans on the same or different WSI scanners can provide measures of
+reproducibility. Bias, correlation (or concordance), and percent agreement are
+typical agreement measures that can be used.
+
+It is not always clear what level of accuracy and reproducibility is
+\textquotedblleft good enough\textquotedblright\ for the analytic validation.
+This is why it is extremely useful to compare the accuracy and reproducibility
+of WSI evaluations to those from the glass slide on the microscope. This
+comparison controls for task difficulty and case selection. eeDAP allows for
+such a comparison, and it does so in a way that tightly reduces pathologist
+variability and correlates the results across the modalities (WSI and
+microscope), making for an efficient study in statistical and practical terms.
+Pathologist variability is reduced because all the pathologists evaluate the
+same FOVs. The results across the modalities are correlated because the
+pathologists are evaluating the same FOVs \emph{in both modalities}. Reducing
+pathologist variability clearly improves statistical precision, and better
+precision allows studies with fewer resources. Regarding correlations,
+consider the following property of variances:\ $\operatorname{var}\left(
+A-B\right)  =\operatorname{var}\left(  A\right)  +\operatorname{var}\left(
+B\right)  -2\times\rho\sqrt{\operatorname{var}\left(  A\right)
+\operatorname{var}\left(  B\right)  }.$ Here we see that as the correlation
+$\rho$ increases, the variance of the difference decreases, improving
+statistical precision and allowing smaller studies.
 
 \section{Advantages of eeDAP}
 
@@ -309,40 +403,45 @@ improved because pathologists are basing their evaluations on the same tissue.
 
 Regarding precision and reproducibility, current practices lead to extremely
 noisy data. Specifically, let's consider the clinical protocol for mitotic
-counting as recommended by Smedly et al. (Reference
-Smedley2011\_Vet-Pathol\_v48p32). The mitotic index, ``should be determined by
-counting the number of mitotic figures in 10 consecutive hpf {[}sic.
-high-powered FOVs{]} commencing in the area of highest mitotic activity for
-oral and lip neoplasms and in random fields for cutaneous neoplasms.'' This
-protocol was followed in a study by collaborators at the NIH (Mark Simpson
-PI). As part of the study, the pathologists saved annotations of the FOVs that
-they used while evaluating the WSI. Figure 4 shows FOVs selected by different
-pathologists. There is very little overlap in the FOVs; pathologists are
-counting different mitotic figures from different tissue. Figure 5 shows the
-within-reader correlation of counts made using the microscope compared to the
-counts made using the WSI. Each point shows the counts from the same reader
-evaluating the same case in the two modes, and each count is the sum of 10
-FOVs. It is clear that this data yields a lot of variability. We expect to
-show that eeDAP will significantly reduce this variability by forcing
-pathologists to count mitotic figures in the same tissue.
+counting as recommended by Smedly et al. \cite{Smedley2011_Vet-Pathol_v48p32}.
+The mitotic index, \textquotedblleft should be determined by counting the
+number of mitotic figures in 10 consecutive hpf {[}sic. high-powered FOVs{]}
+commencing in the area of highest mitotic activity for oral and lip neoplasms
+and in random fields for cutaneous neoplasms.\textquotedblright\ This protocol
+was followed in a study by collaborators at the NIH (Mark Simpson PI). As part
+of the study, the pathologists saved annotations of the FOVs that they used
+while evaluating the WSI. Figure~\ref{fig_full-MCSpathologistFOVs} shows FOVs
+selected by different pathologists. There is very little overlap in the FOVs;
+pathologists are counting different mitotic figures from different tissue.
+Figure \ref{fig_full-MCSscatterPlot} shows the within-reader correlation of
+counts made using the microscope compared to the counts made using the WSI.
+Each point shows the counts from the same reader evaluating the same case in
+the two modes, and each count is the sum of 10 FOVs. It is clear that this
+data yields a lot of variability. The highlighted points show some extreme
+differences, and the highlighted band qualitatively identifies the variation
+in counts from H\&E 40X WSI images when 10 counts are observed on the
+microscope.We expect to show that eeDAP will significantly reduce this
+variability by forcing pathologists to count mitotic figures in the same tissue.
 
 \begin{figure}[ptbh]
 \label{fig_full-MCSpathologistFOVs}
-\includegraphics[width=6.50000in]{C:/000_github/000_EEDAP/MDDT/figures/full-MCSpathologistFOVs.pdf}
-\caption{These two images show 10 FOVs selected by different readers while
-performing a mitotic counting task. The top image corresponds to counts taken
-at 20x and the bottom image corresponds to counts taken at 40x.}%
+\includegraphics[width=6.50000in]{C:/000_github/eedap.gh-pages.docs/MDDT/figures/full-MCSpathologistFOVs.pdf}\caption{These
+two images show 10 FOVs selected by different readers while performing a
+mitotic counting task. The top image corresponds to counts taken at 20x and
+the bottom image corresponds to counts taken at 40x.}%
 \end{figure}
 
 \begin{figure}[ptbh]
 \label{fig_full-MCSscatterPlot}
-\includegraphics[width=6.50000in]{C:/000_github/000_EEDAP/MDDT/figures/full-MCSscatterPlot.pdf}
-\caption{This figure shows the within-reader correlation of counts of mitotic
-figures made on the microscope and made on the WSI. Each point shows the
-counts from the same reader evaluating the same case on the two modalities.
-Each count is the sum of 10 FOVs, following the clinical protocol. Note that
-this plot is a log-log plot, and the subsequent coefficient of variation is
-very large.}%
+\includegraphics[width=6.50000in]{C:/000_github/eedap.gh-pages.docs/MDDT/figures/full-MCSscatterPlot.pdf}\caption{This
+figure shows the within-reader correlation of counts of mitotic figures made
+on the microscope and made on the WSI. Each point shows the counts from the
+same reader evaluating the same case on the two modalities. Each count is the
+sum of 10 FOVs, following the clinical protocol. Note that this plot is a
+log-log plot, and the subsequent coefficient of variation is very large. The
+highlighted points show some extreme differences, and the highlighted band
+qualitatively identifies the variation in counts from H\&E 40X WSI images when
+10 counts are observed on the microscope.}%
 \end{figure}
 
 \section{Disadvantages of eeDAP}
@@ -443,25 +542,34 @@ system than on the baseline system.
 For the evidence of technical validity we plan to design a study to
 characterize the accuracy of the image registration process and the color
 fidelity. For the color fidelity evaluation, we plan to follow the methods
-outlined previously (Reference Gallas2014\_J-Med-Img\_v1p037501).
+outlined previously \cite{Gallas2014_J-Med-Img_v1p037501}.
 
 \section{Consent to Public Disclosure and Use}
 
 \label{consent-to-public-disclosure-and-use}
 
-The compiled eeDAP software and all source code are shared on Github with HTML
-and PDF versions of user manuals. The only prerequisite software for compiled
-eeDAP software is the MATLAB runtime compiler (Reference MatlabRuntime2016),
-which is free to download and use. These guarantee (1) FDA can make public
-sufficient information to support use of the qualified eeDAP and (2) the
-general public can use the eeDAP and rely on data generated using eeDAP in
-gaining FDA clearance or approval of other devices.
+We hereby authorize FDA to make public sufficient information to support use
+of the qualified MDDT and for the general public to use and rely on data
+generated using the MDDT in gaining FDA clearance or approval of other devices.
 
-\section{References}
+In fact, we are publicly sharing the submission process (documents and drafts,
+and communications with CDRH program staff) with the WSI working group at
+their NCIPhub group page
+%TCIMACRO{\TeXButton{https://nciphub.org/groups/wsi_working_group}%
+%{\url{https://nciphub.org/groups/wsi_working_group}}}%
+%BeginExpansion
+\url{https://nciphub.org/groups/wsi_working_group}%
+%EndExpansion
+. The group page is open to the public and membership is open to anyone that
+requests it. Additionally, the compiled eeDAP software and all source code are
+shared on Github with HTML and PDF versions of user manuals
+\cite{Gallas2016_eeDAP_v4p0}. The only prerequisite software for the compiled
+eeDAP software is the MATLAB runtime compiler \cite{MatlabRuntime2016}, which
+is free to download and use.
 
 \label{references}
 
-\bibliographystyle{PLAIN}
+\bibliographystyle{plainnat}
 \bibliography{master}
 
 
