@@ -8,6 +8,11 @@
 
 #### Other Resources and References
 
+* Gallas, B. D. (2016), <br>
+"Mitotic Counting Reproducibility/Feature Study with Pathologists."
+Evolution and Revolution in Anatomic Pathology: Automation, Machine-Assisted Diagnostics, Molecular Prognostics & Theranostics, The Banbury Center, Cold Spring Harbor Laboratory. <br>
+<a href=https://github.com/DIDSR/eeDAP/blob/master/000_docs/20161205CSHL-readerStudies.pdf>Click to download the presentation.</a> <br>
+
 * Gallas, B. D.; Halsey, C. & Simpson, R. M. (2016), <br>
 'Mitotic Counting Reproducibility/Feature Study With Pathologists', <br>
 Pathology Informatics Summit, Pittsburgh, PA, Presentation, DIAM-0825. <br>
