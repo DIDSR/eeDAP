@@ -3,13 +3,13 @@ title: "STARD Checklist"
 author: "Brandon D. Gallas"
 date: '`r format(Sys.time(), "%d %B %Y")`'
 output:
-  html_document:
+  word_document:
     toc: yes
     toc_depth: '2'
   pdf_document:
     toc: yes
     toc_depth: 2
-  word_document:
+  html_document:
     toc: yes
     toc_depth: '2'
 bibliography: C:\000_github\gallasRepo\trunk\administrata\localtexmf\bibtex\BIB\master.bib
@@ -29,18 +29,33 @@ TBD
 
 ## Research questions or aims
 
-2. State the research questions or aims, such as estimating diagnostic accuracy or comparing accuracy between tests or across participant groups
+*2. State the research questions or aims, such as estimating diagnostic accuracy or comparing accuracy between tests or across participant groups*
 
-The aims of this study are to compare mitotic counts from pathologist made on specific fields of view (FOVs) using whole slide images and glass slides. We will evaluate three agreement metrics
- * Rank-based concordance (analogous to correlation)
- * Differences between counts (mean or median)
- * Distribution of differences (variance or confidence interval)
+The aims of this study are to characterize the precision of mitotic counting from pathologists evaluating pre-specified fields of view (FOVs) on whole slide images (WSIs) and the corresponding FOVs on the microscope. We will compare the precision of these counts (and their differences) to the precision when the FOVs are not pre-specified, when the pathologists select their own FOVs. We believe that pre-specifying FOVs will lead to more precise measurements and comparisons of WSI and microscope evaluations. The results from this study will support the qualification of eeDAP [Gallas2014_J-Med-Img_v1p037501] as a Medical Device Development Tool.
+
+Delete the following.
+
+We will characterize precision with three agreement metrics
+
+ * C = Rank-based concordance (analogous to correlation)
+ * b = Mean differences in log-transformed counts+1
+ * LA = The limits of agreement of differences in log-transformed counts+1
  
-For each of these metrics, we will examine the four combinations of the following:
- * within and between readers
- * within and between modalities (WSI vs. microscope)
+For each of the three metrics, we will investigate three kinds of agreement for each pair of readers:
 
-For each of our summary metrics, we will examine and account for both reader and case variability.
+ * The two readers are different and they both use the microscope.
+     * *Between readers, within the microscope.*
+ * The two readers are different and they both use WSI.
+     * *Between readers, within WSI*
+ * The two readers are different. One uses WSI and the other uses the microscope.
+     * *Between readers, between modalities*
+
+We specify the microscope evaluations as the reference method such that agreement between readers and within the microscope is the baseline for the other two kinds of agreement:
+
+ * Within WSI agreement vs. Within microscope agreement
+ * Between modality agreement vs. Within microscope agreement
+
+For each kind of between-reader agreement, we will calculate it for each pair of readers and then average over all pairs. We will calculate the standard errors of the averages accounting for reader and case variability [@Gallas2016_Proc-SPIE_v9787p0F], https://github.com/DIDSR/eeDAP/blob/master/000_docs/Gallas2016_Proc-SPIE_v9787p0F.pdf.
 
 # METHODS: Participants {.tabset}
 
@@ -77,69 +92,110 @@ There is no reference standard for mitotic counting.
 
 The pathologists will use eeDAP for data collection (evaluation environment for digital and analog pathology). eeDAP is a software and hardware platform for designing and executing digital and analog pathology studies where evaluation FOVs in the digital image are registered to the real-time view on the microscope [@Gallas2014_J-Med-Img_v1p037501]. As such, a study can be designed where pathologists are asked to evaluate a pre-selected list of evaluation FOVs in Digital mode and Microscope real-time mode (MicroRT mode). eeDAP collects the pathologist evaluations while cycling through the list of FOVs.
 
+Details on the equipment we will use will be added later.
+
+The locations where pathologists will evaluate the WSI images and glass slides has not yet been fully determined. However, we plan to collect some data at the Pathology Informatics Summit, the National Cancer Institute, and the Memorial Sloan Kettering Cancer Center.
+
+The data to be collected are counts per evaluation area.
+ 
 We will recruit 12 pathologists and will collect the counts from at least 4 readers per FOV. If readers evaluate the same case in both modes, there will be at least 10 days in between to eliminate image recall. Each reader will evaluate their case load independently. Each reader will only be given images and slides; they will not be given any other clinical information. Each reader will be given moderate training for indentifying mitoses.
 
 # METHODS: Statistical Methods
 
 *12. Describe methods for calculating or comparing methods of diagnostic accuracy and the statistical methods used to quantify uncertainty (e.g. 95% CI)*
 
-## Rank-based concordance
-Rank-based concordance is a measure of ordinal prediction. It is very similar to correlation, but less subject to the scale of the measurements. It is a probability based on the scores (counts) from two readers evaluating the same cases [@Kim1971_Am-J-Sociol_v76p891]. It is best understood as the average of basic observational outcomes defined as follows.
+*13. Describe methods for calculating test reproducibility, if done.*
 
-Consider the scores from the two readers ("A" and "B") on a pair of cases ("1", "2"). There are five possible rank-based outcomes:
+In the following, we consider different agreement metrics and different kinds of agreement. We will refer to scores from two readers ("reader.A" and "reader.B") each evaluating the same case or pair of cases ("case.1", "case.2"). For each kind of agreement, we must specify if the readers are different or the same (between-reader or within-reader agreement) **AND** if reader.A and reader.B read with different modalities or the same modality (between-modality or within-modality agreement). For the situation where we have two modalities (WSI vs. microscope), we have five kinds of agreements possible:
+
+ agreement.1) One reader reads with the microscope twice.
+     * *Within-reader, within microscope*
+ agreement.2) One reader reads with WSI twice.
+     * *Within-reader, within WSI*
+ agreement.3) One reader reads using both WSI and the microscope.
+     * *Within-reader, between modalities*
+ agreement.4) The two readers are different and they both use the microscope.
+     * *Between-readers, within the microscope.*
+ agreement.5) The two readers are different and they both use WSI.
+     * *Between-readers, within WSI*
+ agreement.6) The two readers are different. One uses WSI and the other uses the microscope.
+     * *Between-readers, between modalities*
+
+It is worth mentioning that if the goal is to measure one of the three within-reader agreements, each reader will have to evaluate the same cases twice. Best practices then require separate sessions with washout between them to mitigate against correlations between the evaluations that arise from memory. Therefore, if we want to evaluate all six kinds of agreement for every reader, it takes four reading sessions (two in each modality). This might be practially burdensome. Instead, we will only plan to evaluate the three between-reader kinds of agreement; this plan only requires one reading session per reader. If we are able to schedule two sessions for a reader, we can also evaluate within-reader, between-modality agreement.
+
+There is a hierarchy in the kinds of agreement, and they are listed accordingly. Assuming that the microscope evaluation is the reference, within-reader and within-microscope agreement (agreement.1) is a baseline for all others. Additionally, the within-reader kinds of agreement (agreement.1, 2, and 3) are baselines for the corresponding between-reader kinds agreement (agreement.4, 5, and 6). Finally, between-reader agreement within the microscope (agreement.4) is a baseline for the other two between-reader kinds of agreement (agreement.5, agreement.6).
+
+We are not yet ready to fully specify the study design, including the size. However, we plan to include multiple readers. We hope to have each reader read in both modalities, but in order to recruit more readers, we may not make this a requirement. In the previous study (mcsStudy1), we found that the agreement between readers and between modalities was the same as the agreement within readers and between modalities. So there might not be a statistical benefit to using the same readers in both modalities. Therefore, the primary endpoints of the study will be the between-reader kinds of agreement. We will make the following comparisons:
+
+ * Within WSI agreement (agreement.5) vs. Within microscope agreement (agreement.4)
+ * Between modality agreement (agreement.6) vs. Within microscope agreement (agreement.4)
+
+For each kind of between-reader agreement, we will calculate it for each pair of readers and then average over all pairs. We will calculate the standard errors of the averages accounting for reader and case variability [@Gallas2016_Proc-SPIE_v9787p0F], https://github.com/DIDSR/eeDAP/blob/master/000_docs/Gallas2016_Proc-SPIE_v9787p0F.pdf
+
+## Rank-based concordance
+Rank-based concordance is a measure of ordinal prediction. It is very similar to Spearman's rank-based correlation in what it measures. The two measures are highly correlated with each other, but the two measures are not calculated the same way.
+
+Rank-based concordance is a probability based on the scores (counts) from two readers evaluating the same cases [@Kim1971_Am-J-Sociol_v76p891]. It is best understood as the average of basic observational outcomes defined as follows.
+
+There are five possible rank-based outcomes:
+
  1) **Concordance**: Both readers score the same case higher than the other case.
- 2) **Discordance**:The readers score the cases in the opposite order.
+ 2) **Discordance**: The readers score the cases in the opposite order.
  3) **Tie in A only**: Reader A gives both cases the same score. Reader B gives the cases different scores.
  4) **Tie in B only**: Reader B gives both cases the same score. Reader A gives the cases different scores.
  5) **TIe in both A and B**: Reader A gives both cases the same score and so does reader B.
 
-So the rank-based concordance is the average over all pairs of cases that are concordant. There is a similar probability for discordance and the three different kinds of ties. As a probability, the rank-based concordance ranges from zero to one. If there are no ties, then 1.0 indicates a perfect ordinal relationship between the two readers, 0.5 indicates there is no relationship between the two readers, and 0.0 indicates a perfectly awful relationship between the two readers. If there are ties, then concordance can only be as good as one minus the probability of ties.
+So the rank-based concordance is the average over all pairs of cases that are concordant. If the two readers evaluate N cases, there are N(N-1)/2 unique pairs of cases.
 
-## Differences between counts (mean or median)
-The difference between counts is not complicated. It compliments concordance and correlation by characterizing the interchangeability of the scores from the two readers on the common scale.
+There is a similar probability for discordance and the three different kinds of ties. As a probability, the rank-based concordance ranges from zero to one. If there are no ties, then 1.0 indicates a perfect ordinal relationship between the two readers, 0.5 indicates there is no relationship between the two readers, and 0.0 indicates a perfectly awful relationship between the two readers. If there are ties, then concordance can only be as good as one minus the probability of ties. Concordance can be put on the same scale as correlation (2 x Concordance - 1), however this result is not equal to Spearman's rank-based correlation.
 
- * Distribution of differences (variance or confidence interval)
- 
-For each of these metrics, we will examine the four combinations of the following:
- * within and between readers
- * within and between modalities (WSI vs. microscope)
+## Differences between log-transformed counts: Mean and variance
 
-For each of our summary metrics, we will examine and account for both reader and case variability.
+The difference between counts for the same case is not a complicated quantity. However, it compliments concordance (or correlation) by characterizing the interchangeability of two sets of scores, which assumes they are given on a common scale. Our experience from mcsStudy1 leads us to believe that the WSI mode yields more counts. Therefore, calibration may be needed to equate counts from WSI and counts from the microscope.
 
+Our experience from mcsStudy1 also taught us that the variability of the differences between counts appears to be proportional to the mean. This is common for measurements, especially counts. Consequently, instead of differences between counts, we consider differences in the logarithms of the counts+1. We add one to the counts because the log of zero is undefined. Furthermore, since the difference log(x1) - log(x2) equals log(x1/x2), the difference plot is essentially showing the ratio between the scores, not a terribly complicated quantity.
 
-## 13. Describe methods for calculating test reproducibility, if done.
+Lastly, the distribution of the differences of the log-transformed counts+1 appeared to roughly follow a normal distribution. As such, these differences can be characterized by their mean and variance, or following Bland and Altman [@Bland1986_Lancet_v1p307], the mean and the limits of agreement (LA = 2 x standard deviation). We can invert the log to describe the mean and variance in terms of the ratio of the counts. Until we include some results from mcsStudy1, please refer to Fig 2 of Veta et al. to see Bland-Altman plots of the logarithm of mitotic count data [@Veta2016_PloS-One_v11pe0161286].
+
+Delete the following.
+
+Following CLSI guidance [@CLSI2013_EP09-A3], we first review the data visually with scatter plots and difference plots. A scatter plot presents the scores from reader.A on the x-axis paired with the scores from reader.B on the y-axis. A difference plot presents the difference between the scores from reader.A and reader.B for each case on the y-axis. A Bland-Altman plot is an example of a difference plot [@Bland1986_Lancet_v1p307, @Bland2012_Anesthesiology_v116p182], where the x-axis is the average between the two scores. The x-axis for a difference plot could be some other reference value for each case. In addition to the basic difference plot, we may also plot the percent difference (the difference divided by the mean), or we may first take the logarithm of the data and then produce the difference plot.
+
+The purpose of the visual review is to determine if the variability of the differences between the scores is independent of the reference or if it depends on the reference. If the variability is independent of the differences, the distribution of differences will appear "evenly" spread in y as a function of x. The typical alternative is that the variability of the differences is proportional to the reference. In this case, the spread in y grows as a function of x in the basic difference plot, while the percent differences of the differences of the logarithms appear "evenly" spread in y as a function of x.
+
+In the previous study (mcsStudy1) we found that the spread in y grows as a function of x in the basic difference plot, while the percent differences and the differences of the logarithms appear evenly spread in y as a function of x. This is very common for count data.
 
 # RESULTS: Participants
 
-## 14. Report when study was done, including beginning and ending dates of recruitment
+*14. Report when study was done, including beginning and ending dates of recruitment*
 
-## 15. Report clinical and demographic characteristics of the study population (e.g. age, sex, spectrum of presenting symptoms, co morbidity, current treatments, recruitment centres)
+*15. Report clinical and demographic characteristics of the study population (e.g. age, sex, spectrum of presenting symptoms, co morbidity, current treatments, recruitment centres)*
 
-## 16. Report the number of participants satisfying the criteria for inclusion that did or did not undergo the index tests and/or the reference standard; describe why participants failed to receive either test.
+*16. Report the number of participants satisfying the criteria for inclusion that did or did not undergo the index tests and/or the reference standard; describe why participants failed to receive either test.*
 
 # RESULTS: Test Results
 
-## 17. Report time interval from the index tests to the reference standard, and any treatment administered between.
+*17. Report time interval from the index tests to the reference standard, and any treatment administered between.*
 
-## 18. Report distribution of severity of disease (define criteria) in those with the target condition; other diagnoses in participants without the target condition.
+*18. Report distribution of severity of disease (define criteria) in those with the target condition; other diagnoses in participants without the target condition.*
 
-## 19. Report a cross tabulation of the results of the index tests (including indeterminate and missing results) by the results of the reference standard; for continuous results, the distribution of the test results by the results of the reference standard.
+*19. Report a cross tabulation of the results of the index tests (including indeterminate and missing results) by the results of the reference standard; for continuous results, the distribution of the test results by the results of the reference standard.*
 
-## 20. Report any adverse events form performing the index tests or the reference standard.
+*20. Report any adverse events form performing the index tests or the reference standard.*
 
 # RESULTS: Estimates
 
-## 21. Report estimates of diagnostic accuracy and measures of statistical uncertainty (e.g. 95% CI)
+*21. Report estimates of diagnostic accuracy and measures of statistical uncertainty (e.g. 95% CI)*
 
-## 22. Report how indeterminate results, missing responses and outliers of the index tests were handled.
+*22. Report how indeterminate results, missing responses and outliers of the index tests were handled.*
 
-## 23. Report estimates of variability of diagnostic accuracy between subgroups of participants, readers or centres, if done.
+*23. Report estimates of variability of diagnostic accuracy between subgroups of participants, readers or centres, if done.*
 
-## 24. Report estimates of test reproducibility, if done.
+*24. Report estimates of test reproducibility, if done.*
 
 # DISCUSSION
 
-## 25. Discuss the clinical applicability of the study findings.
+*25. Discuss the clinical applicability of the study findings.*
 
 
 
