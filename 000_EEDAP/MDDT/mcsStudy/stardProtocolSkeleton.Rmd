@@ -1,0 +1,145 @@
+---
+title: "STARD Checklist"
+author: "Brandon D. Gallas"
+date: '`r format(Sys.time(), "%d %B %Y")`'
+output:
+  html_document:
+    toc: yes
+    toc_depth: '2'
+  pdf_document:
+    toc: yes
+    toc_depth: 2
+  word_document:
+    toc: yes
+    toc_depth: '2'
+bibliography: C:\000_github\gallasRepo\trunk\administrata\localtexmf\bibtex\BIB\master.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# TITLE, ABSTRACT, AND KEYWORDS
+
+*1. Identify the article as a study of diagnostic accuracy (recommend MeSH heading “ sensitivity and specificity”)*
+
+TBD
+
+# INTRODUCTION
+
+## Research questions or aims
+
+2. State the research questions or aims, such as estimating diagnostic accuracy or comparing accuracy between tests or across participant groups
+
+The aims of this study are to compare mitotic counts from pathologist made on specific fields of view (FOVs) using whole slide images and glass slides. We will evaluate three agreement metrics
+ * Rank-based concordance (analogous to correlation)
+ * Differences between counts (mean or median)
+ * Distribution of differences (variance or confidence interval)
+ 
+For each of these metrics, we will examine the four combinations of the following:
+ * within and between readers
+ * within and between modalities (WSI vs. microscope)
+
+For each of our summary metrics, we will examine and account for both reader and case variability.
+
+# METHODS: Participants {.tabset}
+
+## Study Population
+*3. Describe the study population: the inclusion and exclusion criteria and the settings and locations where the data were collected.*
+
+*4. Describe participant recruitment: was this based on presenting symptoms, results from previous tests, or the fact that the participants had received the index tests or the reference standard?*
+
+*5. Describe participant sampling: was this a consecutive series of participants defined by selection criteria in items 3 and 4? If not, specify how participants were further selected.*
+
+*6. Describe data collection: was data collection planned before the index tests and reference standard were performed (prospective study) or after (retrospective study)?*
+
+We will select 4 slides that have been evaluated during a previous mitotic counting study (mcsStudy1). The (H&E) slides contain specimens from patients (dogs) diagnosed with canine oral melanoma. The 4 slides will be selected based on the reader-average counts from mcsStudy1. We will select slides where the reader-average count ranged from just a few to many mitotic counts.
+
+The protocol for mcsStudy1 followed clinical practice: the pathologists were asked to count the number of mitoses in 10 consecutive non-overlapping high-powered fields (HPF) starting in an area of high mitotic activity [@Smedley2011_Vet-Pathol_v48p54]. In mcsStudy1, the counts were collected using WSI images and glass slides. In the digital mode, the evaluation FOVs of each pathologist were recorded. This data will guide us in selecting 40 FOVs per slide that are appropriate for counting mitotic figures.
+
+The FOVs that we will use in our study will be 200 um x 200 um, which is equivalent to 800 x 800 pixels of a WSI with a scanning resolution of 0.25 um/pixel. This size was selected to fit within most digital displays without panning or zooming.
+
+While extracting or outlining the FOVs digitally is not challenging, we need to use a reticle in the microscope eyepiece to ouline the evaluation area for that mode.
+
+# METHODS: Test Methods {.tabset}
+
+*7. Describe the reference standards and its rationale.*
+
+*8. Describe technical specifications of material and methods involved, including how and when measurements were taken, or cite references for a) index test or b) reference test*
+
+*9. Describe definition of and rationale for the units, cut-off points, or categories of the results of the a) index test and b) reference standard.*
+
+*10. Describe the number, training and expertise of the persons executing and reading the a) index tests and b) reference standards.*
+
+*11. Were the readers of the a) index test and b) reference standards blind (masked) to the results of the other test? Describe any other clinical information available to the readers.*
+
+There is no reference standard for mitotic counting.
+
+The pathologists will use eeDAP for data collection (evaluation environment for digital and analog pathology). eeDAP is a software and hardware platform for designing and executing digital and analog pathology studies where evaluation FOVs in the digital image are registered to the real-time view on the microscope [@Gallas2014_J-Med-Img_v1p037501]. As such, a study can be designed where pathologists are asked to evaluate a pre-selected list of evaluation FOVs in Digital mode and Microscope real-time mode (MicroRT mode). eeDAP collects the pathologist evaluations while cycling through the list of FOVs.
+
+We will recruit 12 pathologists and will collect the counts from at least 4 readers per FOV. If readers evaluate the same case in both modes, there will be at least 10 days in between to eliminate image recall. Each reader will evaluate their case load independently. Each reader will only be given images and slides; they will not be given any other clinical information. Each reader will be given moderate training for indentifying mitoses.
+
+# METHODS: Statistical Methods
+
+*12. Describe methods for calculating or comparing methods of diagnostic accuracy and the statistical methods used to quantify uncertainty (e.g. 95% CI)*
+
+## Rank-based concordance
+Rank-based concordance is a measure of ordinal prediction. It is very similar to correlation, but less subject to the scale of the measurements. It is a probability based on the scores (counts) from two readers evaluating the same cases [@Kim1971_Am-J-Sociol_v76p891]. It is best understood as the average of basic observational outcomes defined as follows.
+
+Consider the scores from the two readers ("A" and "B") on a pair of cases ("1", "2"). There are five possible rank-based outcomes:
+ 1) **Concordance**: Both readers score the same case higher than the other case.
+ 2) **Discordance**:The readers score the cases in the opposite order.
+ 3) **Tie in A only**: Reader A gives both cases the same score. Reader B gives the cases different scores.
+ 4) **Tie in B only**: Reader B gives both cases the same score. Reader A gives the cases different scores.
+ 5) **TIe in both A and B**: Reader A gives both cases the same score and so does reader B.
+
+So the rank-based concordance is the average over all pairs of cases that are concordant. There is a similar probability for discordance and the three different kinds of ties. As a probability, the rank-based concordance ranges from zero to one. If there are no ties, then 1.0 indicates a perfect ordinal relationship between the two readers, 0.5 indicates there is no relationship between the two readers, and 0.0 indicates a perfectly awful relationship between the two readers. If there are ties, then concordance can only be as good as one minus the probability of ties.
+
+## Differences between counts (mean or median)
+The difference between counts is not complicated. It compliments concordance and correlation by characterizing the interchangeability of the scores from the two readers on the common scale.
+
+ * Distribution of differences (variance or confidence interval)
+ 
+For each of these metrics, we will examine the four combinations of the following:
+ * within and between readers
+ * within and between modalities (WSI vs. microscope)
+
+For each of our summary metrics, we will examine and account for both reader and case variability.
+
+
+## 13. Describe methods for calculating test reproducibility, if done.
+
+# RESULTS: Participants
+
+## 14. Report when study was done, including beginning and ending dates of recruitment
+
+## 15. Report clinical and demographic characteristics of the study population (e.g. age, sex, spectrum of presenting symptoms, co morbidity, current treatments, recruitment centres)
+
+## 16. Report the number of participants satisfying the criteria for inclusion that did or did not undergo the index tests and/or the reference standard; describe why participants failed to receive either test.
+
+# RESULTS: Test Results
+
+## 17. Report time interval from the index tests to the reference standard, and any treatment administered between.
+
+## 18. Report distribution of severity of disease (define criteria) in those with the target condition; other diagnoses in participants without the target condition.
+
+## 19. Report a cross tabulation of the results of the index tests (including indeterminate and missing results) by the results of the reference standard; for continuous results, the distribution of the test results by the results of the reference standard.
+
+## 20. Report any adverse events form performing the index tests or the reference standard.
+
+# RESULTS: Estimates
+
+## 21. Report estimates of diagnostic accuracy and measures of statistical uncertainty (e.g. 95% CI)
+
+## 22. Report how indeterminate results, missing responses and outliers of the index tests were handled.
+
+## 23. Report estimates of variability of diagnostic accuracy between subgroups of participants, readers or centres, if done.
+
+## 24. Report estimates of test reproducibility, if done.
+
+# DISCUSSION
+
+## 25. Discuss the clinical applicability of the study findings.
+
+
+
