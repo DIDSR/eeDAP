@@ -8,6 +8,11 @@
 
 #### Other Resources and References
 
+* Gallas, B. D.; Anam, A.; Chen, W.; Wunderlich, A. & Zhang, Z. (2016), <br>
+"MRMC analysis of agreement studies." <br>
+In Proc. SPIE, 9787, pp. 97870F-97870F-12. <br>
+<a href=https://github.com/DIDSR/eeDAP/blob/master/000_docs/Gallas2016_Proc-SPIE_v9787p0F.pdf>Click to download the paper.</a> <br>
+
 * Gallas, B. D. (2016), <br>
 "Mitotic Counting Reproducibility/Feature Study with Pathologists."
 Evolution and Revolution in Anatomic Pathology: Automation, Machine-Assisted Diagnostics, Molecular Prognostics & Theranostics, The Banbury Center, Cold Spring Harbor Laboratory. <br>
