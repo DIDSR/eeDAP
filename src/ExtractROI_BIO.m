@@ -174,8 +174,11 @@ try
     temp_output(:,:,1) = bfGetPlane(WSI_data,1,New_Left,New_Top,New_InputWidth,New_InputHeight);
     temp_output(:,:,2) = bfGetPlane(WSI_data,2,New_Left,New_Top,New_InputWidth,New_InputHeight);
     temp_output(:,:,3) = bfGetPlane(WSI_data,3,New_Left,New_Top,New_InputWidth,New_InputHeight);
+    
     output = imrotate(temp_output,RotateWSI);
     output = imresize(output,floor([OutputWidth,OutputHeight]));
+
+   
 
     
     % Change the colors using the rgb lut one channel at a time

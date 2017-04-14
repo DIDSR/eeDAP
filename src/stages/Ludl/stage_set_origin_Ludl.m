@@ -6,6 +6,7 @@ try
     
     % If communications to stage is not open to start, then open.
     % Also prepare to close
+    arriveHome = 0;
     h_stage_close = 0;
     if exist('h_stage', 'var') == 0
         h_stage_close = 1;
@@ -25,11 +26,28 @@ try
     % Speed to the top-left corner
     success = stage_send_com_Ludl (stage.handle, 'SPEED X=200000 Y=200000'); %#ok<*NASGU>
     success = stage_send_com_Ludl (stage.handle, 'ACCEL X=1 Y=1');
-    success = stage_send_com_Ludl(stage.handle, 'HOME X Y');
-    % Wait til the stage gets to the top-left corner
-    while stage_check_busy_Ludl(stage.handle)
-        pause(.5)
+%     success = stage_send_com_Ludl(stage.handle, 'HOME X Y');
+%     
+%     % Wait til the stage gets to the top-left corner
+%     while stage_check_busy_Ludl(stage.handle)
+%         pause(.5)
+%     end
+    % double check stage arrive home
+    while arriveHome == 0
+        success = stage_send_com_Ludl(stage.handle, 'HERE X=0 Y=0');
+        success = stage_send_com_Ludl (stage.handle, 'MOVE X=-5000000 Y=-1000000');
+        while stage_check_busy_Ludl(stage.handle)
+            pause(.5)
+        end
+        success = stage_send_com_Ludl (stage.handle, 'where x y');
+        temp = textscan(success, '%s %d %d');
+        Pos = int64([temp{2}, temp{3}]);
+        if (Pos(1) >-100 && Pos(2)>-100)
+            arriveHome = 1;
+        end
     end
+    
+
     % Set the top-left corner to be the origin
     success = stage_send_com_Ludl(stage.handle, 'HERE X=0 Y=0');
 

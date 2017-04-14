@@ -15,7 +15,7 @@ try
             taskinfo_default(hObj, taskinfo)
             handles = guidata(hObj);
             taskinfo = handles.myData.taskinfo;
-            
+            taskinfo.rotateback = 0;
         case {'Update_GUI_Elements', ...
                 'ResumeButtonPressed'} % Initialize task elements
             

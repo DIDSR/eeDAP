@@ -39,7 +39,7 @@ try
             taskinfo.text  = 'mitotic_counts: Please input mitotic counts for 10 fields';
             taskinfo.moveflag = str2double(desc{5});
             taskinfo.zoomflag = str2double(desc{6});
-     
+            taskinfo.rotateback = 0;
             
         case {'Update_GUI_Elements', ...
                 'ResumeButtonPressed'} % Initialize task elements

@@ -363,6 +363,7 @@ try
     taskinfo.calling_function = calling_function;
     handles.myData.taskinfo = taskinfo;
     handles.myData.taskinfo.duration = 0;
+    handles.myData.settings = settings;
     guidata(handles.Administrator_Input_Screen, handles);
     taskinfo.task_handle(handles.Administrator_Input_Screen);
     % Update the handles and task_finish structure

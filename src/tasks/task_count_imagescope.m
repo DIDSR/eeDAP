@@ -29,8 +29,30 @@ try
             taskinfo.zoomflag = str2double(desc{13});
             taskinfo.description = char(desc{14});
             taskinfo.rotateback = 0;
+%             %generate WSI file
+%             wsi_info = handles.myData.wsi_files{taskinfo.slot};
+%             wsi_scan_scale = handles.myData.settings.scan_scale;
+%             Left = taskinfo.roi_x-(taskinfo.roi_w/2);
+%             Top  = taskinfo.roi_y-(taskinfo.roi_h/2);
+%             exportXML(wsi_info.fullname,wsi_scan_scale, taskinfo.id,handles.myData.workdir,...
+%             Left, Top, taskinfo.roi_w, taskinfo.roi_h);
+        aaa=1;
         case {'Update_GUI_Elements', ...
                 'ResumeButtonPressed'} % Initialize task elements
+            
+            %generate WSI file and openimage scope
+            if strcmp(handles.myData.mode_desc,'Digital')
+                wsi_info = handles.myData.wsi_files{taskinfo.slot};
+                wsi_scan_scale = handles.myData.settings.scan_scale;
+                Left = taskinfo.roi_x-(taskinfo.roi_w/2);
+                Top  = taskinfo.roi_y-(taskinfo.roi_h/2);
+                exportXML(wsi_info.fullname,wsi_scan_scale, taskinfo.id,handles.myData.workdir,...
+                Left, Top, taskinfo.roi_w, taskinfo.roi_h);
+                taskinfo.rotateback = 1;
+                myData.taskinfo = taskinfo;
+                handles.myData = myData;
+                guidata(hObj, handles);
+            end
             
             % Load the image
             taskimage_load(hObj);
@@ -40,6 +62,7 @@ try
             taskmgt_default(handles, 'on');
             handles = guidata(hObj);
             
+
             % Static text question for count task
             handles.textCount = uicontrol(...
                 'Parent', handles.task_panel, ...

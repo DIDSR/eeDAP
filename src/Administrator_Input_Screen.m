@@ -178,13 +178,15 @@ try
     %--------------------------------------------------------------------------
     
     set(handles.ExtractROIsButton, 'Enable', 'off');
+%     Load_Input_File(handles);
+%     handles = guidata(handles.Administrator_Input_Screen);
+    
+    Purge_Temporary_Images(handles);
     Load_Input_File(handles);
     handles = guidata(handles.Administrator_Input_Screen);
     
-    Purge_Temporary_Images(handles);
-    
     wtb=waitbar(0,'Extracting ROIs....', 'WindowStyle', 'modal');
-    
+    wsi_scan_scale = handles.myData.settings.scan_scale;
     for i=2:handles.myData.ntasks+1
         
         taskinfo = handles.myData.tasks_out{i};
@@ -208,6 +210,9 @@ try
             close(wtb);
             return
         end
+        % generage XML file
+     %   success = exportXML(wsi_info.fullname,wsi_scan_scale, taskinfo.id,handles.myData.workdir,...
+      %      Left, Top, taskinfo.roi_w, taskinfo.roi_h);        
         
         % Move the waitbar by 1 step
         waitbar(i / handles.myData.ntasks);

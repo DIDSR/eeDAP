@@ -33,7 +33,7 @@ try
             taskinfo.moveflag = str2double(desc{11});
             taskinfo.zoomflag = str2double(desc{12});
             taskinfo.checkboxresult=zeros(1,8);
-            
+            taskinfo.rotateback = 0;
         case {'Update_GUI_Elements', ...
                 'ResumeButtonPressed'} % Initialize task elements
             % reset checkboxes results

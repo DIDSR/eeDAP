@@ -43,7 +43,7 @@ try
             taskinfo.expertcb8 = char(desc{20});
             taskinfo.expertsc = char(desc{21});
             taskinfo.checkboxresult=zeros(1,8);            
-            
+            taskinfo.rotateback = 0;
         case {'Update_GUI_Elements', ...
                 'ResumeButtonPressed'} % Initialize task elements
             
