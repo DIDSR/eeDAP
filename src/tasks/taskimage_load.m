@@ -18,10 +18,7 @@ try
     [handles.ImX, map] = imread(taskinfo.ROIname);
     % [handles.ImX, panning_Zooming_Tool.iminfo] = readImageFileFcn(filename);
     if myData.taskinfo.rotateback==1
-        %handles.ImX = imrotate(handles.ImX, -handles.myData.settings.RotateWSI);
-        %test delete imrotate
-        a = handles.ImX;
-        handles.ImX = uint8(zeros(size(a,2),size(a,1),3));
+        handles.ImX = imrotate(handles.ImX, -handles.myData.settings.RotateWSI);
     end
     if ~isnan(handles.ImX)
 
