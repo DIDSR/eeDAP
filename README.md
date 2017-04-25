@@ -14,6 +14,8 @@ We hope you are interested in trying our software. Please know that we are willi
 
 Similarly we hope you will provide feedback on the software and documentation so that we can make this project the best it can be.
 
+Please check out a statement of the licenses related to our software [here](LICENSE.md).
+
 ## Related Resources and References ##
 [Click to go to the list of resources and references.](https://github.com/DIDSR/eeDAP/blob/master/000_docs/README.md)
 
