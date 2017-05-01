@@ -1,0 +1,90 @@
+Comments from the input file:
+Author: 
+Date: 
+Time: 
+
+For the Hamamatsu scanning at 20x
+    scan_scale = .4558
+For the Hamamatsu scanning at 40x
+    scan_scale = .2279
+
+Point Grey Grashopper Color (GRAS-03K2C-C)
+    cam_format = RGB24_640x480
+    cam_pixel_size = 7.4um
+Point Grey Flea2 Color (FL2G-50S5C-C): Full resolution, full format
+    cam_format = F7_RGB24_2448x2048
+    cam_pixel_size = 3.45
+Point Grey Flea2 Color (FL2G-50S5C-C): Standard format, aspect ratio = 1.33
+    cam_format = RGB24_1024x768
+    cam_pixel_size = 6.9
+
+Reminder:
+taskorder=2 user specified order
+taskorder=1 listed order
+taskorder=0 random order
+saveimages = 1  save WSI and camera images
+saveimages = 2  only save WSI image
+saveimages = 3  only save camera image
+saveimages = 4  don't save WSI and camera images
+
+
+Input File Task Formats
+task_checkMof4,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_count,    TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_mark1,    TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_mark1_out,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_radio1of4,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_slider,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_mitotic_expert,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag
+task_mitotic_train, TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag,ExpertCheckBoxes1-8,Expert_Score
+task_mitotic_counts,TaskID,TaskOrder,Slot,MoveFlag,ZoomFlag
+
+SETTINGS
+NUMBER_OF_WSI=4 
+wsi_slot_1=C:\matlabToXml\CCB030072pHH3.svs 
+rgb_lut_slot_1=icc_profiles\rgb_lut_gamma_inv1p8.txt 
+wsi_slot_2=C:\matlabToXml\CCB030148pHH3.svs 
+rgb_lut_slot_2=icc_profiles\rgb_lut_gamma_inv1p8.txt 
+wsi_slot_3=C:\matlabToXml\CCB030179pHH3.svs 
+rgb_lut_slot_3=icc_profiles\rgb_lut_gamma_inv1p8.txt 
+wsi_slot_4=C:\matlabToXml\CCB060068pHH3.svs 
+rgb_lut_slot_4=icc_profiles\rgb_lut_gamma_inv1p8.txt 
+label_pos=6
+reticleID=KR-871
+cam_format=RGB24_1024x768
+cam_pixel_size=6.9
+mag_cam=1
+mag_lres=5
+mag_hres=40
+scan_scale=0.2503
+stage_label=SCAN8Praparate_Ludl5000
+BG_Color_RGB=0.55=0.55=0.55
+FG_Color_RGB=0=0=0
+AxesBG_Color_RGB=0.1=0.2=0.1
+FontSize=13
+saveimages=3
+taskorder=0
+
+BODY
+start
+finish
+count_imagescope,19th0001,1,4,11008,18883,799,799,799,799,Qtext_count,1,1,description,119.056,0
+count_imagescope,20th0001,2,4,12414,12512,799,799,799,799,Qtext_count,1,1,description,117.263,3
+count_imagescope,12nd0001,3,3,16060,10178,799,799,799,799,Qtext_count,1,1,description,93.667,3
+count_imagescope,3rd0001,4,1,36308,23889,799,799,799,799,Qtext_count,1,1,description,154.444,0
+count_imagescope,7th0001,5,2,7136,6063,799,799,799,799,Qtext_count,1,1,description,70.466,0
+count_imagescope,9th0001,6,2,6381,8541,799,799,799,799,Qtext_count,1,1,description,119.005,1
+count_imagescope,18th0001,7,4,10410,19855,799,799,799,799,Qtext_count,1,1,description,153.937,1
+count_imagescope,1st0001,8,1,40746,22493,799,799,799,799,Qtext_count,1,1,description,116.472,0
+count_imagescope,2nd0001,9,1,38452,22842,799,799,799,799,Qtext_count,1,1,description,101.269,0
+count_imagescope,4th0001,10,1,38053,24986,799,799,799,799,Qtext_count,1,1,description,90.871,0
+count_imagescope,14th0001,11,3,17853,12806,799,799,799,799,Qtext_count,1,1,description,130.2,4
+count_imagescope,16th0001,12,4,10746,17073,799,799,799,799,Qtext_count,1,1,description,130.198,3
+count_imagescope,13rd0001,13,3,17603,11054,799,799,799,799,Qtext_count,1,1,description,113.135,2
+count_imagescope,10th0001,14,2,7440,8459,799,799,799,799,Qtext_count,1,1,description,103.139,1
+count_imagescope,11st0001,15,3,14433,9720,799,799,799,799,Qtext_count,1,1,description,68.472,0
+count_imagescope,8th0001,16,2,6927,7195,799,799,799,799,Qtext_count,1,1,description,90.331,1
+count_imagescope,17th0001,17,4,10747,18020,799,799,799,799,Qtext_count,1,1,description,89.534,2
+count_imagescope,6th0001,18,2,8118,4363,799,799,799,799,Qtext_count,1,1,description,120.47,3
+count_imagescope,15th0001,19,3,16268,12389,799,799,799,799,Qtext_count,1,1,description,77.931,4
+count_imagescope,5th0001,20,1,37854,14064,799,799,799,799,Qtext_count,1,1,description,121.132,1
