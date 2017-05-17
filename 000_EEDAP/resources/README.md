@@ -6,7 +6,7 @@
 
 ## B. Software
 
-1. Install software SpectraView II.
+1. Install software SpectraView II by USB flash driver.
 
 2. In Target Settings, choose sRGB Emulation. (Take screencut for target setting)  
 
