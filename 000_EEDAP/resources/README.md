@@ -2,7 +2,7 @@
 
 ## A. Hardware
 
-1. Plug in and setup the sensor MDSVSENSOR3(follow the manual).
+1. Plug in and setup the sensor MDSVSENSOR3. (follow the manual)
 
 ## B. Software
 
