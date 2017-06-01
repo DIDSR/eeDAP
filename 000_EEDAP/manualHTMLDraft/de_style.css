@@ -101,6 +101,12 @@ span.de_434276636D
 	color:#000000;
 	text-decoration:underline;
 }
+span.de_45E825280E
+{
+	font-family: "Arial";
+	font-size: 11pt;
+	color:#ff0000;
+}
 span.de_476D3D315E
 {
 	text-decoration:underline;
@@ -173,11 +179,6 @@ span.de_D8BCB2AC4C
 	font-family: "Calibri";
 	font-size: 12pt;
 	color:#000000;
-}
-span.de_DBF328B893
-{
-	color:#000000;
-	font-style:italic;
 }
 span.de_DF9ADAA253
 {
@@ -573,6 +574,222 @@ span.de_FE04B87F3C
 	counter-increment: list-counter-19;
 }
 .list-counter-19 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-20 > div > * {
+	text-indent: 0px;}
+.list-counter-20 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-20, upper-alpha) '.\00a0';
+	counter-increment: list-counter-20;
+}
+.list-counter-20 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-21 > div > * {
+	text-indent: 0px;}
+.list-counter-21 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-21, decimal) '.\00a0';
+	counter-increment: list-counter-21;
+}
+.list-counter-21 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-22 > div > * {
+	text-indent: 0px;}
+.list-counter-22 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-22, decimal) '.\00a0';
+	counter-increment: list-counter-22;
+}
+.list-counter-22 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-23 > div > * {
+	text-indent: 0px;}
+.list-counter-23 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-23, decimal) '.\00a0';
+	counter-increment: list-counter-23;
+}
+.list-counter-23 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-24 > div > * {
+	text-indent: 0px;}
+.list-counter-24 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-24, decimal) '.\00a0';
+	counter-increment: list-counter-24;
+}
+.list-counter-24 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-25 > div > * {
+	text-indent: 0px;}
+.list-counter-25 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-25, decimal) '.\00a0';
+	counter-increment: list-counter-25;
+}
+.list-counter-25 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-26 > div > * {
+	text-indent: 0px;}
+.list-counter-26 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-26, decimal) '.\00a0';
+	counter-increment: list-counter-26;
+}
+.list-counter-26 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-27 > div > * {
+	text-indent: 0px;}
+.list-counter-27 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-27, upper-alpha) '.\00a0';
+	counter-increment: list-counter-27;
+}
+.list-counter-27 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-28 > div > * {
+	text-indent: 0px;}
+.list-counter-28 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-28, decimal) '.\00a0';
+	counter-increment: list-counter-28;
+}
+.list-counter-28 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-29 > div > * {
+	text-indent: 0px;}
+.list-counter-29 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-29, decimal) '.\00a0';
+	counter-increment: list-counter-29;
+}
+.list-counter-29 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-30 > div > * {
+	text-indent: 0px;}
+.list-counter-30 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-30, decimal) '.\00a0';
+	counter-increment: list-counter-30;
+}
+.list-counter-30 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-31 > div > * {
+	text-indent: 0px;}
+.list-counter-31 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-31, decimal) '.\00a0';
+	counter-increment: list-counter-31;
+}
+.list-counter-31 > div > div[class='list-marker-chm'] {
 	display: inline-block;
 	text-align: left;
 	zoom: 1;

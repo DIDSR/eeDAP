@@ -66,6 +66,7 @@ i\blocks
 i
 creating_the_stand_alone_application.htm
 ix__for_eedap_developers.htm
+package_and_unpackage.htm
 cameras_and_displays.htm
 viii__fda_hardware_specifications.htm
 drex_bullet_7_3.png
@@ -158,8 +159,8 @@ drex_slide_registration_window_control_1.png
 drex_bullet_1_2.png
 drex_slide_registration_window_screen.png
 slide_registration_window.htm
-drex_micrort_registration_custom.png
-micrort_registration.htm
+drex_micrort_registration_2_custom.png
+micrort_registration_2.htm
 drex_eedap_administrator_input_screen_window_c__control_8.png
 drex_bullet_8.png
 drex_eedap_administrator_input_screen_window_c__control_7.png
@@ -219,11 +220,13 @@ camera_setup_and_test.htm
 requirements.htm
 camera.htm
 iii__hardware_and_software_requirement.htm
-drex_tasks_instructions_custom_4.png
-drex_tasks_instructions_custom_3.png
-drex_tasks_instructions_custom_2.png
-drex_tasks_instructions_custom.png
-tasks_instructions.htm
+drex_default_tasks_custom_4.png
+drex_default_tasks_custom_3.png
+drex_default_tasks_custom_2.png
+drex_default_tasks_custom.png
+default_tasks.htm
+micrort_registration_1.htm
+setting_up_hardware.htm
 run_software.htm
 drex_download_and_install_custom_2.png
 drex_download_and_install_custom.png
