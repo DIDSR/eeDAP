@@ -1,6 +1,6 @@
 # Updates
 
-### [eeDAP4.0 (Windows)](https://github.com/DIDSR/eeDAP/releases/tag/4.0)
+### [eeDAP4.1 (Windows)](https://github.com/DIDSR/eeDAP/releases/tag/4.0)
 *5/11/16*
 
 Add option to use imagescope to open WSI ROI.
@@ -26,7 +26,7 @@ Improve "Best Registration" button performance.
 
 Improve Camera_stage_review utility application interface and "take image" button.
 
-### [iMRMC3p1](https://github.com/DIDSR/eeDAP/releases/tag/v3.1)
+### [eeDAP3p1](https://github.com/DIDSR/eeDAP/releases/tag/v3.1)
 *7/16/15*
 
 Add Camera_stage_review APP is for test and review camera and stage
@@ -36,7 +36,7 @@ Add Best Registration button
 There are two versions for windows and linux system in the zip file. Please choose base on your system
 
 
-### [iMRMC3p0](https://github.com/DIDSR/eeDAP/releases/tag/3.0)
+### [eeDAP3p0](https://github.com/DIDSR/eeDAP/releases/tag/3.0)
 *6/4/15*
 
 Auto-registration of every ROI (speeds up the study)
