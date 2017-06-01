@@ -3,6 +3,14 @@
 ### [eeDAP4.0 (Windows)](https://github.com/DIDSR/eeDAP/releases/tag/4.0)
 *5/11/16*
 
+Add option to use imagescope to open WSI ROI.
+
+Create sample input files for public available WSIs.
+
+
+### [eeDAP4.0 (Windows)](https://github.com/DIDSR/eeDAP/releases/tag/4.0)
+*5/11/16*
+
 New hardware supported:
   * Prior Stage (ProScan III)
   * USB 3.0 camera
