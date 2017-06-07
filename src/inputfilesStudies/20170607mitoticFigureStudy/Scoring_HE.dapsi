@@ -1,0 +1,114 @@
+Author: 
+Date: 
+Time: 
+
+For the Hamamatsu scanning at 20x
+    scan_scale = .4558
+For the Hamamatsu scanning at 40x
+    scan_scale = .2279
+
+Point Grey Grashopper Color (GRAS-03K2C-C)
+    cam_format = RGB24_640x480
+    cam_pixel_size = 7.4um
+Point Grey Flea2 Color (FL2G-50S5C-C): Full resolution, full format
+    cam_format = F7_RGB24_2448x2048
+    cam_pixel_size = 3.45
+Point Grey Flea2 Color (FL2G-50S5C-C): Standard format, aspect ratio = 1.33
+    cam_format = RGB24_1024x768
+    cam_pixel_size = 6.9
+
+Reminder:
+taskorder=2 user specified order
+taskorder=1 listed order
+taskorder=0 random order
+saveimages = 1  save WSI and camera images
+saveimages = 2  only save WSI image
+saveimages = 3  only save camera image
+saveimages = 4  don't save WSI and camera images
+
+
+Input File Task Formats
+task_checkMof4,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_count,    TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_mark1,    TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_mark1_out,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_radio1of4,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_slider,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_mitotic_expert,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag
+task_mitotic_train, TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag,ExpertCheckBoxes1-8,Expert_Score
+task_mitotic_counts,TaskID,TaskOrder,Slot,MoveFlag,ZoomFlag
+
+SETTINGS
+NUMBER_OF_WSI    = 1 
+wsi_slot_1       = C:\000_whole_slides\pilot2_sarcoma-mitotic.ndpi 
+rgb_lut_slot_1   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+label_pos        = 12
+reticleID        = KR-32536
+cam_kind	 = USB
+cam_format       = F7_RGB_1224x1024_Mode1
+cam_pixel_size   = 6.9
+mag_cam          = 0.5
+mag_lres         = 10
+mag_hres         = 40
+scan_scale       = 0.2503
+stage_label      = H101-Prior
+BG_Color_RGB     = 0.55 = 0.55 = 0.55
+FG_Color_RGB     = 0.00 = 0.00 = 0.00
+AxesBG_Color_RGB = 0.10 = 0.20 = 0.10
+FontSize         = 13
+saveimages       = 1
+taskorder        = 0
+
+BODY
+start
+finish
+slider_imagescope,1,-1,1,19278,27136,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,2,-1,1,26613,27632,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,3,-1,1,9918,23777,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,4,-1,1,27334,28037,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,5,-1,1,53091,44540,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,6,-1,1,12180,21530,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,7,-1,1,18995,27405,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,8,-1,1,55615,44717,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,9,-1,1,56074,44971,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,10,-1,1,28995,65594,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,11,-1,1,16921,26125,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,12,-1,1,12645,24805,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,13,-1,1,55521,44683,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,14,-1,1,56705,45117,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,15,-1,1,18288,27351,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,16,-1,1,17037,26607,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,17,-1,1,26850,27981,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,18,-1,1,44284,68482,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,19,-1,1,17573,25931,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,20,-1,1,53053,44079,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,21,-1,1,17293,29512,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,22,-1,1,14432,17595,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,23,-1,1,17835,28557,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,24,-1,1,60738,44357,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,25,-1,1,12426,18358,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,26,-1,1,17209,26847,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,27,-1,1,12315,21900,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,28,-1,1,26208,27638,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,29,-1,1,12549,25585,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,30,-1,1,17445,25506,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,31,-1,1,14965,20116,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,32,-1,1,16929,30013,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,33,-1,1,18753,27504,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,34,-1,1,14366,19737,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,35,-1,1,10586,20215,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,36,-1,1,17483,26698,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,37,-1,1,15136,17106,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,38,-1,1,17291,27219,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,39,-1,1,56224,45131,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,40,-1,1,12345,18663,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,41,-1,1,44547,68379,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,42,-1,1,17366,28579,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,43,-1,1,16539,25531,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,44,-1,1,20611,26727,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,45,-1,1,20617,26372,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,46,-1,1,55522,44681,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,47,-1,1,60285,43854,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,48,-1,1,28806,64968,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,49,-1,1,10500,20549,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,50,-1,1,10229,23964,400,400,400,400,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
