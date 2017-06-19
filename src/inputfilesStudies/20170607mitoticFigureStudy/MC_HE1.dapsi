@@ -68,23 +68,23 @@ taskorder        = 0
 BODY
 start
 finish
-count_imagescope,1st0001,-1,1,3056,16286,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count_imagescope,2nd0001,-1,1,4865,16406,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count_imagescope,3rd0001,-1,1,3136,17894,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count_imagescope,4th0001,-1,1,5388,17894,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count_imagescope,5th0001,-1,1,7761,18015,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count_imagescope,6th0001,-1,2,5034,4221,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count_imagescope,7th0001,-1,2,8635,4647,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count_imagescope,8th0001,-1,2,11346,5460,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count_imagescope,9th0001,-1,2,4840,6893,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count_imagescope,10th0001,-1,2,8209,7203,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count_imagescope,11st0001,-1,3,5670,6573,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count_imagescope,12nd0001,-1,3,7187,4876,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count_imagescope,13rd0001,-1,3,9787,5237,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count_imagescope,14th0001,-1,3,9390,7873,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count_imagescope,15th0001,-1,3,11521,8054,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count_imagescope,16th0001,-1,4,14582,26372,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count_imagescope,17th0001,-1,4,14316,19280,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count_imagescope,18th0001,-1,4,9130,22782,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count_imagescope,19th0001,-1,4,10061,26460,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count_imagescope,20th0001,-1,4,13961,22560,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,1st0001,-1,1,3056,16286,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,2nd0001,-1,1,4865,16406,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,3rd0001,-1,1,3136,17894,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,4th0001,-1,1,5388,17894,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,5th0001,-1,1,7761,18015,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,6th0001,-1,2,5034,4221,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,7th0001,-1,2,8635,4647,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,8th0001,-1,2,11346,5460,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,9th0001,-1,2,4840,6893,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,10th0001,-1,2,8209,7203,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,11st0001,-1,3,5670,6573,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,12nd0001,-1,3,7187,4876,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,13rd0001,-1,3,9787,5237,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,14th0001,-1,3,9390,7873,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,15th0001,-1,3,11521,8054,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,16th0001,-1,4,14582,26372,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,17th0001,-1,4,14316,19280,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,18th0001,-1,4,9130,22782,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,19th0001,-1,4,10061,26460,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,20th0001,-1,4,13961,22560,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
