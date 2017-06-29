@@ -5,6 +5,7 @@ eeDAP is a software and hardware platform for designing and executing digital an
 
 ## User Manual
 [Click to go to the user manual.](http://didsr.github.io/eeDAP/)
+[Here are demo videos for running eeDAP in digital mode and microRT mode.](https://www.youtube.com/channel/UC60GQmixBDjQ1Cuidj7n5pQ)
 
 ## Releases = Packages ##
 [Click to go to the releases page.](https://github.com/DIDSR/eeDAP/releases) <br>
