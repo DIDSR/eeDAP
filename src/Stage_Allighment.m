@@ -63,7 +63,7 @@ try
     set(handles.take_wsi3,'Enable','off');
     set(handles.Abort,'Enable','on');
     set(handles.Video,'Enable','on');
-    set(handles.refine_registration,'Enable','off');
+    %set(handles.refine_registration,'Enable','off');
     set(handles.load_last_calibration,'Enable','on');
     set(handles.Done,'Enable','off');
     % Initialize registration parameters corresponding to slot_i
@@ -636,24 +636,115 @@ end
 end
 
 %% -------- refine_registration button
-function refine_registration_Callback(hObject, eventdata, handles) %#ok<DEFNU>
+% function refine_registration_Callback(hObject, eventdata, handles) %#ok<DEFNU>
+% try
+%     
+%     % Prepare for the next step
+%     set(handles.take_stage1, 'Enable', 'on');
+%     set(handles.refine_registration, 'Enable', 'off');
+%     
+%     handles.current.reg_flag = 1;
+%     handles.current.position_i = 1;
+%     guidata(handles.Stage_Allighment, handles);
+%     display_thumb(handles.Stage_Allighment)
+%     load_last_calibration_Callback(hObject, eventdata, handles)
+% catch ME
+%     error_show(ME)
+% end
+% 
+% end
+
+%% --- Executes on button press in restart_registration.
+function restart_registration_Callback(hObject, eventdata, handles)
+% hObject    handle to restart_registration (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 try
+    myData = handles.myData;
+    settings = myData.settings;
+    current = handles.current;
+    current.reg_flag = 0; %#ok<NASGU>
+    slot_i = current.slot_i;
+    wsi_info = current.wsi_info;
+     % Initialze the state of the GUI
+    set(handles.take_stage1,...
+       'Enable','on',...
+       'String','Take Stage Position 1');
+    set(handles.take_stage2,...
+       'Enable','off',...
+       'String','Take Stage Position 2');
+    set(handles.take_stage3,...
+       'Enable','off',...
+       'String','Take Stage Position 3');
+    set(handles.take_wsi1,'Enable','off');
+    set(handles.take_wsi2,'Enable','off');
+    set(handles.take_wsi3,'Enable','off');
+
+    % Initialize registration parameters corresponding to slot_i
+ 
+    current.position_i = 1;
+    current.thumb_positions = [0, 0];
+    current.stage_positions = [0, 0];
+    current.wsi_positions = [0, 0];
     
-    % Prepare for the next step
-    set(handles.take_stage1, 'Enable', 'on');
-    set(handles.refine_registration, 'Enable', 'off');
+    % Initialize stagedata
+    % The three pairs of stage and wsi positions [x,y] will be recorded
+    stagedata = struct;
+    stagedata.stage_positions = zeros(3,2);
+    stagedata.wsi_positions = zeros(3,2);
+    stagedata.thumb_positions = zeros(3,2);
     
-    handles.current.reg_flag = 1;
-    handles.current.position_i = 1;
+    temp = textscan(wsi_info.fullname, '%s %s', 'delimiter', '.');
+    stagedata.stagedata_file = [char(temp{1}),'.mat'];
+    
+    % Initialize the low-resolution conversions between scanner and camera
+    current.scan2cam = myData.settings.scan2cam_lres;
+    current.cam2scan = myData.settings.cam_lres2scan;
+    
+    % Initialize the thumbnail settings
+    current.thumb_file = [myData.registration_images_dir,...
+        'lres_s', num2str(slot_i), '_thumb.tif'];
+    current.thumb_image = 0;
+    
+    current.thumb_left = 1;
+    current.thumb_top = 1;
+    current.thumb_w = 0;
+    current.thumb_h = 1000;
+    current.thumb_x0 = 0;
+    current.thumb_y0 = 0;
+    current.thumb_extract_w = wsi_info.wsi_w(1);
+    current.thumb_extract_h = wsi_info.wsi_h(1);
+    if current.thumb_extract_w > current.thumb_extract_h
+        current.thumb_w = 1000;
+        current.thumb_h = 0;
+    end
+    current.thumb_image_handle = 0;
+    
+    % Initialize the ROI settings
+    current.roi_file = '';
+    current.roi_image = 0;
+    current.roi_left = 0;
+    current.roi_top = 0;
+    current.roi_w = 0;
+    current.roi_h = 0;
+    current.roi_x0 = 0;
+    current.roi_y0 = 0;
+    current.roi_extract_w = 0;
+    current.roi_extract_h = 0;
+    
+    handles.output = hObject;
+    current.load_stage_data = zeros(1,3);
+    handles.current = current;
+    myData.stagedata = stagedata;
+    myData.settings = settings;
+    handles.myData = myData;
     guidata(handles.Stage_Allighment, handles);
-    display_thumb(handles.Stage_Allighment)
-    load_last_calibration_Callback(hObject, eventdata, handles)
+    
+    display_thumb(handles.Stage_Allighment);
 catch ME
     error_show(ME)
 end
-
 end
-
 
 
 
@@ -927,7 +1018,7 @@ try
     save(handles.myData.stagedata.stagedata_file,'stagedata');
     
     % Prepare for the next step
-    set(handles.refine_registration,'Enable','on');
+   % set(handles.refine_registration,'Enable','on');
     
     switch handles.current.reg_flag
         case 0
