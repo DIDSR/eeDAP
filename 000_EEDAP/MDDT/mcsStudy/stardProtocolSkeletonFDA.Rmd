@@ -48,7 +48,7 @@ We will select 4 slides that have been evaluated during a previous mitotic count
 
 The protocol for mcsStudy1 followed clinical practice: the pathologists were asked to count the number of mitoses in 10 consecutive non-overlapping high-powered fields (HPF) starting in an area of high mitotic activity [@Smedley2011_Vet-Pathol_v48p54]. In mcsStudy1, the counts were collected using WSI images and glass slides. In the digital mode, the evaluation FOVs of each pathologist were recorded. This data will guide us in selecting 40 FOVs per slide that are appropriate for counting mitotic figures.
 
-The FOVs that we will use in our study will be 200 um x 200 um, which is equivalent to 800 x 800 pixels of a WSI with a scanning resolution of 0.25 um/pixel. This size was selected to fit within most digital displays without panning or zooming.
+We will identify the lesion tissue in the slides and appropriate regions for counting mitotic figures. Within these regions, we will select 10 FOVs per slide. The FOVs that we will use in our study will be 200 um x 200 um, which is equivalent to 800 x 800 pixels of a WSI with a scanning resolution of 0.25 um/pixel. This size was selected to fit within most digital displays without panning or zooming. This size (.040 mm^2) is about 1/6 the size of a typical high-powered FOV (.237 mm^2).
 
 While extracting or outlining the FOVs digitally is not challenging, we need to use a reticle in the microscope eyepiece to ouline the evaluation area for that mode.
 
