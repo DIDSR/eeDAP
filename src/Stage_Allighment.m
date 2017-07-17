@@ -63,7 +63,7 @@ try
     set(handles.take_wsi3,'Enable','off');
     set(handles.Abort,'Enable','on');
     set(handles.Video,'Enable','on');
-    set(handles.refine_registration,'Enable','off');
+    %set(handles.refine_registration,'Enable','off');
     set(handles.load_last_calibration,'Enable','on');
     set(handles.Done,'Enable','off');
     % Initialize registration parameters corresponding to slot_i
@@ -143,7 +143,10 @@ try
     guidata(handles.Stage_Allighment, handles);
     
     display_thumb(handles.Stage_Allighment);
-    
+    wsi_info = current.wsi_info;
+    slideID = strfind(wsi_info.fullname, '\');
+    filename = wsi_info.fullname(slideID(end)+1:end);
+    set(handles.text710,'String',filename,'FontSize',20);
 catch ME
     error_show(ME)
 end
@@ -249,7 +252,18 @@ try
     current.thumb_image = imread(current.thumb_file);
     current.thumb_image_handle = image(current.thumb_image, 'Parent', handles.thumb_axes);
     axis(handles.thumb_axes,'image');
-    
+    smallThumb_file = [myData.registration_images_dir,...
+        'lres_s', num2str(current.slot_i), '_thumb.tif'];
+    smallThumb_image = imread(smallThumb_file);
+    current.smallThumb_image_handle = image(smallThumb_image, 'Parent', handles.smallThumb_axes);
+    axis(handles.smallThumb_axes,'image');
+    set(handles.smallThumb_axes, ...
+            'box', 'off', ...
+            'xtick', [], ...
+            'ytick', [], ...
+            'Color', handles.myData.settings.Axes_BG, ...
+            'interruptible', 'off', ...
+            'busyaction', 'queue');
     handles.current = current;
     guidata(Stage_Allighment_handle, handles);
     
@@ -433,7 +447,6 @@ try
         roi_h = 2.0*settings.cam_roi_h;
         roi_extract_h = roi_w*cam_lres2scan;
         roi_extract_w = roi_h*cam_lres2scan;
-        
     end
     
     % Set the high-res WSI file name, extraction width and height
@@ -466,13 +479,20 @@ try
     
     % Must test that the WSI patch is completely within the WSI
     if ...
-            roi_left < 1 ||...
-            roi_top < 1 ||...
-            roi_left + roi_extract_w > wsi_w ||...
-            roi_top + roi_extract_h > wsi_h
-        desc = 'ERROR: The region selected is not completely inside the image.';
-        h_errordlg = errordlg(desc,'Take WSI Position 1','modal'); %#ok<NASGU>
+            roi_left - roi_extract_w/2< 1 ||...
+            roi_top - roi_extract_h/2< 1 ||...
+            roi_left + roi_extract_w + roi_extract_w/2> wsi_w ||...
+            roi_top + roi_extract_h + roi_extract_h/2> wsi_h
+        desc = 'ERROR: The region selected plus padding might not be completely inside the image. Please choose a location not so close to the boundary.';
+        h_errordlg = errordlg(desc,'Take WSI Position Error','modal'); %#ok<NASGU>
         handles.take_wsi_flag = 0;
+        %refresh the image
+        current.thumb_image_handle = ...
+        image(current.thumb_image,'Parent',handles.thumb_axes);
+        axis(handles.thumb_axes,'image');
+        set(current.thumb_image_handle,...
+            'HitTest','on',...
+            'ButtonDownFcn', {@thumb_image_ButtonDownFcn,handles});
         guidata(handles.Stage_Allighment, handles);
         return;
     end
@@ -630,24 +650,115 @@ end
 end
 
 %% -------- refine_registration button
-function refine_registration_Callback(hObject, eventdata, handles) %#ok<DEFNU>
+% function refine_registration_Callback(hObject, eventdata, handles) %#ok<DEFNU>
+% try
+%     
+%     % Prepare for the next step
+%     set(handles.take_stage1, 'Enable', 'on');
+%     set(handles.refine_registration, 'Enable', 'off');
+%     
+%     handles.current.reg_flag = 1;
+%     handles.current.position_i = 1;
+%     guidata(handles.Stage_Allighment, handles);
+%     display_thumb(handles.Stage_Allighment)
+%     load_last_calibration_Callback(hObject, eventdata, handles)
+% catch ME
+%     error_show(ME)
+% end
+% 
+% end
+
+%% --- Executes on button press in restart_registration.
+function restart_registration_Callback(hObject, eventdata, handles)
+% hObject    handle to restart_registration (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 try
+    myData = handles.myData;
+    settings = myData.settings;
+    current = handles.current;
+    current.reg_flag = 0; %#ok<NASGU>
+    slot_i = current.slot_i;
+    wsi_info = current.wsi_info;
+     % Initialze the state of the GUI
+    set(handles.take_stage1,...
+       'Enable','on',...
+       'String','Take Stage Position 1');
+    set(handles.take_stage2,...
+       'Enable','off',...
+       'String','Take Stage Position 2');
+    set(handles.take_stage3,...
+       'Enable','off',...
+       'String','Take Stage Position 3');
+    set(handles.take_wsi1,'Enable','off');
+    set(handles.take_wsi2,'Enable','off');
+    set(handles.take_wsi3,'Enable','off');
+
+    % Initialize registration parameters corresponding to slot_i
+ 
+    current.position_i = 1;
+    current.thumb_positions = [0, 0];
+    current.stage_positions = [0, 0];
+    current.wsi_positions = [0, 0];
     
-    % Prepare for the next step
-    set(handles.take_stage1, 'Enable', 'on');
-    set(handles.refine_registration, 'Enable', 'off');
+    % Initialize stagedata
+    % The three pairs of stage and wsi positions [x,y] will be recorded
+    stagedata = struct;
+    stagedata.stage_positions = zeros(3,2);
+    stagedata.wsi_positions = zeros(3,2);
+    stagedata.thumb_positions = zeros(3,2);
     
-    handles.current.reg_flag = 1;
-    handles.current.position_i = 1;
+    temp = textscan(wsi_info.fullname, '%s %s', 'delimiter', '.');
+    stagedata.stagedata_file = [char(temp{1}),'.mat'];
+    
+    % Initialize the low-resolution conversions between scanner and camera
+    current.scan2cam = myData.settings.scan2cam_lres;
+    current.cam2scan = myData.settings.cam_lres2scan;
+    
+    % Initialize the thumbnail settings
+    current.thumb_file = [myData.registration_images_dir,...
+        'lres_s', num2str(slot_i), '_thumb.tif'];
+    current.thumb_image = 0;
+    
+    current.thumb_left = 1;
+    current.thumb_top = 1;
+    current.thumb_w = 0;
+    current.thumb_h = 1000;
+    current.thumb_x0 = 0;
+    current.thumb_y0 = 0;
+    current.thumb_extract_w = wsi_info.wsi_w(1);
+    current.thumb_extract_h = wsi_info.wsi_h(1);
+    if current.thumb_extract_w > current.thumb_extract_h
+        current.thumb_w = 1000;
+        current.thumb_h = 0;
+    end
+    current.thumb_image_handle = 0;
+    
+    % Initialize the ROI settings
+    current.roi_file = '';
+    current.roi_image = 0;
+    current.roi_left = 0;
+    current.roi_top = 0;
+    current.roi_w = 0;
+    current.roi_h = 0;
+    current.roi_x0 = 0;
+    current.roi_y0 = 0;
+    current.roi_extract_w = 0;
+    current.roi_extract_h = 0;
+    
+    handles.output = hObject;
+    current.load_stage_data = zeros(1,3);
+    handles.current = current;
+    myData.stagedata = stagedata;
+    myData.settings = settings;
+    handles.myData = myData;
     guidata(handles.Stage_Allighment, handles);
-    display_thumb(handles.Stage_Allighment)
     
+    display_thumb(handles.Stage_Allighment);
 catch ME
     error_show(ME)
 end
-
 end
-
 
 
 
@@ -664,11 +775,12 @@ try
         display('automatically navigate to position 1')
         handles.myData.stage=stage_move(handles.myData.stage,handles.myData.stagedata.stage_positions(1,:));       
         set(handles.take_stage1,'String','Take Stage Position 1');
-        handles.current.load_stage_data(1) = 2;
+        handles.current.load_stage_data(1) = 2;       
         guidata(handles.Stage_Allighment,handles);
         return
     end
     
+    set(handles.take_stage1,'Enable','off');
     take_stage(hObject, eventdata, handles);
     handles = guidata(handles.Stage_Allighment);
     x = handles.myData.stagedata.stage_positions(1,1);
@@ -678,7 +790,7 @@ try
     
     % Prepare for the next step
     handles.take_wsi_flag = 0;
-    set(handles.take_stage1,'Enable','off');
+    
     set(handles.take_wsi1,'Enable','on');
     set(handles.current.thumb_image_handle,...
         'HitTest','on',...
@@ -704,11 +816,12 @@ try
         display('automatically navigate to position 2')
         handles.myData.stage=stage_move(handles.myData.stage,handles.myData.stagedata.stage_positions(2,:));           
         set(handles.take_stage2,'String','Take Stage Position 2');
-        handles.current.load_stage_data(2) = 2;
+        handles.current.load_stage_data(2) = 2;        
         guidata(handles.Stage_Allighment,handles);
         return
     end
     
+    set(handles.take_stage2,'Enable','off');
     take_stage(hObject, eventdata, handles);
     handles = guidata(handles.Stage_Allighment);
     x = handles.myData.stagedata.stage_positions(2,1);
@@ -718,7 +831,7 @@ try
     
     % Prepare for the next step
     handles.take_wsi_flag = 0;
-    set(handles.take_stage2,'Enable','off');
+    
     set(handles.take_wsi2,'Enable','on');
     set(handles.current.thumb_image_handle,...
         'HitTest','on',...
@@ -747,6 +860,7 @@ try
         return
     end
     
+    set(handles.take_stage3,'Enable','off');
     take_stage(hObject, eventdata, handles);
     handles = guidata(handles.Stage_Allighment);
     x = handles.myData.stagedata.stage_positions(3,1);
@@ -756,7 +870,7 @@ try
     
     % Prepare for the next step
     handles.take_wsi_flag = 0;
-    set(handles.take_stage3,'Enable','off');
+    
     set(handles.take_wsi3,'Enable','on');
     set(handles.current.thumb_image_handle,...
         'HitTest','on',...
@@ -918,7 +1032,7 @@ try
     save(handles.myData.stagedata.stagedata_file,'stagedata');
     
     % Prepare for the next step
-    set(handles.refine_registration,'Enable','on');
+   % set(handles.refine_registration,'Enable','on');
     
     switch handles.current.reg_flag
         case 0
@@ -969,61 +1083,67 @@ try
 % handles    structure with handles and user data (see GUIDATA)
 
     stagedata_file = handles.myData.stagedata.stagedata_file;
-    load(stagedata_file)
-    stagedata.stagedata_file = stagedata_file;
-    
-    set(handles.take_stage1,...
-        'Enable','on',...
-        'String','GOTO position 1');
-    set(handles.take_stage2,...
-        'Enable','off',...
-        'String','GOTO position 2');
-    set(handles.take_stage3,...
-        'Enable','off',...
-        'String','GOTO position 3');
-    
-    x = stagedata.stage_positions(1,1);
-    y = stagedata.stage_positions(1,2);
-    set(handles.stage_1x,'String',x);
-    set(handles.stage_1y,'String',y);
-    
-    x = stagedata.stage_positions(2,1);
-    y = stagedata.stage_positions(2,2);
-    set(handles.stage_2x,'String',x);
-    set(handles.stage_2y,'String',y);
-    
-    x = stagedata.stage_positions(3,1);
-    y = stagedata.stage_positions(3,2);
-    set(handles.stage_3x,'String',x);
-    set(handles.stage_3y,'String',y);
-    
-    set(handles.take_wsi1,'Enable','off');
-    set(handles.take_wsi2,'Enable','off');
-    set(handles.take_wsi3,'Enable','off');
-    
-    x = stagedata.wsi_positions(1,1);
-    y = stagedata.wsi_positions(1,2);
-    set(handles.wsi_1x,'String',x);
-    set(handles.wsi_1y,'String',y);
-    
-    x = stagedata.wsi_positions(2,1);
-    y = stagedata.wsi_positions(2,2);
-    set(handles.wsi_2x,'String',x);
-    set(handles.wsi_2y,'String',y);
-    
-    x = stagedata.wsi_positions(3,1);
-    y = stagedata.wsi_positions(3,2);
-    set(handles.wsi_3x,'String',x);
-    set(handles.wsi_3y,'String',y);
-    
-    handles.current.reg_flag = 1;
-    handles.current.position_i = 1;
-    
-    handles.myData.stagedata = stagedata;
-    handles.current.load_stage_data = ones(1,3);
-    guidata(handles.Stage_Allighment,handles);
-    set(handles.Done,'Enable','on');
-    display_thumb(handles.Stage_Allighment)
+    if exist(stagedata_file, 'file')
+        load(stagedata_file)
+        stagedata.stagedata_file = stagedata_file;
+
+        set(handles.take_stage1,...
+            'Enable','on',...
+            'String','GOTO position 1');
+        set(handles.take_stage2,...
+            'Enable','off',...
+            'String','GOTO position 2');
+        set(handles.take_stage3,...
+            'Enable','off',...
+            'String','GOTO position 3');
+
+        x = stagedata.stage_positions(1,1);
+        y = stagedata.stage_positions(1,2);
+        set(handles.stage_1x,'String',x);
+        set(handles.stage_1y,'String',y);
+
+        x = stagedata.stage_positions(2,1);
+        y = stagedata.stage_positions(2,2);
+        set(handles.stage_2x,'String',x);
+        set(handles.stage_2y,'String',y);
+
+        x = stagedata.stage_positions(3,1);
+        y = stagedata.stage_positions(3,2);
+        set(handles.stage_3x,'String',x);
+        set(handles.stage_3y,'String',y);
+
+        set(handles.take_wsi1,'Enable','off');
+        set(handles.take_wsi2,'Enable','off');
+        set(handles.take_wsi3,'Enable','off');
+
+        x = stagedata.wsi_positions(1,1);
+        y = stagedata.wsi_positions(1,2);
+        set(handles.wsi_1x,'String',x);
+        set(handles.wsi_1y,'String',y);
+
+        x = stagedata.wsi_positions(2,1);
+        y = stagedata.wsi_positions(2,2);
+        set(handles.wsi_2x,'String',x);
+        set(handles.wsi_2y,'String',y);
+
+        x = stagedata.wsi_positions(3,1);
+        y = stagedata.wsi_positions(3,2);
+        set(handles.wsi_3x,'String',x);
+        set(handles.wsi_3y,'String',y);
+
+        handles.current.reg_flag = 1;
+        handles.current.position_i = 1;
+
+        handles.myData.stagedata = stagedata;
+        handles.current.load_stage_data = ones(1,3);
+        guidata(handles.Stage_Allighment,handles);
+        set(handles.Done,'Enable','on');
+        display_thumb(handles.Stage_Allighment)
+    else
+        desc = ['Unable to read file ',stagedata_file, '. Please do low resolution registration.'];    
+        h_errordlg = errordlg(desc,'Application error','modal');
+        uiwait(h_errordlg);
+    end
     
 catch ME
     error_show(ME)

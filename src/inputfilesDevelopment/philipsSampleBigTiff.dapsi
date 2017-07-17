@@ -1,0 +1,138 @@
+Author: 
+Date: 
+Time: 
+
+For the Hamamatsu scanning at 20x
+    scan_scale = .4558
+For the Hamamatsu scanning at 40x
+    scan_scale = .2279
+
+Point Grey Grashopper Color (GRAS-03K2C-C)
+    cam_format = RGB24_640x480
+    cam_pixel_size = 7.4um
+Point Grey Flea2 Color (FL2G-50S5C-C): Full resolution, full format
+    cam_format = F7_RGB24_2448x2048
+    cam_pixel_size = 3.45
+Point Grey Flea2 Color (FL2G-50S5C-C): Standard format, aspect ratio = 1.33
+    cam_format = RGB24_1024x768
+    cam_pixel_size = 6.9
+
+Reminder:
+taskorder=2 user specified order
+taskorder=1 listed order
+taskorder=0 random order
+saveimages = 1  save WSI and camera images
+saveimages = 2  only save WSI image
+saveimages = 3  only save camera image
+saveimages = 4  don't save WSI and camera images
+
+Input Image Source
+http://openslide.cs.cmu.edu/download/openslide-testdata/Hamamatsu/CMU-1.ndpi
+
+Input File Task Formats
+task_checkMof4,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_count,    TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_mark1,    TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_mark1_out,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_radio1of4,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_slider,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_mitotic_expert,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag
+task_mitotic_train, TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag,ExpertCheckBoxes1-8,Expert_Score
+task_mitotic_counts,TaskID,TaskOrder,Slot,MoveFlag,ZoomFlag
+
+SETTINGS
+NUMBER_OF_WSI    = 1
+wsi_slot_1       = C:\000_whole_slides\philips\20170413_123627_(2).tiff
+rgb_lut_slot_1   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+label_pos        = 6
+reticleID        = KR-871
+cam_kind	 = Firewire
+cam_format       = RGB24_1024x768
+cam_pixel_size   = 6.9
+mag_cam          = 1.0
+mag_lres         = 5
+mag_hres         = 40
+scan_scale       = 0.2279
+stage_label      = SCAN8Praparate_Ludl5000
+BG_Color_RGB     = 0.55 = 0.55 = 0.55
+FG_Color_RGB     = 0.00 = 0.00 = 0.00
+AxesBG_Color_RGB = 0.10 = 0.20 = 0.10
+FontSize         = 13
+saveimages       = 3
+taskorder        = 1
+
+BODY
+start
+finish
+mark1,3000x510,-1,1,3000,510,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,3000x1000,-1,1,3000,1000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,3000x1500,-1,1,3000,1500,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,3000x3000,-1,1,3000,3000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,3000x4000,-1,1,3000,4000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,3000x5000,-1,1,3000,5000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,3000x6000,-1,1,3000,6000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,3000x7000,-1,1,3000,7000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,3000x8000,-1,1,3000,8000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,3000x15000,-1,1,3000,15000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,5000x510,-1,1,5000,510,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,5000x1000,-1,1,5000,1000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,5000x1500,-1,1,5000,1500,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,5000x3000,-1,1,5000,3000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,5000x4000,-1,1,5000,4000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,5000x5000,-1,1,5000,5000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,5000x6000,-1,1,5000,6000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,5000x7000,-1,1,5000,7000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,5000x8000,-1,1,5000,8000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,5000x15000,-1,1,5000,15000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,7000x510,-1,1,7000,510,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,7000x1000,-1,1,7000,1000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,7000x1500,-1,1,7000,1500,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,7000x3000,-1,1,7000,3000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,7000x4000,-1,1,7000,4000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,7000x5000,-1,1,7000,5000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,7000x6000,-1,1,7000,6000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,7000x7000,-1,1,7000,7000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,7000x8000,-1,1,7000,8000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,7000x15000,-1,1,7000,15000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,9000x510,-1,1,9000,510,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,9000x1000,-1,1,9000,1000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,9000x1500,-1,1,9000,1500,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,9000x3000,-1,1,9000,3000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,9000x4000,-1,1,9000,4000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,9000x5000,-1,1,9000,5000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,9000x6000,-1,1,9000,6000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,9000x7000,-1,1,9000,7000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,9000x8000,-1,1,9000,8000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,9000x15000,-1,1,9000,15000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,11000x510,-1,1,11000,510,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,11000x1000,-1,1,11000,1000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,11000x1500,-1,1,11000,1500,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,11000x3000,-1,1,11000,3000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,11000x4000,-1,1,11000,4000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,11000x5000,-1,1,11000,5000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,11000x6000,-1,1,11000,6000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,11000x7000,-1,1,11000,7000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,11000x8000,-1,1,11000,8000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,11000x15000,-1,1,11000,15000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,15000x510,-1,1,15000,510,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,15000x1000,-1,1,15000,1000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,15000x1500,-1,1,15000,1500,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,15000x3000,-1,1,15000,3000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,15000x4000,-1,1,15000,4000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,15000x5000,-1,1,15000,5000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,15000x6000,-1,1,15000,6000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,15000x7000,-1,1,15000,7000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,15000x8000,-1,1,15000,8000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,15000x15000,-1,1,15000,15000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,17000x510,-1,1,17000,510,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,17000x1000,-1,1,17000,1000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,17000x1500,-1,1,17000,1500,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,17000x3000,-1,1,17000,3000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,17000x4000,-1,1,17000,4000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,17000x5000,-1,1,17000,5000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,17000x6000,-1,1,17000,6000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,17000x7000,-1,1,17000,7000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,17000x8000,-1,1,17000,8000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,17000x15000,-1,1,17000,15000,1000,1000,1000,1000,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+
+
