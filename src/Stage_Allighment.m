@@ -88,8 +88,10 @@ try
     stagedata.stagedata_file = [char(temp{1}),'.mat'];
     
     % Initialize the low-resolution conversions between scanner and camera
-    current.scan2cam = myData.settings.scan2cam_lres;
-    current.cam2scan = myData.settings.cam_lres2scan;
+%     current.scan2cam = myData.settings.scan2cam_lres;
+%     current.cam2scan = myData.settings.cam_lres2scan;
+    current.scan2cam = myData.settings.scan2cam_lres(slot_i);
+    current.cam2scan = myData.settings.cam_lres2scan(slot_i);
     
     % Initialize the thumbnail settings
     current.thumb_file = [myData.registration_images_dir,...
@@ -183,15 +185,15 @@ try
         position_i = current.position_i;
         
         pos = stagedata.wsi_positions(position_i,:);
-        current.scan2cam = myData.settings.scan2cam_hres;
-        current.cam2scan = myData.settings.cam_hres2scan;
+        current.scan2cam = myData.settings.scan2cam_hres(slot_i);
+        current.cam2scan = myData.settings.cam_hres2scan(slot_i);
         current.thumb_file = [myData.registration_images_dir,...
             'hres_s', num2str(slot_i), 'p',num2str(position_i),'_thumb.tif'];
         
         % Set the extract region width to be equivalent to the low-res
         % camera image at the positions collected at low-res registration
-        current.thumb_extract_w = cam_h*myData.settings.cam_lres2scan;
-        current.thumb_extract_h = cam_w*myData.settings.cam_lres2scan;
+        current.thumb_extract_w = cam_h*myData.settings.cam_lres2scan(slot_i);
+        current.thumb_extract_h = cam_w*myData.settings.cam_lres2scan(slot_i);
         current.thumb_left = pos(1) - current.thumb_extract_w/2;
         current.thumb_top = pos(2) - current.thumb_extract_h/2;
         thumb_right = pos(1) + current.thumb_extract_w/2;
@@ -323,8 +325,8 @@ try
         cam_file = [myData.registration_images_dir,...
             'lres_s', num2str(slot_i), 'p', num2str(position_i), '_cam.tif'];
         handles.current.cam_file = cam_file;
-        handles.current.cam2scan = settings.cam_lres2scan;
-        cam2scan = settings.cam_lres2scan;
+        handles.current.cam2scan = settings.cam_lres2scan(slot_i);
+        cam2scan = settings.cam_lres2scan(slot_i);
     end
     
     % Set the high-res camera image filename and the current.cam2scan
@@ -332,8 +334,8 @@ try
         cam_file = [myData.registration_images_dir,...
             'hres_s', num2str(slot_i), 'p', num2str(position_i), '_cam.tif'];
         handles.current.cam_file = cam_file;
-        handles.current.cam2scan = settings.cam_hres2scan;
-        cam2scan = settings.cam_hres2scan;
+        handles.current.cam2scan = settings.cam_hres2scan(slot_i);
+        cam2scan = settings.cam_hres2scan(slot_i);
     end
     
     if handles.myData.yesno_micro==0
@@ -424,10 +426,10 @@ try
     thumb_left = current.thumb_left;
     thumb_top = current.thumb_top;
     
-    cam_lres2scan = settings.cam_lres2scan;
-    scan2cam_lres = settings.scan2cam_lres; %#ok<NASGU>
-    cam_hres2scan = settings.cam_hres2scan;
-    scan2cam_hres = settings.scan2cam_hres; %#ok<NASGU>
+    cam_lres2scan = settings.cam_lres2scan(slot_i);
+    scan2cam_lres = settings.scan2cam_lres(slot_i); %#ok<NASGU>
+    cam_hres2scan = settings.cam_hres2scan(slot_i);
+    scan2cam_hres = settings.scan2cam_hres(slot_i); %#ok<NASGU>
     
     % Get mouse click position. Thumb_axes origin is at the top left
     % Units are in terms of the pix_image
@@ -531,7 +533,7 @@ try
     guidata(handles.Stage_Allighment, handles);
     
     % Annotate the image with boxes marking the registration ROIs
-    annotate_image(handles)
+    annotate_image(handles,slot_i)
     
 catch ME
     error_show(ME)
@@ -540,7 +542,7 @@ end
 end
 
 %% -------- Annotate the thumbnail image
-function annotate_image(handles)
+function annotate_image(handles,slot_i)
 try
     % Place a rectangle on thumb_axes centered on mouse click
     % Blue box is camera roi for extraction
@@ -559,11 +561,11 @@ try
 
     % cam2scan for lres
     if handles.current.reg_flag==0
-        cam2scan = settings.cam_lres2scan;
+        cam2scan = settings.cam_lres2scan(slot_i);
     end
     % cam2scan for hres
     if handles.current.reg_flag==1
-        cam2scan = settings.cam_hres2scan;
+        cam2scan = settings.cam_hres2scan(slot_i);
     end
     
     % Scale factor to convert scanner pixels to thumbnail pixels

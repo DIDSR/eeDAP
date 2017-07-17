@@ -87,7 +87,7 @@ try
             handles = rmfield(handles, 'textCount');
             handles = rmfield(handles, 'editCount');
 
-            taskimage_archive(handles);
+            %taskimage_archive(handles);
 
         case 'Save_Results' % Save the results for this task
             
