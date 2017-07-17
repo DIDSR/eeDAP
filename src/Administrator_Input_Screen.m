@@ -182,7 +182,10 @@ try
 %     handles = guidata(handles.Administrator_Input_Screen);
     
     Purge_Temporary_Images(handles);
-    Load_Input_File(handles);
+    succeedLoad = Load_Input_File(handles);
+    if ~succeedLoad
+        return;
+    end    
     handles = guidata(handles.Administrator_Input_Screen);
     
     wtb=waitbar(0,'Extracting ROIs....', 'WindowStyle', 'modal');

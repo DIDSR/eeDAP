@@ -1,7 +1,7 @@
 %  ##########################################################################
 %% ######################### LOAD INPUT FILE ################################
 %  ##########################################################################
-function Load_Input_File(handles)
+function succeed = Load_Input_File(handles)
 try
     %--------------------------------------------------------------------------
     % Load_Input_File ensures that the input file defining the set of
@@ -12,7 +12,7 @@ try
     % structures called wsi_files
     % Both "settings" and "wsi_files" are stored in myData
     %--------------------------------------------------------------------------
-    
+    succeed = 0;
     myData = handles.myData;
     addpath('bfmatlab');
     %----------------------------------------------------------------------
@@ -51,6 +51,7 @@ try
         settings.n_wsi = n_wsi;
     else
         io_error(name);
+        return;
     end
     
     % Read in the file names of the WSI and the RGB look up table
@@ -67,27 +68,24 @@ try
             % If not absolute, make it absolute
             temp_absolute = char(field{2});
             temp_relative = char([myData.workdir, field{2}]);
-            
-            if ~isempty(dir( temp_absolute ))
-                wsi_fullname = char(cellstr(temp_absolute));
-            elseif ~isempty(dir( temp_relative ))
-                wsi_fullname = char(cellstr(temp_relative));
-            else
-                desc = sprintf('WSI does not exist. \nFilename = %s\nSlot Number = %d\n\nYou will be prompted to browse for one.', temp_absolute, i);
-                errordlg(desc,'Application error.','modal');
-                uiwait
-                [f_name, d_name] = ...
-                    uigetfile('*', ['Browse to find image for ', name]);
-                wsi_fullname = [d_name, f_name];
-                desc = sprintf('The filename with full path is \n\n %s', wsi_fullname);
-                errordlg(desc,'Application error recovery.','modal');
-                uiwait
 
-            end
+                if ~isempty(dir( temp_absolute ))
+                    wsi_fullname = char(cellstr(temp_absolute));
+                    
+                elseif ~isempty(dir( temp_relative ))
+                    wsi_fullname = char(cellstr(temp_relative));
+                    
+                else
+                    desc = sprintf('WSI does not exist. \nFilename = %s\nSlot Number = %d\n\nYou need to load a new input file.', temp_absolute, i);
+                    h_errordlg = errordlg(desc,'Application error','modal');
+                    return;
+                end
+           
             
         else
             name = [name ': does not match expected label: ' strtrim(char(field{1}))];
             io_error(name);
+            return;
         end
         
         % Get WSI information
@@ -125,6 +123,7 @@ try
             else
                 name = ['WSI does not exist. Filename = ',temp_absolute];
                 io_error(name);
+                return;
             end
             
             fid2 = fopen(rgb_lut_filename);
@@ -142,6 +141,7 @@ try
             
         else
             io_error(name);
+            return;
         end
     end
     myData.wsi_files = wsi_files;
@@ -155,6 +155,7 @@ try
         settings.label_pos=char(setting_value);
     else
         io_error(name);
+        return;
     end
      % label_pos on glass slide relative to the microscope operator
     % in units of the clock (0,3,6,9,12)
@@ -182,6 +183,7 @@ try
         settings.reticleID=char(setting_value);
     else
         io_error(name);
+        return;
     end
     tline = fgets(fid);
     [setting_name, setting_value]=strread(tline, '%s %s', 'delimiter', '=');
@@ -190,6 +192,7 @@ try
         settings.cam_kind=char(setting_value);
     else
         io_error(name);
+        return;
     end
     tline = fgets(fid);
     [setting_name, setting_value]=strread(tline, '%s %s', 'delimiter', '=');
@@ -198,6 +201,7 @@ try
         settings.cam_format=char(setting_value);
     else
         io_error(name);
+        return;
     end
     tline = fgets(fid);
     [setting_name, setting_value]=strread(tline, '%s %f', 'delimiter', '=');
@@ -206,6 +210,7 @@ try
         settings.cam_pixel_size=setting_value;
     else
         io_error(name);
+        return;
     end
     tline = fgets(fid);
     [setting_name, setting_value]=strread(tline, '%s %f', 'delimiter', '=');
@@ -214,6 +219,7 @@ try
         settings.mag_cam=setting_value;
     else
         io_error(name);
+        return;
     end
     tline = fgets(fid);
     [setting_name, setting_value]=strread(tline, '%s %f', 'delimiter', '=');
@@ -222,6 +228,7 @@ try
         settings.mag_lres=setting_value;
     else
         io_error(name);
+        return;
     end
     tline = fgets(fid);
     [setting_name, setting_value]=strread(tline, '%s %f', 'delimiter', '=');
@@ -230,6 +237,7 @@ try
         settings.mag_hres=setting_value;
     else
         io_error(name);
+        return;
     end
     tline = fgets(fid);
     [setting_name, setting_value]=strread(tline, '%s %f', 'delimiter', '=');
@@ -238,6 +246,7 @@ try
         settings.scan_scale=setting_value;
     else
         io_error(name);
+        return;
     end
 
     
@@ -248,6 +257,7 @@ try
         myData.stage.label=char(setting_value);
     else
         io_error(name); 
+        return;
     end
     
     % Create reticle mask for the scanned image
@@ -265,6 +275,7 @@ try
         settings.BG_color(3)=tempB;
     else
         io_error(name);
+        return;
     end
     tline = fgets(fid);
     [setting_name, tempR, tempG, tempB] =...
@@ -276,6 +287,7 @@ try
         settings.FG_color(3)=tempB;
     else
         io_error(name);
+        return;
     end
     tline = fgets(fid);
     [setting_name, tempR, tempG, tempB] =...
@@ -287,6 +299,7 @@ try
         settings.Axes_BG(3)=tempB;
     else
         io_error(name);
+        return;
     end
     tline = fgets(fid);
     [setting_name, setting_value]=strread(tline, '%s %d', 'delimiter', '=');
@@ -295,6 +308,7 @@ try
         settings.FontSize=setting_value;
     else
         io_error(name);
+        return;
     end
     tline = fgets(fid);
     [setting_name, setting_value]=strread(tline, '%s %d', 'delimiter', '=');
@@ -303,6 +317,7 @@ try
         settings.saveimages=setting_value;
     else
         io_error(name);
+        return;
     end    
     tline = fgets(fid);
     [setting_name, setting_value]=strread(tline, '%s %d', 'delimiter', '=');
@@ -311,6 +326,7 @@ try
         settings.taskorder=setting_value;
     else
         io_error(name);
+        return;
     end
     
     while (~feof(fid)) && isempty(strfind(fgets(fid),'BODY'))
@@ -470,7 +486,7 @@ try
     % Update handles.Administrator_Input_Screen
     handles.myData=myData;
     guidata(handles.Administrator_Input_Screen,handles);
-    
+    succeed = 1;
 catch ME
     error_show(ME);
 end
@@ -483,6 +499,6 @@ disp(desc)
 dbstack()
 h_errordlg = errordlg(desc,'Application error','modal');
 uiwait(h_errordlg)
-keyboard
+% keyboard
 
 end
