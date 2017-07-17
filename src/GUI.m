@@ -439,28 +439,7 @@ try
         'BackgroundColor',myData.settings.BG_color,...
         'ForegroundColor',myData.settings.FG_color,...
         'Visible', 'off');
-    
-%     set (handles.autoUnfocusPhoto,...
-%         'FontSize', myData.settings.FontSize,...
-%         'BackgroundColor',myData.settings.BG_color,...
-%         'ForegroundColor',myData.settings.FG_color,...
-%         'Visible', 'off');
-%     set (handles.autoFocusPhoto,...
-%         'FontSize', myData.settings.FontSize,...
-%         'BackgroundColor',myData.settings.BG_color,...
-%         'ForegroundColor',myData.settings.FG_color,...
-%         'Visible', 'off');
-%     set (handles.fastPhoto,...
-%         'FontSize', myData.settings.FontSize,...
-%         'BackgroundColor',myData.settings.BG_color,...
-%         'ForegroundColor',myData.settings.FG_color,...
-%         'Visible', 'off');
-%     set (handles.bestPhoto,...
-%         'FontSize', myData.settings.FontSize,...
-%         'BackgroundColor',myData.settings.BG_color,...
-%         'ForegroundColor',myData.settings.FG_color,...
-%         'Visible', 'off');
-%     
+        
     % Update handles.GUI
     guidata(handles.GUI, handles);
     % Initiate the first task
@@ -756,18 +735,10 @@ try
             set(handles.NextButton,'enable','off');
             set(handles.Fast_Register_Button,'enable','off');
             set(handles.Best_Register_Button,'enable','off');
-%             set(handles.autoUnfocusPhoto,'enable','off');
-%             set(handles.autoFocusPhoto,'enable','off');
-%             set(handles.fastPhoto,'enable','off');
-%             set(handles.bestPhoto,'enable','off');
             handles.myData.stage = stage_move(handles.myData.stage,target_pos,handles.myData.stage.handle);
             set(handles.NextButton,'enable',currentNextStatus);
             set(handles.Fast_Register_Button,'enable','on');
             set(handles.Best_Register_Button,'enable','on');
-%             set(handles.autoUnfocusPhoto,'enable','on');
-%             set(handles.autoFocusPhoto,'enable','on');
-%             set(handles.fastPhoto,'enable','on');
-%             set(handles.bestPhoto,'enable','on');
             
     end
     
@@ -1207,81 +1178,3 @@ taskinfo.task_handle(handles.GUI);
 end
 
 
-% % --- Executes on button press in autoUnfocusPhoto.
-% function autoUnfocusPhoto_Callback(hObject, eventdata, handles)
-% % hObject    handle to autoUnfocusPhoto (see GCBO)
-% % eventdata  reserved - to be defined in a future version of MATLAB
-% % handles    structure with handles and user data (see GUIDATA) 
-%     myData=handles.myData;    
-%     cam_image = camera_take_image(handles.cam);
-%     taskinfo = myData.tasks_out{myData.iter};
-%     FolderName=[myData.output_files_dir,...
-%             strrep(myData.outputfile,'.dapso','RegPhoto')];
-%     if ~exist(FolderName,'file')
-%        mkdir(FolderName);
-%     end
-%     imwrite(cam_image,strcat(FolderName,'\',...
-%         'ID-',taskinfo.id,...
-%         '_iter-',num2str(taskinfo.order),...
-%         '_autoUnfocus.tif'));
-% end
-% 
-% 
-% % --- Executes on button press in autoFocusPhoto.
-% function autoFocusPhoto_Callback(hObject, eventdata, handles)
-% % hObject    handle to autoFocusPhoto (see GCBO)
-% % eventdata  reserved - to be defined in a future version of MATLAB
-% % handles    structure with handles and user data (see GUIDATA)
-%     myData=handles.myData;    
-%     cam_image = camera_take_image(handles.cam);
-%     taskinfo = myData.tasks_out{myData.iter};
-%     FolderName=[myData.output_files_dir,...
-%             strrep(myData.outputfile,'.dapso','RegPhoto')];
-%     if ~exist(FolderName,'file')
-%        mkdir(FolderName);
-%     end
-%     imwrite(cam_image,strcat(FolderName,'\',...
-%         'ID-',taskinfo.id,...
-%         '_iter-',num2str(taskinfo.order),...
-%         '_autoFocus.tif'));
-% end
-% 
-% 
-% % --- Executes on button press in fastPhoto.
-% function fastPhoto_Callback(hObject, eventdata, handles)
-% % hObject    handle to fastPhoto (see GCBO)
-% % eventdata  reserved - to be defined in a future version of MATLAB
-% % handles    structure with handles and user data (see GUIDATA)
-%     myData=handles.myData;    
-%     cam_image = camera_take_image(handles.cam);
-%     taskinfo = myData.tasks_out{myData.iter};
-%     FolderName=[myData.output_files_dir,...
-%             strrep(myData.outputfile,'.dapso','RegPhoto')];
-%     if ~exist(FolderName,'file')
-%        mkdir(FolderName);
-%     end
-%     imwrite(cam_image,strcat(FolderName,'\',...
-%         'ID-',taskinfo.id,...
-%         '_iter-',num2str(taskinfo.order),...
-%         '_fast.tif'));
-% end
-% 
-% 
-% % --- Executes on button press in bestPhoto.
-% function bestPhoto_Callback(hObject, eventdata, handles)
-% % hObject    handle to bestPhoto (see GCBO)
-% % eventdata  reserved - to be defined in a future version of MATLAB
-% % handles    structure with handles and user data (see GUIDATA)
-%     myData=handles.myData;    
-%     cam_image = camera_take_image(handles.cam);
-%     taskinfo = myData.tasks_out{myData.iter};
-%     FolderName=[myData.output_files_dir,...
-%             strrep(myData.outputfile,'.dapso','RegPhoto')];
-%     if ~exist(FolderName,'file')
-%        mkdir(FolderName);
-%     end
-%     imwrite(cam_image,strcat(FolderName,'\',...
-%         'ID-',taskinfo.id,...
-%         '_iter-',num2str(taskinfo.order),...
-%         '_best.tif'));
-% end

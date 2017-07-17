@@ -145,15 +145,7 @@ try
         end
         
         
-        % Read in the file name of the RGB look up table
-        %     tline = fgets(fid);
-%     [setting_name, setting_value]=strread(tline, '%s %f', 'delimiter', '=');
-%     name = 'scan_scale';
-%     if strcmp(strtrim(setting_name),name)==1
-%         settings.scan_scale=setting_value;
-%     else
-%         io_error(name);
-%     end
+        % Read in image scan scale
         tline = fgets(fid);
         field = textscan(tline,'%s %s','delimiter','=');
         name = ['scan_scale_',num2str(i,'%d')];
