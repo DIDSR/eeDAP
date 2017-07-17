@@ -143,6 +143,22 @@ try
             io_error(name);
             return;
         end
+        
+        
+        % Read in image scan scale
+        tline = fgets(fid);
+        field = textscan(tline,'%s %s','delimiter','=');
+        name = ['scan_scale_',num2str(i,'%d')];
+        if strcmp(strtrim(char(field{1})),name)==1
+            % Check to see if filename is relative or absolute
+            % If not absolute, make it absolute
+            [setting_name, setting_value]=strread(tline, '%s %f', 'delimiter', '=');
+            wsi_files{i}.scan_scale = setting_value;            
+        else
+            io_error(name);
+        end
+        
+        
     end
     myData.wsi_files = wsi_files;
     handles.myData=myData;
@@ -239,15 +255,15 @@ try
         io_error(name);
         return;
     end
-    tline = fgets(fid);
-    [setting_name, setting_value]=strread(tline, '%s %f', 'delimiter', '=');
-    name = 'scan_scale';
-    if strcmp(strtrim(setting_name),name)==1
-        settings.scan_scale=setting_value;
-    else
-        io_error(name);
-        return;
-    end
+%     tline = fgets(fid);
+%     [setting_name, setting_value]=strread(tline, '%s %f', 'delimiter', '=');
+%     name = 'scan_scale';
+%     if strcmp(strtrim(setting_name),name)==1
+%         settings.scan_scale=setting_value;
+%     else
+%         io_error(name);
+%         return;
+%     end
 
     
     tline = fgets(fid);
@@ -261,9 +277,11 @@ try
     end
     
     % Create reticle mask for the scanned image
-    pixel_size = settings.scan_scale * settings.mag_hres;
-    settings.scan_mask = ...
-        reticle_make_mask(settings.reticleID, pixel_size, [0,0]);
+    for i=1:n_wsi
+        pixel_size = wsi_files{i}.scan_scale * settings.mag_hres;
+        settings.scan_mask{i} = ...
+            reticle_make_mask(settings.reticleID, pixel_size, [0,0]);
+    end
     
     tline = fgets(fid);
     [setting_name, tempR, tempG, tempB] =...

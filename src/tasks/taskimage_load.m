@@ -26,7 +26,7 @@ try
         if handles.reticle == 1
             handles.ImX = reticle_apply_mask(...
                 handles.ImX,...
-                settings.scan_mask);
+                settings.scan_mask{taskinfo.slot});
         end
         temp=size(handles.ImX);
         imageydim=temp(1);

@@ -105,7 +105,9 @@ try
         desc = ['rgb_lut_slot_',num2str(i,'%d'),'=', ...
             wsi_files{i}.rgb_lutfilename];
         fprintf(fid,'%s \r\n',desc);
-
+         desc = ['rgb_lut_slot_',num2str(i,'%d'),'=', ...
+            num2str( wsi_files{i}.scan_scale)];
+        fprintf(fid,'%s \r\n',desc);
     end
     
     fprintf(fid,strcat('label_pos','=',num2str(settings.label_pos),'\r\n'));
@@ -115,7 +117,7 @@ try
     fprintf(fid,strcat('mag_cam','=',num2str(settings.mag_cam),'\r\n'));
     fprintf(fid,strcat('mag_lres','=',num2str(settings.mag_lres),'\r\n'));
     fprintf(fid,strcat('mag_hres','=',num2str(settings.mag_hres),'\r\n'));
-    fprintf(fid,strcat('scan_scale','=',num2str(settings.scan_scale),'\r\n'));
+    %fprintf(fid,strcat('scan_scale','=',num2str(settings.scan_scale),'\r\n'));
     fprintf(fid,strcat('stage_label','=',num2str(myData.stage.label),'\r\n'));
     desc = ['BG_Color_RGB=',...
         num2str(myData.settings.BG_color(1)),'=',...

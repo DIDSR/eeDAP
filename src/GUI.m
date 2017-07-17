@@ -439,7 +439,7 @@ try
         'BackgroundColor',myData.settings.BG_color,...
         'ForegroundColor',myData.settings.FG_color,...
         'Visible', 'off');
-    
+        
     % Update handles.GUI
     guidata(handles.GUI, handles);
     % Initiate the first task
@@ -509,10 +509,13 @@ try
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
 
     handles.myData.taskinfo = taskinfo;
-    handles.myData.StartTime = clock;    
+    % temp comment out
+    %handles.myData.StartTime = clock;    
     guidata(handles.GUI,handles);
     handles = guidata(handles.GUI);
     myData = handles.myData;
+    taskinfo.durationMove = 0;
+    taskinfo.durationAutoReg = 0;
     % If the current task is 'finish' task, then return
     switch taskinfo.id
         case 'finish'
@@ -526,7 +529,7 @@ try
         case 'MicroRT'
             if handles.myData.yesno_micro == 1
                 stagedata = myData.stagedata{taskinfo.slot};
-                
+                moveStartTime = clock; 
                 % map wsi_new to stage_new
                 if 1
                     % wsi_new holds current ROI coordinates
@@ -563,15 +566,21 @@ try
                 handles = guidata(handles.GUI);
                 set(handles.iH,'visible','off');
                 set(handles.ImageAxes,'visible','off')
-                   
+                moveEndTime = clock;  
+                taskinfo.durationMove = etime(moveEndTime, moveStartTime);
                 %auto fast register
-                Fast_Register_Button_Callback(hObj, eventdata, handles)
+                autoRegStartTime = clock;
+                Fast_Register_Button_Callback(hObj, eventdata, handles);
+                autoRegEndTime = clock;
+                taskinfo.durationAutoReg = etime(autoRegEndTime,autoRegStartTime);
                 
             end
     end
 % Save taskinfo, which contains new stage location
+    
     myData.tasks_out{myData.iter} = taskinfo;
     handles.myData = myData;
+    handles.myData.StartTime = clock; 
     guidata(handles.GUI, handles);
     Update_GUI_Elements(handles);
     handles = guidata(handles.GUI);
@@ -776,7 +785,7 @@ try
         roi_image = roi_image;
     end
     % Rescale roi_image to cam_image
-    cam2scan = handles.myData.settings.cam_hres2scan;
+    cam2scan = handles.myData.settings.cam_hres2scan(myData.taskinfo.slot);
     scan2cam = 1.0/cam2scan;
     roi_image = imresize(roi_image, scan2cam);
     [roi_h, roi_w] = size(roi_image);
@@ -1069,7 +1078,7 @@ try
         roi_image = roi_image;
     end
     % Rescale roi_image to cam_image
-    cam2scan = handles.myData.settings.cam_hres2scan;
+    cam2scan = handles.myData.settings.cam_hres2scan(myData.taskinfo.slot);
     scan2cam = 1.0/cam2scan;
     roi_image = imresize(roi_image, scan2cam);
     [roi_h, roi_w] = size(roi_image);
@@ -1167,3 +1176,5 @@ taskinfo.task_handle(handles.GUI);
 %set(handles.NextButton,'Enable', 'off');
 
 end
+
+
