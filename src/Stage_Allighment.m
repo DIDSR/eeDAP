@@ -143,7 +143,10 @@ try
     guidata(handles.Stage_Allighment, handles);
     
     display_thumb(handles.Stage_Allighment);
-    
+    wsi_info = current.wsi_info;
+    slideID = strfind(wsi_info.fullname, '\');
+    filename = wsi_info.fullname(slideID(end)+1:end);
+    set(handles.text710,'String',filename,'FontSize',20);
 catch ME
     error_show(ME)
 end
@@ -249,7 +252,18 @@ try
     current.thumb_image = imread(current.thumb_file);
     current.thumb_image_handle = image(current.thumb_image, 'Parent', handles.thumb_axes);
     axis(handles.thumb_axes,'image');
-    
+    smallThumb_file = [myData.registration_images_dir,...
+        'lres_s', num2str(current.slot_i), '_thumb.tif'];
+    smallThumb_image = imread(smallThumb_file);
+    current.smallThumb_image_handle = image(smallThumb_image, 'Parent', handles.smallThumb_axes);
+    axis(handles.smallThumb_axes,'image');
+    set(handles.smallThumb_axes, ...
+            'box', 'off', ...
+            'xtick', [], ...
+            'ytick', [], ...
+            'Color', handles.myData.settings.Axes_BG, ...
+            'interruptible', 'off', ...
+            'busyaction', 'queue');
     handles.current = current;
     guidata(Stage_Allighment_handle, handles);
     
