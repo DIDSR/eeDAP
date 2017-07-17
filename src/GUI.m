@@ -440,6 +440,27 @@ try
         'ForegroundColor',myData.settings.FG_color,...
         'Visible', 'off');
     
+%     set (handles.autoUnfocusPhoto,...
+%         'FontSize', myData.settings.FontSize,...
+%         'BackgroundColor',myData.settings.BG_color,...
+%         'ForegroundColor',myData.settings.FG_color,...
+%         'Visible', 'off');
+%     set (handles.autoFocusPhoto,...
+%         'FontSize', myData.settings.FontSize,...
+%         'BackgroundColor',myData.settings.BG_color,...
+%         'ForegroundColor',myData.settings.FG_color,...
+%         'Visible', 'off');
+%     set (handles.fastPhoto,...
+%         'FontSize', myData.settings.FontSize,...
+%         'BackgroundColor',myData.settings.BG_color,...
+%         'ForegroundColor',myData.settings.FG_color,...
+%         'Visible', 'off');
+%     set (handles.bestPhoto,...
+%         'FontSize', myData.settings.FontSize,...
+%         'BackgroundColor',myData.settings.BG_color,...
+%         'ForegroundColor',myData.settings.FG_color,...
+%         'Visible', 'off');
+%     
     % Update handles.GUI
     guidata(handles.GUI, handles);
     % Initiate the first task
@@ -509,10 +530,13 @@ try
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
 
     handles.myData.taskinfo = taskinfo;
-    handles.myData.StartTime = clock;    
+    % temp comment out
+    %handles.myData.StartTime = clock;    
     guidata(handles.GUI,handles);
     handles = guidata(handles.GUI);
     myData = handles.myData;
+    taskinfo.durationMove = 0;
+    taskinfo.durationAutoReg = 0;
     % If the current task is 'finish' task, then return
     switch taskinfo.id
         case 'finish'
@@ -526,7 +550,7 @@ try
         case 'MicroRT'
             if handles.myData.yesno_micro == 1
                 stagedata = myData.stagedata{taskinfo.slot};
-                
+                moveStartTime = clock; 
                 % map wsi_new to stage_new
                 if 1
                     % wsi_new holds current ROI coordinates
@@ -563,15 +587,21 @@ try
                 handles = guidata(handles.GUI);
                 set(handles.iH,'visible','off');
                 set(handles.ImageAxes,'visible','off')
-                   
+                moveEndTime = clock;  
+                taskinfo.durationMove = etime(moveEndTime, moveStartTime);
                 %auto fast register
-                Fast_Register_Button_Callback(hObj, eventdata, handles)
+                autoRegStartTime = clock;
+                Fast_Register_Button_Callback(hObj, eventdata, handles);
+                autoRegEndTime = clock;
+                taskinfo.durationAutoReg = etime(autoRegEndTime,autoRegStartTime);
                 
             end
     end
 % Save taskinfo, which contains new stage location
+    
     myData.tasks_out{myData.iter} = taskinfo;
     handles.myData = myData;
+    handles.myData.StartTime = clock; 
     guidata(handles.GUI, handles);
     Update_GUI_Elements(handles);
     handles = guidata(handles.GUI);
@@ -726,10 +756,18 @@ try
             set(handles.NextButton,'enable','off');
             set(handles.Fast_Register_Button,'enable','off');
             set(handles.Best_Register_Button,'enable','off');
+%             set(handles.autoUnfocusPhoto,'enable','off');
+%             set(handles.autoFocusPhoto,'enable','off');
+%             set(handles.fastPhoto,'enable','off');
+%             set(handles.bestPhoto,'enable','off');
             handles.myData.stage = stage_move(handles.myData.stage,target_pos,handles.myData.stage.handle);
             set(handles.NextButton,'enable',currentNextStatus);
             set(handles.Fast_Register_Button,'enable','on');
             set(handles.Best_Register_Button,'enable','on');
+%             set(handles.autoUnfocusPhoto,'enable','on');
+%             set(handles.autoFocusPhoto,'enable','on');
+%             set(handles.fastPhoto,'enable','on');
+%             set(handles.bestPhoto,'enable','on');
             
     end
     
@@ -776,7 +814,7 @@ try
         roi_image = roi_image;
     end
     % Rescale roi_image to cam_image
-    cam2scan = handles.myData.settings.cam_hres2scan;
+    cam2scan = handles.myData.settings.cam_hres2scan(myData.taskinfo.slot);
     scan2cam = 1.0/cam2scan;
     roi_image = imresize(roi_image, scan2cam);
     [roi_h, roi_w] = size(roi_image);
@@ -1069,7 +1107,7 @@ try
         roi_image = roi_image;
     end
     % Rescale roi_image to cam_image
-    cam2scan = handles.myData.settings.cam_hres2scan;
+    cam2scan = handles.myData.settings.cam_hres2scan(myData.taskinfo.slot);
     scan2cam = 1.0/cam2scan;
     roi_image = imresize(roi_image, scan2cam);
     [roi_h, roi_w] = size(roi_image);
@@ -1167,3 +1205,83 @@ taskinfo.task_handle(handles.GUI);
 %set(handles.NextButton,'Enable', 'off');
 
 end
+
+
+% % --- Executes on button press in autoUnfocusPhoto.
+% function autoUnfocusPhoto_Callback(hObject, eventdata, handles)
+% % hObject    handle to autoUnfocusPhoto (see GCBO)
+% % eventdata  reserved - to be defined in a future version of MATLAB
+% % handles    structure with handles and user data (see GUIDATA) 
+%     myData=handles.myData;    
+%     cam_image = camera_take_image(handles.cam);
+%     taskinfo = myData.tasks_out{myData.iter};
+%     FolderName=[myData.output_files_dir,...
+%             strrep(myData.outputfile,'.dapso','RegPhoto')];
+%     if ~exist(FolderName,'file')
+%        mkdir(FolderName);
+%     end
+%     imwrite(cam_image,strcat(FolderName,'\',...
+%         'ID-',taskinfo.id,...
+%         '_iter-',num2str(taskinfo.order),...
+%         '_autoUnfocus.tif'));
+% end
+% 
+% 
+% % --- Executes on button press in autoFocusPhoto.
+% function autoFocusPhoto_Callback(hObject, eventdata, handles)
+% % hObject    handle to autoFocusPhoto (see GCBO)
+% % eventdata  reserved - to be defined in a future version of MATLAB
+% % handles    structure with handles and user data (see GUIDATA)
+%     myData=handles.myData;    
+%     cam_image = camera_take_image(handles.cam);
+%     taskinfo = myData.tasks_out{myData.iter};
+%     FolderName=[myData.output_files_dir,...
+%             strrep(myData.outputfile,'.dapso','RegPhoto')];
+%     if ~exist(FolderName,'file')
+%        mkdir(FolderName);
+%     end
+%     imwrite(cam_image,strcat(FolderName,'\',...
+%         'ID-',taskinfo.id,...
+%         '_iter-',num2str(taskinfo.order),...
+%         '_autoFocus.tif'));
+% end
+% 
+% 
+% % --- Executes on button press in fastPhoto.
+% function fastPhoto_Callback(hObject, eventdata, handles)
+% % hObject    handle to fastPhoto (see GCBO)
+% % eventdata  reserved - to be defined in a future version of MATLAB
+% % handles    structure with handles and user data (see GUIDATA)
+%     myData=handles.myData;    
+%     cam_image = camera_take_image(handles.cam);
+%     taskinfo = myData.tasks_out{myData.iter};
+%     FolderName=[myData.output_files_dir,...
+%             strrep(myData.outputfile,'.dapso','RegPhoto')];
+%     if ~exist(FolderName,'file')
+%        mkdir(FolderName);
+%     end
+%     imwrite(cam_image,strcat(FolderName,'\',...
+%         'ID-',taskinfo.id,...
+%         '_iter-',num2str(taskinfo.order),...
+%         '_fast.tif'));
+% end
+% 
+% 
+% % --- Executes on button press in bestPhoto.
+% function bestPhoto_Callback(hObject, eventdata, handles)
+% % hObject    handle to bestPhoto (see GCBO)
+% % eventdata  reserved - to be defined in a future version of MATLAB
+% % handles    structure with handles and user data (see GUIDATA)
+%     myData=handles.myData;    
+%     cam_image = camera_take_image(handles.cam);
+%     taskinfo = myData.tasks_out{myData.iter};
+%     FolderName=[myData.output_files_dir,...
+%             strrep(myData.outputfile,'.dapso','RegPhoto')];
+%     if ~exist(FolderName,'file')
+%        mkdir(FolderName);
+%     end
+%     imwrite(cam_image,strcat(FolderName,'\',...
+%         'ID-',taskinfo.id,...
+%         '_iter-',num2str(taskinfo.order),...
+%         '_best.tif'));
+% end

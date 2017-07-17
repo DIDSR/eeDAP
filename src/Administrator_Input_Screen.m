@@ -189,7 +189,7 @@ try
     handles = guidata(handles.Administrator_Input_Screen);
     
     wtb=waitbar(0,'Extracting ROIs....', 'WindowStyle', 'modal');
-    wsi_scan_scale = handles.myData.settings.scan_scale;
+    %wsi_scan_scale = handles.myData.settings.scan_scale;
     for i=2:handles.myData.ntasks+1
         
         taskinfo = handles.myData.tasks_out{i};
@@ -564,37 +564,76 @@ try
                 clear cam;
             end
 
+%             settings.cam_scale_lres = ...
+%                 settings.cam_pixel_size / settings.mag_cam / settings.mag_lres;
+%             settings.cam_scale_hres = ...
+%                 settings.cam_pixel_size / settings.mag_cam / settings.mag_hres;
+%             
+%             % cam pixels to scan pixels
+%             settings.cam_lres2scan = ...
+%                 settings.cam_scale_lres/settings.scan_scale;
+%             settings.cam_hres2scan = ...
+%                 settings.cam_scale_hres/settings.scan_scale;
+%             
+%             % cam pixels to stage pixels
+%             settings.cam_lres2stage = ...
+%                 settings.cam_scale_lres/handles.myData.stage.scale;
+%             settings.cam_hres2stage = ...
+%                 settings.cam_scale_hres/handles.myData.stage.scale;
+%             
+%             % scan pixels to cam pixels
+%             settings.scan2cam_lres = 1.0/settings.cam_lres2scan;
+%             settings.scan2cam_hres = 1.0/settings.cam_hres2scan;
+%             
+%             % stage pixels to cam pixels
+%             settings.stage2cam_lres = 1.0/settings.cam_lres2stage;
+%             settings.stage2cam_hres = 1.0/settings.cam_hres2stage;
+%             
+%             % scan pixels to stage pixels
+%             settings.scan2stage = settings.scan_scale/handles.myData.stage.scale;
+%             
+%             % stage pixels to scan pixels
+%             settings.stage2scan = 1.0/settings.scan2stage;
+            
+
             settings.cam_scale_lres = ...
-                settings.cam_pixel_size / settings.mag_cam / settings.mag_lres;
+                  settings.cam_pixel_size / settings.mag_cam / settings.mag_lres;
             settings.cam_scale_hres = ...
-                settings.cam_pixel_size / settings.mag_cam / settings.mag_hres;
-            
-            % cam pixels to scan pixels
-            settings.cam_lres2scan = ...
-                settings.cam_scale_lres/settings.scan_scale;
-            settings.cam_hres2scan = ...
-                settings.cam_scale_hres/settings.scan_scale;
-            
+                  settings.cam_pixel_size / settings.mag_cam / settings.mag_hres;
+              
             % cam pixels to stage pixels
             settings.cam_lres2stage = ...
-                settings.cam_scale_lres/handles.myData.stage.scale;
+                  settings.cam_scale_lres/handles.myData.stage.scale;
             settings.cam_hres2stage = ...
-                settings.cam_scale_hres/handles.myData.stage.scale;
-            
-            % scan pixels to cam pixels
-            settings.scan2cam_lres = 1.0/settings.cam_lres2scan;
-            settings.scan2cam_hres = 1.0/settings.cam_hres2scan;
+                  settings.cam_scale_hres/handles.myData.stage.scale;              
             
             % stage pixels to cam pixels
             settings.stage2cam_lres = 1.0/settings.cam_lres2stage;
-            settings.stage2cam_hres = 1.0/settings.cam_hres2stage;
+            settings.stage2cam_hres = 1.0/settings.cam_hres2stage;              
+         
             
-            % scan pixels to stage pixels
-            settings.scan2stage = settings.scan_scale/handles.myData.stage.scale;
-            
-            % stage pixels to scan pixels
-            settings.stage2scan = 1.0/settings.scan2stage;
-            
+            for slot_i=1:settings.n_wsi            
+                
+                 wsi_info = handles.myData.wsi_files{slot_i};
+                  % cam pixels to scan pixels
+                  settings.cam_lres2scan(slot_i) = ...
+                        settings.cam_scale_lres/wsi_info.scan_scale;
+                  settings.cam_hres2scan(slot_i) = ...
+                        settings.cam_scale_hres/wsi_info.scan_scale;
+                                            
+                  % scan pixels to cam pixels
+                  settings.scan2cam_lres(slot_i) = 1.0/settings.cam_lres2scan(slot_i);
+                  settings.scan2cam_hres(slot_i) = 1.0/settings.cam_hres2scan(slot_i);
+                                               
+                  % scan pixels to stage pixels
+                  settings.scan2stage(slot_i) = wsi_info.scan_scale/handles.myData.stage.scale;
+                        
+                  % stage pixels to scan pixels
+                  settings.stage2scan(slot_i) = 1.0/settings.scan2stage(slot_i);
+            end
+
+
+
             % Create reticle mask for the camera image
             settings.cam_mask = reticle_make_mask(...
                 settings.reticleID,...

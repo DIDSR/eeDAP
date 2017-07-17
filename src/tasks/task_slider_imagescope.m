@@ -22,7 +22,8 @@ try
             %generate WSI file and openimage scope
             if strcmp(handles.myData.mode_desc,'Digital')
                 wsi_info = handles.myData.wsi_files{taskinfo.slot};
-                wsi_scan_scale = handles.myData.settings.scan_scale;
+                %wsi_scan_scale = handles.myData.settings.scan_scale;
+                wsi_scan_scale = wsi_info.scan_scale;
                 Left = taskinfo.roi_x-(taskinfo.roi_w/2);
                 Top  = taskinfo.roi_y-(taskinfo.roi_h/2);
                 exportXML_arrow(wsi_info.fullname,wsi_scan_scale, taskinfo.id,handles.myData.workdir,...
