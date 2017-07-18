@@ -18,6 +18,8 @@ Point Grey Flea2 Color (FL2G-50S5C-C): Standard format, aspect ratio = 1.33
     cam_pixel_size = 6.9
 
 Reminder:
+autoreg = 1 do local automatic registration for each task/FOV
+autoreg = 0 don't local automatic registration for each task/FOV
 taskorder=2 user specified order
 taskorder=1 listed order
 taskorder=0 random order
@@ -42,12 +44,16 @@ SETTINGS
 NUMBER_OF_WSI    = 4 
 wsi_slot_1       = C:\000_whole_slides\mcsMSKCCscaned\ndpi\CCB050031HEmskccRescan2.ndpi
 rgb_lut_slot_1   = icc_profiles\rgb_lut_gamma_inv1p8.txt 
+scan_scale_1     = 0.2288
 wsi_slot_2       = C:\000_whole_slides\mcsMSKCCscaned\ndpi\CCB010352HEmskccRescan2.ndpi
 rgb_lut_slot_2   = icc_profiles\rgb_lut_gamma_inv1p8.txt 
+scan_scale_2     = 0.2288
 wsi_slot_3       = C:\000_whole_slides\mcsMSKCCscaned\ndpi\CCB030097HEmskccRescan2.ndpi
 rgb_lut_slot_3   = icc_profiles\rgb_lut_gamma_inv1p8.txt 
+scan_scale_3     = 0.2288
 wsi_slot_4       = C:\000_whole_slides\mcsMSKCCscaned\ndpi\CCB030179HEmskccRescan2.ndpi
 rgb_lut_slot_4   = icc_profiles\rgb_lut_gamma_inv1p8.txt 
+scan_scale_4     = 0.2288
 label_pos        = 12
 reticleID        = KR-871
 cam_kind	 = USB
@@ -56,12 +62,12 @@ cam_pixel_size   = 6.9
 mag_cam          = 0.5
 mag_lres         = 10
 mag_hres         = 40
-scan_scale       = 0.2288
 stage_label      = H101-Prior
 BG_Color_RGB     = 0.55 = 0.55 = 0.55
 FG_Color_RGB     = 0.00 = 0.00 = 0.00
 AxesBG_Color_RGB = 0.10 = 0.20 = 0.10
 FontSize         = 13
+autoreg 	 = 1
 saveimages       = 3
 taskorder        = 0
 

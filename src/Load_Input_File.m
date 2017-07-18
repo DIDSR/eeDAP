@@ -330,6 +330,15 @@ try
     end
     tline = fgets(fid);
     [setting_name, setting_value]=strread(tline, '%s %d', 'delimiter', '=');
+    name = 'autoreg';
+    if strcmp(strtrim(setting_name),name)==1
+        settings.autoreg=setting_value;
+    else
+        io_error(name);
+        return;
+    end
+    tline = fgets(fid);
+    [setting_name, setting_value]=strread(tline, '%s %d', 'delimiter', '=');
     name = 'saveimages';
     if strcmp(strtrim(setting_name),name)==1
         settings.saveimages=setting_value;

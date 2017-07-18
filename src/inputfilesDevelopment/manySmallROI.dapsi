@@ -18,6 +18,8 @@ Point Grey Flea2 Color (FL2G-50S5C-C): Standard format, aspect ratio = 1.33
     cam_pixel_size = 6.9
 
 Reminder:
+autoreg = 1 do local automatic registration for each task/FOV
+autoreg = 0 don't local automatic registration for each task/FOV
 taskorder=2 user specified order
 taskorder=1 listed order
 taskorder=0 random order
@@ -41,63 +43,83 @@ task_mitotic_train, TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Mo
 task_mitotic_counts,TaskID,TaskOrder,Slot,MoveFlag,ZoomFlag
 
 SETTINGS
-NUMBER_OF_WSI    = 20
-wsi_slot_1       = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
-rgb_lut_slot_1   = icc_profiles\rgb_lut_gamma_inv1p8.txt
-wsi_slot_2       = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
-rgb_lut_slot_2   = icc_profiles\rgb_lut_gamma_inv1p8.txt
-wsi_slot_3       = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
-rgb_lut_slot_3   = icc_profiles\rgb_lut_gamma_inv1p8.txt
-wsi_slot_4       = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
-rgb_lut_slot_4   = icc_profiles\rgb_lut_gamma_inv1p8.txt
-wsi_slot_5       = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
-rgb_lut_slot_5   = icc_profiles\rgb_lut_gamma_inv1p8.txt
-wsi_slot_6       = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
-rgb_lut_slot_6   = icc_profiles\rgb_lut_gamma_inv1p8.txt
-wsi_slot_7       = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
-rgb_lut_slot_7   = icc_profiles\rgb_lut_gamma_inv1p8.txt
-wsi_slot_8       = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
-rgb_lut_slot_8   = icc_profiles\rgb_lut_gamma_inv1p8.txt
-wsi_slot_9       = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
-rgb_lut_slot_9   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+NUMBER_OF_WSI     = 20
+wsi_slot_1        = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
+rgb_lut_slot_1    = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_1      = 0.2279
+wsi_slot_2        = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
+rgb_lut_slot_2    = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_2      = 0.2279
+wsi_slot_3        = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
+rgb_lut_slot_3    = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_3      = 0.2279
+wsi_slot_4        = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
+rgb_lut_slot_4    = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_4      = 0.2279
+wsi_slot_5        = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
+rgb_lut_slot_5    = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_5      = 0.2279
+wsi_slot_6        = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
+rgb_lut_slot_6    = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_6      = 0.2279
+wsi_slot_7        = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
+rgb_lut_slot_7    = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_7      = 0.2279
+wsi_slot_8        = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
+rgb_lut_slot_8    = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_8      = 0.2279
+wsi_slot_9        = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
+rgb_lut_slot_9    = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_9      = 0.2279
 wsi_slot_10       = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
-rgb_lut_slot_10  = icc_profiles\rgb_lut_gamma_inv1p8.txt
+rgb_lut_slot_10   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_10     = 0.2279
 wsi_slot_11       = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
 rgb_lut_slot_11   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_11     = 0.2279
 wsi_slot_12       = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
 rgb_lut_slot_12   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_12     = 0.2279
 wsi_slot_13       = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
 rgb_lut_slot_13   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_13     = 0.2279
 wsi_slot_14       = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
 rgb_lut_slot_14   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_14     = 0.2279
 wsi_slot_15       = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
 rgb_lut_slot_15   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_15     = 0.2279
 wsi_slot_16       = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
 rgb_lut_slot_16   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_16     = 0.2279
 wsi_slot_17       = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
 rgb_lut_slot_17   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_17     = 0.2279
 wsi_slot_18       = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
 rgb_lut_slot_18   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_18     = 0.2279
 wsi_slot_19       = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
 rgb_lut_slot_19   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_19     = 0.2279
 wsi_slot_20       = C:\Users\ReaderStudy\Documents\qigong\sampleROI.JPG
 rgb_lut_slot_20   = icc_profiles\rgb_lut_gamma_inv1p8.txt
-label_pos        = 6
-reticleID        = KR-871
-cam_kind	 = Firewire
-cam_format       = RGB24_1024x768
-cam_pixel_size   = 6.9
-mag_cam          = 1.0
-mag_lres         = 5
-mag_hres         = 40
-scan_scale       = 0.2279
-stage_label      = SCAN8Praparate_Ludl5000
-BG_Color_RGB     = 0.55 = 0.55 = 0.55
-FG_Color_RGB     = 0.00 = 0.00 = 0.00
-AxesBG_Color_RGB = 0.10 = 0.20 = 0.10
-FontSize         = 13
-saveimages       = 3
-taskorder        = 1
+scan_scale_20     = 0.2279
+label_pos         = 6
+reticleID         = KR-871
+cam_kind	  = Firewire
+cam_format        = RGB24_1024x768
+cam_pixel_size    = 6.9
+mag_cam           = 1.0
+mag_lres          = 5
+mag_hres          = 40
+stage_label       = SCAN8Praparate_Ludl5000
+BG_Color_RGB      = 0.55 = 0.55 = 0.55
+FG_Color_RGB      = 0.00 = 0.00 = 0.00
+AxesBG_Color_RGB  = 0.10 = 0.20 = 0.10
+FontSize          = 13
+autoreg 	  = 1
+saveimages        = 3
+taskorder         = 1
 
 BODY
 start
