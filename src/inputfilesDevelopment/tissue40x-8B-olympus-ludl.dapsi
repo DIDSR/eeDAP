@@ -36,6 +36,7 @@ SETTINGS
 NUMBER_OF_WSI    = 1
 wsi_slot_1       = C:\000_whole_slides\tissue40x-8B.ndpi
 rgb_lut_slot_1   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_1     = 0.2279
 label_pos        = 12
 reticleID        = KR-32536
 cam_kind	 = Firewire
@@ -44,13 +45,12 @@ cam_pixel_size   = 6.9
 mag_cam          = 0.5
 mag_lres         = 10
 mag_hres         = 40
-scan_scale       = 0.2279
 stage_label      = BioPrecision2-LE2_Ludl6000
 BG_Color_RGB     = 0.55 = 0.55 = 0.55
 FG_Color_RGB     = 0.00 = 0.00 = 0.00
 AxesBG_Color_RGB = 0.10 = 0.20 = 0.10
 FontSize         = 13
-saveimages      = 1
+saveimages       = 1
 taskorder        = 0
 
 BODY

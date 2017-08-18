@@ -45,6 +45,7 @@ SETTINGS
 NUMBER_OF_WSI    = 1
 wsi_slot_1       = C:\000_whole_slides\77917.svs
 rgb_lut_slot_1   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_1     = 0.2279
 label_pos        = 6
 reticleID        = KR-871
 cam_kind	 = Firewire
@@ -53,7 +54,6 @@ cam_pixel_size   = 6.9
 mag_cam          = 1.0
 mag_lres         = 5
 mag_hres         = 40
-scan_scale       = 0.2279
 stage_label      = SCAN8Praparate_Ludl5000
 BG_Color_RGB     = 0.55 = 0.55 = 0.55
 FG_Color_RGB     = 0.00 = 0.00 = 0.00
