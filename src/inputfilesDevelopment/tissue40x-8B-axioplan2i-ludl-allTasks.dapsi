@@ -26,8 +26,6 @@ saveimages = 2  only save WSI image
 saveimages = 3  only save camera image
 saveimages = 4  don't save WSI and camera images
 
-Input Image Source
-http://openslide.cs.cmu.edu/download/openslide-testdata/Hamamatsu/CMU-1.ndpi
 
 Input File Task Formats
 task_checkMof4,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
@@ -42,7 +40,7 @@ task_mitotic_counts,TaskID,TaskOrder,Slot,MoveFlag,ZoomFlag
 
 SETTINGS
 NUMBER_OF_WSI    = 1
-wsi_slot_1       = C:\000_whole_slides\CMU-1.ndpi
+wsi_slot_1       = C:\000_whole_slides\tissue40x-8B.ndpi
 rgb_lut_slot_1   = icc_profiles\rgb_lut_gamma_inv1p8.txt
 scan_scale_1     = 0.2279
 label_pos        = 6
@@ -64,8 +62,11 @@ taskorder        = 0
 BODY
 start
 finish
-radio1of4,1st0001,-1,1,6337,25226,219,219,219,219,Qtext_radio1of1,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count,2nd0001,-1,1,10683,22638,439,439,439,439,Qtext_count,1,1,Please count mitotic in this area
-slider,3rd0001,-1,1,19620,24373,658,658,658,658,Qtext_slider,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-mark1,4th0001,-1,1,33756,8855,878,878,878,878,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-mark1_out,5th0001,-1,1,46349,13039,1097,1097,1097,1097,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+radio1of4,1st0001,-1,1,038459,16192,219,219,219,219,Qtext_radio1of1,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count,2nd0001,-1,1,027728,11381,439,439,439,439,Qtext_count,1,1,Please count mitotic in this area
+slider,3rd0001,-1,1,19220,49879,658,658,658,658,Qtext_slider,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,4th0001,-1,1,041163,33208,878,878,878,878,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1_out,5th0001,-1,1,041163,33208,1097,1097,1097,1097,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count2_imagescope,6th0001,-1,1,94821,53941,878,878,878,878,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,7th0001,-1,1,101679,24502,878,878,878,878,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,8th0001,-1,1,96974,23992,878,878,878,878,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4

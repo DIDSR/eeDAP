@@ -36,6 +36,7 @@ SETTINGS
 NUMBER_OF_WSI    = 1
 wsi_slot_1       = C:\000_whole_slides\100113_ThorLabs_20x.ndpi
 rgb_lut_slot_1   = icc_profiles\rgb_lut_identity.txt
+scan_scale_1     = 0.4558
 label_pos        = 6
 reticleID        = KR-32536
 cam_kind	 = Firewire
@@ -44,7 +45,6 @@ cam_pixel_size   = 6.9
 mag_cam          = 1.0
 mag_lres         = 5
 mag_hres         = 40
-scan_scale       = 0.4558
 stage_label      = SCAN8Praparate_Ludl6000
 BG_Color_RGB     = 0.55 = 0.55 = 0.55
 FG_Color_RGB     = 0.00 = 0.00 = 0.00
