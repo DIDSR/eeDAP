@@ -3,6 +3,20 @@
 ### [eeDAP4.1 (Windows)](https://github.com/DIDSR/eeDAP/releases/tag/4.0)
 *5/11/16*
 
+Add a new task to create and save imagescope annotation for FOV and eyepiece field.
+
+Set scan scale for each image.
+
+In global registration, provide image name and thumbnail of the slide being registered.
+
+Add "restart registration" button to restart low resolution registration.
+
+Temporary disable auto registration.  
+
+
+### [eeDAP4.1 (Windows)](https://github.com/DIDSR/eeDAP/releases/tag/4.0)
+*5/11/16*
+
 Add option to use imagescope to open WSI ROI.
 
 Create sample input files for public available WSIs.
