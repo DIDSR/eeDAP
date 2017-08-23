@@ -31,7 +31,11 @@ TBD
 
 *2. State the research questions or aims, such as estimating diagnostic accuracy or comparing accuracy between tests or across participant groups*
 
-The aims of this study are to characterize the precision of counting mitoses from pathologists evaluating pre-specified regions of interest (ROIs) on whole slide images (WSIs) and the corresponding ROIs on the microscope. We will compare the precision of these counts (and their differences) to the precision when the ROIs are not pre-specified, when the pathologists select their own ROIs. We believe that pre-specifying ROIs will lead to more precise measurements and comparisons of WSI and microscope evaluations. The results from this study will support the qualification of eeDAP [Gallas2014_J-Med-Img_v1p037501] as a Medical Device Development Tool.
+*Single-head study:* The aims of this study are to characterize the precision of counting mitoses from pathologists evaluating pre-specified regions of interest (ROIs) on whole slide images (WSIs) and the corresponding ROIs on the microscope. We will compare the precision of these counts (and their differences) to the precision when the ROIs are not pre-specified, when the pathologists select their own ROIs. We believe that pre-specifying ROIs will lead to more precise measurements and comparisons of WSI and microscope evaluations. The results from this study will support the qualification of eeDAP [Gallas2014_J-Med-Img_v1p037501] as a Medical Device Development Tool.
+
+*Multi-head study:* A new aim of this study is to classify individual cells in the pre-specified ROIs during a session on a 14-head microscope. The classification decisions will be made independently by the participants and then the group will discuss. The results from this session will lead to a consensus truth and provide training to the participants.
+
+Another new aim of this study is to train and test a mitosis detection algorithm using the consensus truth.
 
 # METHODS: Participants {.tabset}
 
@@ -44,6 +48,7 @@ The aims of this study are to characterize the precision of counting mitoses fro
 
 *6. Describe data collection: was data collection planned before the index tests and reference standard were performed (prospective study) or after (retrospective study)?*
 
+## Single-head and multi-head studies
 We will select 4 slides that have been evaluated during a previous mitotic counting study (mcsStudy1). The (H&E) slides contain specimens from patients (dogs) diagnosed with canine oral melanoma. The 4 slides will be selected based on the reader-average counts from mcsStudy1. We will select slides where the reader-average count ranged from just a few to many mitotic counts.
 
 The protocol for mcsStudy1 followed clinical practice: the pathologists were asked to count the number of mitoses in 10 consecutive non-overlapping high-powered fields (HPF) starting in an area of high mitotic activity [@Smedley2011_Vet-Pathol_v48p54]. In mcsStudy1, the counts were collected using WSI images and glass slides. In the digital mode, the evaluation FOVs of each pathologist were recorded. This data will guide us in selecting 40 FOVs per slide that are appropriate for counting mitotic figures.
@@ -51,6 +56,18 @@ The protocol for mcsStudy1 followed clinical practice: the pathologists were ask
 We will identify the lesion tissue in the slides and appropriate regions for counting mitotic figures. Within these regions, we will select 10 ROIs per slide. The ROIs that we will use in our study will be 200 um x 200 um, which is equivalent to 800 x 800 pixels of a WSI with a scanning resolution of 0.25 um/pixel. This size was selected to fit within most digital displays without panning or zooming. This size (.040 mm^2) is about 1/6 the size of a typical high-powered FOV (.237 mm^2).
 
 While extracting or outlining the FOVs digitally is not challenging, we need to use a reticle in the microscope eyepiece to ouline the evaluation area for that mode.
+
+The readers participating in the study are volunteer pathologists from Memorial Sloan Kettering Cancer Center.
+
+## Multi-head study includes cell classification (to determine consensus truth)
+
+In addition to counts for each ROI in the multi-head study, some pathologists are recording their annotations of which cells are mitoses. These detected mitoses will be candidates in the classification part of the multi-head study.
+
+For practical reasons (pathologists' time), we will not include candidates from ROIs where there was unanimous consensus among 3-4 readers.
+
+If possible, we could identify candidate mitoses with a mitosis detection algorithm.
+
+If possible, we would like to pre-select 5-10 candidate mitoses per ROI. The candidate mitoses should include consensus mitoses (8 or better out of 10 pathologists expected to call positive), 2-3 border-line mitoses (2 to 8 out of 10 pathologists expected to call positive), and 2 -3 candidates that are unlikely to be mitoses (2 or fewer out of 10 pathologist call positive).
 
 # METHODS: Test Methods {.tabset}
 
@@ -64,17 +81,39 @@ While extracting or outlining the FOVs digitally is not challenging, we need to 
 
 *11. Were the readers of the a) index test and b) reference standards blind (masked) to the results of the other test? Describe any other clinical information available to the readers.*
 
-There is no reference standard for mitotic counting.
+There is no reference standard for mitotic counting. However, one aim of the multi-head study is to determine a consensus reference/truth.
 
-The pathologists will use eeDAP for data collection (evaluation environment for digital and analog pathology). eeDAP is a software and hardware platform for designing and executing digital and analog pathology studies where evaluation FOVs in the digital image are registered to the real-time view on the microscope [@Gallas2014_J-Med-Img_v1p037501]. As such, a study can be designed where pathologists are asked to evaluate a pre-selected list of evaluation FOVs in Digital mode and Microscope real-time mode (MicroRT mode). eeDAP collects the pathologist evaluations while cycling through the list of FOVs.
+The multi-head study will use a 14-head microscope. We will install the camera and computer controlled stage onto an Olympus BX45 frame that has 14-heads mounted on it.
 
-Details on the equipment we will use will be added later.
+Other details on the equipment we will use will be added later.
 
-The locations where pathologists will evaluate the WSI images and glass slides has not yet been fully determined. However, we plan to collect some data at the Pathology Informatics Summit, the National Cancer Institute, and the Memorial Sloan Kettering Cancer Center.
+Data will be collected at the Memorial Sloan Kettering Cancer Center. Possible additional locations are Cold Spring Harbor Laboratories and the National Cancer Institute.
 
-The data to be collected are counts per evaluation area.
- 
 We will recruit 12 pathologists and will collect the counts from at least 4 readers per FOV. If readers evaluate the same case in both modes, there will be at least 10 days in between to eliminate image recall. Each reader will evaluate their case load independently. Each reader will only be given images and slides; they will not be given any other clinical information. Each reader will be given moderate training for indentifying mitoses.
+
+## Single-head studies
+
+The pathologists will use eeDAP for data collection (evaluation environment for digital and analog pathology). eeDAP is a software and hardware platform for designing and executing digital and analog pathology studies where evaluation ROIs in the digital image are registered to the real-time view on the microscope [@Gallas2014_J-Med-Img_v1p037501]. As such, a study can be designed where pathologists are asked to evaluate a pre-selected list of evaluation FOVs in Digital mode and Microscope real-time mode (MicroRT mode). In digital mode, eeDAP will launch ImageScope with the ROI to be evaluated annotated. eeDAP collects the pathologist evaluations while cycling through the list of ROIs.
+
+## Multi-head studies
+
+There are two types of data to be collected: count data and classification data.
+
+*Multi-head microscope mode:* For each ROI:
+
+ * Readers count independently. They record their count and mark locations of mitoses on paper CRF. Number or score the locations according to confidence in consensus.
+ * For each (pre-determined) candidate mitosis in the ROI:
+     + Readers determine if candidate is one he or she detected during counting.
+     + Readers independently classify candidate as a mitosis or not.
+     + Readers score candidate 0-100; 50 is cutoff for binary decision.
+     + Group discussion of current candidate is led by expert, and a consensus binary decision and score is determined.
+  * Readers propose additional candidates and treat as pre-determined candidates
+
+*Digital mode:*
+
+We can try and mimick the multi-head microscope mode ... *OR* ... simplify:
+ * Count data: The readers will evalute the WSI on ImageScope ... In their own office? Using eeDaP?
+ * Classification data: Marking locations on paper? Providing a confidence rating?
 
 # METHODS: Statistical Methods
 
