@@ -180,7 +180,8 @@ try
     % The mode_index and the filename for the test are extracted from the
     % cell structure varargin. varargin stores the input arguments for the
     % whole Matlab application
-    addpath('gui_graphics', 'icc_profiles', 'tasks','stages/Prior','stages/Ludl');
+    %addpath('gui_graphics', 'icc_profiles', 'tasks','stages/Prior','stages/Ludl');
+    addpath('icc_profiles', 'tasks','stages/Prior','stages/Ludl');
     handles_old = varargin{1};
     handles.Administrator_Input_Screen = handles_old.Administrator_Input_Screen;
     myData = handles_old.myData;
@@ -189,10 +190,10 @@ try
     handles.current = struct;
     % The images used in the GUI are loaded into the memory and into the
     % structure myData
-    myData.graphics.zooming_allowed=imread('zooming_allowed.bmp');
-    myData.graphics.zooming_not_allowed=imread('zooming_not_allowed.bmp');
-    myData.graphics.moving_allowed=imread('moving_allowed.bmp');
-    myData.graphics.moving_not_allowed=imread('moving_not_allowed.bmp');
+%     myData.graphics.zooming_allowed=imread('zooming_allowed.bmp');
+%     myData.graphics.zooming_not_allowed=imread('zooming_not_allowed.bmp');
+%     myData.graphics.moving_allowed=imread('moving_allowed.bmp');
+%     myData.graphics.moving_not_allowed=imread('moving_not_allowed.bmp');
     
     % save myData
     handles.myData = myData;
@@ -364,21 +365,21 @@ try
     
     % The image objects for the indicators for panning and zooming are
     % created
-    handles.zooming_indication=...
-        image(myData.graphics.zooming_not_allowed,'Parent',handles.ZoomingInfoImage);
-    set(handles.zooming_indication,'visible','off');
-    handles.moving_indication=...
-        image(myData.graphics.moving_not_allowed,'Parent',handles.PanningInfoImage);
-    set(handles.moving_indication,'visible','off');
-    
-    set(handles.ZoomingInfoImage, ...
-        'xtick', [], ...
-        'ytick', [], ...
-        'Visible','off');
-    set(handles.PanningInfoImage, ...
-        'xtick', [], ...
-        'ytick', [], ...
-        'Visible','off');
+%     handles.zooming_indication=...
+%         image(myData.graphics.zooming_not_allowed,'Parent',handles.ZoomingInfoImage);
+%     set(handles.zooming_indication,'visible','off');
+%     handles.moving_indication=...
+%         image(myData.graphics.moving_not_allowed,'Parent',handles.PanningInfoImage);
+%     set(handles.moving_indication,'visible','off');
+%     
+%     set(handles.ZoomingInfoImage, ...
+%         'xtick', [], ...
+%         'ytick', [], ...
+%         'Visible','off');
+%     set(handles.PanningInfoImage, ...
+%         'xtick', [], ...
+%         'ytick', [], ...
+%         'Visible','off');
     
     % Foreground color, background color and the background color of the
     % axes is adjusted in accordance with the settings acquired from the
@@ -484,14 +485,19 @@ try
     taskinfo.duration = etime(handles.myData.EndTime, handles.myData.StartTime)+taskinfo.duration;
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
     guidata(handles.GUI, handles);
-    % Close out completed task
+
     st = dbstack;
-     if ~strcmp(st(2).name,'Backbutton_Callback')
+    % exort output file
+     if ~strcmp(st(2).name,'Backbutton_Callback')  
+         
          taskinfo.calling_function = st(1).name;
          handles.myData.taskinfo = taskinfo;
          guidata(handles.GUI, handles);
          taskinfo.task_handle(handles.GUI);
          handles = guidata(handles.GUI);
+         exportOutput(handles.GUI);
+         handles = guidata(handles.GUI);
+    
      end
     % If the completed task was a 'finish' task, then return
     switch taskinfo.id
@@ -646,7 +652,43 @@ try
     % hObject    handle to abortbutton (see GCBO)
     % eventdata  reserved - to be defined in a future version of MATLAB
     % handles    structure with handles and user data (see GUIDATA)
-    
+    % Save and export current task information
+%     myData=handles.myData;
+%     taskinfo = myData.tasks_out{myData.iter};
+%     guidata(handles.GUI, handles);
+%     switch taskinfo.id
+%         case 'finish'
+%             
+%             close all force
+%             return
+%             
+%     end
+%     st = dbstack;   
+%     taskinfo.calling_function = st(1).name;
+%     handles.myData.taskinfo = taskinfo;
+%     guidata(handles.GUI, handles);
+%     taskinfo.task_handle(handles.GUI);
+%     handles = guidata(handles.GUI);
+%     
+%     % Save and export rest task information
+%     while(handles.myData.iter<=handles.myData.ntasks)
+%         handles.myData.iter = handles.myData.iter+1;
+%         guidata(handles.GUI, handles);
+%         taskinfo = handles.myData.tasks_out{handles.myData.iter};
+%         taskinfo.calling_function = st(1).name;
+%         handles.myData.taskinfo = taskinfo;
+%         guidata(handles.GUI,handles);
+%         taskinfo.task_handle(handles.GUI);
+%         handles = guidata(handles.GUI);
+%         % If the current task is 'finish' task, then return
+%         switch taskinfo.id
+%             case 'finish'
+%                 Update_GUI_Elements(handles);
+%                 return
+% 
+%         end
+%     end
+%     fclose(handles.myData.fid);
     close all force
     
 catch ME
@@ -838,70 +880,70 @@ function GUI_WindowButtonMotionFcn(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 end
 
-function winBtnMotionFcn(hObj,eventdata,handles) %#ok<DEFNU>
-try
-    %----------------------------------------------------------------------
-    % winBtnMotionFcn (nested under winBtnDownFcn)
-    %   This function is called when click-n-drag (panning) is happening
-    %----------------------------------------------------------------------
-    pt = get(handles.ImageAxes, 'currentpoint');
-    
-    % Update axes limits and automatically set ticks
-    % Set aspect ratios
-    set(handles.ImageAxes, ...
-        'xlim', get(handles.ImageAxes, 'xlim') + ...
-        (handles.panning_Zooming_Tool.xy(1,1)-(pt(1,1)+pt(2,1))/2), ...
-        'ylim', get(handles.ImageAxes, 'ylim') + ...
-        (handles.panning_Zooming_Tool.xy(1,2)-(pt(1,2)+pt(2,2))/2), ...
-        'cameraviewanglemode', 'auto', ...
-        'plotboxaspectratio', handles.panning_Zooming_Tool.pbar);
-    
-    guidata(hObj, handles);
-catch ME
-    error_show(ME)
-end
-end
+% function winBtnMotionFcn(hObj,eventdata,handles) %#ok<DEFNU>
+% try
+%     %----------------------------------------------------------------------
+%     % winBtnMotionFcn (nested under winBtnDownFcn)
+%     %   This function is called when click-n-drag (panning) is happening
+%     %----------------------------------------------------------------------
+%     pt = get(handles.ImageAxes, 'currentpoint');
+%     
+%     % Update axes limits and automatically set ticks
+%     % Set aspect ratios
+%     set(handles.ImageAxes, ...
+%         'xlim', get(handles.ImageAxes, 'xlim') + ...
+%         (handles.panning_Zooming_Tool.xy(1,1)-(pt(1,1)+pt(2,1))/2), ...
+%         'ylim', get(handles.ImageAxes, 'ylim') + ...
+%         (handles.panning_Zooming_Tool.xy(1,2)-(pt(1,2)+pt(2,2))/2), ...
+%         'cameraviewanglemode', 'auto', ...
+%         'plotboxaspectratio', handles.panning_Zooming_Tool.pbar);
+%     
+%     guidata(hObj, handles);
+% catch ME
+%     error_show(ME)
+% end
+% end
 
-function zoomMotionFcn(hObj,eventdata,handles) %#ok<DEFNU>
-try
-    %----------------------------------------------------------------------
-    % zoomMotionFcn (nested under winBtnDownFcn)
-    %   This performs the click-n-drag zooming function. The pointer
-    %   location relative to the initial point determines the amount of
-    %   zoom (in or out).
-    %----------------------------------------------------------------------
-    C = 50;
-    pt = get(handles.GUI, 'currentpoint');
-    r = C ^ (10*(handles.panning_Zooming_Tool.initPt(2) ...
-        - pt(2)) / handles.panning_Zooming_Tool.figPos(4));
-    newLimSpan = r * handles.panning_Zooming_Tool.curPt2;
-    dTemp = diff(newLimSpan); %#ok<NASGU>
-    pt(1) = handles.panning_Zooming_Tool.initPt(1);
-    
-    % Determine new limits based on r
-    lims = handles.panning_Zooming_Tool.curPt + newLimSpan;
-    
-    % Update axes limits and automatically set ticks
-    % Set aspect ratios
-    set(handles.ImageAxes, ...
-        'xlim', lims(:,1), ...
-        'ylim', lims(:,2), ...
-        'cameraviewanglemode', 'auto', ...
-        'plotboxaspectratio', handles.panning_Zooming_Tool.pbar);
-    
-    % Update zoom indicator line
-    set(handles.ZoomLine, ...
-        'xdata', [handles.panning_Zooming_Tool.initPt(1), ...
-        pt(1)]/handles.panning_Zooming_Tool.figPos(3), ...
-        'ydata', [handles.panning_Zooming_Tool.initPt(2), ...
-        pt(2)]/handles.panning_Zooming_Tool.figPos(4));
-    
-    guidata(hObj, handles);
-    
-catch ME
-    error_show(ME)
-end
-end
+% function zoomMotionFcn(hObj,eventdata,handles) %#ok<DEFNU>
+% try
+%     %----------------------------------------------------------------------
+%     % zoomMotionFcn (nested under winBtnDownFcn)
+%     %   This performs the click-n-drag zooming function. The pointer
+%     %   location relative to the initial point determines the amount of
+%     %   zoom (in or out).
+%     %----------------------------------------------------------------------
+%     C = 50;
+%     pt = get(handles.GUI, 'currentpoint');
+%     r = C ^ (10*(handles.panning_Zooming_Tool.initPt(2) ...
+%         - pt(2)) / handles.panning_Zooming_Tool.figPos(4));
+%     newLimSpan = r * handles.panning_Zooming_Tool.curPt2;
+%     dTemp = diff(newLimSpan); %#ok<NASGU>
+%     pt(1) = handles.panning_Zooming_Tool.initPt(1);
+%     
+%     % Determine new limits based on r
+%     lims = handles.panning_Zooming_Tool.curPt + newLimSpan;
+%     
+%     % Update axes limits and automatically set ticks
+%     % Set aspect ratios
+%     set(handles.ImageAxes, ...
+%         'xlim', lims(:,1), ...
+%         'ylim', lims(:,2), ...
+%         'cameraviewanglemode', 'auto', ...
+%         'plotboxaspectratio', handles.panning_Zooming_Tool.pbar);
+%     
+%     % Update zoom indicator line
+%     set(handles.ZoomLine, ...
+%         'xdata', [handles.panning_Zooming_Tool.initPt(1), ...
+%         pt(1)]/handles.panning_Zooming_Tool.figPos(3), ...
+%         'ydata', [handles.panning_Zooming_Tool.initPt(2), ...
+%         pt(2)]/handles.panning_Zooming_Tool.figPos(4));
+%     
+%     guidata(hObj, handles);
+%     
+% catch ME
+%     error_show(ME)
+% end
+% end
 
 function GUI_WindowButtonUpFcn(hObj, eventdata, handles) %#ok<DEFNU>
 try
@@ -1180,3 +1222,49 @@ taskinfo.task_handle(handles.GUI);
 end
 
 
+function exportOutput(hObj)
+try
+    handles = guidata(hObj);
+    st = dbstack;
+    myData = handles.myData;
+    exportIter = 1;
+    while exportIter <= myData.finshedTask+1
+        
+        taskinfo = myData.tasks_out{exportIter};
+        taskinfo.currentWorking = -1;
+       % handles.myData.tasks_out{handles.myData.iter} = taskinfo;
+        taskinfo.calling_function = st(1).name;
+        handles.myData.taskinfo = taskinfo;
+        guidata(handles.GUI, handles);
+        taskinfo.task_handle(handles.GUI);
+        handles = guidata(handles.GUI);
+       exportIter = exportIter +1;
+    end
+
+    
+    while(exportIter<=handles.myData.ntasks+1)
+        
+        taskinfo = handles.myData.tasks_out{exportIter};
+        if exportIter <= handles.myData.iter
+            taskinfo.currentWorking = 1;
+        else
+            taskinfo.currentWorking = 0;
+        end
+        taskinfo.calling_function = st(1).name;
+        handles.myData.taskinfo = taskinfo;
+        guidata(handles.GUI,handles);
+        taskinfo.task_handle(handles.GUI);
+        handles = guidata(handles.GUI);
+        exportIter = exportIter+1;
+        % If the current task is 'finish' task, then return
+        switch taskinfo.id
+         case 'finish'
+            Update_GUI_Elements(handles);
+            return
+         end
+    end
+    fclose(handles.myData.fid); 
+catch ME
+    error_show(ME)
+end
+end

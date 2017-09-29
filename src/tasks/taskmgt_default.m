@@ -4,23 +4,23 @@ try
     myData = handles.myData;
     taskinfo = myData.taskinfo;
     
-    % Moving allowed?
-    if taskinfo.moveflag==1
-        set(handles.moving_indication, ...
-            'CData',myData.graphics.moving_allowed);
-    else
-        set(handles.moving_indication, ...
-            'CData',myData.graphics.moving_not_allowed);
-    end
-    
-    % Zooming allowed?
-    if taskinfo.zoomflag==1
-        set(handles.zooming_indication, ...
-            'CData',myData.graphics.zooming_allowed);
-    else
-        set(handles.zooming_indication, ...
-            'CData',myData.graphics.zooming_not_allowed);
-    end
+%     % Moving allowed?
+%     if taskinfo.moveflag==1
+%         set(handles.moving_indication, ...
+%             'CData',myData.graphics.moving_allowed);
+%     else
+%         set(handles.moving_indication, ...
+%             'CData',myData.graphics.moving_not_allowed);
+%     end
+%     
+%     % Zooming allowed?
+%     if taskinfo.zoomflag==1
+%         set(handles.zooming_indication, ...
+%             'CData',myData.graphics.zooming_allowed);
+%     else
+%         set(handles.zooming_indication, ...
+%             'CData',myData.graphics.zooming_not_allowed);
+%     end
     
     % Show management buttons
     if strcmpi(handles.myData.mode_desc,'MicroRT')
@@ -28,16 +28,16 @@ try
         set(handles.Fast_Register_Button, 'Visible',on_off);
         set(handles.videobutton, 'Visible',on_off);
     end
-    set(handles.moving_indication,'visible',on_off);
-
-    set(handles.zooming_indication,'visible',on_off);
+%     set(handles.moving_indication,'visible',on_off);
+% 
+%     set(handles.zooming_indication,'visible',on_off);
     set(handles.NextButton, 'Visible',on_off);
     set(handles.ResetViewButton, 'Visible',on_off);
     set(handles.PauseButton, 'Visible',on_off);
     set(handles.ResumeButton, 'Visible', on_off, ...
         'Enable', 'off');
     set(handles.Reticlebutton, 'Visible', on_off);
-    if handles.myData.iter > 2
+    if handles.myData.iter > handles.myData.finshedTask+2
         set(handles.Backbutton,'visible',on_off);
     end
     

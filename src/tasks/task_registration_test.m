@@ -22,16 +22,19 @@ try
             taskinfo.roi_y = str2double(desc{6});
             taskinfo.roi_w = str2double(desc{7});
             taskinfo.roi_h = str2double(desc{8});
-            taskinfo.img_w = str2double(desc{9});
-            taskinfo.img_h = str2double(desc{10});
-            taskinfo.text  = char(desc{11});
-            taskinfo.moveflag = str2double(desc{12});
-            taskinfo.zoomflag = str2double(desc{13});
-            taskinfo.description = char(desc{14});
+            taskinfo.img_w = taskinfo.roi_w;
+            taskinfo.img_h =  taskinfo.roi_h;
+            taskinfo.text  = 'Measure registration distance';
             taskinfo.rotateback = 0;
             taskinfo.done(1)=0;
             taskinfo.done(2)=0;
             taskinfo.done(3)=0;
+            taskinfo.stagePosition{1}='0,0';
+            taskinfo.stagePosition{2}='0,0';
+            taskinfo.stagePosition{3}='0,0';
+            if length(desc)>8
+                myData.finshedTask = myData.finshedTask + 1;
+            end
         case {'Update_GUI_Elements', ...
                 'ResumeButtonPressed'} % Initialize task elements
             
@@ -182,14 +185,13 @@ try
             % Make count task response box active
             uicontrol(handles.autoReg);
            
-        case {'NextButtonPressed', ...
-                'PauseButtonPressed',...
-                'Backbutton_Callback'} % Clean up the task elements
-            
+        case 'NextButtonPressed' % Clean up the task elements
             % Hide image and management buttons
             
             taskmgt_default(handles, 'off');
             handles = guidata(hObj);
+            taskinfo = handles.myData.taskinfo;
+
             
             set(handles.iH,'visible','off');
             set(handles.ImageAxes,'visible','off');
@@ -213,12 +215,53 @@ try
             handles = rmfield(handles, 'autoFocusPhoto');
             handles = rmfield(handles, 'fastPhoto');
             handles = rmfield(handles, 'bestPhoto');
-
            % taskimage_archive(handles);
-
-        case 'Save_Results' % Save the results for this task
+        case {'PauseButtonPressed',...
+                'Backbutton_Callback'} % Clean up the task elements
             
-            fprintf(taskinfo.fid, [...
+            % Hide image and management buttons
+            
+            taskmgt_default(handles, 'off');
+            handles = guidata(hObj);
+            taskinfo = handles.myData.taskinfo;
+
+            
+            set(handles.iH,'visible','off');
+            set(handles.ImageAxes,'visible','off');
+            delete(handles.textCount1);
+            delete(handles.textCount2);
+            delete(handles.textCount3);
+            delete(handles.autoReg);
+            delete(handles.fastReg);
+            delete(handles.bestReg);
+            delete(handles.autoUnfocusPhoto);
+            delete(handles.autoFocusPhoto);
+            delete(handles.fastPhoto);
+            delete(handles.bestPhoto);
+            handles = rmfield(handles, 'textCount1');
+            handles = rmfield(handles, 'textCount2');
+            handles = rmfield(handles, 'textCount3');
+            handles = rmfield(handles, 'autoReg');
+            handles = rmfield(handles, 'fastReg');
+            handles = rmfield(handles, 'bestReg');
+            handles = rmfield(handles, 'autoUnfocusPhoto');
+            handles = rmfield(handles, 'autoFocusPhoto');
+            handles = rmfield(handles, 'fastPhoto');
+            handles = rmfield(handles, 'bestPhoto');
+     %   case 'abortbutton_Callback' % export undo task without results
+
+         
+%         case 'Save_Results' % export task result if this task finished before
+%             desc = taskinfo.desc;
+%             for i = 1 : length(desc)-1
+%                 fprintf(myData.fid,[desc{i},',']);
+%             end
+%             fprintf(myData.fid,[desc{length(desc)}]);
+%             fprintf(myData.fid,'\r\n');
+            
+        case 'exportOutput' % export current task information and reuslt
+            if taskinfo.currentWorking ==1 % write finish task in current study
+            fprintf(myData.fid, [...
                 taskinfo.task, ',', ...
                 taskinfo.id, ',', ...
                 num2str(taskinfo.order), ',', ...
@@ -227,12 +270,7 @@ try
                 num2str(taskinfo.roi_y), ',', ...
                 num2str(taskinfo.roi_w), ',', ...
                 num2str(taskinfo.roi_h), ',', ...
-                num2str(taskinfo.img_w), ',', ...
-                num2str(taskinfo.img_h), ',', ...
                 taskinfo.text, ',', ...
-                num2str(taskinfo.moveflag), ',', ...
-                num2str(taskinfo.zoomflag), ',', ...
-                taskinfo.description, ',', ...
                 num2str(taskinfo.durationMove), ',', ...
                 num2str(taskinfo.durationAutoReg), ',', ...
                 num2str(taskinfo.duration), ',', ...
@@ -242,7 +280,48 @@ try
                 taskinfo.stagePosition{2},',',...
                 taskinfo.regResult{3},',',...
                 taskinfo.stagePosition{3}]);
-            fprintf(taskinfo.fid,'\r\n');
+            elseif taskinfo.currentWorking ==0 % write undone task
+                fprintf(myData.fid, [...
+                    taskinfo.task, ',', ...
+                    taskinfo.id, ',', ...
+                    num2str(taskinfo.order), ',', ...
+                    num2str(taskinfo.slot), ',',...
+                    num2str(taskinfo.roi_x), ',',...
+                    num2str(taskinfo.roi_y), ',', ...
+                    num2str(taskinfo.roi_w), ',', ...
+                    num2str(taskinfo.roi_h)]);
+            else                               % write done task from previous study
+                desc = taskinfo.desc;
+                for i = 1 : length(desc)-1
+                    fprintf(myData.fid,[desc{i},',']);
+                end
+                fprintf(myData.fid,[desc{length(desc)}]);
+            end            
+            fprintf(myData.fid,'\r\n');
+            handles.myData.taskinfo = taskinfo;
+            guidata(handles.GUI, handles);
+%         case 'Save_Results' % Save the results for this task
+%             
+%             fprintf(taskinfo.fid, [...
+%                 taskinfo.task, ',', ...
+%                 taskinfo.id, ',', ...
+%                 num2str(taskinfo.order), ',', ...
+%                 num2str(taskinfo.slot), ',',...
+%                 num2str(taskinfo.roi_x), ',',...
+%                 num2str(taskinfo.roi_y), ',', ...
+%                 num2str(taskinfo.roi_w), ',', ...
+%                 num2str(taskinfo.roi_h), ',', ...
+%                 taskinfo.text, ',', ...
+%                 num2str(taskinfo.durationMove), ',', ...
+%                 num2str(taskinfo.durationAutoReg), ',', ...
+%                 num2str(taskinfo.duration), ',', ...
+%                 taskinfo.regResult{1}, ',', ...
+%                 taskinfo.stagePosition{1},',',...
+%                 taskinfo.regResult{2}, ',', ...
+%                 taskinfo.stagePosition{2},',',...
+%                 taskinfo.regResult{3},',',...
+%                 taskinfo.stagePosition{3}]);
+%             fprintf(taskinfo.fid,'\r\n');
             
     end
 

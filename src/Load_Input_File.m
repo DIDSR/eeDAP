@@ -416,6 +416,8 @@ try
     % tasks_in structure will hold all the input tasks
     tasks_in = [];
     ntasks = 0;
+    % new variable to track how many task has been done.
+    handles.myData.finshedTask = 0;
     while ~feof(fid)
         
         % Read and store the taskinfo
@@ -445,7 +447,11 @@ try
     end
     % The file is closed
     fclose(fid);
-    
+    % if some tasks are done, use given order. 
+    myData.finshedTask = handles.myData.finshedTask;
+    if handles.myData.finshedTask >0
+        settings.taskorder = 2;
+    end
     % Create a random order
     if settings.taskorder == 0
         order_vector = randperm(ntasks);
