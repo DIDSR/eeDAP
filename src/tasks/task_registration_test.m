@@ -185,38 +185,39 @@ try
             % Make count task response box active
             uicontrol(handles.autoReg);
            
-        case 'NextButtonPressed' % Clean up the task elements
-            % Hide image and management buttons
-            
-            taskmgt_default(handles, 'off');
-            handles = guidata(hObj);
-            taskinfo = handles.myData.taskinfo;
-
-            
-            set(handles.iH,'visible','off');
-            set(handles.ImageAxes,'visible','off');
-            delete(handles.textCount1);
-            delete(handles.textCount2);
-            delete(handles.textCount3);
-            delete(handles.autoReg);
-            delete(handles.fastReg);
-            delete(handles.bestReg);
-            delete(handles.autoUnfocusPhoto);
-            delete(handles.autoFocusPhoto);
-            delete(handles.fastPhoto);
-            delete(handles.bestPhoto);
-            handles = rmfield(handles, 'textCount1');
-            handles = rmfield(handles, 'textCount2');
-            handles = rmfield(handles, 'textCount3');
-            handles = rmfield(handles, 'autoReg');
-            handles = rmfield(handles, 'fastReg');
-            handles = rmfield(handles, 'bestReg');
-            handles = rmfield(handles, 'autoUnfocusPhoto');
-            handles = rmfield(handles, 'autoFocusPhoto');
-            handles = rmfield(handles, 'fastPhoto');
-            handles = rmfield(handles, 'bestPhoto');
-           % taskimage_archive(handles);
-        case {'PauseButtonPressed',...
+%         case 'NextButtonPressed' % Clean up the task elements
+%             % Hide image and management buttons
+%             
+%             taskmgt_default(handles, 'off');
+%             handles = guidata(hObj);
+%             taskinfo = handles.myData.taskinfo;
+% 
+%             
+%             set(handles.iH,'visible','off');
+%             set(handles.ImageAxes,'visible','off');
+%             delete(handles.textCount1);
+%             delete(handles.textCount2);
+%             delete(handles.textCount3);
+%             delete(handles.autoReg);
+%             delete(handles.fastReg);
+%             delete(handles.bestReg);
+%             delete(handles.autoUnfocusPhoto);
+%             delete(handles.autoFocusPhoto);
+%             delete(handles.fastPhoto);
+%             delete(handles.bestPhoto);
+%             handles = rmfield(handles, 'textCount1');
+%             handles = rmfield(handles, 'textCount2');
+%             handles = rmfield(handles, 'textCount3');
+%             handles = rmfield(handles, 'autoReg');
+%             handles = rmfield(handles, 'fastReg');
+%             handles = rmfield(handles, 'bestReg');
+%             handles = rmfield(handles, 'autoUnfocusPhoto');
+%             handles = rmfield(handles, 'autoFocusPhoto');
+%             handles = rmfield(handles, 'fastPhoto');
+%             handles = rmfield(handles, 'bestPhoto');
+%            % taskimage_archive(handles);
+        case {'NextButtonPressed',...
+                'PauseButtonPressed',...
                 'Backbutton_Callback'} % Clean up the task elements
             
             % Hide image and management buttons
