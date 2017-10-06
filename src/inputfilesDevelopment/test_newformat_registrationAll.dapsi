@@ -74,6 +74,6 @@ mitotic_train,6th0001,-1,1,041163,33208,700,700,700,700,1,1,0,1,0,1,0,1,0,0,83
 mitotic_expert,7th0001,-1,1,041163,33208,700,700,700,700,1,1
 registration_test,8th0001,-1,1,19220,49879,799,799
 count_imagescope,10th0001,-1,1,027728,11381,300,300,300,300,Qtext_count,1,1,description
-slider_imagescope,11st0001,-1,1,19220,49879,300,300,300,300,Qtext_slider,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-checkMof4,12nd0001,-1,1,19220,49879,300,300,300,300,Qtext_slider,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-mitotic_counts,13rd0001,-1,1,1,1
+slider_imagescope,11th0001,-1,1,19220,49879,300,300,300,300,Qtext_slider,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+checkMof4,12th0001,-1,1,19220,49879,300,300,300,300,Qtext_slider,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count2_imagescope,13th0001,-1,1,027728,11381,300,300,300,300,Qtext_count,1,1,description

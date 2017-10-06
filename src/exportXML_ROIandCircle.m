@@ -19,7 +19,7 @@ try
     
     % circle parameter for 22mm eyepiece. Under 40X diameter is 550um
     % circle parameter for 23mm eyepiece. Under 40X diameter is 576um
-    diameter = 576;
+    diameter = 500;
     lengthCircleM = pi*diameter;
     lengthCircle = lengthCircleM/scan_scale;
     areaCircleM= pi*(diameter/2)^2;

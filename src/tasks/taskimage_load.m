@@ -17,9 +17,9 @@ try
     % Read the image
     [handles.ImX, map] = imread(taskinfo.ROIname);
     % [handles.ImX, panning_Zooming_Tool.iminfo] = readImageFileFcn(filename);
-%     if myData.taskinfo.rotateback==1
-%         handles.ImX = imrotate(handles.ImX, -handles.myData.settings.RotateWSI);
-%     end
+    if myData.taskinfo.rotateback==1
+        handles.ImX = imrotate(handles.ImX, -handles.myData.settings.RotateWSI);
+    end
     if ~isnan(handles.ImX)
 
         % Apply reticle mask

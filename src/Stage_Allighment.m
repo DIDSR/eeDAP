@@ -495,7 +495,7 @@ try
         set(current.thumb_image_handle,...
             'HitTest','on',...
             'ButtonDownFcn', {@thumb_image_ButtonDownFcn,handles});
-        handles.current=current;
+        handles.current = current;
         guidata(handles.Stage_Allighment, handles);
         return;
     end
