@@ -18,6 +18,8 @@ Point Grey Flea2 Color (FL2G-50S5C-C): Standard format, aspect ratio = 1.33
     cam_pixel_size = 6.9
 
 Reminder:
+autoreg = 1 do local automatic registration for each task/FOV
+autoreg = 0 don't local automatic registration for each task/FOV
 taskorder=2 user specified order
 taskorder=1 listed order
 taskorder=0 random order
@@ -50,6 +52,7 @@ BG_Color_RGB     = 0.55 = 0.55 = 0.55
 FG_Color_RGB     = 0.00 = 0.00 = 0.00
 AxesBG_Color_RGB = 0.10 = 0.20 = 0.10
 FontSize         = 13
+autoreg 	 = 1
 saveimages       = 4
 taskorder        = 0
 

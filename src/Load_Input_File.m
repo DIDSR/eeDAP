@@ -330,6 +330,15 @@ try
     end
     tline = fgets(fid);
     [setting_name, setting_value]=strread(tline, '%s %d', 'delimiter', '=');
+    name = 'autoreg';
+    if strcmp(strtrim(setting_name),name)==1
+        settings.autoreg=setting_value;
+    else
+        io_error(name);
+        return;
+    end
+    tline = fgets(fid);
+    [setting_name, setting_value]=strread(tline, '%s %d', 'delimiter', '=');
     name = 'saveimages';
     if strcmp(strtrim(setting_name),name)==1
         settings.saveimages=setting_value;
@@ -407,6 +416,8 @@ try
     % tasks_in structure will hold all the input tasks
     tasks_in = [];
     ntasks = 0;
+    % new variable to track how many task has been done.
+    handles.myData.finshedTask = 0;
     while ~feof(fid)
         
         % Read and store the taskinfo
@@ -436,9 +447,14 @@ try
     end
     % The file is closed
     fclose(fid);
-    
+    % if some tasks are done, use given order. 
+    myData.finshedTask = handles.myData.finshedTask;
+    if handles.myData.finshedTask >0
+        settings.taskorder = 2;
+    end
     % Create a random order
     if settings.taskorder == 0
+        rng('shuffle');
         order_vector = randperm(ntasks);
         for i=1:ntasks
             order = order_vector(i);

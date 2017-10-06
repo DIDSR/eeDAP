@@ -54,6 +54,8 @@ function Camera_stage_review_OpeningFcn(hObject, eventdata, handles, varargin)
 % varargin   command line arguments to Camera_stage_review (see VARARGIN)
 
 % Choose default command line output for Camera_stage_review
+    ExecutableFolder = GetExecutableFolder();
+    cd(ExecutableFolder);
     desc = {'\bfWelcome'...
     ,'Please choose the camera format'};
     welcome_page(handles,desc );
