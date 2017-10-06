@@ -39,7 +39,8 @@ try
     % that the window of this GUI is positioned to the exact center of the
     % screen regardsless of the screen size of aspect ratio.
     %--------------------------------------------------------------------------
-    
+    ExecutableFolder = GetExecutableFolder();
+    cd(ExecutableFolder);
     handles.output = hObject;
     modes=get(handles.ModeSelectionPopUpMenu,'String'); %#ok<NASGU>
     

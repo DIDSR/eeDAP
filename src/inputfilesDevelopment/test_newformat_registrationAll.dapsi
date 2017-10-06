@@ -45,15 +45,15 @@ NUMBER_OF_WSI    = 1
 wsi_slot_1       = C:\000_whole_slides\tissue40x-8B.ndpi
 rgb_lut_slot_1   = icc_profiles\rgb_lut_gamma_inv1p8.txt
 scan_scale_1     = 0.2279
-label_pos        = 6
+label_pos        = 12
 reticleID        = KR-871
-cam_kind	 = Firewire
-cam_format       = RGB24_1024x768
+cam_kind	 = USB
+cam_format       = F7_RGB_1224x1024_Mode1
 cam_pixel_size   = 6.9
-mag_cam          = 1.0
-mag_lres         = 5
+mag_cam          = 0.5
+mag_lres         = 10
 mag_hres         = 40
-stage_label      = SCAN8Praparate_Ludl5000
+stage_label      = BioPrecision2-LE2_Ludl6000
 BG_Color_RGB     = 0.55 = 0.55 = 0.55
 FG_Color_RGB     = 0.00 = 0.00 = 0.00
 AxesBG_Color_RGB = 0.10 = 0.20 = 0.10
@@ -72,7 +72,7 @@ mark1,4th0001,-1,1,041163,33208,300,700,300,700,Qtext_select_region,1,1,Q_Op1,Q_
 mark1_out,5th0001,-1,1,041163,33208,700,700,700,700,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
 mitotic_train,6th0001,-1,1,041163,33208,700,700,700,700,1,1,0,1,0,1,0,1,0,0,83
 mitotic_expert,7th0001,-1,1,041163,33208,700,700,700,700,1,1
-registration_test,8th0001,-1,1,4466.5,6236.5,799,799
+registration_test,8th0001,-1,1,19220,49879,799,799
 count_imagescope,10th0001,-1,1,027728,11381,300,300,300,300,Qtext_count,1,1,description
 slider_imagescope,11st0001,-1,1,19220,49879,300,300,300,300,Qtext_slider,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
 checkMof4,12nd0001,-1,1,19220,49879,300,300,300,300,Qtext_slider,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4

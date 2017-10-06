@@ -454,6 +454,7 @@ try
     end
     % Create a random order
     if settings.taskorder == 0
+        rng('shuffle');
         order_vector = randperm(ntasks);
         for i=1:ntasks
             order = order_vector(i);
