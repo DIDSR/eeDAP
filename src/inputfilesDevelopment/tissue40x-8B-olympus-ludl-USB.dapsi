@@ -18,8 +18,6 @@ Point Grey Flea2 Color (FL2G-50S5C-C): Standard format, aspect ratio = 1.33
     cam_pixel_size = 6.9
 
 Reminder:
-autoreg = 1 do local automatic registration for each task/FOV
-autoreg = 0 don't local automatic registration for each task/FOV
 taskorder=2 user specified order
 taskorder=1 listed order
 taskorder=0 random order
@@ -40,9 +38,9 @@ wsi_slot_1       = C:\000_whole_slides\tissue40x-8B.ndpi
 rgb_lut_slot_1   = icc_profiles\rgb_lut_gamma_inv1p8.txt
 scan_scale_1     = 0.2279
 label_pos        = 12
-reticleID        = KR-32536
-cam_kind	 = Firewire
-cam_format       = RGB24_1024x768
+reticleID        = KR-871
+cam_kind	 = USB
+cam_format       = F7_RGB_1224x1024_Mode1
 cam_pixel_size   = 6.9
 mag_cam          = 0.5
 mag_lres         = 10
@@ -52,7 +50,6 @@ BG_Color_RGB     = 0.55 = 0.55 = 0.55
 FG_Color_RGB     = 0.00 = 0.00 = 0.00
 AxesBG_Color_RGB = 0.10 = 0.20 = 0.10
 FontSize         = 13
-autoreg 	  = 1
 saveimages       = 1
 taskorder        = 0
 

@@ -52,7 +52,7 @@ BG_Color_RGB     = 0.55 = 0.55 = 0.55
 FG_Color_RGB     = 0.00 = 0.00 = 0.00
 AxesBG_Color_RGB = 0.10 = 0.20 = 0.10
 FontSize         = 13
-autoreg 	 = 1
+autoreg 	  = 1
 saveimages       = 2
 taskorder        = 0
 

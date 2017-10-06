@@ -18,8 +18,6 @@ Point Grey Flea2 Color (FL2G-50S5C-C): Standard format, aspect ratio = 1.33
     cam_pixel_size = 6.9
 
 Reminder:
-autoreg = 1 do local automatic registration for each task/FOV
-autoreg = 0 don't local automatic registration for each task/FOV
 taskorder=2 user specified order
 taskorder=1 listed order
 taskorder=0 random order
@@ -52,17 +50,17 @@ BG_Color_RGB     = 0.55 = 0.55 = 0.55
 FG_Color_RGB     = 0.00 = 0.00 = 0.00
 AxesBG_Color_RGB = 0.10 = 0.20 = 0.10
 FontSize         = 13
-autoreg 	  = 1
 saveimages       = 1
 taskorder        = 0
 
 BODY
 start
 finish
-radio1of4,1st0001,-1,1,038459,16192,300,300,300,300,Qtext_radio1of1,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count,2nd0001,-1,1,027728,11381,300,300,300,300,Qtext_count,1,1,description
-slider,3rd0001,-1,1,19220,49879,300,300,300,300,Qtext_slider,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-mark1,4th0001,-1,1,041163,33208,300,700,300,700,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-mark1_out,5th0001,-1,1,041163,33208,700,700,700,700,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-mitotic_train,6th0001,-1,1,041163,33208,700,700,700,700,1,1,0,1,0,1,0,1,0,0,83
-mitotic_expert,7th0001,-1,1,041163,33208,700,700,700,700,1,1
+radio1of4,1st0001,-1,1,038459,16192,219,219,219,219,Qtext_radio1of1,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count,2nd0001,-1,1,027728,11381,439,439,439,439,Qtext_count,1,1,Please count mitotic in this area
+slider,3rd0001,-1,1,19220,49879,658,658,658,658,Qtext_slider,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1,4th0001,-1,1,041163,33208,878,878,878,878,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+mark1_out,5th0001,-1,1,041163,33208,1097,1097,1097,1097,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count2_imagescope,6th0001,-1,1,94821,53941,878,878,878,878,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,7th0001,-1,1,101679,24502,878,878,878,878,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,8th0001,-1,1,96974,23992,878,878,878,878,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
