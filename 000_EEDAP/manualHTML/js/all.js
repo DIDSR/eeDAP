@@ -394,133 +394,6 @@ DR_EXPLAIN.namespace = function( ns_string ) {
     });
 
 
-    window.NavTree__ItemDecoration_View = 
-    {
-        html_root: '<span class="b-tree__spacer"></span>',
-        html_expander_doClose: '<span class="b-tree__i_expander_doClose"><img class="b-tree__i_expander_doClose_inner" alt="–" title="" src="i/null.gif" /></span>',
-        html_expander_doOpen: '<span class="b-tree__i_expander_doOpen"><img class="b-tree__i_expander_doOpen_inner" alt="+" title="" src="i/null.gif" /></span>',
-        html_angle_tl: '<span class="b-tree__i_angle_tl"><span class="b-tree__i_angle_tl_inner"></span></span>',
-        html_angle_bl: '<span class="b-tree__i_angle_bl"><span class="b-tree__i_angle_bl_inner"></span></span>',
-        html_folder_opened: '<span class="b-tree__i_folder_opened"><span class="b-tree__i_folder_opened_inner"></span></span>',
-        html_folder_opened_line_t: '<span class="b-tree__i_vLine_t_folder_opened"><span class="b-tree__i_vLine_t_folder_opened_inner"></span></span>',
-        html_folder_opened_line_b: '<span class="b-tree__i_vLine_b_folder_opened"><span class="b-tree__i_vLine_b_folder_opened_inner"></span></span>',
-        html_folder_closed: '<span class="b-tree__i_folder_closed"><span class="b-tree__i_folder_closed_inner"></span></span>',
-        html_article: '<span class="b-tree__i_article"><span class="b-tree__i_article_inner"></span></span>',
-        html_vLine_tb: '<span class="b-tree__i_vLine_tb"><span class="b-tree__i_vLine_tb_inner"></span></span>',
-        html_hLine_mr: '<span class="b-tree__i_hLine_mr"><span class="b-tree__i_hLine_mr_inner"></span></span>',
-
-        html_article_icon_cached: '<span class="b-tree__spacer"><span class="b-tree__i_article"><span class="b-tree__i_article_inner"></span></span></span>',
-        
-        html_render_childs_isVLineTB_cached: '<span class="b-tree__spacer"><span class="b-tree__i_vLine_tb"><span class="b-tree__i_vLine_tb_inner"></span></span></span>',
-        html_folder_icon_cached: '<span class="b-tree__spacer"><span class="b-tree__i_folder_opened"><span class="b-tree__i_folder_opened_inner"></span></span><span class="b-tree__i_vLine_b_folder_opened"><span class="b-tree__i_vLine_b_folder_opened_inner"></span></span></span>',
-        html_render_article_line_bl_cached: '<span class="b-tree__spacer"><span class="b-tree__i_angle_bl"><span class="b-tree__i_angle_bl_inner"></span></span></span>',
-        html_render_article_line_tl_cached: '<span class="b-tree__spacer"><span class="b-tree__i_angle_tl"><span class="b-tree__i_angle_tl_inner"></span></span></span>',
-        html_render_article_line_tl_tb_cached: '<span class="b-tree__spacer"><span class="b-tree__i_angle_tl"><span class="b-tree__i_angle_tl_inner"></span></span><span class="b-tree__i_vLine_tb"><span class="b-tree__i_vLine_tb_inner"></span></span></span>',
-        html_render_folder_expander_angle_tl_cached: '<span class="b-tree__spacer"><span class="b-tree__i_angle_tl"><span class="b-tree__i_angle_tl_inner"></span></span><span class="b-tree__i_expander_doClose"><img class="b-tree__i_expander_doClose_inner" alt="-" title="" src="i/null.gif" /></span></span>',
-        html_render_folder_expander_hline_mr_cached: '<span class="b-tree__spacer"><span class="b-tree__i_hLine_mr"><span class="b-tree__i_hLine_mr_inner"></span></span><span class="b-tree__i_expander_doClose"><img class="b-tree__i_expander_doClose_inner" alt="-" title="" src="i/null.gif" /></span></span>',
-        html_render_folder_expander_angle_bl_cached: '<span class="b-tree__spacer"><span class="b-tree__i_angle_bl"><span class="b-tree__i_angle_bl_inner"></span></span><span class="b-tree__i_expander_doClose"><img class="b-tree__i_expander_doClose_inner" alt="-" title="" src="i/null.gif" /></span></span>',
-        html_render_folder_expander_angle_tl_tb_cached: '<span class="b-tree__spacer"><span class="b-tree__i_angle_tl"><span class="b-tree__i_angle_tl_inner"></span></span><span class="b-tree__i_vLine_tb"><span class="b-tree__i_vLine_tb_inner"></span></span><span class="b-tree__i_expander_doClose"><img class="b-tree__i_expander_doClose_inner" alt="-" title="" src="i/null.gif" /></span></span>',
-        html_render_folder_expander_doclose_cached: '<span class="b-tree__spacer"><span class="b-tree__i_expander_doClose"><img class="b-tree__i_expander_doClose_inner" alt="-" title="" src="i/null.gif" /></span></span>',
-        
-        initialize: function( options ) {
-            this.isRoot = options.isRoot;
-            this.isFolder = this.model.hasChilds();
-            this.isArticle = !this.isFolder;
-        },
-        render: function(currModel, isRoot) {
-            this.model = currModel;
-            
-            this.isRoot = isRoot;
-            this.isFolder = this.model.hasChilds();
-            this.isArticle = !this.isFolder;
-            
-            if ( this.isRoot ) {
-                if ( this.isFolder ) {
-                    $output = this.renderFolder();
-                }
-                else {
-                    $output = this.renderArticle();
-                }
-            }
-            else {
-                $output = this.renderChilds();
-            }
-
-            return $output;
-        },
-
-        renderFolder: function() {
-            if (!this.model.hasParent() && (DR_EXPLAIN.data_menu.DREX_HAS_ROOT_NODE || DR_EXPLAIN.data_menu.DREX_MENU_TYPE == 1))
-                return this.renderFolderIcon();
-            return this.renderFolderExpander() + ( this.renderFolderIcon() );
-        },
-
-        renderFolderExpander: function() {
-            var isAngleTL = ( !this.model.hasPrevItem() && !this.model.hasParent() && this.model.hasNextItem() );
-            var isHLine = ( !this.model.hasPrevItem() && !this.model.hasParent() && !this.model.hasNextItem() );
-            var isAngleBL = ( !this.model.hasNextItem() );
-
-            if ( isAngleTL ) {
-                return ( this.html_render_folder_expander_angle_tl_cached )
-            }
-            else if ( isHLine ) {
-                return ( this.html_render_folder_expander_hline_mr_cached );
-            }
-            else if ( isAngleBL ) {
-                return ( this.html_render_folder_expander_angle_bl_cached );
-            }
-            else {
-                return ( this.html_render_folder_expander_angle_tl_tb_cached );
-            }
-            return ( this.html_render_folder_expander_doclose_cached )
-        },
-
-        renderFolderIcon: function() {
-            return ( this.html_folder_icon_cached );
-        },
-
-        renderArticle: function() {
-            if (!this.model.hasParent() && (DR_EXPLAIN.data_menu.DREX_HAS_ROOT_NODE || DR_EXPLAIN.data_menu.DREX_MENU_TYPE == 1))
-                return this.renderArticleIcon();
-            return this.renderArticleLine() + ( this.renderArticleIcon() );
-        },
-
-        renderArticleLine: function() {
-            var isAngleTL = ( !this.model.hasPrevItem() && !this.model.hasParent() );
-            var isAngleBL = ( !this.model.hasNextItem() );
-
-            if ( isAngleBL ) {
-                return ( this.html_render_article_line_bl_cached );
-            }
-            else if ( isAngleTL ) {
-                return ( this.html_render_article_line_tl_cached );
-            }
-            else {
-                return ( this.html_render_article_line_tl_tb_cached );
-            }
-            return ( this.html_root );
-        },
-        
-        renderArticleIcon: function() {
-            return ( this.html_article_icon_cached );
-        },
-        
-
-        renderChilds: function( ) {
-            if ((DR_EXPLAIN.data_menu.DREX_HAS_ROOT_NODE || DR_EXPLAIN.data_menu.DREX_MENU_TYPE == 1) && !this.model.hasParent())
-                return ('');
-                
-            var isVLineTB = ( this.model.hasNextItem() );
-
-            if ( isVLineTB ) {
-                return ( this.html_render_childs_isVLineTB_cached );
-            }
-
-            return ( this.html_root );
-        }
-    }
-
-
     window.NavTree__ItemDecoration_Keyword_View =
     Backbone.View.extend({
         tagName: "span",
@@ -665,48 +538,6 @@ DR_EXPLAIN.namespace = function( ns_string ) {
         },
 
 
-        hideExpander: function(e) {
-            this.$el.children( "ul" ).hide();
-
-            var $content = this.$el.children( "div" );
-
-            var $expander = $content.find( ".b-tree__i_expander_doClose" );
-            var $folder = $content.find( ".b-tree__i_folder_opened" );
-            var $vLine = $content.find( ".b-tree__i_vLine_b_folder_opened" );
-
-            this.toggleClasses( $expander, $folder, $vLine );
-            $expander.children( "img" ).prop( "alt", "+" );
-
-
-            this.model.set({ "isVisible": 0 });
-        },
-
-        showExpander: function(e) {
-            this.$el.children( "ul" ).show();
-
-            var $content = this.$el.children( "div" );
-
-            var $expander = $content.find( ".b-tree__i_expander_doOpen" );
-            var $folder = $content.find( ".b-tree__i_folder_closed" );
-            var $vLine = $content.find( ".b-tree__i_vLine_b_folder_closed" );
-
-            this.toggleClasses( $expander, $folder, $vLine );
-            $expander.children( "img" ).prop( "alt", "" );
-
-            this.model.set({ "isVisible": 1 });
-        },
-
-        toggleClasses: function( $expander, $folder, $vLine ) {
-            $expander.toggleClass( "b-tree__i_expander_doClose b-tree__i_expander_doOpen" );
-            $expander.children( "img" ).toggleClass( "b-tree__i_expander_doClose_inner b-tree__i_expander_doOpen_inner" );
-
-            $folder.toggleClass( "b-tree__i_folder_opened b-tree__i_folder_closed" );
-            $folder.children( "span" ).toggleClass( "b-tree__i_folder_opened_inner b-tree__i_folder_closed_inner" );
-
-            $vLine.toggleClass( "b-tree__i_vLine_b_folder_opened b-tree__i_vLine_b_folder_closed" );
-            $vLine.children( "span" ).toggleClass( "b-tree__i_vLine_b_folder_opened_inner b-tree__i_vLine_b_folder_closed_inner" );
-        },
-
         render: function( childsOutput ) {
             var tpl = '<div class="b-tree__itemContent" title="<%- title %>"><span class="b-tree__itemText"><a href="<%- link %>" class="b-tree__itemLink"><%- title %></a></span></div>';
             var tplSelected = '<div class="b-tree__itemContent m-tree__itemContent__selected" title="<%- title %>"><span class="b-tree__itemText m-tree__itemText__selected"><%- title %></span></div>';
@@ -719,72 +550,10 @@ DR_EXPLAIN.namespace = function( ns_string ) {
 
             $(this.el).html(this.template(this.model.toJSON()));
             
-            if ( childsOutput !== null ) {
-                $( this.el ).append( $( childsOutput ) );
-                this.bindEvents();
-            }
             var decoration = this.getDecoration( );
             $( this.el ).children( ".b-tree__itemContent" ).prepend( decoration );
             
-            if ( !this.model.get( "isVisible" ) ) {
-                this.hideExpander();
-            }
-
             return this;
-        },
-
-        bindEvents: function() {
-            var that = this;
-
-            this.$el.children( "div" ).on( "click", ".b-tree__i_expander_doClose", function(e){
-                that.hideExpander(e);
-            });
-
-            this.$el.children( "div" ).on( "click", ".b-tree__i_expander_doOpen", function(e){
-                that.showExpander(e);
-            });
-        },
-
-        getDecoration: function(bVisible) {
-            var $output = null;
-
-            var currModel = this.model;
-            var isRoot = true;
-            do {
-                if ( $output === null ) {
-                    $output = NavTree__ItemDecoration_View.render(currModel, isRoot);
-                }
-                else {
-                    $output = ( NavTree__ItemDecoration_View.render(currModel, isRoot) ) + ( $output );
-                }
-                currModel = currModel.get( "parent" );
-                isRoot = false;
-            
-            } while ( currModel !== null );
-            if (typeof bVisible !== "undefined")
-            {
-                if (!bVisible)
-                {
-                    $output = $output.replace("b-tree__i_expander_doClose", "b-tree__i_expander_doOpen");
-                    $output = $output.replace("b-tree__i_expander_doClose_inner", "b-tree__i_expander_doOpen_inner");
-                    $output = $output.replace("b-tree__i_folder_opened", "b-tree__i_folder_closed");
-                    $output = $output.replace("b-tree__i_folder_opened_inner", "b-tree__i_folder_closed_inner");
-                    $output = $output.replace("b-tree__i_vLine_b_folder_opened", "b-tree__i_vLine_b_folder_closed");
-                    $output = $output.replace("b-tree__i_vLine_b_folder_opened_inner", "b-tree__i_vLine_b_folder_closed_inner");
-                    $output = $output.replace("alt=\"+\"", "alt=\"-\"");
-                }
-                else
-                {
-                    $output = $output.replace("b-tree__i_expander_doOpen", "b-tree__i_expander_doClose");
-                    $output = $output.replace("b-tree__i_expander_doOpen_inner", "b-tree__i_expander_doClose_inner");
-                    $output = $output.replace("b-tree__i_folder_closed", "b-tree__i_folder_opened");
-                    $output = $output.replace("b-tree__i_folder_closed_inner", "b-tree__i_folder_opened_inner");
-                    $output = $output.replace("b-tree__i_vLine_b_folder_closed", "b-tree__i_vLine_b_folder_opened");
-                    $output = $output.replace("b-tree__i_vLine_b_folder_closed_inner", "b-tree__i_vLine_b_folder_opened_inner");
-                    $output = $output.replace("alt=\"-\"", "alt=\"+\"");
-                }               
-            }
-            return $( $output );
         }
     });
 
@@ -978,24 +747,26 @@ DR_EXPLAIN.namespace = function( ns_string ) {
             var elHtml = '';
             if ( this.model.get( "isSelected" ) )
             {
-                var jEl = $(this.el);
-                var div = $(document.createElement("div"));
-                div.attr("class", "b-tree__itemContent m-tree__itemContent__selected");
-                div.attr("title", title);
-                div.append(decoration);
-                var span = $(document.createElement("span"));
-                span.attr("class", "b-tree__itemText m-tree__itemText__selected");
-                span.append(document.createTextNode(title));
-                div.append(span);
-                jEl.append(div);
+                var div = document.createElement("div");
+                div.className = "b-tree__itemContent m-tree__itemContent__selected";
+                div.title = title;
+                for (var i = 0; i < decoration.length; ++i)
+                  div.appendChild(decoration[i]);
+                
+                var span = document.createElement("span");
+                span.className = "b-tree__itemText m-tree__itemText__selected";
+                span.appendChild(document.createTextNode(title));
+                div.appendChild(span);
+                this.el.appendChild(div);
             }
             else
             {
-                var jEl = this.el;
                 var div = document.createElement("div");
                 div.className = "b-tree__itemContent";
                 div.title = title;
-                $(div).append(decoration);
+                for (var i = 0; i < decoration.length; ++i)
+                  div.appendChild(decoration[i]);
+
                 var span = document.createElement("span");
                 span.className = "b-tree__itemText";
                 var aEl = document.createElement("a");
@@ -1004,7 +775,7 @@ DR_EXPLAIN.namespace = function( ns_string ) {
                 aEl.appendChild(document.createTextNode(title));
                 span.appendChild(aEl);
                 div.appendChild(span);
-                jEl.appendChild(div);
+                this.el.appendChild(div);
             }
 
             
@@ -1371,10 +1142,10 @@ InputSync.prototype ={
 DR_EXPLAIN.namespace( 'DR_EXPLAIN.data_menu' );
 DR_EXPLAIN.data_menu = {
     // menu
-    DREX_NODE_NAMES: ["Title","I. Introduction","II. Getting Started with eeDAP","III. Hardware and Software Requirement","IV. Input File","V. Output File","VI. WorkFlow","VII. Stage and Camera Control Utility Functions","VIII. FDA Hardware Specifications","IX. For eeDAP Developers","Credits ","Download and Install","Run Software","Tasks Instructions","Camera","Stage","Microscopes","Scanners","Software Requirements","Input File Header","Input File Study Settings","Input File Body: List of ROIs and Corresponding Tasks","WSI Formats","eeDAP Administrator Input Screen Window(c)","MicroRT Registration","Register Eyepiece and Camera Window","GUI Welcome Page Window","Experiment Interface","Preview with Cross-Hairs Window","Thank You Window","Directory Structure","Camera Stage Review Window","Cameras and Displays","Creating the Stand-Alone Application","Requirements","Camera Setup and Test","Alignment","Stage Setup and Test","Types of Microscopes","Reticles","Read and Extract WSI image","Matlab Compiler Runtime Libraries","Editing Input File Body","Slide Registration Window","Semi-Automated Registration","Manual Registration","BIO Formats","Image Scope by Aperio","Unique Locations","Low Resolution Registration","High Resolution Registration","BIO Formats: Possible Errors"],
-    DREX_NODE_LINKS: ["index.htm","i__introduction.htm","ii__getting_started_with_eedap.htm","iii__hardware_and_software_requirement.htm","iv__input_file.htm","v__output_file.htm","vi__workflow.htm","vii__stage_and_camera_control_utility_functions.htm","viii__fda_hardware_specifications.htm","ix__for_eedap_developers.htm","credits_.htm","download_and_install.htm","run_software.htm","tasks_instructions.htm","camera.htm","stage.htm","microscopes.htm","scanners.htm","software_requirements.htm","input_file_header.htm","input_file_study_settings.htm","input_file_body__list_of_rois_and_corresponding_tasks.htm","wsi_formats.htm","eedap_administrator_input_screen_window_c_.htm","micrort_registration.htm","register_eyepiece_and_camera_window.htm","gui_welcome_page_window.htm","experiment_interface.htm","preview_with_cross_hairs_window.htm","thank_you_window.htm","directory_structure.htm","camera_stage_review_window.htm","cameras_and_displays.htm","creating_the_stand_alone_application.htm","requirements.htm","camera_setup_and_test.htm","alignment.htm","stage_setup_and_test.htm","types_of_microscopes.htm","reticles.htm","read_and_extract_wsi_image.htm","matlab_compiler_runtime_libraries.htm","editing_input_file_body.htm","slide_registration_window.htm","semi_automated_registration.htm","manual_registration.htm","bio_formats.htm","image_scope_by_aperio.htm","unique_locations.htm","low_resolution_registration.htm","high_resolution_registration.htm","bio_formats__possible_errors.htm"],
-    DREX_NODE_CHILD_START: [1,10,11,14,19,23,23,31,32,33,34,34,34,34,34,37,38,40,40,42,42,42,43,43,43,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,48,48,48,48,51,51,52,52,52,52,52],
-    DREX_NODE_CHILD_END: [10,11,14,19,23,23,31,32,33,34,34,34,34,34,37,38,40,40,42,42,42,43,43,43,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,48,48,48,48,51,51,52,52,52,52,52,52],
+    DREX_NODE_NAMES: ["Title","I. Introduction","II. Getting Started with eeDAP","III. Hardware and Software Requirement","IV. Input File","V. Output File","VI. WorkFlow","VII. Stage and Camera Control Utility Functions","VIII. FDA Hardware Specifications","IX. For eeDAP Developers","Credits ","Download and Install","Run Software","Setting up Hardware","MicroRT Registration","Default Tasks","Camera","Stage","Microscopes","Scanners","Software Requirements","Input File Header","Input File Study Settings","Input File Body: List of ROIs and Corresponding Tasks","WSI Formats","eeDAP Administrator Input Screen Window(c)","MicroRT Registration","Register Eyepiece and Camera Window","GUI Welcome Page Window","Experiment Interface","Preview with Cross-Hairs Window","Thank You Window","Directory Structure","Camera Stage Review Window","Cameras and Displays","Package and Unpackage","Creating the Stand-Alone Application","Requirements","Camera Setup and Test","Alignment","Stage Setup and Test","Types of Microscopes","Reticles","Read and Extract WSI image","Matlab Compiler Runtime Libraries","Editing Input File Body","Slide Registration Window","Semi-Automated Registration","Manual Registration","BIO Formats","Image Scope by Aperio","Unique Locations","Low Resolution Registration","High Resolution Registration","BIO Formats: Possible Errors"],
+    DREX_NODE_LINKS: ["index.htm","i__introduction.htm","ii__getting_started_with_eedap.htm","iii__hardware_and_software_requirement.htm","iv__input_file.htm","v__output_file.htm","vi__workflow.htm","vii__stage_and_camera_control_utility_functions.htm","viii__fda_hardware_specifications.htm","ix__for_eedap_developers.htm","credits_.htm","download_and_install.htm","run_software.htm","setting_up_hardware.htm","micrort_registration_1.htm","default_tasks.htm","camera.htm","stage.htm","microscopes.htm","scanners.htm","software_requirements.htm","input_file_header.htm","input_file_study_settings.htm","input_file_body__list_of_rois_and_corresponding_tasks.htm","wsi_formats.htm","eedap_administrator_input_screen_window_c_.htm","micrort_registration_2.htm","register_eyepiece_and_camera_window.htm","gui_welcome_page_window.htm","experiment_interface.htm","preview_with_cross_hairs_window.htm","thank_you_window.htm","directory_structure.htm","camera_stage_review_window.htm","cameras_and_displays.htm","package_and_unpackage.htm","creating_the_stand_alone_application.htm","requirements.htm","camera_setup_and_test.htm","alignment.htm","stage_setup_and_test.htm","types_of_microscopes.htm","reticles.htm","read_and_extract_wsi_image.htm","matlab_compiler_runtime_libraries.htm","editing_input_file_body.htm","slide_registration_window.htm","semi_automated_registration.htm","manual_registration.htm","bio_formats.htm","image_scope_by_aperio.htm","unique_locations.htm","low_resolution_registration.htm","high_resolution_registration.htm","bio_formats__possible_errors.htm"],
+    DREX_NODE_CHILD_START: [1,10,11,16,21,25,25,33,34,36,37,37,37,37,37,37,37,40,41,43,43,45,45,45,46,46,46,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,51,51,51,51,54,54,55,55,55,55,55],
+    DREX_NODE_CHILD_END: [10,11,16,21,25,25,33,34,36,37,37,37,37,37,37,37,40,41,43,43,45,45,45,46,46,46,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,51,51,51,51,54,54,55,55,55,55,55,55],
     DREX_MENU_TYPE: 1,
     DREX_HAS_ROOT_NODE: 0};
 

@@ -17,140 +17,149 @@
  Run Software
  run_software.htm
 7
- Tasks Instructions
- tasks_instructions.htm
+ Setting up Hardware
+ setting_up_hardware.htm
 8
+ MicroRT Registration
+ micrort_registration_1.htm
+9
+ Default Tasks
+ default_tasks.htm
+10
  III. Hardware and Software Requirement
  iii__hardware_and_software_requirement.htm
-9
+11
  Camera
  camera.htm
-10
+12
  Requirements
  requirements.htm
-11
+13
  Camera Setup and Test
  camera_setup_and_test.htm
-12
+14
  Alignment
  alignment.htm
-13
+15
  Stage
  stage.htm
-14
+16
  Stage Setup and Test
  stage_setup_and_test.htm
-15
+17
  Microscopes
  microscopes.htm
-16
+18
  Types of Microscopes
  types_of_microscopes.htm
-17
+19
  Reticles
  reticles.htm
-18
+20
  Scanners
  scanners.htm
-19
+21
  Software Requirements
  software_requirements.htm
-20
+22
  Read and Extract WSI image
  read_and_extract_wsi_image.htm
-21
+23
  BIO Formats
  bio_formats.htm
-22
+24
  BIO Formats: Possible Errors
  bio_formats__possible_errors.htm
-23
+25
  Image Scope by Aperio
  image_scope_by_aperio.htm
-24
+26
  Matlab Compiler Runtime Libraries
  matlab_compiler_runtime_libraries.htm
-25
+27
  IV. Input File
  iv__input_file.htm
-26
+28
  Input File Header
  input_file_header.htm
-27
+29
  Input File Study Settings
  input_file_study_settings.htm
-28
+30
  Input File Body: List of ROIs and Corresponding Tasks
  input_file_body__list_of_rois_and_corresponding_tasks.htm
-29
+31
  Editing Input File Body
  editing_input_file_body.htm
-30
+32
  WSI Formats
  wsi_formats.htm
-31
+33
  V. Output File
  v__output_file.htm
-32
+34
  VI. WorkFlow
  vi__workflow.htm
-33
+35
  eeDAP Administrator Input Screen Window(c)
  eedap_administrator_input_screen_window_c_.htm
-34
+36
  MicroRT Registration
- micrort_registration.htm
-35
+ micrort_registration_2.htm
+37
  Slide Registration Window
  slide_registration_window.htm
-36
+38
  Semi-Automated Registration
  semi_automated_registration.htm
-37
+39
  Unique Locations
  unique_locations.htm
-38
+40
  Low Resolution Registration
  low_resolution_registration.htm
-39
+41
  High Resolution Registration
  high_resolution_registration.htm
-40
+42
  Manual Registration
  manual_registration.htm
-41
+43
  Register Eyepiece and Camera Window
  register_eyepiece_and_camera_window.htm
-42
+44
  GUI Welcome Page Window
  gui_welcome_page_window.htm
-43
+45
  Experiment Interface
  experiment_interface.htm
-44
+46
  Preview with Cross-Hairs Window
  preview_with_cross_hairs_window.htm
-45
+47
  Thank You Window
  thank_you_window.htm
-46
+48
  Directory Structure
  directory_structure.htm
-47
+49
  VII. Stage and Camera Control Utility Functions
  vii__stage_and_camera_control_utility_functions.htm
-48
+50
  Camera Stage Review Window
  camera_stage_review_window.htm
-49
+51
  VIII. FDA Hardware Specifications
  viii__fda_hardware_specifications.htm
-50
+52
  Cameras and Displays
  cameras_and_displays.htm
-51
+53
+ Package and Unpackage
+ package_and_unpackage.htm
+54
  IX. For eeDAP Developers
  ix__for_eedap_developers.htm
-52
+55
  Creating the Stand-Alone Application
  creating_the_stand_alone_application.htm

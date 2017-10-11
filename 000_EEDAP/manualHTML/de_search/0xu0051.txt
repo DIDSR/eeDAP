@@ -1,16 +1,16 @@
 QI
  3
 QUALITY
- 43
+ 45
 QUESTION
- 43,28
+ 45,30
 Q_OP1
- 28
+ 30
 Q_OP2
- 28
+ 30
 Q_OP3
- 28
+ 30
 Q_OP4
- 28
+ 30
 Q_TEXT
- 28
+ 30
