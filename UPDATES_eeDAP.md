@@ -3,17 +3,15 @@
 ### [eeDAP5.0 (Windows)](https://github.com/DIDSR/eeDAP/releases/tag/5.0)
 *10/10/17*
 
-Add task dynamic start and stop feature.
+Add dynamic start and stop feature to all tasks.
 
-Add new tasks to communicate with imagescope.
+Add new tasks to communicate with ImageScope (collect annotations).
 
-Disable zooming and moving features.
-
-Solve shortcut and tasks random order problem
+Debug desktop shortcut and random order problems in compiled version.
 
 
 ### [eeDAP4.2 (Windows)](https://github.com/DIDSR/eeDAP/releases/tag/4.2)
-*5/11/16*
+*8/18/16*
 
 Add a new task to create and save imagescope annotation for FOV and eyepiece field.
 
