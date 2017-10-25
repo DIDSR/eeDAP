@@ -148,7 +148,7 @@ try
     wsi_info = current.wsi_info;
     slideID = strfind(wsi_info.fullname, '\');
     filename = wsi_info.fullname(slideID(end)+1:end);
-    set(handles.text710,'String',filename,'FontSize',20);
+    set(handles.text710,'String',filename,'FontSize',15);
 catch ME
     error_show(ME)
 end
