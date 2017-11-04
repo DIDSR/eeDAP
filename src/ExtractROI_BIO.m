@@ -176,8 +176,12 @@ try
     temp_output(:,:,3) = bfGetPlane(WSI_data,3,New_Left,New_Top,New_InputWidth,New_InputHeight);
     
     output = imrotate(temp_output,RotateWSI);
-    output = imresize(output,floor([OutputWidth,OutputHeight]));
-
+    
+    if RotateWSI == 0 || RotateWSI== 180       
+        output = imresize(output,floor([OutputHeight,OutputWidth]));
+    else
+        output = imresize(output,floor([OutputWidth,OutputHeight]));
+    end
    
 
     

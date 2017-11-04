@@ -139,6 +139,12 @@ try
             % Map the position from ROI coordinates to WSI coordinates
             RotateWSI=settings.RotateWSI;
             switch RotateWSI
+                case 0                   % 3 o'clock
+                    x_wsi = taskinfo.roi_x - taskinfo.img_w/2 + x;
+                    y_wsi = taskinfo.roi_y - taskinfo.img_h/2 + y;
+                case 180                 % 9 o'clock
+                    x_wsi = taskinfo.roi_x + taskinfo.img_w/2 - x;
+                    y_wsi = taskinfo.roi_y + taskinfo.img_h/2 - y;
                 case 270                  % 6 o'clock
                     x_wsi = taskinfo.roi_x - taskinfo.img_w/2 + y;
                     y_wsi = taskinfo.roi_y + taskinfo.img_h/2 - x;
