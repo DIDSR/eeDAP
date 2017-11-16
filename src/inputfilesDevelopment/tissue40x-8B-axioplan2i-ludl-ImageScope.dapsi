@@ -65,8 +65,5 @@ taskorder        = 0
 BODY
 start
 finish
-count2_imagescope,1st0001,-1,1,038459,16192,219,219,219,219,Qtext_count,1,1,Please count mitotic in this area
-count2_imagescope,2nd0001,-1,1,027728,11381,439,439,439,439,Qtext_count,1,1,Please count mitotic in this area
-count2_imagescope,3rd0001,-1,1,19220,49879,658,658,658,658,Qtext_count,1,1,Please count mitotic in this area
-count2_imagescope,4th0001,-1,1,041163,33208,878,878,878,878,Qtext_count,1,1,Please count mitotic in this area
-count2_imagescope,5th0001,-1,1,041163,33208,1097,1097,1097,1097,Qtext_count,1,1,Please count mitotic in this area
+slider_imagescope,8th0001,-1,1,96974,23992,878,878,878,878,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count2_imagescope,2nd0001,-1,1,027728,11381,878,878,878,878,Qtext_count,1,1,description

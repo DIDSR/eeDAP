@@ -223,13 +223,14 @@ try
     end
     
     if settings.RotateWSI == 0 || settings.RotateWSI== 180
-        current.thumb_w = current.thumb_scale*current.thumb_extract_h;           %3,9 o'clock
-        current.thumb_h = current.thumb_scale*current.thumb_extract_w;
+        current.thumb_h = current.thumb_scale*current.thumb_extract_h;           %3,9 o'clock
+        current.thumb_w = current.thumb_scale*current.thumb_extract_w;
     else
         current.thumb_w = current.thumb_scale*current.thumb_extract_w;           %6,12 o'clock
         current.thumb_h = current.thumb_scale*current.thumb_extract_h;
     end
 
+    
     ExtractROI_BIO(current.wsi_info,...
         current.wsi_info.fullname,...
         current.thumb_file,...
@@ -243,6 +244,7 @@ try
         current.wsi_info.rgb_lut);
     
     if settings.RotateWSI == 0 || settings.RotateWSI== 180       
+        temp = current.thumb_w;
         current.thumb_w = floor(current.thumb_w);           %3,9 o'clock
         current.thumb_h = floor(current.thumb_h);
     else
@@ -251,6 +253,7 @@ try
         current.thumb_h = floor(temp);
     end
 
+    
     current.thumb_image = imread(current.thumb_file);
     current.thumb_image_handle = image(current.thumb_image, 'Parent', handles.thumb_axes);
     axis(handles.thumb_axes,'image');
@@ -466,12 +469,18 @@ try
     % Notes:
     % eeDAP images are WSI images rotated 90 degree clockwise
     % Rotate = Transpose then reverse YDir
-        case 270        % 6 o'clock
+        case 180        % 9 o'clock
+            roi_x0 = (thumb_w - x_center)*thumb_extract_w/thumb_w;
+            roi_y0  = (thumb_h - y_center)*thumb_extract_h/thumb_h;         
+        case 270      % 6 o'clock
             roi_x0 = y_center*thumb_extract_w/thumb_h;
             roi_y0  = (thumb_w - x_center)*thumb_extract_h/thumb_w;
-        case 90        % 12 o'clock
+        case 90       % 12 o'clock
             roi_x0 = (thumb_h - y_center)*thumb_extract_w/thumb_h;
             roi_y0  = x_center*thumb_extract_h/thumb_w;
+        case 0      % 3 o'clock
+            roi_x0 = x_center*thumb_extract_w/thumb_w;
+            roi_y0 = y_center*thumb_extract_h/thumb_h;
     end
     % The coordinates are relative to the thumbnail, map to wsi coordinates
     roi_x0 = roi_x0 + thumb_left - 1;
@@ -571,9 +580,13 @@ try
     
     % Scale factor to convert scanner pixels to thumbnail pixels
     % Remember that there is a rotation
-    scan2thumb_w = current.thumb_w/current.thumb_extract_h;
-    scan2thumb_h = current.thumb_h/current.thumb_extract_w;
-
+     if settings.RotateWSI == 0 || settings.RotateWSI== 180
+        scan2thumb_w = current.thumb_w/current.thumb_extract_w;
+        scan2thumb_h = current.thumb_h/current.thumb_extract_h;
+     else
+        scan2thumb_w = current.thumb_w/current.thumb_extract_h;
+        scan2thumb_h = current.thumb_h/current.thumb_extract_w;
+     end
     % Size of blue rectangle in thumbnail pixels
     desc = 'blue';
     rect_w = settings.cam_roi_w*cam2scan*scan2thumb_w;

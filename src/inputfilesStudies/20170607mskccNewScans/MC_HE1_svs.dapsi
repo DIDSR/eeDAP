@@ -1,0 +1,96 @@
+Author: 
+Date: 
+Time: 
+
+For the Hamamatsu scanning at 20x
+    scan_scale = .4558
+For the Hamamatsu scanning at 40x
+    scan_scale = .2279
+
+Point Grey Grashopper Color (GRAS-03K2C-C)
+    cam_format = RGB24_640x480
+    cam_pixel_size = 7.4um
+Point Grey Flea2 Color (FL2G-50S5C-C): Full resolution, full format
+    cam_format = F7_RGB24_2448x2048
+    cam_pixel_size = 3.45
+Point Grey Flea2 Color (FL2G-50S5C-C): Standard format, aspect ratio = 1.33
+    cam_format = RGB24_1024x768
+    cam_pixel_size = 6.9
+
+Reminder:
+autoreg = 1 do local automatic registration for each task/FOV
+autoreg = 0 don't local automatic registration for each task/FOV
+taskorder=2 user specified order
+taskorder=1 listed order
+taskorder=0 random order
+saveimages = 1  save WSI and camera images
+saveimages = 2  only save WSI image
+saveimages = 3  only save camera image
+saveimages = 4  don't save WSI and camera images
+
+
+Input File Task Formats
+task_checkMof4,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_count,    TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_mark1,    TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_mark1_out,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_radio1of4,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_slider,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_mitotic_expert,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag
+task_mitotic_train, TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag,ExpertCheckBoxes1-8,Expert_Score
+task_mitotic_counts,TaskID,TaskOrder,Slot,MoveFlag,ZoomFlag
+
+SETTINGS
+NUMBER_OF_WSI    = 4 
+wsi_slot_1       = C:\000_whole_slides\mcsMSKCCscaned\svs\CCB050031HEmskccRescan1.svs
+rgb_lut_slot_1   = icc_profiles\rgb_lut_gamma_inv1p8.txt 
+scan_scale_1     = 0.2519
+wsi_slot_2       = C:\000_whole_slides\mcsMSKCCscaned\svs\CCB010352HEmskccRescan1.svs
+rgb_lut_slot_2   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_2     = 0.2519 
+wsi_slot_3       = C:\000_whole_slides\mcsMSKCCscaned\svs\CCB030097HEmskccRescan1.svs
+rgb_lut_slot_3   = icc_profiles\rgb_lut_gamma_inv1p8.txt 
+scan_scale_3     = 0.2519
+wsi_slot_4       = C:\000_whole_slides\mcsMSKCCscaned\svs\CCB030179HEmskccRescan1.svs
+rgb_lut_slot_4   = icc_profiles\rgb_lut_gamma_inv1p8.txt 
+scan_scale_4     = 0.2519
+label_pos        = 12
+reticleID        = KR-871
+cam_kind	 = USB
+cam_format       = F7_RGB_1224x1024_Mode1
+cam_pixel_size   = 6.9
+mag_cam          = 0.5
+mag_lres         = 10
+mag_hres         = 40
+stage_label      = H101-Prior
+BG_Color_RGB     = 0.55 = 0.55 = 0.55
+FG_Color_RGB     = 0.00 = 0.00 = 0.00
+AxesBG_Color_RGB = 0.10 = 0.20 = 0.10
+FontSize         = 13
+autoreg 	 = 1
+saveimages       = 3
+taskorder        = 0
+
+BODY
+start
+finish
+count_imagescope,1st0001,-1,1,5313.9416,17867.2696,793,793,793,793,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,2nd0001,-1,1,7113.364,17993.5016,793,793,793,793,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,3rd0001,-1,1,5387.4296,19465.9784,793,793,793,793,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,4th0001,-1,1,7627.0168,19473.9784,793,793,793,793,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,5th0001,-1,1,9988.8296,19603.204,793,793,793,793,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,6th0001,-1,2,6994.2824,37818.4856,793,793,793,793,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,7th0001,-1,2,10573.236,38255.7592,793,793,793,793,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,8th0001,-1,2,13264.8856,39074.556,793,793,793,793,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,9th0001,-1,2,6791.524,40472.3848,793,793,793,793,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,10th0001,-1,2,10140.9624,40793.4008,793,793,793,793,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,11st0001,-1,3,7220.212,8262.4328,793,793,793,793,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,12nd0001,-1,3,8734.5032,6581.2936,793,793,793,793,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,13rd0001,-1,3,11316.8632,6949.9832,793,793,793,793,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,14th0001,-1,3,10915.404,9567.1128,793,793,793,793,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,15th0001,-1,3,13033.7656,9755.9544,793,793,793,793,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,16th0001,-1,4,27509.1752,26684.7192,793,793,793,793,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,17th0001,-1,4,27274.8776,19635.108,793,793,793,793,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,18th0001,-1,4,19986.6744,24977.4968,793,793,793,793,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,19th0001,-1,4,23016.1096,26751.156,793,793,793,793,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4
+count_imagescope,20th0001,-1,4,26911.1496,22894.116,793,793,793,793,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures,Q_Op2,Q_Op3,Q_Op4

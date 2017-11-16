@@ -100,11 +100,11 @@ try
     % boundary
     entry_level1_2_2 = docNode.createElement('Region');
     entry_level1_2.appendChild(entry_level1_2_2);
-    entry_level1_2_2.setAttribute('Selected','1');
+    entry_level1_2_2.setAttribute('Selected','0');
     entry_level1_2_2.setAttribute('Type','1');
     entry_level1_2_2.setAttribute('Id','1');
     entry_level1_2_2.setAttribute('DisplayId','1');
-    entry_level1_2_2.setAttribute('Analyze','1');
+    entry_level1_2_2.setAttribute('Analyze','0');
     entry_level1_2_2.setAttribute('InputRegionId','0');
     entry_level1_2_2.setAttribute('NegativeROA','0');
     entry_level1_2_2.setAttribute('Text','');
@@ -112,7 +112,7 @@ try
     entry_level1_2_2.setAttribute('LengthMicrons',num2str(lengthM));
     entry_level1_2_2.setAttribute('Area',num2str(area));
     entry_level1_2_2.setAttribute('Length',num2str(length));
-    entry_level1_2_2.setAttribute('ImageFocus','0');
+    entry_level1_2_2.setAttribute('ImageFocus','-1');
     entry_level1_2_2.setAttribute('ImageLocation','');
     entry_level1_2_2.setAttribute('Zoom','0.022562');
 
@@ -124,21 +124,25 @@ try
 
     entry_level1_2_2_2_1 = docNode.createElement('Vertex');
     entry_level1_2_2_2.appendChild(entry_level1_2_2_2_1);
+    entry_level1_2_2_2_1.setAttribute('Z',num2str(0));
     entry_level1_2_2_2_1.setAttribute('Y',num2str(y1));
     entry_level1_2_2_2_1.setAttribute('X',num2str(x1));
 
     entry_level1_2_2_2_2 = docNode.createElement('Vertex');
     entry_level1_2_2_2.appendChild(entry_level1_2_2_2_2);
+    entry_level1_2_2_2_2.setAttribute('Z',num2str(0));
     entry_level1_2_2_2_2.setAttribute('Y',num2str(y2));
     entry_level1_2_2_2_2.setAttribute('X',num2str(x2));
 
     entry_level1_2_2_2_3 = docNode.createElement('Vertex');
     entry_level1_2_2_2.appendChild(entry_level1_2_2_2_3);
+    entry_level1_2_2_2_3.setAttribute('Z',num2str(0));
     entry_level1_2_2_2_3.setAttribute('Y',num2str(y3));
     entry_level1_2_2_2_3.setAttribute('X',num2str(x3));
 
     entry_level1_2_2_2_4 = docNode.createElement('Vertex');
     entry_level1_2_2_2.appendChild(entry_level1_2_2_2_4);
+    entry_level1_2_2_2_4.setAttribute('Z',num2str(0));
     entry_level1_2_2_2_4.setAttribute('Y',num2str(y4));
     entry_level1_2_2_2_4.setAttribute('X',num2str(x4));
    
@@ -148,8 +152,8 @@ try
     entry_level1_2.appendChild(entry_level1_2_3);
     entry_level1_2_3.setAttribute('Selected','1');
     entry_level1_2_3.setAttribute('Type','3');
-    entry_level1_2_3.setAttribute('Id','1');
-    entry_level1_2_3.setAttribute('DisplayId','1');
+    entry_level1_2_3.setAttribute('Id','2');
+    entry_level1_2_3.setAttribute('DisplayId','2');
     entry_level1_2_3.setAttribute('Analyze','1');
     entry_level1_2_3.setAttribute('InputRegionId','0');
     entry_level1_2_3.setAttribute('NegativeROA','0');
@@ -158,7 +162,7 @@ try
     entry_level1_2_3.setAttribute('LengthMicrons',num2str(lengthArrowM));
     entry_level1_2_3.setAttribute('Area','0.0');
     entry_level1_2_3.setAttribute('Length',num2str(lengthArrow));
-    entry_level1_2_3.setAttribute('ImageFocus','0');
+    entry_level1_2_3.setAttribute('ImageFocus','-1');
     entry_level1_2_3.setAttribute('ImageLocation','');
     entry_level1_2_3.setAttribute('Zoom','0.022562');
 
@@ -170,11 +174,13 @@ try
 
     entry_level1_2_3_2_1 = docNode.createElement('Vertex');
     entry_level1_2_3_2.appendChild(entry_level1_2_3_2_1);
+    entry_level1_2_3_2_1.setAttribute('Z',num2str(0));
     entry_level1_2_3_2_1.setAttribute('Y',num2str(yArrow));
     entry_level1_2_3_2_1.setAttribute('X',num2str(xArrow1));
 
     entry_level1_2_3_2_2 = docNode.createElement('Vertex');
     entry_level1_2_3_2.appendChild(entry_level1_2_3_2_2);
+    entry_level1_2_3_2_2.setAttribute('Z',num2str(0));
     entry_level1_2_3_2_2.setAttribute('Y',num2str(yArrow));
     entry_level1_2_3_2_2.setAttribute('X',num2str(xArrow2));
 

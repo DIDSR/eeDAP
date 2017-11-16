@@ -1,0 +1,136 @@
+Author: 
+Date: 
+Time: 
+
+For the Hamamatsu scanning at 20x
+    scan_scale = .4558
+For the Hamamatsu scanning at 40x
+    scan_scale = .2279
+
+Point Grey Grashopper Color (GRAS-03K2C-C)
+    cam_format = RGB24_640x480
+    cam_pixel_size = 7.4um
+Point Grey Flea2 Color (FL2G-50S5C-C): Full resolution, full format
+    cam_format = F7_RGB24_2448x2048
+    cam_pixel_size = 3.45
+Point Grey Flea2 Color (FL2G-50S5C-C): Standard format, aspect ratio = 1.33
+    cam_format = RGB24_1024x768
+    cam_pixel_size = 6.9
+
+Reminder:
+autoreg = 1 do local automatic registration for each task/FOV
+autoreg = 0 don't local automatic registration for each task/FOV
+taskorder=2 user specified order
+taskorder=1 listed order
+taskorder=0 random order
+saveimages = 1  save WSI and camera images
+saveimages = 2  only save WSI image
+saveimages = 3  only save camera image
+saveimages = 4  don't save WSI and camera images
+
+
+Input File Task Formats
+task_checkMof4,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_count,    TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_mark1,    TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_mark1_out,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_radio1of4,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_slider,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_mitotic_expert,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag
+task_mitotic_train, TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag,ExpertCheckBoxes1-8,Expert_Score
+task_mitotic_counts,TaskID,TaskOrder,Slot,MoveFlag,ZoomFlag
+
+SETTINGS
+NUMBER_OF_WSI    = 4 
+wsi_slot_1       = C:\000_whole_slides\mcsMSKCC\CCB050031HE.svs 
+rgb_lut_slot_1   = icc_profiles\rgb_lut_gamma_inv1p8.txt 
+scan_scale_1     = 0.2503
+wsi_slot_2       = C:\000_whole_slides\mcsMSKCC\CCB010352HE.svs 
+rgb_lut_slot_2   = icc_profiles\rgb_lut_gamma_inv1p8.txt 
+scan_scale_2     = 0.2503
+wsi_slot_3       = C:\000_whole_slides\mcsMSKCC\CCB030097HE.svs 
+rgb_lut_slot_3   = icc_profiles\rgb_lut_gamma_inv1p8.txt 
+scan_scale_3     = 0.2503
+wsi_slot_4       = C:\000_whole_slides\mcsMSKCC\CCB030179HE.svs 
+rgb_lut_slot_4   = icc_profiles\rgb_lut_gamma_inv1p8.txt 
+scan_scale_4     = 0.2503
+label_pos        = 12
+reticleID        = KR-871
+cam_kind	 = USB
+cam_format       = F7_RGB_1224x1024_Mode1
+cam_pixel_size   = 6.9
+mag_cam          = 0.5
+mag_lres         = 10
+mag_hres         = 40
+stage_label      = H101-Prior
+BG_Color_RGB     = 0.55 = 0.55 = 0.55
+FG_Color_RGB     = 0.00 = 0.00 = 0.00
+AxesBG_Color_RGB = 0.10 = 0.20 = 0.10
+FontSize         = 13
+autoreg 	 = 1
+saveimages       = 3
+taskorder        = 1
+
+BODY
+start
+finish
+registration_test,CCB030097HEx8054y10401,1,3,8054,10401,799,799
+registration_test,CCB030097HEx7872y10629,2,3,7872,10629,799,799
+registration_test,CCB030097HEx8260y10718,3,3,8260,10718,799,799
+registration_test,CCB030097HEx8055y10319,4,3,8055,10319,799,799
+registration_test,CCB030097HEx10004y9932,5,3,10004,9932,799,799
+registration_test,CCB030097HEx9848y9550,6,3,9848,9550,799,799
+registration_test,CCB030097HEx9688y9782,7,3,9688,9782,799,799
+registration_test,CCB030097HEx10088y10305,8,3,10088,10305,799,799
+registration_test,CCB050031HEx5187y19583,9,1,5187,19583,799,799
+registration_test,CCB050031HEx5318y19187,10,1,5318,19187,799,799
+registration_test,CCB050031HEx5314y19707,11,1,5314,19707,799,799
+registration_test,CCB050031HEx5202y19880,12,1,5202,19880,799,799
+registration_test,CCB030097HEx12315y10185,13,3,12315,10185,799,799
+registration_test,CCB030097HEx12114y10455,14,3,12114,10455,799,799
+registration_test,CCB010352HEx5266y13592,15,2,5266,13592,799,799
+registration_test,CCB010352HEx5439y13796,16,2,5439,13796,799,799
+registration_test,CCB050031HEx3136y19784,17,1,3136,19784,799,799
+registration_test,CCB050031HEx3111y19653,18,1,3111,19653,799,799
+registration_test,CCB050031HEx2777y20040,19,1,2777,20040,799,799
+registration_test,CCB050031HEx3398y20108,20,1,3398,20108,799,799
+registration_test,CCB050031HEx13149y22639,21,1,13149,22639,799,799
+registration_test,CCB050031HEx13005y22625,22,1,13005,22625,799,799
+registration_test,CCB050031HEx12771y22860,23,1,12771,22860,799,799
+registration_test,CCB010352HEx6699y10997,24,2,6699,10997,799,799
+registration_test,CCB030179HEx16089y23181,25,4,16089,23181,799,799
+registration_test,CCB030179HEx15773y23119,26,4,15773,23119,799,799
+registration_test,CCB030179HEx16207y23187,27,4,16207,23187,799,799
+registration_test,CCB030179HEx11302y28854,28,4,11302,28854,799,799
+registration_test,CCB030179HEx11066y29102,29,4,11066,29102,799,799
+registration_test,CCB050031HEx9369y22197,30,1,9369,22197,799,799
+registration_test,CCB030179HEx15557y30582,31,4,15557,30582,799,799
+registration_test,CCB030179HEx16130y30984,32,4,16130,30984,799,799
+registration_test,CCB030179HEx15723y30417,33,4,15723,30417,799,799
+registration_test,CCB030179HEx15909y30527,34,4,15909,30527,799,799
+registration_test,CCB030179HEx15740y30683,35,4,15740,30683,799,799
+registration_test,CCB030179HEx15286y30761,36,4,15286,30761,799,799
+registration_test,CCB030179HEx15265y30785,37,4,15265,30785,799,799
+registration_test,CCB030179HEx7777y23758,38,4,7777,23758,799,799
+registration_test,CCB030179HEx7454y23963,39,4,7454,23963,799,799
+registration_test,CCB030179HEx7710y24127,40,4,7710,24127,799,799
+registration_test,CCB010352HEx4182y9410,41,2,4182,9410,799,799
+registration_test,CCB030097HEx13977y8307,42,3,13977,8307,799,799
+registration_test,CCB030097HEx13998y8390,43,3,13998,8390,799,799
+registration_test,CCB030097HEx14020y8649,44,3,14020,8649,799,799
+registration_test,CCB030097HEx14045y8642,45,3,14045,8642,799,799
+registration_test,CCB050031HEx7801y19824,46,1,7801,19824,799,799
+registration_test,CCB010352HEx11113y7590,47,2,11113,7590,799,799
+registration_test,CCB030097HEx11304y12171,48,3,11304,12171,799,799
+registration_test,CCB030097HEx10993y12093,49,3,10993,12093,799,799
+registration_test,CCB030097HEx11258y12069,50,3,11258,12069,799,799
+registration_test,CCB030097HEx11296y12073,51,3,11296,12073,799,799
+registration_test,CCB030097HEx11188y12323,52,3,11188,12323,799,799
+registration_test,CCB030097HEx11655y12202,53,3,11655,12202,799,799
+registration_test,CCB010352HEx7512y15528,54,2,7512,15528,799,799
+registration_test,CCB010352HEx7152y15331,55,2,7152,15331,799,799
+registration_test,CCB010352HEx7391y15578,56,2,7391,15578,799,799
+registration_test,CCB010352HEx7368y15831,57,2,7368,15831,799,799
+registration_test,CCB030179HEx13706y23912,58,4,13706,23912,799,799
+registration_test,CCB030179HEx13674y23677,59,4,13674,23677,799,799
+registration_test,CCB030179HEx13665y24084,60,4,13665,24084,799,799
