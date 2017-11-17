@@ -74,63 +74,105 @@ taskorder        = 1
 BODY
 start
 finish
-count2_imagescope,CCB030097HEx8054y10401,75,3,8054,10401,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
-slider_imagescope,CCB030097HEx7872y10629,76,3,7872,10629,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-slider_imagescope,CCB030097HEx8260y10718,77,3,8260,10718,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-slider_imagescope,CCB030097HEx8055y10319,78,3,8055,10319,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count2_imagescope,CCB030097HEx10004y9932,79,3,10004,9932,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
-slider_imagescope,CCB030097HEx9848y9550,80,3,9848,9550,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-slider_imagescope,CCB030097HEx9688y9782,81,3,9688,9782,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-slider_imagescope,CCB030097HEx10088y10305,82,3,10088,10305,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count2_imagescope,CCB050031HEx5187y19583,83,1,5187,19583,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
-slider_imagescope,CCB050031HEx5318y19187,84,1,5318,19187,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-slider_imagescope,CCB050031HEx5314y19707,85,1,5314,19707,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-slider_imagescope,CCB050031HEx5202y19880,86,1,5202,19880,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count2_imagescope,CCB030097HEx12315y10185,87,3,12315,10185,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
-slider_imagescope,CCB030097HEx12114y10455,88,3,12114,10455,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count2_imagescope,CCB010352HEx5266y13592,89,2,5266,13592,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
-slider_imagescope,CCB010352HEx5439y13796,90,2,5439,13796,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count2_imagescope,CCB050031HEx3136y19784,91,1,3136,19784,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
-slider_imagescope,CCB050031HEx3111y19653,92,1,3111,19653,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-slider_imagescope,CCB050031HEx2777y20040,93,1,2777,20040,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-slider_imagescope,CCB050031HEx3398y20108,94,1,3398,20108,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count2_imagescope,CCB050031HEx13149y22639,95,1,13149,22639,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
-slider_imagescope,CCB050031HEx13005y22625,96,1,13005,22625,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-slider_imagescope,CCB050031HEx12771y22860,97,1,12771,22860,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count2_imagescope,CCB010352HEx6699y10997,98,2,6699,10997,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
-count2_imagescope,CCB030179HEx16089y23181,99,4,16089,23181,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
-slider_imagescope,CCB030179HEx15773y23119,100,4,15773,23119,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-slider_imagescope,CCB030179HEx16207y23187,101,4,16207,23187,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count2_imagescope,CCB030179HEx11302y28854,102,4,11302,28854,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
-slider_imagescope,CCB030179HEx11066y29102,103,4,11066,29102,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count2_imagescope,CCB050031HEx9369y22197,104,1,9369,22197,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
-count2_imagescope,CCB030179HEx15557y30582,105,4,15557,30582,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
-slider_imagescope,CCB030179HEx16130y30984,106,4,16130,30984,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-slider_imagescope,CCB030179HEx15723y30417,107,4,15723,30417,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-slider_imagescope,CCB030179HEx15909y30527,108,4,15909,30527,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-slider_imagescope,CCB030179HEx15740y30683,109,4,15740,30683,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-slider_imagescope,CCB030179HEx15286y30761,110,4,15286,30761,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-slider_imagescope,CCB030179HEx15265y30785,111,4,15265,30785,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count2_imagescope,CCB030179HEx7777y23758,112,4,7777,23758,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
-slider_imagescope,CCB030179HEx7454y23963,113,4,7454,23963,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-slider_imagescope,CCB030179HEx7710y24127,114,4,7710,24127,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count2_imagescope,CCB010352HEx4182y9410,115,2,4182,9410,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
-count2_imagescope,CCB030097HEx13977y8307,116,3,13977,8307,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
-slider_imagescope,CCB030097HEx13998y8390,117,3,13998,8390,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-slider_imagescope,CCB030097HEx14020y8649,118,3,14020,8649,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-slider_imagescope,CCB030097HEx14045y8642,119,3,14045,8642,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count2_imagescope,CCB050031HEx7801y19824,120,1,7801,19824,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
-count2_imagescope,CCB010352HEx11113y7590,121,2,11113,7590,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
-count2_imagescope,CCB030097HEx11304y12171,122,3,11304,12171,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
-slider_imagescope,CCB030097HEx10993y12093,123,3,10993,12093,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-slider_imagescope,CCB030097HEx11258y12069,124,3,11258,12069,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-slider_imagescope,CCB030097HEx11296y12073,125,3,11296,12073,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-slider_imagescope,CCB030097HEx11188y12323,126,3,11188,12323,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-slider_imagescope,CCB030097HEx11655y12202,127,3,11655,12202,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count2_imagescope,CCB010352HEx7512y15528,128,2,7512,15528,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
-slider_imagescope,CCB010352HEx7152y15331,129,2,7152,15331,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-slider_imagescope,CCB010352HEx7391y15578,130,2,7391,15578,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-slider_imagescope,CCB010352HEx7368y15831,131,2,7368,15831,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count2_imagescope,CCB030179HEx13706y23912,132,4,13706,23912,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
-slider_imagescope,CCB030179HEx13674y23677,133,4,13674,23677,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-slider_imagescope,CCB030179HEx13665y24084,134,4,13665,24084,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count2_imagescope,CCB030097HEx8054y10401c,1,3,8054,10401,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
+slider_imagescope,CCB030097HEx7872y10629m,2,3,7872,10629,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB030097HEx8260y10718m,3,3,8260,10718,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB030097HEx8055y10319m,4,3,8055,10319,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count2_imagescope,CCB030097HEx8054y10401d,5,3,8054,10401,799,799,799,799,Discuss!,1,1,Number of mitotic figures
+count2_imagescope,CCB030097HEx10004y9932c,6,3,10004,9932,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
+slider_imagescope,CCB030097HEx9848y9550m,7,3,9848,9550,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB030097HEx9688y9782m,8,3,9688,9782,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB030097HEx10088y10305m,9,3,10088,10305,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count2_imagescope,CCB030097HEx10004y9932d,10,3,10004,9932,799,799,799,799,Discuss!,1,1,Number of mitotic figures
+count2_imagescope,CCB050031HEx5187y19583c,11,1,5187,19583,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
+slider_imagescope,CCB050031HEx5318y19187m,12,1,5318,19187,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB050031HEx5314y19707m,13,1,5314,19707,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB050031HEx5202y19880m,14,1,5202,19880,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count2_imagescope,CCB050031HEx5187y19583d,15,1,5187,19583,799,799,799,799,Discuss!,1,1,Number of mitotic figures
+count2_imagescope,CCB030097HEx12315y10185c,16,3,12315,10185,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
+slider_imagescope,CCB030097HEx12114y10455m,17,3,12114,10455,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB030097HEx12164y9879m,18,3,12164,9879,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB030097HEx12143y9839m,19,3,12143,9839,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB030097HEx12062y10007m,20,3,12062,10007,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count2_imagescope,CCB030097HEx12315y10185d,21,3,12315,10185,799,799,799,799,Discuss!,1,1,Number of mitotic figures
+count2_imagescope,CCB010352HEx5266y13592c,22,2,5266,13592,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
+slider_imagescope,CCB010352HEx5439y13796m,23,2,5439,13796,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB010352HEx5301y13212m,24,2,5301,13212,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB010352HEx5390y13238m,25,2,5390,13238,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB010352HEx5248y13638m,26,2,5248,13638,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count2_imagescope,CCB010352HEx5266y13592d,27,2,5266,13592,799,799,799,799,Discuss!,1,1,Number of mitotic figures
+count2_imagescope,CCB050031HEx3136y19784c,28,1,3136,19784,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
+slider_imagescope,CCB050031HEx3111y19653m,29,1,3111,19653,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB050031HEx2777y20040m,30,1,2777,20040,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB050031HEx3398y20108m,31,1,3398,20108,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count2_imagescope,CCB050031HEx3136y19784d,32,1,3136,19784,799,799,799,799,Discuss!,1,1,Number of mitotic figures
+count2_imagescope,CCB050031HEx13149y22639c,33,1,13149,22639,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
+slider_imagescope,CCB050031HEx13005y22625m,34,1,13005,22625,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB050031HEx12771y22860m,35,1,12771,22860,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count2_imagescope,CCB050031HEx13149y22639d,36,1,13149,22639,799,799,799,799,Discuss!,1,1,Number of mitotic figures
+count2_imagescope,CCB010352HEx6699y10997c,37,2,6699,10997,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
+slider_imagescope,CCB010352HEx6705y10695m,38,2,6705,10695,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB010352HEx6782y11084m,39,2,6782,11084,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB010352HEx6560y11355m,40,2,6560,11355,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count2_imagescope,CCB010352HEx6699y10997d,41,2,6699,10997,799,799,799,799,Discuss!,1,1,Number of mitotic figures
+count2_imagescope,CCB030179HEx16089y23181c,42,4,16089,23181,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
+slider_imagescope,CCB030179HEx15773y23119m,43,4,15773,23119,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB030179HEx16207y23187m,44,4,16207,23187,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count2_imagescope,CCB030179HEx16089y23181d,45,4,16089,23181,799,799,799,799,Discuss!,1,1,Number of mitotic figures
+count2_imagescope,CCB030179HEx11302y28854c,46,4,11302,28854,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
+slider_imagescope,CCB030179HEx11066y29102m,47,4,11066,29102,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB030179HEx11421y28770m,48,4,11421,28770,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB030179HEx11557y28953m,49,4,11557,28953,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count2_imagescope,CCB030179HEx11302y28854d,50,4,11302,28854,799,799,799,799,Discuss!,1,1,Number of mitotic figures
+count2_imagescope,CCB050031HEx9369y22197c,51,1,9369,22197,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
+slider_imagescope,CCB050031HEx9118y22052m,52,1,9118,22052,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB050031HEx9275y22140m,53,1,9275,22140,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB050031HEx9347y22219m,54,1,9347,22219,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB050031HEx9433y22229m,55,1,9433,22229,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count2_imagescope,CCB050031HEx9369y22197d,56,1,9369,22197,799,799,799,799,Discuss!,1,1,Number of mitotic figures
+count2_imagescope,CCB030179HEx15557y30582c,57,4,15557,30582,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
+slider_imagescope,CCB030179HEx16130y30984m,58,4,16130,30984,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB030179HEx15723y30417m,59,4,15723,30417,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB030179HEx15909y30527m,60,4,15909,30527,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB030179HEx15740y30683m,61,4,15740,30683,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB030179HEx15286y30761m,62,4,15286,30761,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB030179HEx15265y30785m,63,4,15265,30785,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count2_imagescope,CCB030179HEx15557y30582d,64,4,15557,30582,799,799,799,799,Discuss!,1,1,Number of mitotic figures
+count2_imagescope,CCB030179HEx7777y23758c,65,4,7777,23758,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
+slider_imagescope,CCB030179HEx7454y23963m,66,4,7454,23963,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB030179HEx7710y24127m,67,4,7710,24127,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count2_imagescope,CCB030179HEx7777y23758d,68,4,7777,23758,799,799,799,799,Discuss!,1,1,Number of mitotic figures
+count2_imagescope,CCB010352HEx4182y9410c,69,2,4182,9410,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
+slider_imagescope,CCB010352HEx4276y9164m,70,2,4276,9164,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB010352HEx3803y9114m,71,2,3803,9114,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count2_imagescope,CCB010352HEx4182y9410d,72,2,4182,9410,799,799,799,799,Discuss!,1,1,Number of mitotic figures
+count2_imagescope,CCB030097HEx13977y8307c,73,3,13977,8307,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
+slider_imagescope,CCB030097HEx13998y8390m,74,3,13998,8390,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB030097HEx14020y8649m,75,3,14020,8649,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB030097HEx14045y8642m,76,3,14045,8642,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count2_imagescope,CCB030097HEx13977y8307d,77,3,13977,8307,799,799,799,799,Discuss!,1,1,Number of mitotic figures
+count2_imagescope,CCB050031HEx7801y19824c,78,1,7801,19824,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
+slider_imagescope,CCB050031HEx7860y19473m,79,1,7860,19473,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB050031HEx7606y19813m,80,1,7606,19813,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count2_imagescope,CCB050031HEx7801y19824d,81,1,7801,19824,799,799,799,799,Discuss!,1,1,Number of mitotic figures
+count2_imagescope,CCB010352HEx11113y7590c,82,2,11113,7590,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
+slider_imagescope,CCB010352HEx11301y7539m,83,2,11301,7539,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB010352HEx11372y7765m,84,2,11372,7765,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB010352HEx11175y7982m,85,2,11175,7982,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count2_imagescope,CCB010352HEx11113y7590d,86,2,11113,7590,799,799,799,799,Discuss!,1,1,Number of mitotic figures
+count2_imagescope,CCB030097HEx11304y12171c,87,3,11304,12171,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
+slider_imagescope,CCB030097HEx10993y12093m,88,3,10993,12093,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB030097HEx11258y12069m,89,3,11258,12069,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB030097HEx11296y12073m,90,3,11296,12073,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB030097HEx11188y12323m,91,3,11188,12323,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB030097HEx11655y12202m,92,3,11655,12202,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count2_imagescope,CCB030097HEx11304y12171d,93,3,11304,12171,799,799,799,799,Discuss!,1,1,Number of mitotic figures
+count2_imagescope,CCB010352HEx7512y15528c,94,2,7512,15528,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
+slider_imagescope,CCB010352HEx7152y15331m,95,2,7152,15331,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB010352HEx7391y15578m,96,2,7391,15578,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB010352HEx7368y15831m,97,2,7368,15831,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count2_imagescope,CCB010352HEx7512y15528d,98,2,7512,15528,799,799,799,799,Discuss!,1,1,Number of mitotic figures
+count2_imagescope,CCB030179HEx13706y23912c,99,4,13706,23912,799,799,799,799,Count the mitotic figures in the fourth smallest square,1,1,Number of mitotic figures
+slider_imagescope,CCB030179HEx13674y23677m,100,4,13674,23677,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+slider_imagescope,CCB030179HEx13665y24084m,101,4,13665,24084,799,799,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes),1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+count2_imagescope,CCB030179HEx13706y23912d,102,4,13706,23912,799,799,799,799,Discuss!,1,1,Number of mitotic figures
