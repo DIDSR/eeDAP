@@ -1173,7 +1173,10 @@ try
     % hObject    handle to Video (see GCBO)
     % eventdata  reserved - to be defined in a future version of MATLAB
     % handles    structure with handles and user data (see GUIDATA)
-    
+    if ~isvalid(handles.cam_figure)
+        handles.cam_figure = camera_preview(handles.cam, handles.myData.settings);
+        guidata(handles.Stage_Allighment, handles);
+    end
     figure(handles.cam_figure)
     
 catch ME
