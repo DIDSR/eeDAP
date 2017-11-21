@@ -65,7 +65,6 @@ try
                 'Style', 'edit', ...
                 'Tag', 'editvalue', ...
                 'String', num2str(initvalue), ...
-                'KeyPressFcn', @editvalue_KeyPressFcn, ...
                 'Callback', @editvalue_Callback);
 
             position = [slider_x, slider_y+slider_h, .1, .1];
@@ -255,41 +254,41 @@ end
 
 end
 
-function editvalue_KeyPressFcn(hObj, eventdata)
-try
-    %--------------------------------------------------------------------------
-    % When the text box is non-empty, the user can continue
-    %--------------------------------------------------------------------------
-    handles = guidata(findobj('Tag','GUI'));
-    editvalue_string = eventdata.Key;
-
-    set(handles.slider, ...
-        'BackgroundColor', handles.myData.settings.BG_color);
-
-    desc_digits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ...
-        'delete', 'return', 'backspace'};
-    test = max(strcmp(editvalue_string, desc_digits));
-    if test
-        set(handles.NextButton,'Enable','on');
-
-    else
-        desc = 'Input should be an integer';
-        h_errordlg = errordlg(desc,'Application error','modal');
-        uiwait(h_errordlg)
-
-        score = round(get(hObj, 'Value'));
-        set(handles.editvalue, 'String', num2str(score));
-        set(handles.NextButton, 'Enable', 'off');
-        uicontrol(handles.editvalue);
-
-        return
-    end
-
-catch ME
-    error_show(ME)
-end
-
-end
+% function editvalue_KeyPressFcn(hObj, eventdata)
+% try
+%     %--------------------------------------------------------------------------
+%     % When the text box is non-empty, the user can continue
+%     %--------------------------------------------------------------------------
+%     handles = guidata(findobj('Tag','GUI'));
+%     editvalue_string = eventdata.Key;
+% 
+%     set(handles.slider, ...
+%         'BackgroundColor', handles.myData.settings.BG_color);
+% 
+%     desc_digits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ...
+%         'delete', 'return', 'backspace'};
+%     test = max(strcmp(editvalue_string, desc_digits));
+%     if test
+%         set(handles.NextButton,'Enable','on');
+% 
+%     else
+%         desc = 'Input should be an integer';
+%         h_errordlg = errordlg(desc,'Application error','modal');
+%         uiwait(h_errordlg)
+% 
+%         score = round(get(hObj, 'Value'));
+%         set(handles.editvalue, 'String', num2str(score));
+%         set(handles.NextButton, 'Enable', 'off');
+%         uicontrol(handles.editvalue);
+% 
+%         return
+%     end
+% 
+% catch ME
+%     error_show(ME)
+% end
+% 
+% end
 
 function editvalue_Callback(hObj, eventdata)
     handles = guidata(findobj('Tag','GUI'));

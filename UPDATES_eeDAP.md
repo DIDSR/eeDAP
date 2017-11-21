@@ -1,7 +1,17 @@
 # Updates
 
-### [eeDAP4.1 (Windows)](https://github.com/DIDSR/eeDAP/releases/tag/4.0)
-*5/11/16*
+### [eeDAP5.0 (Windows)](https://github.com/DIDSR/eeDAP/releases/tag/5.0)
+*10/10/17*
+
+Add dynamic start and stop feature to all tasks.
+
+Add new tasks to communicate with ImageScope (collect annotations).
+
+Debug desktop shortcut and random order problems in compiled version.
+
+
+### [eeDAP4.2 (Windows)](https://github.com/DIDSR/eeDAP/releases/tag/4.2)
+*8/18/16*
 
 Add a new task to create and save imagescope annotation for FOV and eyepiece field.
 
@@ -14,7 +24,7 @@ Add "restart registration" button to restart low resolution registration.
 Temporary disable auto registration.  
 
 
-### [eeDAP4.1 (Windows)](https://github.com/DIDSR/eeDAP/releases/tag/4.0)
+### [eeDAP4.1 (Windows)](https://github.com/DIDSR/eeDAP/releases/tag/4.1)
 *5/11/16*
 
 Add option to use imagescope to open WSI ROI.

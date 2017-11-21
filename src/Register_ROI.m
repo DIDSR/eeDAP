@@ -89,6 +89,12 @@ try
         case 90          % 12 o'clock
     X1_offset = -yoffset*current.cam2scan;
     Y1_offset = xoffset*current.cam2scan;
+        case 0          % 3 o'clock
+    X1_offset = xoffset*current.cam2scan;
+    Y1_offset = yoffset*current.cam2scan;
+        case 180         % 9 o'clock
+    X1_offset = -xoffset*current.cam2scan;
+    Y1_offset = -yoffset*current.cam2scan;
     end
             
     % Add the offset to the roi_position
