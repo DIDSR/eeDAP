@@ -195,34 +195,36 @@ try
     for i=2:handles.myData.ntasks+1
         
         taskinfo = handles.myData.tasks_out{i};
-        slot = taskinfo.slot;
-        wsi_info = handles.myData.wsi_files{slot};
-        
-        WSIfile=wsi_info.fullname;
-        ROIname = [handles.myData.task_images_dir, taskinfo.id, '.tif'];
-        taskinfo.ROIname = ROIname;
-        
-        Left = taskinfo.roi_x-(taskinfo.roi_w/2);
-        Top  = taskinfo.roi_y-(taskinfo.roi_h/2);
-        
-        success = ExtractROI_BIO(wsi_info, WSIfile, ROIname,...
-            Left, Top, taskinfo.roi_w, taskinfo.roi_h,...
-            taskinfo.img_w, taskinfo.img_h,...
-            handles.myData.settings.RotateWSI,...
-            wsi_info.rgb_lut);
-        
-        if ~success
-            close(wtb);
-            return
+        if  ~isfield(taskinfo,'dontextract')
+            slot = taskinfo.slot;
+            wsi_info = handles.myData.wsi_files{slot};
+
+            WSIfile=wsi_info.fullname;
+            ROIname = [handles.myData.task_images_dir, taskinfo.id, '.tif'];
+            taskinfo.ROIname = ROIname;
+
+            Left = taskinfo.roi_x-(taskinfo.roi_w/2);
+            Top  = taskinfo.roi_y-(taskinfo.roi_h/2);
+
+            success = ExtractROI_BIO(wsi_info, WSIfile, ROIname,...
+                Left, Top, taskinfo.roi_w, taskinfo.roi_h,...
+                taskinfo.img_w, taskinfo.img_h,...
+                handles.myData.settings.RotateWSI,...
+                wsi_info.rgb_lut);
+
+            if ~success
+                close(wtb);
+                return
+            end
+            % generage XML file
+         %   success = exportXML(wsi_info.fullname,wsi_scan_scale, taskinfo.id,handles.myData.workdir,...
+          %      Left, Top, taskinfo.roi_w, taskinfo.roi_h);        
+
+            % Move the waitbar by 1 step
         end
-        % generage XML file
-     %   success = exportXML(wsi_info.fullname,wsi_scan_scale, taskinfo.id,handles.myData.workdir,...
-      %      Left, Top, taskinfo.roi_w, taskinfo.roi_h);        
-        
-        % Move the waitbar by 1 step
-        waitbar(i / handles.myData.ntasks);
-        
-        handles.myData.tasks_out{i} = taskinfo;
+            waitbar(i / handles.myData.ntasks);
+
+            handles.myData.tasks_out{i} = taskinfo;
         
     end
     guidata(handles.Administrator_Input_Screen, handles);
