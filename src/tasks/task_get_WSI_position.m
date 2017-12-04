@@ -17,13 +17,19 @@ try
             taskinfo.task  = char(desc{1});
             taskinfo.id = char(desc{2});
             taskinfo.order = str2double(desc{3});
-            taskinfo.slot = str2double(desc{4});
-            taskinfo.roi_w = str2double(desc{5});
-            taskinfo.roi_h = str2double(desc{6});
-            taskinfo.img_w = str2double(desc{7});
-            taskinfo.img_h = str2double(desc{8});
-            taskinfo.text  = char(desc{9});
-            taskinfo.description = char(desc{10});
+            taskinfo.roi_w = str2double(desc{4});
+            taskinfo.roi_h = str2double(desc{5});
+            taskinfo.img_w = str2double(desc{6});
+            taskinfo.img_h = str2double(desc{7});
+            taskinfo.text  = char(desc{8});
+            taskinfo.description = char(desc{9});
+%             taskinfo.slot = str2double(desc{4});
+%             taskinfo.roi_w = str2double(desc{5});
+%             taskinfo.roi_h = str2double(desc{6});
+%             taskinfo.img_w = str2double(desc{7});
+%             taskinfo.img_h = str2double(desc{8});
+%             taskinfo.text  = char(desc{9});
+%             taskinfo.description = char(desc{10});
             taskinfo.dontextract = 1;
             taskinfo.rotateback = 0;
         case {'Update_GUI_Elements', ...
@@ -77,7 +83,7 @@ try
                     'HorizontalAlignment', 'left', ...
                     'ForegroundColor', handles.myData.settings.FG_color, ...
                     'BackgroundColor', handles.myData.settings.BG_color, ...
-                    'Position', [0.4,0.25,0.1,0.1], ...
+                    'Position', [0.4,0.25,0.4,0.1], ...
                     'Style', 'Text', ...
                     'String', 'WSI:', ...
                     'Tag', 'textWSI');
@@ -89,7 +95,7 @@ try
                     'HorizontalAlignment', 'left', ...
                     'ForegroundColor', handles.myData.settings.FG_color, ...
                     'BackgroundColor', handles.myData.settings.BG_color, ...
-                    'Position', [0.45,0.25,0.1,0.1], ...
+                    'Position', [0.4,0.15,0.2,0.1], ...
                     'Style', 'Text', ...
                     'String', 'not set', ...
                     'Tag', 'textWSIX');
@@ -101,7 +107,7 @@ try
                     'HorizontalAlignment', 'left', ...
                     'ForegroundColor', handles.myData.settings.FG_color, ...
                     'BackgroundColor', handles.myData.settings.BG_color, ...
-                    'Position', [0.5,0.25,0.1,0.1], ...
+                    'Position', [0.6,0.15,0.2,0.1], ...
                     'Style', 'Text', ...
                     'String', 'not set', ...
                     'Tag', 'textWSIY');
@@ -155,13 +161,13 @@ try
                     taskinfo.task, ',', ...
                     taskinfo.id, ',', ...
                     num2str(taskinfo.order), ',', ...
-                    num2str(taskinfo.slot), ',',...
                     num2str(taskinfo.roi_w), ',', ...
                     num2str(taskinfo.roi_h), ',', ...
                     num2str(taskinfo.img_w), ',', ...
                     num2str(taskinfo.img_h), ',', ...
                     taskinfo.text, ',', ...
                     num2str(taskinfo.duration), ',', ...
+                    taskinfo.wsi_name,',', ...
                     num2str(taskinfo.wsi_roi_position(1)), ',', ...
                     num2str(taskinfo.wsi_roi_position(2))]);
             elseif taskinfo.currentWorking ==0 % write undone task
@@ -169,7 +175,6 @@ try
                     taskinfo.task, ',', ...
                     taskinfo.id, ',', ...
                     num2str(taskinfo.order), ',', ...
-                    num2str(taskinfo.slot), ',', ...
                     num2str(taskinfo.roi_w), ',', ...
                     num2str(taskinfo.roi_h), ',', ...
                     num2str(taskinfo.img_w), ',', ...
@@ -206,50 +211,66 @@ function WSI_Position_Callback (hObj, eventdata)
     temp = handles.myData.stage.Pos;
     stage_x0 = temp(1);
     stage_y0 = temp(2);
-    stagedata = myData.stagedata{taskinfo.slot};
-
-    slot = taskinfo.slot;
-    wsi_info = handles.myData.wsi_files{slot};
-    WSIfile=wsi_info.fullname;
     offset = int64(myData.settings.offset_stage);
     stage_new = double(transpose([stage_x0, stage_y0]+offset));
-    wsi_0 = transpose(stagedata.wsi_positions(1,:));                
-    stage_M = stagedata.stage_M;
-    wsi_M = stagedata.wsi_M;
-    stage_0 = transpose(stagedata.stage_positions(1,:));
-    temp = stage_new - stage_0;
-    % Map to standard coordinate plane
-    temp = inv(stage_M) * temp;
-    % Map to WSI coordinates
-    temp = wsi_M * temp;
-    % Shift to unset stage reference as origin
-    wsi_new = int64(temp + wsi_0);
-    % offset_stage was determined during stage allignment
-    % it compensates for any misalignment between the eyepiece
-    % cener and the reticle center in stage coordinates
 
     ROIname = [handles.myData.task_images_dir, taskinfo.id, '.tif'];
     taskinfo.ROIname = ROIname;
     
-    Left = double(wsi_new(1) - (taskinfo.roi_w/2));
-    Top = double(wsi_new(2) - (taskinfo.roi_h/2));
-    success = ExtractROI_BIO(wsi_info, WSIfile, ROIname,...
+    find = 0;
+    for i = 1 : myData.settings.n_wsi
+        wsi_info = myData.wsi_files{i};
+        tempMax_w = wsi_info.wsi_w(1);
+        tempMax_h = wsi_info.wsi_h(1);
+        
+        stagedata = myData.stagedata{i};        
+        wsi_0 = transpose(stagedata.wsi_positions(1,:));                
+        stage_M = stagedata.stage_M;
+        wsi_M = stagedata.wsi_M;
+        stage_0 = transpose(stagedata.stage_positions(1,:));
+        temp = stage_new - stage_0;
+        % Map to standard coordinate plane
+        temp = inv(stage_M) * temp;
+        % Map to WSI coordinates
+        temp = wsi_M * temp;
+        % Shift to unset stage reference as origin
+        wsi_new = int64(temp + wsi_0);
+        % offset_stage was determined during stage allignment
+        % it compensates for any misalignment between the eyepiece
+        % cener and the reticle center in stage coordinates
+        Left = double(wsi_new(1) - (taskinfo.roi_w/2));
+        Top = double(wsi_new(2) - (taskinfo.roi_h/2));
+        if (Left + taskinfo.roi_w)<tempMax_w & (Top + taskinfo.roi_h)<tempMax_h & Left>0 & Top>0
+            WSIfile=wsi_info.fullname;
+            slideIndex = strfind(WSIfile,'\');
+            fileName = WSIfile((slideIndex(end)+1): end);
+            success = ExtractROI_BIO(wsi_info, WSIfile, ROIname,...
                 Left, Top, taskinfo.roi_w, taskinfo.roi_h,...
                 taskinfo.img_w, taskinfo.img_h,...
                 handles.myData.settings.RotateWSI,...
                 wsi_info.rgb_lut);
-    set(handles.textWSIX,'String',num2str(wsi_new(1)));
-    set(handles.textWSIY,'String',num2str(wsi_new(2)));
-    taskinfo.wsi_roi_position = wsi_new;
-    myData.taskinfo = taskinfo;
-    myData.tasks_out{myData.iter} = taskinfo;
-    handles.myData = myData;
-    guidata(hObj, handles);
-    taskimage_load(hObj);
-    handles = guidata(hObj);
-    set(handles.registerAndReextract,'Enable', 'on');
-    set(handles.NextButton, 'Enable', 'on');
-    guidata(hObj, handles);
+            set(handles.textWSI,'String',fileName);
+            set(handles.textWSIX,'String',num2str(wsi_new(1)));
+            set(handles.textWSIY,'String',num2str(wsi_new(2)));
+            taskinfo.wsi_name = fileName;
+            taskinfo.wsi_roi_position = wsi_new;
+            myData.taskinfo = taskinfo;
+            myData.tasks_out{myData.iter} = taskinfo;
+            myData.taskinfo.slot = i;
+            handles.myData = myData;
+            guidata(hObj, handles);
+            taskimage_load(hObj);
+            handles = guidata(hObj);
+            set(handles.registerAndReextract,'Enable', 'on');
+            set(handles.NextButton, 'Enable', 'on');
+            guidata(hObj, handles);
+            find = 1;
+        end
+        
+    end
+    if find ==0
+        billboard(handles, {'\bfROI is not in any WSI'; 'please choose a new one'});
+    end
 end
 
 function RegisterAndReextract_Callback (hObj, eventdata)
@@ -366,6 +387,7 @@ function RegisterAndReextract_Callback (hObj, eventdata)
                 taskinfo.img_w, taskinfo.img_h,...
                 handles.myData.settings.RotateWSI,...
                 wsi_info.rgb_lut);
+    set(handles.textWSI,'String',taskinfo.wsi_name);
     set(handles.textWSIX,'String',num2str(wsi_new(1)));
     set(handles.textWSIY,'String',num2str(wsi_new(2)));
     taskinfo.wsi_roi_position = wsi_new;

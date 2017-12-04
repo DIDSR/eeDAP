@@ -28,7 +28,7 @@ try
         fontsize=0.25;
     end
     st = dbstack;
-    if strcmp( st(2).name,'task_get_WSI_position' )
+    if strcmp( st(2).name,'task_get_WSI_position' )||strcmp( st(2).name,'WSI_Position_Callback' )
         fontsize = 0.05;
     end
     text('Parent', handles.ImageAxes,...
