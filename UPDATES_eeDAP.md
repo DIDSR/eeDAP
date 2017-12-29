@@ -11,7 +11,7 @@ Debug desktop shortcut and random order problems in compiled version.
 
 
 ### [eeDAP4.2 (Windows)](https://github.com/DIDSR/eeDAP/releases/tag/4.2)
-*8/18/16*
+*8/18/17*
 
 Add a new task to create and save imagescope annotation for FOV and eyepiece field.
 
@@ -25,7 +25,7 @@ Temporary disable auto registration.
 
 
 ### [eeDAP4.1 (Windows)](https://github.com/DIDSR/eeDAP/releases/tag/4.1)
-*5/11/16*
+*5/11/17*
 
 Add option to use imagescope to open WSI ROI.
 
