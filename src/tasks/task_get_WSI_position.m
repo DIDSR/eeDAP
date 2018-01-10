@@ -30,6 +30,9 @@ try
 %             taskinfo.img_h = str2double(desc{8});
 %             taskinfo.text  = char(desc{9});
 %             taskinfo.description = char(desc{10});
+            if length(taskinfo.desc)>9
+                myData.finshedTask = myData.finshedTask + 1;
+            end   
             taskinfo.dontextract = 1;
             taskinfo.rotateback = 0;
         case {'Update_GUI_Elements', ...
@@ -41,13 +44,16 @@ try
            % taskimage_load(hObj);
             if strcmp(myData.mode_desc,'Digital')
                 billboard(handles, {'\bfThis task only work'; 'in MicroRT mode'});
+                taskinfo.wsi_name = 'na';
+                taskinfo.wsi_roi_position_x = 'na';
+                taskinfo.wsi_roi_position_y = 'na';
                 set(handles.NextButton, 'Enable', 'on');
             else
                 billboard(handles, {'\bfClick "Get WSI ROI Position"'; 'Button To Show Images'});
-                
-
-                
-
+                set(handles.Fast_Register_Button, 'Enable', 'off');
+                set(handles.Best_Register_Button, 'Enable', 'off');
+                set(handles.ResetViewButton, 'Enable', 'off');
+                set (handles.Reticlebutton, 'Enable', 'off');
                   % Static text question for count task
                  handles.getPosition = uicontrol(...
                     'Parent', handles.task_panel, ...
@@ -134,6 +140,10 @@ try
                 handles = rmfield(handles, 'textWSI');
                 handles = rmfield(handles, 'textWSIX');
                 handles = rmfield(handles, 'textWSIY');
+                set(handles.Fast_Register_Button, 'Enable', 'on');
+                set(handles.Best_Register_Button, 'Enable', 'on');
+                set(handles.ResetViewButton, 'Enable', 'on');
+                set(handles.Reticlebutton, 'Enable', 'on');
             end
          case 'Backbutton_Callback' % Clean up the task elements
 
@@ -153,10 +163,15 @@ try
                 handles = rmfield(handles, 'textWSI');
                 handles = rmfield(handles, 'textWSIX');
                 handles = rmfield(handles, 'textWSIY');
+                set(handles.Fast_Register_Button, 'Enable', 'on');
+                set(handles.Best_Register_Button, 'Enable', 'on');
+                set(handles.ResetViewButton, 'Enable', 'on');
+                set(handles.Reticlebutton, 'Enable', 'on');
             end
         %    taskimage_archive(handles);
         case 'exportOutput' % export current task information and reuslt
-            if taskinfo.currentWorking ==1&strcmp(myData.mode_desc,'MicroRT') % write finish task in current study
+            %if taskinfo.currentWorking ==1&strcmp(myData.mode_desc,'MicroRT') % write finish task in current study
+            if taskinfo.currentWorking ==1 % write finish task in current study
                 fprintf(myData.fid, [...
                     taskinfo.task, ',', ...
                     taskinfo.id, ',', ...
@@ -166,10 +181,11 @@ try
                     num2str(taskinfo.img_w), ',', ...
                     num2str(taskinfo.img_h), ',', ...
                     taskinfo.text, ',', ...
+                    taskinfo.description, ',', ...
                     num2str(taskinfo.duration), ',', ...
                     taskinfo.wsi_name,',', ...
-                    num2str(taskinfo.wsi_roi_position(1)), ',', ...
-                    num2str(taskinfo.wsi_roi_position(2))]);
+                    num2str(taskinfo.wsi_roi_position_x), ',', ...
+                    num2str(taskinfo.wsi_roi_position_y)]);
             elseif taskinfo.currentWorking ==0 % write undone task
                 fprintf(myData.fid, [...
                     taskinfo.task, ',', ...
@@ -179,7 +195,8 @@ try
                     num2str(taskinfo.roi_h), ',', ...
                     num2str(taskinfo.img_w), ',', ...
                     num2str(taskinfo.img_h), ',', ...
-                    taskinfo.text]);
+                    taskinfo.text, ',', ...
+                    taskinfo.description]);
             else                               % write done task from previous study
                 desc = taskinfo.desc;
                 for i = 1 : length(desc)-1
@@ -253,7 +270,9 @@ function WSI_Position_Callback (hObj, eventdata)
             set(handles.textWSIX,'String',num2str(wsi_new(1)));
             set(handles.textWSIY,'String',num2str(wsi_new(2)));
             taskinfo.wsi_name = fileName;
-            taskinfo.wsi_roi_position = wsi_new;
+            taskinfo.wsi_roi_position_x = wsi_new(1);
+            taskinfo.wsi_roi_position_y = wsi_new(2);
+            taskinfo.slot = i;
             myData.taskinfo = taskinfo;
             myData.tasks_out{myData.iter} = taskinfo;
             myData.taskinfo.slot = i;
@@ -262,6 +281,7 @@ function WSI_Position_Callback (hObj, eventdata)
             taskimage_load(hObj);
             handles = guidata(hObj);
             set(handles.registerAndReextract,'Enable', 'on');
+            set(handles.Reticlebutton, 'Enable', 'on');
             set(handles.NextButton, 'Enable', 'on');
             guidata(hObj, handles);
             find = 1;
@@ -277,7 +297,7 @@ function RegisterAndReextract_Callback (hObj, eventdata)
     handles = guidata(hObj);
     myData = handles.myData;
     taskinfo = myData.taskinfo;
-    wsi_current = taskinfo.wsi_roi_position;
+    wsi_current = [taskinfo.wsi_roi_position_x;taskinfo.wsi_roi_position_y];
     settings = myData.settings;
     cam_w = myData.settings.cam_w;
     cam_h = myData.settings.cam_h;

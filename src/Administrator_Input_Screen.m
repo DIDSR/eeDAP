@@ -689,3 +689,33 @@ end
 function FullPathInfo_Callback(hObject, eventdata, handles) %#ok<DEFNU>
 
 end
+
+
+% --- Executes on button press in BrowseImage.
+function BrowseImage_Callback(hObject, eventdata, handles)
+% hObject    handle to BrowseImage (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+try
+    %--------------------------------------------------------------------------
+    % This function executes before the GUI is displayed. It makes sure
+    % that the window of this GUI is positioned to the exact center of the
+    % screen regardsless of the screen size of aspect ratio.
+    %--------------------------------------------------------------------------
+
+    % Show the 'select file' dialogue and record the filename of the
+    % selected file and the path
+    [inputfile, workdir] = ...
+        uigetfile('*.*', 'Select a question set file');
+    workdir_inputfile = [workdir, inputfile];
+    
+    handles.myData.BrowseImagePath = workdir_inputfile;
+    % Verify that the user didn't press cancel in the file selection dialog
+    if ~(isequal(workdir, 0))
+        handle_Image_Information = Image_Information(handles);
+    end
+catch ME
+    error_show(ME)
+end
+
+end
