@@ -54,6 +54,7 @@ try
                 set(handles.Best_Register_Button, 'Enable', 'off');
                 set(handles.ResetViewButton, 'Enable', 'off');
                 set (handles.Reticlebutton, 'Enable', 'off');
+                set (handles.PauseButton, 'Enable', 'off');
                   % Static text question for count task
                  handles.getPosition = uicontrol(...
                     'Parent', handles.task_panel, ...
@@ -283,6 +284,7 @@ function WSI_Position_Callback (hObj, eventdata)
             set(handles.registerAndReextract,'Enable', 'on');
             set(handles.Reticlebutton, 'Enable', 'on');
             set(handles.NextButton, 'Enable', 'on');
+            set(handles.PauseButton, 'Enable', 'on');
             guidata(hObj, handles);
             find = 1;
         end
