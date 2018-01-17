@@ -558,7 +558,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-18, decimal) '.\00a0';
+	content: '' counter(list-counter-18, disc) '\00a0';
 	counter-increment: list-counter-18;
 }
 .list-counter-18 > div > div[class='list-marker-chm'] {
@@ -576,7 +576,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-19, disc) '\00a0';
+	content: '' counter(list-counter-19, decimal) '.\00a0';
 	counter-increment: list-counter-19;
 }
 .list-counter-19 > div > div[class='list-marker-chm'] {
@@ -594,7 +594,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-20, upper-alpha) '.\00a0';
+	content: '' counter(list-counter-20, disc) '\00a0';
 	counter-increment: list-counter-20;
 }
 .list-counter-20 > div > div[class='list-marker-chm'] {
@@ -612,7 +612,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-21, decimal) '.\00a0';
+	content: '' counter(list-counter-21, upper-alpha) '.\00a0';
 	counter-increment: list-counter-21;
 }
 .list-counter-21 > div > div[class='list-marker-chm'] {
@@ -720,7 +720,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-27, upper-alpha) '.\00a0';
+	content: '' counter(list-counter-27, decimal) '.\00a0';
 	counter-increment: list-counter-27;
 }
 .list-counter-27 > div > div[class='list-marker-chm'] {
@@ -738,7 +738,7 @@ span.de_FE04B87F3C
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	content: '' counter(list-counter-28, decimal) '.\00a0';
+	content: '' counter(list-counter-28, upper-alpha) '.\00a0';
 	counter-increment: list-counter-28;
 }
 .list-counter-28 > div > div[class='list-marker-chm'] {
@@ -796,6 +796,24 @@ span.de_FE04B87F3C
 	counter-increment: list-counter-31;
 }
 .list-counter-31 > div > div[class='list-marker-chm'] {
+	display: inline-block;
+	text-align: left;
+	zoom: 1;
+	padding: 0;
+	margin: 0;
+	*display: inline;
+}
+.list-counter-32 > div > * {
+	text-indent: 0px;}
+.list-counter-32 > div > div[class='list-marker']:before {
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	content: '' counter(list-counter-32, decimal) '.\00a0';
+	counter-increment: list-counter-32;
+}
+.list-counter-32 > div > div[class='list-marker-chm'] {
 	display: inline-block;
 	text-align: left;
 	zoom: 1;
