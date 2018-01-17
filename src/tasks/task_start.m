@@ -71,9 +71,11 @@ try
               myData.fid = handles.myData.fid;
               myData.iter = handles.myData.iter;
          case 'Save_Results' % Save the results for this task
-             
-             fprintf(myData.fid, '%s\r\n', taskinfo.id);
-
+             fprintf(myData.fid, [...
+                    taskinfo.id, ',', ...
+                    handles.myData.mode_desc,',', ...
+                    myData.readerID]);
+             fprintf(myData.fid,'\r\n');
     end
 
     % Update handles.myData.taskinfo and pack

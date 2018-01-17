@@ -195,34 +195,36 @@ try
     for i=2:handles.myData.ntasks+1
         
         taskinfo = handles.myData.tasks_out{i};
-        slot = taskinfo.slot;
-        wsi_info = handles.myData.wsi_files{slot};
-        
-        WSIfile=wsi_info.fullname;
-        ROIname = [handles.myData.task_images_dir, taskinfo.id, '.tif'];
-        taskinfo.ROIname = ROIname;
-        
-        Left = taskinfo.roi_x-(taskinfo.roi_w/2);
-        Top  = taskinfo.roi_y-(taskinfo.roi_h/2);
-        
-        success = ExtractROI_BIO(wsi_info, WSIfile, ROIname,...
-            Left, Top, taskinfo.roi_w, taskinfo.roi_h,...
-            taskinfo.img_w, taskinfo.img_h,...
-            handles.myData.settings.RotateWSI,...
-            wsi_info.rgb_lut);
-        
-        if ~success
-            close(wtb);
-            return
+        if  ~isfield(taskinfo,'dontextract')
+            slot = taskinfo.slot;
+            wsi_info = handles.myData.wsi_files{slot};
+
+            WSIfile=wsi_info.fullname;
+            ROIname = [handles.myData.task_images_dir, taskinfo.id, '.tif'];
+            taskinfo.ROIname = ROIname;
+
+            Left = taskinfo.roi_x-(taskinfo.roi_w/2);
+            Top  = taskinfo.roi_y-(taskinfo.roi_h/2);
+
+            success = ExtractROI_BIO(wsi_info, WSIfile, ROIname,...
+                Left, Top, taskinfo.roi_w, taskinfo.roi_h,...
+                taskinfo.img_w, taskinfo.img_h,...
+                handles.myData.settings.RotateWSI,...
+                wsi_info.rgb_lut);
+
+            if ~success
+                close(wtb);
+                return
+            end
+            % generage XML file
+         %   success = exportXML(wsi_info.fullname,wsi_scan_scale, taskinfo.id,handles.myData.workdir,...
+          %      Left, Top, taskinfo.roi_w, taskinfo.roi_h);        
+
+            % Move the waitbar by 1 step
         end
-        % generage XML file
-     %   success = exportXML(wsi_info.fullname,wsi_scan_scale, taskinfo.id,handles.myData.workdir,...
-      %      Left, Top, taskinfo.roi_w, taskinfo.roi_h);        
-        
-        % Move the waitbar by 1 step
-        waitbar(i / handles.myData.ntasks);
-        
-        handles.myData.tasks_out{i} = taskinfo;
+            waitbar(i / handles.myData.ntasks);
+
+            handles.myData.tasks_out{i} = taskinfo;
         
     end
     guidata(handles.Administrator_Input_Screen, handles);
@@ -685,5 +687,35 @@ end
 end
 
 function FullPathInfo_Callback(hObject, eventdata, handles) %#ok<DEFNU>
+
+end
+
+
+% --- Executes on button press in BrowseImage.
+function BrowseImage_Callback(hObject, eventdata, handles)
+% hObject    handle to BrowseImage (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+try
+    %--------------------------------------------------------------------------
+    % This function executes before the GUI is displayed. It makes sure
+    % that the window of this GUI is positioned to the exact center of the
+    % screen regardsless of the screen size of aspect ratio.
+    %--------------------------------------------------------------------------
+
+    % Show the 'select file' dialogue and record the filename of the
+    % selected file and the path
+    [inputfile, workdir] = ...
+        uigetfile('*.*', 'Select a question set file');
+    workdir_inputfile = [workdir, inputfile];
+    
+    handles.myData.BrowseImagePath = workdir_inputfile;
+    % Verify that the user didn't press cancel in the file selection dialog
+    if ~(isequal(workdir, 0))
+        handle_Image_Information = Image_Information(handles);
+    end
+catch ME
+    error_show(ME)
+end
 
 end

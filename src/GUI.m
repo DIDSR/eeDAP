@@ -474,7 +474,7 @@ try
     % structure is used as a tool for accessing the data by multiple GUI
     % objects
     %--------------------------------------------------------------------------
-    
+
     myData=handles.myData;
     set(handles.NextButton, 'Enable', 'off');
     set(handles.Backbutton, 'Enable', 'on');
@@ -529,11 +529,11 @@ try
             return
             
     end
-    
+
     % Move stage and show image
     switch myData.mode_desc
         case 'MicroRT'
-            if handles.myData.yesno_micro == 1
+            if handles.myData.yesno_micro == 1 & ~isfield(taskinfo,'dontextract')
                 stagedata = myData.stagedata{taskinfo.slot};
                 moveStartTime = clock; 
                 % map wsi_new to stage_new
@@ -702,7 +702,10 @@ try
     % hObject    handle to videobutton (see GCBO)
     % eventdata  reserved - to be defined in a future version of MATLAB
     % handles    structure with handles and user data (see GUIDATA)
-    
+    if ~isvalid(handles.cam_figure)
+        handles.cam_figure = camera_preview(handles.cam, handles.myData.settings);
+        guidata(handles.GUI, handles);
+    end
     figure(handles.cam_figure)
     
 catch ME
