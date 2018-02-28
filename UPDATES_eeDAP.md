@@ -1,5 +1,20 @@
 # Updates
 
+### [eeDAP5.1 (Windows)](https://github.com/DIDSR/eeDAP/releases/tag/5.1)
+*2/28/18*
+
+Add new task “get_WSI_position”. It can get the WSI based on microscope viewing position.
+
+Add new button “Click to browse for image” to view image information. 
+
+System available for horizontal slide stage
+
+Update for new imagescope software
+
+Debug “video” button
+
+
+
 ### [eeDAP5.0 (Windows)](https://github.com/DIDSR/eeDAP/releases/tag/5.0)
 *10/10/17*
 
