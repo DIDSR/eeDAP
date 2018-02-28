@@ -1,4 +1,4 @@
-function task_gloablAndBestRegPhoto(hObj)
+function task_globalAndBestRegPhoto(hObj)
 try
     
     handles = guidata(hObj);
@@ -28,8 +28,6 @@ try
             taskinfo.rotateback = 0;
             taskinfo.done(1)=0;
             taskinfo.done(2)=0;
-            taskinfo.done(3)=0;
-            taskinfo.done(4)=0;
             taskinfo.stagePosition{1}='0,0';
             taskinfo.stagePosition{2}='0,0';
             if length(desc)>8
@@ -71,20 +69,6 @@ try
                 'Style', 'edit', ...
                 'Tag', 'globalReg', ...
                 'Callback', @globalReg_Callback);
-            
-            % Global registration photo button
-            handles.globalPhoto = uicontrol(...
-                'Parent', handles.task_panel, ...
-                'FontSize', handles.myData.settings.FontSize, ...
-                'Units', 'normalized', ...
-                'ForegroundColor',  handles.myData.settings.FG_color, ...
-                'BackgroundColor',  handles.myData.settings.BG_color, ...
-                'Position',[ .2, .1, .1, .2], ...
-                'Style', 'pushbutton', ...
-                'Tag', 'GlobalPhoto', ...
-                'enable','on',...
-                'String', 'global Photo',...
-                'Callback',@globalPhoto_Callback);
 
             % Best registration text 
             handles.textBest = uicontrol(...
@@ -111,21 +95,6 @@ try
                 'Style', 'edit', ...
                 'Tag', 'bestReg', ...
                 'Callback', @bestReg_Callback);
-
-            %  Best registration focus hoto button
-            handles.bestPhoto = uicontrol(...
-                'Parent', handles.task_panel, ...
-                'FontSize', handles.myData.settings.FontSize, ...
-                'Units', 'normalized', ...
-                'ForegroundColor',  handles.myData.settings.FG_color, ...
-                'BackgroundColor',  handles.myData.settings.BG_color, ...
-                'Position', [.7, .1, .1, .2], ...
-                'Style', 'pushbutton', ...
-                'Tag', 'bestPhoto', ...
-                'enable','on',...
-                'String', 'Best Photo',...
-                'Callback',@bestPhoto_Callback);           
-            
             
             % Make count task response box active
             uicontrol(handles.globalReg);
@@ -147,14 +116,10 @@ try
             delete(handles.textBest);
             delete(handles.globalReg);
             delete(handles.bestReg);
-            delete(handles.globalPhoto);
-            delete(handles.bestPhoto);
             handles = rmfield(handles, 'textGlobal');
             handles = rmfield(handles, 'textBest');
             handles = rmfield(handles, 'globalReg');
             handles = rmfield(handles, 'bestReg');
-            handles = rmfield(handles, 'globalPhoto');
-            handles = rmfield(handles, 'bestPhoto');
      %   case 'abortbutton_Callback' % export undo task without results
 
             
@@ -210,13 +175,19 @@ end
 
 function globalReg_Callback(hObj, eventdata)
     handles = guidata(findobj('Tag','GUI'));
+    myData=handles.myData;
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
     taskinfo.done(1)=1;
-    if  taskinfo.done(1)* taskinfo.done(2)*taskinfo.done(3)*taskinfo.done(4)==1
+    if  taskinfo.done(1)* taskinfo.done(2)==1
         set(handles.NextButton,'Enable','on');
     end
-    % Pack the results
     taskinfo.regResult{1} = get(handles.globalReg, 'String');
+    % get stage position
+    stage = stage_get_pos(myData.stage,myData.stage.handle);
+    x = stage.Pos(1);
+    y = stage.Pos(2);
+    taskinfo.stagePosition{1} = [int2str(x),',',int2str(y)];
+    % Pack the results
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
     guidata(handles.GUI, handles);
     
@@ -224,81 +195,24 @@ end
 
 function bestReg_Callback(hObj, eventdata)
     handles = guidata(findobj('Tag','GUI'));
+    myData=handles.myData;
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
     taskinfo.done(2)=1;
-    if  taskinfo.done(1)* taskinfo.done(2)*taskinfo.done(3)*taskinfo.done(4)==1
+    if  taskinfo.done(1)* taskinfo.done(2)==1
         set(handles.NextButton,'Enable','on');
     end
-    % Pack the results
     taskinfo.regResult{2} = get(handles.bestReg, 'String');
-    handles.myData.tasks_out{handles.myData.iter} = taskinfo;
-    guidata(handles.GUI, handles);
-    
-end
-
-% --- Executes on button press in globalPhoto.
-function globalPhoto_Callback(hObject, eventdata)
-% hObject    handle to autoFocusPhoto (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-    handles = guidata(findobj('Tag','GUI'));
-    myData=handles.myData;    
-    cam_image = camera_take_image(handles.cam);
-    taskinfo = myData.tasks_out{myData.iter};
-    
-    FolderName=[myData.output_files_dir,...
-            strrep(myData.outputfile,'.dapso','RegPhoto')];
-    if ~exist(FolderName,'file')
-       mkdir(FolderName);
-    end
-    imwrite(cam_image,strcat(FolderName,'\',...
-        'ID',taskinfo.id,...
-        '_Slot',num2str(taskinfo.slot),...
-        '_Order',num2str(taskinfo.order),...
-        '_1global.tif'));
+    % get stage position
     stage = stage_get_pos(myData.stage,myData.stage.handle);
     x = stage.Pos(1);
     y = stage.Pos(2);
-    taskinfo.done(3)=1;
-    if  taskinfo.done(1)* taskinfo.done(2)*taskinfo.done(3)*taskinfo.done(4)==1
-        set(handles.NextButton,'Enable','on');
-    end
-    taskinfo.stagePosition{1} = [int2str(x),',',int2str(y)];
-    handles.myData.tasks_out{handles.myData.iter} = taskinfo;
-    guidata(handles.GUI, handles);
-end
-
-
-% --- Executes on button press in bestPhoto.
-function bestPhoto_Callback(hObject, eventdata)
-% hObject    handle to bestPhoto (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-    handles = guidata(findobj('Tag','GUI'));
-    myData=handles.myData;    
-    cam_image = camera_take_image(handles.cam);
-    taskinfo = myData.tasks_out{myData.iter};
-    FolderName=[myData.output_files_dir,...
-            strrep(myData.outputfile,'.dapso','RegPhoto')];
-    if ~exist(FolderName,'file')
-       mkdir(FolderName);
-    end
-    imwrite(cam_image,strcat(FolderName,'\',...
-        'ID',taskinfo.id,...
-        '_Slot',num2str(taskinfo.slot),...
-        '_Order',num2str(taskinfo.order),...
-        '_2best.tif'));
-    stage = stage_get_pos(myData.stage,myData.stage.handle);
-    x = stage.Pos(1);
-    y = stage.Pos(2);
-    taskinfo.done(4)=1;
-    if  taskinfo.done(1)* taskinfo.done(2)*taskinfo.done(3)*taskinfo.done(4)==1
-        set(handles.NextButton,'Enable','on');
-    end
     taskinfo.stagePosition{2} = [int2str(x),',',int2str(y)];
+    % Pack the results
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
     guidata(handles.GUI, handles);
+    
 end
+
 
 
 

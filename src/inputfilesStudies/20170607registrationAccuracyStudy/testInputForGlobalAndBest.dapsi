@@ -55,7 +55,7 @@ taskorder        = 0
 BODY
 start
 finish
-gloablAndBestRegPhoto,1st,-1,1,94821,53941,878,878
-gloablAndBestRegPhoto,2nd,-1,1,041163,33208,878,878
-gloablAndBestReg,3rd,-1,1,94821,53941,878,878
-gloablAndBestReg,4th,-1,1,041163,33208,878,878
+globalAndBestRegPhoto,1st,-1,1,94821,53941,878,878
+globalAndBestRegPhoto,2nd,-1,1,041163,33208,878,878
+globalAndBestReg,3rd,-1,1,94821,53941,878,878
+globalAndBestReg,4th,-1,1,041163,33208,878,878
