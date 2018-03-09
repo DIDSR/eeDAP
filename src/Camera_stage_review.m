@@ -13,7 +13,7 @@ function varargout = Camera_stage_review(varargin)
 %      existing singleton*.  Starting from the left, property value pairs are
 %      applied to the GUI before Camera_stage_review_OpeningFcn gets called.  An
 %      unrecognized property name or invalid value makes property application
-%      stop.  All inputs are passed to Camera_stage_review_OpeningFcn via varargin.
+%      stop_video.  All inputs are passed to Camera_stage_review_OpeningFcn via varargin.
 %
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
 %      instance to run (singleton)".
@@ -22,7 +22,7 @@ function varargout = Camera_stage_review(varargin)
 
 % Edit the above text to modify the response to help Camera_stage_review
 
-% Last Modified by GUIDE v2.5 25-Apr-2016 16:52:17
+% Last Modified by GUIDE v2.5 08-Mar-2018 16:22:08
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -60,6 +60,8 @@ function Camera_stage_review_OpeningFcn(hObject, eventdata, handles, varargin)
     ,'Please choose the camera format'};
     welcome_page(handles,desc );
     set(handles.Take_image,'Enable','off');
+    set(handles.Recode_video,'Enable','off')
+    set(handles.Stop_video,'Enable','off')
     handles.imagenumber = 1;
     handles.position_flag_y=0;
     handles.position_flag_x=0;
@@ -372,6 +374,7 @@ try
         handles.cam=camera_open(settings.cam_kind,settings.cam_format);
         camera_image_display(handles,handles.cam,settings);
         set(handles.Take_image,'Enable','on');
+        set(handles.Recode_video,'Enable','on')
     else
         desc = {'\bfWelcome'...
             ,'Please choose the camera format'};
@@ -426,4 +429,68 @@ try
 catch ME
     error_show(ME)
 end
+end
+
+
+% --- Executes on button press in Recode_video.
+function Recode_video_Callback(hObject, eventdata, handles)
+% hObject    handle to Recode_video (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+try
+    % record audio
+    wavObject = audiorecorder;
+    record(wavObject);
+    handles.audio = wavObject;
+    guidata(hObject, handles);
+    % manage buttons
+    set(handles.Recode_video,'Enable','off')
+    set(handles.Stop_video,'Enable','on')
+    % record video
+    aviObject = VideoWriter('myVideo.avi'); 
+    handles.cam.DiskLogger = aviObject;
+    handles.cam.LoggingMode = 'disk';
+    handles.cam.TriggerRepeat = Inf;
+    handles.cam.FramesPerTrigger = Inf;
+    start(handles.cam);
+    set(handles.text24,'String','Recording!');
+    wait(handles.cam,10000,'Logging');
+    handles.cam.Running;
+    handles.cam.Logging;
+    handles.cam.DiskLoggerFrameCount;
+    
+    close(aviObject);
+%     open(aviObject)
+%     I=getsnapshot(handles.cam);
+%     F = im2frame(I);                    % Convert I to a movie frame
+%     writeVideo(aviObject,F);  % Add the frame to the AVI file   
+%     handles.video = aviObject;
+     guidata(hObject, handles);
+
+catch ME
+    error_show(ME)
+end
+end
+
+
+% --- Executes on button press in Stop_video.
+function Stop_video_Callback(hObject, eventdata, handles)
+% hObject    handle to Stop_video (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+    % video
+    video= handles.cam;
+    stop(video);
+    
+    % audio
+    wavObject = handles.audio;
+    stop(wavObject);
+    audioData = getaudiodata(wavObject);
+    audiowrite('myAudio.wav',audioData,wavObject.SampleRate)
+    
+    % manage buttons
+    set(handles.text24,'String',{'Click Start Video button';'to record'});
+    set(handles.Recode_video,'Enable','on')
+    set(handles.Stop_video,'Enable','off')
+    guidata(hObject, handles);
 end
