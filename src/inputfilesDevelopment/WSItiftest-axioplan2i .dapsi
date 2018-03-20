@@ -65,4 +65,4 @@ taskorder        = 0
 BODY
 start
 finish
-radio1of4,1st0001,-1,1,200,200,219,219,219,219,Qtext_radio1of1,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+radio1of4,1st0001,-1,1,200,200,219,219,Qtext_radio1of4

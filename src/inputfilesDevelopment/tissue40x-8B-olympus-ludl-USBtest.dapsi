@@ -28,9 +28,7 @@ saveimages = 4  don't save WSI and camera images
 
 
 Input File Task Formats
-Task,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-
-
+Task,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H
 
 SETTINGS
 NUMBER_OF_WSI    = 1
@@ -57,8 +55,4 @@ taskorder        = 0
 BODY
 start
 finish
-count2_imagescope,1st0001,-1,1,94821,53941,878,878,878,878,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count2_imagescope,2rd0001,-1,1,041163,33208,300,700,300,700,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count2_imagescope,3nd0001,-1,1,041163,33208,700,700,700,700,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count2_imagescope,4th0001,-1,1,041163,33208,700,700,700,700,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-count2_imagescope,5th0001,-1,1,041163,33208,700,700,700,700,Qtext_select_region,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+checkMof4,1st0001,-1,1,038459,16192,799,799,Qtext_radioMof4,Q_Op1,Q_Op2,Q_Op3,Q_Op4

@@ -69,5 +69,5 @@ taskorder        = 0
 BODY
 start
 finish
-mitotic_counts,1st0001,-1,1,1,1
-mitotic_counts,2nd0001,-1,1,1,1
+mitotic_counts,1st0001,-1,1
+mitotic_counts,2nd0001,-1,1
