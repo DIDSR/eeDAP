@@ -13,16 +13,9 @@ try
     taskinfo.roi_y = str2double(desc{6});
     taskinfo.roi_w = str2double(desc{7});
     taskinfo.roi_h = str2double(desc{8});
-    taskinfo.img_w = str2double(desc{9});
-    taskinfo.img_h = str2double(desc{10});
-    taskinfo.text  = char(desc{11});
-    taskinfo.moveflag = str2double(desc{12});
-    taskinfo.zoomflag = str2double(desc{13});
-    taskinfo.q_op1 = char(desc{14});
-    taskinfo.q_op2 = char(desc{15});
-    taskinfo.q_op3 = char(desc{16});
-    taskinfo.q_op4 = char(desc{17});
- 
+    taskinfo.text  = char(desc{9}); 
+    taskinfo.img_w = taskinfo.roi_w; 
+    taskinfo.img_h = taskinfo.roi_h;
     handles.myData.taskinfo = taskinfo;
     guidata(hObj, handles);
     

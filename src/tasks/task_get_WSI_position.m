@@ -145,6 +145,7 @@ try
                 set(handles.Best_Register_Button, 'Enable', 'on');
                 set(handles.ResetViewButton, 'Enable', 'on');
                 set(handles.Reticlebutton, 'Enable', 'on');
+                taskimage_archive(handles);
             end
          case 'Backbutton_Callback' % Clean up the task elements
 
