@@ -26,143 +26,149 @@
  Defaul... Advanced License is required!
  default_tasks.htm
 10
+ Base ... Advanced License is required!
+ base_on_wsi.htm
+11
+ Base on M... Advanced License is required!
+ base_on_microscope.htm
+12
  Dynamic Sto... Advanced License is required!
  dynamic_stop_and_start.htm
-11
+13
  III. Hardware and S... Advanced License is required!
  iii__hardware_and_software_requirement.htm
-12
+14
  Cam... Advanced License is required!
  camera.htm
-13
+15
  Requir... Advanced License is required!
  requirements.htm
-14
+16
  Camera Set... Advanced License is required!
  camera_setup_and_test.htm
-15
+17
  Alig... Advanced License is required!
  alignment.htm
-16
+18
  St... Advanced License is required!
  stage.htm
-17
+19
  Stage Setu... Advanced License is required!
  stage_setup_and_test.htm
-18
+20
  Micro... Advanced License is required!
  microscopes.htm
-19
+21
  Types of M... Advanced License is required!
  types_of_microscopes.htm
-20
+22
  Reti... Advanced License is required!
  reticles.htm
-21
+23
  Scan... Advanced License is required!
  scanners.htm
-22
+24
  Software R... Advanced License is required!
  software_requirements.htm
-23
+25
  Read and Extr... Advanced License is required!
  read_and_extract_wsi_image.htm
-24
+26
  BIO F... Advanced License is required!
  bio_formats.htm
-25
+27
  BIO Formats: P... Advanced License is required!
  bio_formats__possible_errors.htm
-26
+28
  Image Scop... Advanced License is required!
  image_scope_by_aperio.htm
-27
+29
  Matlab Compiler ... Advanced License is required!
  matlab_compiler_runtime_libraries.htm
-28
+30
  IV. Inp... Advanced License is required!
  iv__input_file.htm
-29
+31
  Input Fi... Advanced License is required!
  input_file_header.htm
-30
+32
  Input File S... Advanced License is required!
  input_file_study_settings.htm
-31
+33
  Input File Body: List of R... Advanced License is required!
  input_file_body__list_of_rois_and_corresponding_tasks.htm
-32
+34
  Editing Inp... Advanced License is required!
  editing_input_file_body.htm
-33
+35
  WSI F... Advanced License is required!
  wsi_formats.htm
-34
+36
  V. Outp... Advanced License is required!
  v__output_file.htm
-35
+37
  VI. Wo... Advanced License is required!
  vi__workflow.htm
-36
+38
  eeDAP Administrator I... Advanced License is required!
  eedap_administrator_input_screen_window_c_.htm
-37
+39
  MicroRT Re... Advanced License is required!
  micrort_registration_2.htm
-38
+40
  Slide Regist... Advanced License is required!
  slide_registration_window.htm
-39
+41
  Semi-Automate... Advanced License is required!
  semi_automated_registration.htm
-40
+42
  Unique L... Advanced License is required!
  unique_locations.htm
-41
+43
  Low Resolutio... Advanced License is required!
  low_resolution_registration.htm
-42
+44
  High Resolutio... Advanced License is required!
  high_resolution_registration.htm
-43
+45
  Manual Re... Advanced License is required!
  manual_registration.htm
-44
+46
  Register Eyepiece... Advanced License is required!
  register_eyepiece_and_camera_window.htm
-45
+47
  GUI Welcome... Advanced License is required!
  gui_welcome_page_window.htm
-46
+48
  Experiment... Advanced License is required!
  experiment_interface.htm
-47
+49
  Preview with Cr... Advanced License is required!
  preview_with_cross_hairs_window.htm
-48
+50
  Thank Yo... Advanced License is required!
  thank_you_window.htm
-49
+51
  Directory... Advanced License is required!
  directory_structure.htm
-50
+52
  VII. Stage and Camera C... Advanced License is required!
  vii__stage_and_camera_control_utility_functions.htm
-51
+53
  Camera Stage ... Advanced License is required!
  camera_stage_review_window.htm
-52
+54
  VIII. FDA Hardwa... Advanced License is required!
  viii__fda_hardware_specifications.htm
-53
+55
  Cameras an... Advanced License is required!
  cameras_and_displays.htm
-54
+56
  Package an... Advanced License is required!
  package_and_unpackage.htm
-55
+57
  IX. For eeDA... Advanced License is required!
  ix__for_eedap_developers.htm
-56
+58
  Creating the Stand... Advanced License is required!
  creating_the_stand_alone_application.htm
