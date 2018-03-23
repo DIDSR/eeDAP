@@ -352,6 +352,10 @@ try
     pos_eye = [0,0];
     pos_cam = [0,0];
     choose_skip = 0;
+    % define joystickInfo
+    % first: what normal using (0: default speed. 1: normal speed)
+    % second: default speed
+    joystickInfo = [0,0];
     set(handles.cam_figure,....
         'NumberTitle', 'off',...
         'Name', 'Register eyepiece and camera',...
@@ -390,8 +394,18 @@ try
         'Enable', 'off',...
         'Callback', @position_skip_callback,...
         'UserData', choose_skip...
-        );
-    %    set(handles.cam_figure, 'WindowStyle', 'modal');
+        );    
+    position(1) = position(1)+50;
+    joystick = uicontrol(...
+        'Parent', handles.cam_figure,...
+        'Style', 'pushbutton',...
+        'Units', 'characters',...
+        'Position', position,...
+        'String', 'Slow Down Joystick',...
+        'Enable', 'on',...
+        'Callback', @joystick_speed_callback,...
+        'UserData', joystickInfo);
+    set(handles.cam_figure, 'WindowStyle', 'modal');
     if exist('offset_stage.mat')
         set(skip,'Enable','on');
     end
@@ -415,6 +429,11 @@ try
     settings.offset_stage = offset_stage;
     settings.offset_cam = offset_cam;
     
+    % recover joystick to default speed
+    joystickInfo = get(joystick,'UserData');
+    if joystickInfo(1) == 1
+        handles.myData.stage = stage_set_joy_speed(handles.myData.stage,joystickInfo(2));
+    end
     % Recalculate the mask
     % adjusting for the offset between camera and eyepiece
     settings.cam_mask = reticle_make_mask(...
@@ -472,6 +491,24 @@ function position_skip_callback(hObject, eventdata)
      handles = guidata(findobj('Tag','Administrator_Input_Screen'));
      set(hObject, 'UserData', 1);
 
+end
+
+function joystick_speed_callback(hObject, eventdata)
+     handles = guidata(findobj('Tag','Administrator_Input_Screen'));
+     joystickInfo = get(hObject,'UserData');
+     if joystickInfo(1) == 0
+         handles.myData.stage = stage_get_joy_speed(handles.myData.stage);
+         joystickInfo(2) = handles.myData.stage.default_joy_speed;
+         handles.myData.stage = stage_set_joy_speed(handles.myData.stage,'20000');
+         joystickInfo(1) = 1;
+         set(hObject,'String','Recover Joystick Speed');
+     else
+         handles.myData.stage = stage_set_joy_speed(handles.myData.stage,joystickInfo(2));
+         joystickInfo(1) = 0;
+         set(hObject,'String','Slow Down Joystick');
+     end
+
+     set(hObject, 'UserData', joystickInfo);
 end
 
 
