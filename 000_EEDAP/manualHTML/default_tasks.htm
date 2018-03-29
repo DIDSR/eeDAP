@@ -248,7 +248,7 @@
                     <div class="b-controlButtons">
                         <ul class="b-controlButtons__items">
                             <li class="b-controlButtons__item m-controlButtons__item__prev"><a href="micrort_registration_1.htm" class="b-controlButtons__link" title="Previous page"><span class="b-controlButtons__link_icon"></span><span class="b-controlButtons__link_text">&#xa0;Previous page</span></a></li>
-                            <li class="b-controlButtons__item m-controlButtons__item__next"><a href="dynamic_stop_and_start.htm" class="b-controlButtons__link" title="Next page"><span class="b-controlButtons__link_text">Next page&#xa0;</span><span class="b-controlButtons__link_icon"></span></a></li>
+                            <li class="b-controlButtons__item m-controlButtons__item__next"><a href="base_on_wsi.htm" class="b-controlButtons__link" title="Next page"><span class="b-controlButtons__link_text">Next page&#xa0;</span><span class="b-controlButtons__link_icon"></span></a></li>
                                                 </ul>
                     </div>
                 </td>
@@ -277,7 +277,7 @@
                             .addClass("b-article__headerSide m-article__headerSide__buttons")
                             .append(
                                 $("<div></div>").addClass("b-controlButtons")
-                                .html($("<ul></ul>").addClass("b-controlButtons__items").html("    <li class=\"b-controlButtons__item m-controlButtons__item__prev\"><a href=\"micrort_registration_1.htm\" class=\"b-controlButtons__link\" title=\"Previous page\"><span class=\"b-controlButtons__link_icon\"></span><span class=\"b-controlButtons__link_text\">&#xa0;Previous page</span></a></li>\n    <li class=\"b-controlButtons__item m-controlButtons__item__next\"><a href=\"dynamic_stop_and_start.htm\" class=\"b-controlButtons__link\" title=\"Next page\"><span class=\"b-controlButtons__link_text\">Next page&#xa0;</span><span class=\"b-controlButtons__link_icon\"></span></a></li>\n"))
+                                .html($("<ul></ul>").addClass("b-controlButtons__items").html("    <li class=\"b-controlButtons__item m-controlButtons__item__prev\"><a href=\"micrort_registration_1.htm\" class=\"b-controlButtons__link\" title=\"Previous page\"><span class=\"b-controlButtons__link_icon\"></span><span class=\"b-controlButtons__link_text\">&#xa0;Previous page</span></a></li>\n    <li class=\"b-controlButtons__item m-controlButtons__item__next\"><a href=\"base_on_wsi.htm\" class=\"b-controlButtons__link\" title=\"Next page\"><span class=\"b-controlButtons__link_text\">Next page&#xa0;</span><span class=\"b-controlButtons__link_icon\"></span></a></li>\n"))
                             )
                         )
                     )
@@ -322,39 +322,45 @@
     <div>To properly display this page you need a browser with JavaScript support.</div>
     </noscript>
                 <div class="description_on_page"><div class="p" style="text-align: center; direction: ltr; margin-left: 0px; text-indent: 0px;"><div class="ic"><h1><strong>Default Tasks</strong></h1></div></div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">These are the default tasks that come with the eeDAP installation. Most of the text that appears in the data collection GUI can be customized in the input file.</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">There are several default tasks that come with the eeDAP installation. They can be separated by the baseline of registration:</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><strong>Base on WSI:.</strong></div>
+<ul class="de_list"><li class="list-element list-counter-6" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; counter-reset: list-counter-6;">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>User should pre-define Region Of Intereting (ROI) in input file based on WSI (center and size of ROI)<strong>. </strong></div>
+</li><li class="list-element list-counter-6" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; ">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>It is available in both MicroRT and Digital Modes.</div>
+</li><li class="list-element list-counter-7" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; counter-reset: list-counter-7;">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>MicroRT: GUI window shows WSI ROI. Microscope stage automatically move to the same ROI on glass slide.</div>
+</li><li class="list-element list-counter-7" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; ">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>Digital: GUI window displays WSI ROI.</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><strong>Base on Microscope:</strong></div>
+</li><li class="list-element list-counter-8" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; counter-reset: list-counter-8;">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>User do not need to pre-define ROI in input file.</div>
+</li><li class="list-element list-counter-8" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; ">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>It is only available in MicroRT Mode.</div>
+</li><li class="list-element list-counter-9" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; direction: ltr; counter-reset: list-counter-9;">
+<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;"><div class="list-marker" style="color:#000000;font-size:11pt;font-family:&quot;Arial&quot;; display: inline-block; direction: ltr;"></div>MicroRT: User uses joystick to move microscope to a region. eeDAP extracts the same ROI on WSI and displays on GUI window</div>
+</li></ul><div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160;</div>
+<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><strong>Note:</strong> Most of the text that appears in the data collection GUI can be customized in the input file. The format is showed in <a class="local_link" href="iv__input_file.htm"><span class="de_2B94C39861">section IV</span></a></div>
 <div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160;</div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&quot;<strong>select_region</strong>&quot; (Select Region)</div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">1. Click on image in the region of the cell that is specified in the description </div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160;&#160; &#160; &#160; &#160; &#160; &#160; 2. Test will automatically give you the correct X-Y coordinates on the ROI and WSI <span class="de_823826CA2C">(Figure 1)</span></div>
-<div class="p" style="text-align: left; direction: rtl; margin-right: 0px; text-indent: 0px;">&#160;</div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&quot;<strong>count</strong>&quot;</div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">1.Enter the number of cells that appear to accommodate the description <span class="de_823826CA2C">(Figure 2)</span></div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">2. Click outside of the box<span class="de_823826CA2C"> &#160; &#160; </span></div>
 <div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160;</div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&quot;<strong>radio1of4</strong>&quot; </div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">1. Select the one of the options that accommodates the description (<span class="de_823826CA2C">Figure 3)</span></div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">&#160;</div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&quot;<strong>slider</strong>&quot;</div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">1. On a scale 0-100, rate the tissue using the slider or typing in the number (<span class="de_823826CA2C">Figure 4)</span>&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="de_823826CA2C">&#160; </span></div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">&#160;</div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&quot;<strong>mitotic_train</strong>&quot; </div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">1. Check all the boxes that apply to the image</div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">2. Using the slider or by typing the number, give the tissue a score </div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">3. Click on <strong>&quot;expert results&quot;</strong> (Boxes highlighted are incorrect, Highlighted number is correct)</div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">&#160;</div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&quot;<strong>mitotic_expert</strong>&quot;</div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">1. Write a discripition of what you observe in the image above</div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 50px; text-indent: 0px;">2. Click <strong>&quot;Next Part&quot;</strong></div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160; &#160; &#160; &#160; &#160; &#160; 3. Check all the boxes that apply to the image above</div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160; &#160; &#160; &#160; &#160; &#160; 4. Using the slider or by typing the number, give the tissue a score </div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160;</div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><img  alt="" style="border: solid 0px;  " width="270" height="212" class=" de_780D01ADE8" src="drex_default_tasks_custom.png"/>&#160; &#160; &#160; &#160; <img  alt="" style="border: solid 0px;  " width="247" height="217" class=" de_780D01ADE8" src="drex_default_tasks_custom_2.png"/>&#160; &#160; &#160; </div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><span class="de_9E323DDAA2">Figure 1</span><span class="de_823826CA2C"> &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; </span><span class="de_9E323DDAA2">&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; Figure 2</span></div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;">&#160;</div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><img  alt="" style="border: solid 0px;  " width="222" height="216" class=" de_780D01ADE8" src="drex_default_tasks_custom_3.png"/> &#160; &#160; <img  alt="" style="border: solid 0px;  " width="384" height="202" class=" de_780D01ADE8" src="drex_default_tasks_custom_4.png"/></div>
-<div class="p" style="text-align: left; direction: ltr; margin-left: 0px; text-indent: 0px;"><span class="de_9E323DDAA2">Figure 3&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; Figure 4</span></div>
-</div>                                    			
+</div>                	<div class="menu_on_page">
+		<h2>The contents of Default Tasks</h2>
+		<div class="m-workZone_seeAlso_itemContent">
+	<span class="b-tree__spacer">
+		<span class="b-tree__i_article">
+			<span class="b-tree__i_article_inner"></span>
+		</span>
+	</span>
+	<span class="b-tree__itemText"><a class="b-breadCrumbs__link" href="base_on_wsi.htm">Base on WSI</a></span>
+</div><div class="m-workZone_seeAlso_itemContent">
+	<span class="b-tree__spacer">
+		<span class="b-tree__i_article">
+			<span class="b-tree__i_article_inner"></span>
+		</span>
+	</span>
+	<span class="b-tree__itemText"><a class="b-breadCrumbs__link" href="base_on_microscope.htm">Base on Microscope</a></span>
+</div>	</div>
+                    			
                 			                <h6 class="b-article__generatorCopyright">
                     <a class="b-link b-article__generatorCopyrightLink" href="http://www.drexplain.com" rel="nofollow">Made with help of Dr.Explain</a>
                 </h6>
