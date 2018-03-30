@@ -41,6 +41,10 @@ try
                         
                         delete(handles.myData.stage.handle);
                     end
+                 case 'TrackingView'
+                    close(handles.cam_figure)
+                    delete(handles.cam)
+
             end
               %  Save_Results(handles);
             return

@@ -327,7 +327,8 @@ try
             
             align_eye_cam(handles)
             handles = guidata(handles.Administrator_Input_Screen);
-            
+         case 'TrackingView'
+             guidata(handles.Administrator_Input_Screen, handles);
     end
     save('GUI.mat','handles');
     handles_GUI=  GUI(handles);
@@ -523,7 +524,16 @@ try
     delete(objects);
     
     % Create the video object to communicate with the camera
-    vid = videoinput('dcam',1); %#ok<NASGU>
+    %vid = videoinput('dcam',1); %#ok<NASGU>
+    settings = handles.myData.settings;
+    if strcmp( settings.cam_kind,'USB')
+       cam_adaptor = 'pointgrey';
+    elseif strcmp( settings.cam_kind,'Firewire')
+       cam_adaptor = 'dcam';
+    end
+    % Create the video object to communicate with the camera 
+    vid = videoinput(cam_adaptor,1) %#ok<NOPRT>
+
     
     imaqtool
     
@@ -682,7 +692,14 @@ try
                 -settings.offset_cam);
 
             set(handles.StartTheTestButton, 'Enable', 'on');
-            
+        case 'TrackingView'
+            set(hObject_configure_COM, 'Enable', 'off');
+            set(hObject_configure_camera, 'Enable', 'off');     
+            set(handles.StartTheTestButton, 'Enable', 'on');
+            settings.cam_mask = reticle_make_mask(...
+                settings.reticleID,...
+                settings.cam_pixel_size/settings.mag_cam,...
+                [0,0]);
         otherwise
             
             set(hObject_configure_COM,'Enable', 'off');

@@ -229,12 +229,17 @@ try
                     return
                 end
             end
-            guidata(handles.GUI, handles)
+            guidata(handles.GUI, handles);
             Generate_Transformation_Matrix(handles);
             handles = guidata(handles.GUI);
-            
+         case 'TrackingView'
+            handles.cam=camera_open(settings.cam_kind,settings.cam_format);
+            handles.cam_figure = ...
+                    camera_preview(handles.cam, settings);
+            guidata(handles.GUI, handles);
     end
     
+            
     % The GUI objects are initiated
     Initiate_GUI_Elements(handles);
     

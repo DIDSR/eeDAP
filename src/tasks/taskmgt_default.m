@@ -27,6 +27,8 @@ try
         set(handles.Best_Register_Button, 'Visible',on_off);
         set(handles.Fast_Register_Button, 'Visible',on_off);
         set(handles.videobutton, 'Visible',on_off);
+    elseif strcmpi(handles.myData.mode_desc,'TrackingView')
+        set(handles.videobutton, 'Visible',on_off);
     end
 %     set(handles.moving_indication,'visible',on_off);
 % 

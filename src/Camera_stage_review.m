@@ -20,7 +20,7 @@ function varargout = Camera_stage_review(varargin)
 %
 % See also: GUIDE, GUIDATA, GUIHANDLES
 
-% Edit the above text to modify the response to help Camera_stage_review
+% Edit the above text to modify the response to help Camera_stage_reviewa
 
 % Last Modified by GUIDE v2.5 08-Mar-2018 16:22:08
 
@@ -60,12 +60,13 @@ function Camera_stage_review_OpeningFcn(hObject, eventdata, handles, varargin)
     ,'Please choose the camera format'};
     welcome_page(handles,desc );
     set(handles.Take_image,'Enable','off');
-    set(handles.Recode_video,'Enable','off')
-    set(handles.Stop_video,'Enable','off')
+    set(handles.Recode_video,'Enable','off');
+    set(handles.Stop_video,'Enable','off');
     handles.imagenumber = 1;
     handles.position_flag_y=0;
     handles.position_flag_x=0;
     handles.stageflag=0;
+    handles.cameraflag = 0;
     handles.firsttime = 1;
     handles.output=hObject;
     % Update handles structure
@@ -274,6 +275,9 @@ if mode_index ~= 1
     set(handles.target_position_x,'Enable','on');
     set(handles.target_position_y,'Enable','on');
     handles.stageflag=1;
+    if handles.cameraflag == 1
+       set(handles.Recode_video,'Enable','on')
+    end
 end
 guidata(hObject, handles);   
 end
@@ -374,7 +378,10 @@ try
         handles.cam=camera_open(settings.cam_kind,settings.cam_format);
         camera_image_display(handles,handles.cam,settings);
         set(handles.Take_image,'Enable','on');
-        set(handles.Recode_video,'Enable','on')
+        handles.cameraflag = 1;
+        if handles.stageflag == 1
+            set(handles.Recode_video,'Enable','on')
+        end
     else
         desc = {'\bfWelcome'...
             ,'Please choose the camera format'};
@@ -442,10 +449,11 @@ try
     wavObject = audiorecorder;
     record(wavObject);
     handles.audio = wavObject;
-    guidata(hObject, handles);
+%    guidata(hObject, handles);
     % manage buttons
     set(handles.Recode_video,'Enable','off')
     set(handles.Stop_video,'Enable','on')
+    set(handles.text24,'String','Recording!');
     % record video
     aviObject = VideoWriter('myVideo.avi'); 
     handles.cam.DiskLogger = aviObject;
@@ -453,18 +461,25 @@ try
     handles.cam.TriggerRepeat = Inf;
     handles.cam.FramesPerTrigger = Inf;
     start(handles.cam);
-    set(handles.text24,'String','Recording!');
-    wait(handles.cam,10000,'Logging');
-    handles.cam.Running;
-    handles.cam.Logging;
-    handles.cam.DiskLoggerFrameCount;
+    % record stage position
+    handles.recordStagePosition=[];
+    guidata(hObject, handles);
+    handles.stageTimer = timer('ExecutionMode','fixedrate','Period',2,...
+    'TimerFcn',{@executeStageTimer,handles.output});
+    start(handles.stageTimer);
+%     for i=1:10
+%         tic;
+%         handles.stage = stage_get_pos(handles.stage);
+%         recordPositions=[recordPositions;[handles.stage.Pos(1),handles.stage.Pos(2)]];
+%         elapsedTime = toc 
+%     end
+
+%    wait(handles.cam,10000,'Logging');
+%      handles.cam.Running;
+%      handles.cam.Logging;
+%     handles.cam.DiskLoggerFrameCount;
+%    close(aviObject);
     
-    close(aviObject);
-%     open(aviObject)
-%     I=getsnapshot(handles.cam);
-%     F = im2frame(I);                    % Convert I to a movie frame
-%     writeVideo(aviObject,F);  % Add the frame to the AVI file   
-%     handles.video = aviObject;
      guidata(hObject, handles);
 
 catch ME
@@ -481,16 +496,34 @@ function Stop_video_Callback(hObject, eventdata, handles)
     % video
     video= handles.cam;
     stop(video);
-    
+    close(handles.cam.DiskLogger);
+
     % audio
     wavObject = handles.audio;
     stop(wavObject);
     audioData = getaudiodata(wavObject);
     audiowrite('myAudio.wav',audioData,wavObject.SampleRate)
     
+    % stage 
+    stop(handles.stageTimer);
+    delete(timerfindall);
+    
+    csvwrite('myStagePostion.csv',handles.recordStagePosition)
     % manage buttons
     set(handles.text24,'String',{'Click Start Video button';'to record'});
     set(handles.Recode_video,'Enable','on')
     set(handles.Stop_video,'Enable','off')
     guidata(hObject, handles);
+end
+
+
+%This function keep saving stage position every 'Period'
+%duration of the timer
+function executeStageTimer(hObject, eventdata, hFigure)
+    handles = guidata(hFigure);
+     handles.stage = stage_get_pos(handles.stage);
+     handles.recordStagePosition = [handles.recordStagePosition;[handles.stage.Pos(1),handles.stage.Pos(2)]];
+%    handles.recordStagePosition =  [handles.recordStagePosition;[10,10]];
+    %disp(currentTimeInfo);
+    guidata(hFigure, handles);
 end
