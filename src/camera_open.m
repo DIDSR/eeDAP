@@ -63,6 +63,7 @@ try
     cam_src.Tag = 'Microscope Camera Source';
     if strcmp( cam_kind,'USB')
        cam_src.WhiteBalanceRBMode = 'Off';
+       cam_src.WhiteBalanceRB = [587 710];
     end
 catch ME
     error_show(ME)
