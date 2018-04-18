@@ -144,6 +144,7 @@ try
     handles.myData = myData;
     guidata(handles.Stage_Allighment, handles);
     
+    adjust_camera_color(handles);
     display_thumb(handles.Stage_Allighment);
     wsi_info = current.wsi_info;
     slideID = strfind(wsi_info.fullname, '\');
@@ -1350,4 +1351,87 @@ function Done_Callback(hObject, eventdata, handles)
             delete(handles.cam)
             
             close(handles.Stage_Allighment);
+end
+
+% adjust camera color
+function adjust_camera_color(handles)
+try
+    cam_figure = handles.cam_figure;
+    set(handles.cam_figure,....
+        'NumberTitle', 'off',...
+        'Name', 'Register eyepiece and camera',...
+        'Units', 'characters');
+    position = get(cam_figure, 'Position');
+    position(1) = position(3)-35;
+    position(2) = 2;
+    position(3) = 32;
+    position(4) = 2;
+    adjustColor = uicontrol(...
+        'Parent', cam_figure,...
+        'Style', 'pushbutton',...
+        'Units', 'characters',...
+        'Position', position,...
+        'String', 'Feature Centered in Eyepiece',...
+        'Callback', @adjustColor_callback);
+    adjusting_color(handles.cam);
+catch ME
+    error_show(ME)
+end
+end
+
+function adjustColor_callback(hObject, eventdata)
+    set(0,'Units','characters')
+    position = get(0,'ScreenSize');
+    set(0,'Units','pixels');
+    position = [position(3)*.5-25, position(4)*.5, 60, 6];
+    adjust_color = figure(...
+        'NumberTitle','off',...
+        'Name','Adjusting White Balance',...
+        'MenuBar','none',...
+        'Units','characters',...
+        'Position',position);
+    uicontrol(...
+        'Style','text',...
+        'String', 'Move microscope to a blank area and click button',...
+        'Units', 'characters',...
+        'Position', [position(3)/2-25,2,50,3]);
+    uicontrol(...
+        'Style','pushbutton',...
+        'String', 'Adjusting!',...
+        'Units', 'characters',...
+        'Position', [position(3)/2-12,1,24,2],...
+        'Callback', @start_adjusting);
+    uiwait(adjust_color)
+end
+
+function start_adjusting(hObject, eventdata, handles)
+    handles = guidata(findobj('Tag','Stage_Allighment'));
+    adjusting_color(handles.cam);
+    close gcf
+
+end
+
+
+function adjusting_color(cam)
+     cam_src = getselectedsource(cam);
+     colorDone = 0;
+     waitingBar = waitbar (0.5,'Adjusting color');
+     WB = cam_src.WhiteBalanceRB;
+     defaultR = WB(1);
+     defaultB = WB(2);
+     while colorDone == 0 
+           img=camera_take_image(cam);
+           [x,y,z] = size(img);
+           R = mean(mean((img((ceil(x/2)-10:ceil(x/2)+10),(ceil(y/2)-10:ceil(y/2)+10),1))))
+           G = mean(mean((img((ceil(x/2)-10:ceil(x/2)+10),(ceil(y/2)-10:ceil(y/2)+10),2))))
+           B = mean(mean((img((ceil(x/2)-10:ceil(x/2)+10),(ceil(y/2)-10:ceil(y/2)+10),3))))
+           if abs(R-G)>5 || abs(B-G)>5 || abs(R-B)>5
+               defaultR = log2(G/R) * 256 + defaultR;
+               defaultB = log2(G/B) * 256 + defaultB;
+               cam_src.WhiteBalanceRB = [defaultR defaultB];
+           else
+               colorDone = 1;
+               close(waitingBar);
+           end
+      end
 end

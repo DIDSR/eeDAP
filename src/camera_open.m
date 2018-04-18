@@ -63,28 +63,26 @@ try
     cam_src.Tag = 'Microscope Camera Source';
     if strcmp( cam_kind,'USB')
        cam_src.WhiteBalanceRBMode = 'Off';
-%        defaultR = 587;
-%        defaultB = 710;
-       defaultR = 387;
-       defaultB = 500;
+       defaultR = 587;
+       defaultB = 710;
        cam_src.WhiteBalanceRB = [defaultR defaultB];
-       colorDone = 0;
-       waitingBar = waitbar (0.5,'Adjusting color');
-       while colorDone == 0 
-           img=camera_take_image(cam);
-           [x,y,z] = size(img);
-           R = mean(mean((img((ceil(x/2)-10:ceil(x/2)+10),(ceil(y/2)-10:ceil(y/2)+10),1))))
-           G = mean(mean((img((ceil(x/2)-10:ceil(x/2)+10),(ceil(y/2)-10:ceil(y/2)+10),2))))
-           B = mean(mean((img((ceil(x/2)-10:ceil(x/2)+10),(ceil(y/2)-10:ceil(y/2)+10),3))))
-           if abs(R-G)>5 || abs(B-G)>5 || abs(R-B)>5
-               defaultR = log2(G/R) * 256 + defaultR
-               defaultB = log2(G/B) * 256 + defaultB
-               cam_src.WhiteBalanceRB = [defaultR defaultB];
-           else
-               colorDone = 1;
-               close(waitingBar);
-           end
-       end
+%        colorDone = 0;
+%        waitingBar = waitbar (0.5,'Adjusting color');
+%        while colorDone == 0 
+%            img=camera_take_image(cam);
+%            [x,y,z] = size(img);
+%            R = mean(mean((img((ceil(x/2)-10:ceil(x/2)+10),(ceil(y/2)-10:ceil(y/2)+10),1))));
+%            G = mean(mean((img((ceil(x/2)-10:ceil(x/2)+10),(ceil(y/2)-10:ceil(y/2)+10),2))));
+%            B = mean(mean((img((ceil(x/2)-10:ceil(x/2)+10),(ceil(y/2)-10:ceil(y/2)+10),3))));
+%            if abs(R-G)>5 || abs(B-G)>5 || abs(R-B)>5
+%                defaultR = log2(G/R) * 256 + defaultR;
+%                defaultB = log2(G/B) * 256 + defaultB;
+%                cam_src.WhiteBalanceRB = [defaultR defaultB];
+%            else
+%                colorDone = 1;
+%                close(waitingBar);
+%            end
+%        end
        
     end
 catch ME
