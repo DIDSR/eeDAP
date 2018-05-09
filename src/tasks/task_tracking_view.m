@@ -324,10 +324,13 @@ function startTrackView_Callback(hObj, eventdata)
         mkdir(FolderName);
     end
     % record audio
-    wavObject = audiorecorder;
-    record(wavObject);
-    handles.audio = wavObject;
-%    guidata(hObject, handles);
+    audioExist = audiodevinfo;
+    if (size(audioExist.input,1)>0)
+        wavObject = audiorecorder;
+        record(wavObject);
+        handles.audio = wavObject;
+    end
+    %    guidata(hObject, handles);
     % manage buttons
     set(handles.startTracking,'Enable','off')
     set(handles.stopTracking,'Enable','on')
@@ -343,7 +346,14 @@ function startTrackView_Callback(hObj, eventdata)
     handles.cam.FramesPerTrigger = Inf;
     start(handles.cam);
     
-     guidata(hObj, handles);
+    % record stage position
+    handles.recordStagePosition=[];
+    guidata(hObj, handles);
+    handles.stageTimer = timer('ExecutionMode','fixedrate','Period',2,...
+    'TimerFcn',{@executeStageTimer,handles.output});
+    start(handles.stageTimer);
+    
+    guidata(hObj, handles);
 
 
 end
@@ -366,14 +376,25 @@ function stopTrackView_Callback(hObj, eventdata)
     close(handles.cam.DiskLogger);
 
     % audio
-    wavObject = handles.audio;
-    stop(wavObject);
-    audioData = getaudiodata(wavObject);
-    audioFileName =strcat(FolderName,'\',...
-                            'ID-',taskinfo.id,...
-                            '_iter-',num2str(taskinfo.order),...
-                            '_recordAudio.wav');
-    audiowrite(audioFileName,audioData,wavObject.SampleRate);
+    audioExist = audiodevinfo;
+    if (size(audioExist.input,1)>0)
+        wavObject = handles.audio;
+        stop(wavObject);
+        audioData = getaudiodata(wavObject);
+        audioFileName =strcat(FolderName,'\',...
+                                'ID-',taskinfo.id,...
+                                '_iter-',num2str(taskinfo.order),...
+                                '_recordAudio.wav');
+        audiowrite(audioFileName,audioData,wavObject.SampleRate);
+    end
+    % stage 
+    stop(handles.stageTimer);
+    delete(timerfindall);
+    stageFileName =strcat(FolderName,'\',...
+                                'ID-',taskinfo.id,...
+                                '_iter-',num2str(taskinfo.order),...
+                                '_recordStage.csv');
+    csvwrite(stageFileName,handles.recordStagePosition)
     
     % manage buttons
     set(handles.recodingStatus,'String',{'Click Start tracking button to record'});
@@ -389,6 +410,18 @@ function stopTrackView_Callback(hObj, eventdata)
     end
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
     guidata(hObj, handles);
+end
+
+
+%This function keep saving stage position every 'Period'
+%duration of the timer
+function executeStageTimer(hObject, eventdata, hFigure)
+    handles = guidata(hFigure);
+     handles.myData.stage = stage_get_pos(handles.myData.stage);
+     handles.recordStagePosition = [handles.recordStagePosition;[handles.myData.stage.Pos(1),handles.myData.stage.Pos(2)]];
+%    handles.recordStagePosition =  [handles.recordStagePosition;[10,10]];
+    %disp(currentTimeInfo);
+    guidata(hFigure, handles);
 end
 
 function questionResult1_Callback (hObj, eventdata)
