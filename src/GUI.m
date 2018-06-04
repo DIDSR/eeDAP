@@ -234,8 +234,8 @@ try
             handles = guidata(handles.GUI);
          case 'TrackingView'
             handles.cam=camera_open(settings.cam_kind,settings.cam_format);
-            handles.cam_figure = ...
-                    camera_preview(handles.cam, settings);
+            handles.cam_figure = camera_preview(handles.cam, settings);
+            handles.myData.stage = stage_set_origin(handles.myData.stage);
             guidata(handles.GUI, handles);
     end
     

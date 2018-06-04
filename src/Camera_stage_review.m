@@ -445,10 +445,7 @@ function Recode_video_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 try
-    % record audio
-    wavObject = audiorecorder;
-    record(wavObject);
-    handles.audio = wavObject;
+
 %    guidata(hObject, handles);
     % manage buttons
     set(handles.Recode_video,'Enable','off')
@@ -456,17 +453,23 @@ try
     set(handles.text24,'String','Recording!');
     % record video
     aviObject = VideoWriter('myVideo.avi'); 
+    aviObject.FrameRate = 15; 
     handles.cam.DiskLogger = aviObject;
     handles.cam.LoggingMode = 'disk';
     handles.cam.TriggerRepeat = Inf;
     handles.cam.FramesPerTrigger = Inf;
     start(handles.cam);
+    % record audio
+    wavObject = audiorecorder;
+    record(wavObject);
+    handles.audio = wavObject;
     % record stage position
     handles.recordStagePosition=[];
     guidata(hObject, handles);
     handles.stageTimer = timer('ExecutionMode','fixedrate','Period',2,...
     'TimerFcn',{@executeStageTimer,handles.output});
     start(handles.stageTimer);
+
 %     for i=1:10
 %         tic;
 %         handles.stage = stage_get_pos(handles.stage);
@@ -493,16 +496,17 @@ function Stop_video_Callback(hObject, eventdata, handles)
 % hObject    handle to Stop_video (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-    % video
-    video= handles.cam;
-    stop(video);
-    close(handles.cam.DiskLogger);
 
     % audio
     wavObject = handles.audio;
     stop(wavObject);
     audioData = getaudiodata(wavObject);
     audiowrite('myAudio.wav',audioData,wavObject.SampleRate)
+    
+    % video
+    video= handles.cam;
+    stop(video);
+    close(handles.cam.DiskLogger);
     
     % stage 
     stop(handles.stageTimer);

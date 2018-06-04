@@ -41,12 +41,11 @@ try
                 taskinfo.img_w = 0;
                 taskinfo.img_h = floor(screensize(3)*0.9)/10;
             end
-%             wsi_files = handles.myData.wsi_files;
-%             wsi_name = wsi_files{taskinfo.slot}.fullname;
-%             slashIndex = strfind(wsi_name,'\');
-%             wsi_name = wsi_name((slashIndex(end)+1):end);
-%             taskinfo.text  = ['Please load Slide ', wsi_name,'.Set microscope to 4X power, and focus.'];
-            taskinfo.text='';
+            wsi_files = handles.myData.wsi_files;
+            wsi_name = wsi_files{taskinfo.slot}.fullname;
+            slashIndex = strfind(wsi_name,'\');
+            wsi_name = wsi_name((slashIndex(end)+1):end);
+            taskinfo.text  = ['WSI name: ', wsi_name,'.'];
             taskinfo.freeText = 'No free text';
             taskinfo.rotateback = 0;
             if length(taskinfo.desc)>9
@@ -62,9 +61,20 @@ try
             % Show management buttons
             taskmgt_default(handles, 'on');
             handles = guidata(hObj);
-            taskinfo.done2=zeros(1,11);
+            taskinfo.done2=zeros(1,12);
             taskinfo.done3=zeros(1,3);
             
+            %open pdf
+            wsi_files = myData.wsi_files{taskinfo.slot};
+            wsi_files = handles.myData.wsi_files;
+            wsi_name = wsi_files{taskinfo.slot}.fullname;
+            slashIndex = strfind(wsi_name,'\');
+            dotIndex = strfind(wsi_name,'.');
+            pureWSIname = wsi_name((slashIndex(end)+1):dotIndex(end)-1);
+            dirName = wsi_name(1:(slashIndex(end)-1));
+            pdfDir = [dirName,'\clinicalHistory\',pureWSIname,'.pdf'];
+            system(sprintf('start acrord32.exe %s',pdfDir));
+           
           %% loading slide page
            wsi_files = handles.myData.wsi_files;
           wsi_name = wsi_files{taskinfo.slot}.fullname;
@@ -133,7 +143,7 @@ try
           % Recoding status
            handles.recodingStatus = uicontrol(...
                     'Parent', handles.task_panel, ...
-                    'FontSize', handles.myData.settings.FontSize, ...
+                    'FontSize', 16, ...
                     'Units', 'normalized', ...
                     'HorizontalAlignment', 'left', ...
                     'ForegroundColor', handles.myData.settings.FG_color, ...
@@ -144,8 +154,40 @@ try
                     'visible','off',...
                     'String', 'Click Start tracking button to record', ...
                     'Tag', 'recodingStatus');
+                
+           % SlideNameText
+           handles.slideNameText = uicontrol(...
+                    'Parent', handles.task_panel, ...
+                    'FontSize', handles.myData.settings.FontSize, ...
+                    'Units', 'normalized', ...
+                    'HorizontalAlignment', 'left', ...
+                    'ForegroundColor', handles.myData.settings.FG_color, ...
+                    'BackgroundColor', handles.myData.settings.BG_color, ...
+                    'Position', [0.05,0.7,0.2,0.1], ...
+                    'Style', 'Text', ...
+                    'Enable','off',...
+                    'visible','off',...
+                    'String', 'Please input slide name', ...
+                    'Tag', 'slideNameText');
+           
 
-               
+           % SlideNameText
+           handles.slideNameResult = uicontrol(...
+                'Parent', handles.task_panel, ...
+                'FontSize', handles.myData.settings.FontSize, ...
+                'Units', 'normalized', ...
+                'HorizontalAlignment', 'center', ...
+                'ForegroundColor', handles.myData.settings.FG_color, ...
+                'BackgroundColor', [.95, .95, .95], ...
+                'Position', [0.25,0.7,0.2,0.1], ...
+                'Style', 'edit', ...
+                'Enable','off',...
+                'visible','off',...
+                'Tag', 'slideNameResult', ...
+                'Callback', @slideNameResult_Callback);
+                
+                
+                
            % confidenceText
            handles.confidenceText = uicontrol(...
                     'Parent', handles.task_panel, ...
@@ -154,7 +196,7 @@ try
                     'HorizontalAlignment', 'left', ...
                     'ForegroundColor', handles.myData.settings.FG_color, ...
                     'BackgroundColor', handles.myData.settings.BG_color, ...
-                    'Position', [0.8,0.7,0.2,0.15], ...
+                    'Position', [0.85,0.7,0.1,0.15], ...
                     'Style', 'Text', ...
                     'Enable','off',...
                     'visible','off',...
@@ -169,7 +211,7 @@ try
                     'HorizontalAlignment', 'left', ...
                     'ForegroundColor', handles.myData.settings.FG_color, ...
                     'BackgroundColor', handles.myData.settings.BG_color, ...
-                    'Position', [0.1,0.55,0.5,0.1], ...
+                    'Position', [0.05,0.55,0.55,0.1], ...
                     'Style', 'Text', ...
                     'Enable','off',...
                     'visible','off',...
@@ -212,7 +254,7 @@ try
                     'HorizontalAlignment', 'left', ...
                     'ForegroundColor', handles.myData.settings.FG_color, ...
                     'BackgroundColor', handles.myData.settings.BG_color, ...
-                    'Position', [0.1,0.45,0.5,0.1], ...
+                    'Position', [0.05,0.45,0.55,0.1], ...
                     'Style', 'Text', ...
                     'Enable','off',...
                     'visible','off',...
@@ -256,7 +298,7 @@ try
                     'HorizontalAlignment', 'left', ...
                     'ForegroundColor', handles.myData.settings.FG_color, ...
                     'BackgroundColor', handles.myData.settings.BG_color, ...
-                    'Position', [0.1,0.35,0.5,0.1], ...
+                    'Position', [0.05,0.35,0.55,0.1], ...
                     'Style', 'Text', ...
                     'Enable','off',...
                     'visible','off',...
@@ -299,7 +341,7 @@ try
                     'HorizontalAlignment', 'left', ...
                     'ForegroundColor', handles.myData.settings.FG_color, ...
                     'BackgroundColor', handles.myData.settings.BG_color, ...
-                    'Position', [0.1,0.25,0.5,0.1], ...
+                    'Position', [0.05,0.25,0.55,0.1], ...
                     'Style', 'Text', ...
                     'Enable','off',...
                     'visible','off',...
@@ -342,7 +384,7 @@ try
                     'HorizontalAlignment', 'left', ...
                     'ForegroundColor', handles.myData.settings.FG_color, ...
                     'BackgroundColor', handles.myData.settings.BG_color, ...
-                    'Position', [0.1,0.15,0.5,0.1], ...
+                    'Position', [0.05,0.15,0.55,0.1], ...
                     'Style', 'Text', ...
                     'Enable','off',...
                     'visible','off',...
@@ -385,7 +427,7 @@ try
                     'HorizontalAlignment', 'left', ...
                     'ForegroundColor', handles.myData.settings.FG_color, ...
                     'BackgroundColor', handles.myData.settings.BG_color, ...
-                    'Position', [0.1,0.05,0.1,0.1], ...
+                    'Position', [0.05,0.05,0.1,0.1], ...
                     'Style', 'Text', ...
                     'Enable','off',...
                     'visible','off',...
@@ -452,7 +494,7 @@ try
                     'Tag', 'editvalue', ...
                     'Enable','off',...
                     'visible','off',...
-                    'String', 'Up left Reg',...
+                    'String', 'Up Left Reg',...
                     'Callback',@upLeftReg_Callback);
 
               % bottom left registration   
@@ -468,7 +510,7 @@ try
                     'Tag', 'editvalue', ...
                     'Enable','off',...
                     'visible','off',...
-                    'String', 'Bottom left Reg',...
+                    'String', 'Bottom Left Reg',...
                     'Callback',@bottomLeftReg_Callback);
 
               % bottom right registration    
@@ -519,6 +561,8 @@ try
             delete(handles.questionText5);
             delete(handles.questionResult5);
             delete(handles.questionConfidence5);
+            delete(handles.slideNameText);
+            delete(handles.slideNameResult);                 
             delete(handles.commentText6);
             delete(handles.commentResult6);
             delete(handles.loadSlideText);           
@@ -526,6 +570,7 @@ try
             delete(handles.bottomLeftReg);
             delete(handles.bottomRightReg);
             delete(handles.goToPage3);
+            delete(handles.registrationText);
             
             handles = rmfield(handles, 'startTracking');
             handles = rmfield(handles, 'stopTracking');
@@ -546,6 +591,8 @@ try
             handles = rmfield(handles, 'questionText5');
             handles = rmfield(handles, 'questionResult5');
             handles = rmfield(handles, 'questionConfidence5');
+            handles = rmfield(handles, 'slideNameText');
+            handles = rmfield(handles, 'slideNameResult');
             handles = rmfield(handles, 'commentText6');
             handles = rmfield(handles, 'commentResult6');
             handles = rmfield(handles, 'loadSlideText');
@@ -553,6 +600,7 @@ try
             handles = rmfield(handles, 'bottomLeftReg');
             handles = rmfield(handles, 'bottomRightReg');
             handles = rmfield(handles, 'goToPage3');
+            handles = rmfield(handles, 'registrationText');
             
         case 'exportOutput' % export current task information and reuslt
             if taskinfo.currentWorking ==1 % write finish task in current study
@@ -563,11 +611,17 @@ try
                     num2str(taskinfo.slot), ',',...
                     'track_veiw', ',', ...
                     num2str(taskinfo.duration),',',...
+                    taskinfo.slideName,',',...
                     taskinfo.score1,',',...
+                    taskinfo.confidence1,',',...                
                     taskinfo.score2,',',...
+                    taskinfo.confidence2,',',...    
                     taskinfo.score3,',',...
+                    taskinfo.confidence3,',',...    
                     taskinfo.score4,',',...
+                    taskinfo.confidence4,',',...    
                     taskinfo.score5,',',...
+                    taskinfo.confidence5,',',...    
                     taskinfo.freeText,',',...
                     taskinfo.stagePosition{1},',',...
                     taskinfo.stagePosition{2},',',...
@@ -626,12 +680,15 @@ try
      set(handles.questionText5,'visible','on','Enable','on');
      set(handles.questionResult5,'visible','on','Enable','on');
      set(handles.questionConfidence5,'visible','on','Enable','on');
+     set(handles.slideNameText,'visible','on','Enable','on');
+     set(handles.slideNameResult,'visible','on','Enable','on');
      set(handles.startTracking,'visible','on','Enable','on');
      set(handles.stopTracking,'visible','on','Enable','off');
      set(handles.recodingStatus,'visible','on','Enable','on');
      set(handles.commentText6,'visible','on','Enable','on');
      set(handles.commentResult6,'visible','on','Enable','on');
      set(handles.goToPage3,'visible','on','Enable','off');
+     %set(handles.goToPage3,'visible','on','Enable','on');
 catch ME
     error_show(ME)
 end
@@ -656,6 +713,11 @@ function startTrackView_Callback(hObj, eventdata)
     set(handles.startTracking,'Enable','off')
     set(handles.stopTracking,'Enable','on')
     set(handles.recodingStatus,'String','Recording!');
+
+    %    guidata(hObject, handles);
+
+    
+        
     % record audio
     audioExist = audiodevinfo;
     if (size(audioExist.input,1)>0)
@@ -663,18 +725,19 @@ function startTrackView_Callback(hObj, eventdata)
         record(wavObject);
         handles.audio = wavObject;
     end
-    %    guidata(hObject, handles);
-
+    
     % record video
     aviObject = VideoWriter(strcat(FolderName,'\',...
                             'ID-',taskinfo.id,...
                             '_iter-',num2str(taskinfo.order),...
                             '_recordVideo.avi')); 
+    aviObject.FrameRate = 15; 
     handles.cam.DiskLogger = aviObject;
     handles.cam.LoggingMode = 'disk';
     handles.cam.TriggerRepeat = Inf;
     handles.cam.FramesPerTrigger = Inf;
     start(handles.cam);
+
     
     % record stage position
     handles.recordStagePosition=[];
@@ -700,11 +763,6 @@ function stopTrackView_Callback(hObj, eventdata)
     FolderName=[myData.output_files_dir,...
             strrep(myData.outputfile,'.dapso','')];
     taskinfo = myData.taskinfo;
-
-    % video
-    video= handles.cam;
-    stop(video);
-    close(handles.cam.DiskLogger);
     
     % stage 
     stop(handles.stageTimer);
@@ -727,6 +785,11 @@ function stopTrackView_Callback(hObj, eventdata)
         audiowrite(audioFileName,audioData,wavObject.SampleRate);
     end
 
+    % video
+    video= handles.cam;
+    stop(video);
+    close(handles.cam.DiskLogger);
+    
     csvwrite(stageFileName,handles.recordStagePosition)
     
     % manage buttons
@@ -735,9 +798,9 @@ function stopTrackView_Callback(hObj, eventdata)
     set(handles.stopTracking,'Enable','off');
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
     taskinfo.done2(11)=1;
-    tdone=sum(taskinfo.done2);
-    if tdone==11;
-        set(handles.goToPage3, 'Enable', 'on');
+    tdone2=sum(taskinfo.done2);
+    if tdone2==12
+       set(handles.goToPage3, 'Enable', 'on');
     end
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
     guidata(hObj, handles);
@@ -755,16 +818,18 @@ function executeStageTimer(hObject, eventdata, hFigure)
     guidata(hFigure, handles);
 end
 
+
+
 function questionResult1_Callback (hObj, eventdata)
     handles = guidata(findobj('Tag','GUI'));
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
     % Pack the results
     taskinfo.score1 = get(handles.questionResult1, 'String');
     taskinfo.done2(1)=1;
-    tdone=sum(taskinfo.done2);
-        if tdone==11;
-            set(handles.goToPage3,'Enable','on');
-        end
+    tdone2=sum(taskinfo.done2);
+    if tdone2==12
+       set(handles.goToPage3,'Enable','on');
+    end
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
     guidata(handles.GUI, handles);
     
@@ -777,10 +842,10 @@ function questionConfidence1_Callback (hObj, eventdata)
     % Pack the results
     taskinfo.confidence1 = get(handles.questionConfidence1, 'String');
     taskinfo.done2(2)=1;
-    tdone=sum(taskinfo.done2);
-        if tdone==11;
-            set(handles.goToPage3,'Enable','on');
-        end
+    tdone2=sum(taskinfo.done2);
+    if tdone2==12
+       set(handles.goToPage3,'Enable','on');
+    end
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
     guidata(handles.GUI, handles);
     
@@ -792,8 +857,8 @@ function questionResult2_Callback (hObj, eventdata)
     % Pack the results
     taskinfo.score2 = get(handles.questionResult2, 'String');
     taskinfo.done2(3)=1;
-    tdone=sum(taskinfo.done2);
-    if tdone==11;
+    tdone2=sum(taskinfo.done2);
+    if tdone2==12
         set(handles.goToPage3,'Enable','on');
     end
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
@@ -807,10 +872,10 @@ function questionConfidence2_Callback (hObj, eventdata)
     % Pack the results
     taskinfo.confidence2 = get(handles.questionConfidence2, 'String');
     taskinfo.done2(4)=1;
-    tdone=sum(taskinfo.done2);
-        if tdone==11;
-            set(handles.goToPage3,'Enable','on');
-        end
+    tdone2=sum(taskinfo.done2);
+    if tdone2==12
+       set(handles.goToPage3,'Enable','on');
+    end
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
     guidata(handles.GUI, handles);
     
@@ -823,8 +888,8 @@ function questionResult3_Callback (hObj, eventdata)
     % Pack the results
     taskinfo.score3 = get(handles.questionResult3, 'String');
     taskinfo.done2(5)=1;
-    tdone=sum(taskinfo.done2);
-    if tdone==11;
+    tdone2=sum(taskinfo.done2);
+    if tdone2==12
         set(handles.goToPage3,'Enable','on');
     end
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
@@ -838,10 +903,10 @@ function questionConfidence3_Callback (hObj, eventdata)
     % Pack the results
     taskinfo.confidence3 = get(handles.questionConfidence3, 'String');
     taskinfo.done2(6)=1;
-    tdone=sum(taskinfo.done2);
-        if tdone==11;
-            set(handles.goToPage3,'Enable','on');
-        end
+    tdone2=sum(taskinfo.done2);
+    if tdone2==12
+       set(handles.goToPage3,'Enable','on');
+    end
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
     guidata(handles.GUI, handles);
     
@@ -854,8 +919,8 @@ function questionResult4_Callback (hObj, eventdata)
     % Pack the results
     taskinfo.score4 = get(handles.questionResult4, 'String');
     taskinfo.done2(7)=1;
-    tdone=sum(taskinfo.done2);
-    if tdone==11;
+    tdone2=sum(taskinfo.done2);
+    if tdone2==12
         set(handles.goToPage3,'Enable','on');
     end
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
@@ -869,10 +934,10 @@ function questionConfidence4_Callback (hObj, eventdata)
     % Pack the results
     taskinfo.confidence4 = get(handles.questionConfidence4, 'String');
     taskinfo.done2(8)=1;
-    tdone=sum(taskinfo.done2);
-        if tdone==11;
-            set(handles.goToPage3,'Enable','on');
-        end
+    tdone2=sum(taskinfo.done2);
+    if tdone2==12
+       set(handles.goToPage3,'Enable','on');
+    end
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
     guidata(handles.GUI, handles);
     
@@ -884,8 +949,8 @@ function questionResult5_Callback (hObj, eventdata)
     % Pack the results
     taskinfo.score5 = get(handles.questionResult5, 'String');
     taskinfo.done2(9)=1;
-    tdone=sum(taskinfo.done2);
-    if tdone==11;
+    tdone2=sum(taskinfo.done2);
+    if tdone2==12
         set(handles.goToPage3,'Enable','on');
     end
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
@@ -899,16 +964,29 @@ function questionConfidence5_Callback (hObj, eventdata)
     % Pack the results
     taskinfo.confidence5 = get(handles.questionConfidence5, 'String');
     taskinfo.done2(10)=1;
-    tdone=sum(taskinfo.done2);
-        if tdone==11;
-            set(handles.goToPage3,'Enable','on');
-        end
+    tdone2=sum(taskinfo.done2);
+    if tdone2==12
+       set(handles.goToPage3,'Enable','on');
+    end
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
     guidata(handles.GUI, handles);
     
 end
 
-
+function slideNameResult_Callback (hObj, eventdata)
+    handles = guidata(findobj('Tag','GUI'));
+    taskinfo = handles.myData.tasks_out{handles.myData.iter};
+    % Pack the results
+    taskinfo.slideName = get(handles.slideNameResult, 'String');
+    taskinfo.done2(12)=1;
+    tdone2=sum(taskinfo.done2);
+    if tdone2==12
+       set(handles.goToPage3,'Enable','on');
+    end
+    handles.myData.tasks_out{handles.myData.iter} = taskinfo;
+    guidata(handles.GUI, handles);
+    
+end
 
 
 function commentResult6_Callback (hObj, eventdata)
@@ -916,13 +994,14 @@ function commentResult6_Callback (hObj, eventdata)
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
     % Pack the results
     taskinfo.freeText = get(handles.questionResult5, 'String');
-    tdone=sum(taskinfo.done2);
-    if tdone==11;
+    tdone2=sum(taskinfo.done2);
+    if tdone2==12
         set(handles.goToPage3,'Enable','on');
     end
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
     guidata(handles.GUI, handles);
 end
+
 
 function goToPage3_Callback(hObj, eventdata) %#ok<DEFNU>
 try
@@ -943,17 +1022,32 @@ try
      set(handles.questionConfidence4,'visible','off','Enable','off');
      set(handles.questionText5,'visible','off','Enable','off');
      set(handles.questionResult5,'visible','off','Enable','off');
-     set(handles.questionConfidence5,'visible','off','Enable','off');
+     set(handles.questionConfidence5,'visible','off','Enable','off');    
+     set(handles.slideNameText,'visible','off','Enable','off');
+     set(handles.slideNameResult,'visible','off','Enable','off');
      set(handles.startTracking,'visible','off','Enable','off');
      set(handles.stopTracking,'visible','off','Enable','off');
      set(handles.recodingStatus,'visible','off','Enable','off');
      set(handles.commentText6,'visible','off','Enable','off');
      set(handles.commentResult6,'visible','off','Enable','off');
+     set(handles.goToPage3,'visible','off','Enable','off');
      % show page 3 info
      set(handles.registrationText,'visible','on','Enable','on');
      set(handles.upLeftReg,'visible','on','Enable','on');
      set(handles.bottomLeftReg,'visible','on','Enable','on');
      set(handles.bottomRightReg,'visible','on','Enable','on');
+     myData=handles.myData;   
+     taskinfo = myData.tasks_out{myData.iter};
+     FolderName=[myData.output_files_dir,...
+            strrep(myData.outputfile,'.dapso','')];
+     aviObject = VideoWriter(strcat(FolderName,'\',...
+                            'ID-',taskinfo.id,...
+                            '_iter-',num2str(taskinfo.order),...
+                            '_registrationVideo.avi')); 
+     aviObject.FrameRate = 15; 
+     handles.cam.DiskLogger = aviObject;
+     start(handles.cam);
+     guidata(hObj, handles);
 catch ME
     error_show(ME)
 end
@@ -963,15 +1057,15 @@ end
 function upLeftReg_Callback(hObj, eventdata) %#ok<DEFNU>
     handles = guidata(findobj('Tag','GUI'));
     myData=handles.myData;    
-    cam_image = camera_take_image(handles.cam);
+    cam_image = getsnapshot(handles.cam);
     taskinfo = myData.tasks_out{myData.iter};
     FolderName=[myData.output_files_dir,...
             strrep(myData.outputfile,'.dapso','')];
     if ~exist(FolderName,'file')
        mkdir(FolderName);
     end
-
-    stage = stage_get_pos(myData.stage,myData.stage.handle);
+%handles.myData.stage = stage_get_pos(handles.myData.stage);
+    stage = stage_get_pos(myData.stage);
     x = stage.Pos(1);
     y = stage.Pos(2);
     imwrite(cam_image,strcat(FolderName,'\',...
@@ -985,9 +1079,16 @@ function upLeftReg_Callback(hObj, eventdata) %#ok<DEFNU>
     taskinfo.done3(1)=1;
     tdone3=sum(taskinfo.done3);
     if  tdone3==3
+        stop(handles.cam);
+        close(handles.cam.DiskLogger);
+        handles.cam.DiskLogger = [];
+        handles.cam.LoggingMode = 'memory';
+        handles.cam.TriggerRepeat = 0;
+        handles.cam.FramesPerTrigger = 10;
         set(handles.NextButton,'Enable','on');
     end
-    taskinfo.stagePosition{1} = [int2str(x),',',int2str(y)];
+    taskinfo.stagePosition{1} = [int2str(x),',',int2str(y)];    
+    set(handles.upLeftReg,'String','Retake Up Left Reg');   
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
     guidata(handles.GUI, handles);
 
@@ -996,7 +1097,7 @@ end
 function bottomLeftReg_Callback(hObj, eventdata) %#ok<DEFNU>
     handles = guidata(findobj('Tag','GUI'));
     myData=handles.myData;    
-    cam_image = camera_take_image(handles.cam);
+    cam_image = getsnapshot(handles.cam);
     taskinfo = myData.tasks_out{myData.iter};
     FolderName=[myData.output_files_dir,...
             strrep(myData.outputfile,'.dapso','')];
@@ -1004,7 +1105,7 @@ function bottomLeftReg_Callback(hObj, eventdata) %#ok<DEFNU>
        mkdir(FolderName);
     end
 
-    stage = stage_get_pos(myData.stage,myData.stage.handle);
+    stage = stage_get_pos(myData.stage);
     x = stage.Pos(1);
     y = stage.Pos(2);
     imwrite(cam_image,strcat(FolderName,'\',...
@@ -1018,9 +1119,16 @@ function bottomLeftReg_Callback(hObj, eventdata) %#ok<DEFNU>
     taskinfo.done3(2)=1;
     tdone3=sum(taskinfo.done3);
     if  tdone3==3
+        stop(handles.cam);
+        close(handles.cam.DiskLogger);
+        handles.cam.DiskLogger = [];
+        handles.cam.LoggingMode = 'memory';
+        handles.cam.TriggerRepeat = 0;
+        handles.cam.FramesPerTrigger = 10;
         set(handles.NextButton,'Enable','on');
     end
     taskinfo.stagePosition{2} = [int2str(x),',',int2str(y)];
+    set(handles.bottomLeftReg,'String','Retake Bottom Left Reg'); 
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
     guidata(handles.GUI, handles);
 end
@@ -1028,7 +1136,7 @@ end
 function bottomRightReg_Callback(hObj, eventdata) %#ok<DEFNU>
     handles = guidata(findobj('Tag','GUI'));
     myData=handles.myData;    
-    cam_image = camera_take_image(handles.cam);
+    cam_image = getsnapshot(handles.cam);
     taskinfo = myData.tasks_out{myData.iter};
     FolderName=[myData.output_files_dir,...
             strrep(myData.outputfile,'.dapso','')];
@@ -1036,7 +1144,7 @@ function bottomRightReg_Callback(hObj, eventdata) %#ok<DEFNU>
        mkdir(FolderName);
     end
 
-    stage = stage_get_pos(myData.stage,myData.stage.handle);
+    stage = stage_get_pos(myData.stage);
     x = stage.Pos(1);
     y = stage.Pos(2);
     imwrite(cam_image,strcat(FolderName,'\',...
@@ -1050,9 +1158,16 @@ function bottomRightReg_Callback(hObj, eventdata) %#ok<DEFNU>
     taskinfo.done3(3)=1;
     tdone3=sum(taskinfo.done3);
     if  tdone3==3
+        stop(handles.cam);
+        close(handles.cam.DiskLogger);
+        handles.cam.DiskLogger = [];
+        handles.cam.LoggingMode = 'memory';
+        handles.cam.TriggerRepeat = 0;
+        handles.cam.FramesPerTrigger = 10;
         set(handles.NextButton,'Enable','on');
     end
     taskinfo.stagePosition{3} = [int2str(x),',',int2str(y)];
+    set(handles.bottomRightReg,'String','Retake Bottom Right Reg'); 
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
     guidata(handles.GUI, handles);
 end
