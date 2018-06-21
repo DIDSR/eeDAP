@@ -1,4 +1,4 @@
-function task_mitotic_counts( hObj )
+function task_tracking5_IHCproliferationIndices( hObj )
 %TASK_MITOTIC_COUNTS Summary of this function goes here
 %   Detailed explanation goes here
 try
@@ -22,9 +22,9 @@ try
             taskinfo.id = char(desc{2});
             taskinfo.order = str2double(desc{3});
             taskinfo.slot = str2double(desc{4});
-            taskinfo.question1 = '1.What is your main diagnosis? Choose the most significant finding. (Multiple choice)';
-            taskinfo.question2 = '2.If applicable, classify the predominant histologic subtype of the main lesion.(Multiple choice)';
-            taskinfo.question3 = '3.erform a mitotic count in 21HPF and enter numerical value only. (example: 3 denotes 3% proliferative index; N/A if not applicable)';
+            taskinfo.question1 = '1.What is your main diagnosis? (Multiple choice)';
+            taskinfo.question2 = '2.Classify the predominant histologic subtype of the main lesion.(Multiple choice)';
+            taskinfo.question3 = '3.Perform a mitotic count in 21HPF and enter numerical value only. (example: 3 denotes 3% proliferative index; N/A if not applicable)';
             taskinfo.question4 = '4.Did the internal positive control for the IHC work appropriately? (Binary response)';
             taskinfo.question5 = '5.Determine the histologic grade. (Binary response)';
             wsi_files = myData.wsi_files{taskinfo.slot};
@@ -1299,9 +1299,9 @@ function question5Radiobutton_Callback(hObj, eventdata)
     taskinfo.button_desc = get(eventdata.NewValue, 'Tag');
     switch taskinfo.button_desc
         case 'question5Radiobutton1'
-            taskinfo.question5result = 'Yes';
+            taskinfo.question5result = 'Low';
         case 'question5Radiobutton2'
-            taskinfo.question5result = 'No';
+            taskinfo.question5result = 'High';
     end
     taskinfo.done2(9)=1;
     tdone2=sum(taskinfo.done2);

@@ -1,4 +1,4 @@
-function task_mitotic_counts( hObj )
+function task_tracking3_LN_micromets( hObj )
 %TASK_MITOTIC_COUNTS Summary of this function goes here
 %   Detailed explanation goes here
 try
@@ -22,7 +22,7 @@ try
             taskinfo.id = char(desc{2});
             taskinfo.order = str2double(desc{3});
             taskinfo.slot = str2double(desc{4});
-            taskinfo.question1 = '1.What is your main diagnosis? Choose the most significant finding. (Binary response)';
+            taskinfo.question1 = '1.What is your main diagnosis? (Binary response)';
             taskinfo.question2 = '2.If applicable, classify the metastasis.(Multiple choice)';
             taskinfo.question3 = '3.If applicable, state the location of metastasis; if multiple deposits are seen, state the location of the largest deposit.(Multiple choice)';
             taskinfo.question4 = '4.If applicable, how many metastatic deposits can you identify. (Multiple choice)';
