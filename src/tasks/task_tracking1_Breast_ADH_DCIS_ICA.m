@@ -24,7 +24,7 @@ try
             taskinfo.slot = str2double(desc{4});
             taskinfo.question1 = '1.What is your main diagnosis? Choose the most significant finding. (Multiple choice)';
             taskinfo.question2 = '2.If applicable, classify the predominant architectural pattern of DCIS.(Multiple choice)';
-            taskinfo.question3 = '3.If applicable, grade the carcinoma nuclei.(Multiple choice)';
+            taskinfo.question3 = '3.If applicable, grade the carcinoma nuclei for the main diagnosis.(Multiple choice)';
             taskinfo.question4 = '4.Is necrosis seen within the main histopathologic finding. (Binary response)';
             taskinfo.question5 = '5.Are microcalcifications identified in association with the main histopathologic finding (Binary response)';
             wsi_files = myData.wsi_files{taskinfo.slot};

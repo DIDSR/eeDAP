@@ -134,7 +134,13 @@ try
     end
     current.registration_good = 0;
     handles.current = current;
-    guidata(handles.Stage_Allighment,handles);
+    if isfield(handles,'Stage_Allighment')
+        guidata(handles.Stage_Allighment,handles);
+    end
+    
+    if isfield(handles,'Registration_after_work')
+        guidata(handles.Registration_after_work,handles);
+    end
     
     % Read the ROI into memory
     roi_image = imread(current.roi_file);
@@ -186,20 +192,27 @@ end
 end
 
 function registration_good(hObject, eventdata, handles)
+    if isfield(handles,'Stage_Allighment')
+        handles = guidata(handles.Stage_Allighment);
+        handles.current.registration_good = 1;
+        guidata(handles.Stage_Allighment, handles);
+    end
+    
+    if isfield(handles,'Registration_after_work')
+        handles = guidata(handles.Registration_after_work);
+        handles.current.registration_good = 1;
+        guidata(handles.Registration_after_work, handles);
+    end
 
-handles = guidata(handles.Stage_Allighment);
-handles.current.registration_good = 1;
-guidata(handles.Stage_Allighment, handles);
 
 close gcf
 
 end
 
 function registration_bad(hObject, eventdata, handles)
+    delete(handles.h_registration_check);
 
-delete(handles.h_registration_check);
-
-close gcf
+    close gcf
 
 end
 
