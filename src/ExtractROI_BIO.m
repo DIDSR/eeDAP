@@ -194,6 +194,14 @@ try
     output(:,:,2) = rgb_lut_channel(output(:,:,2));
     rgb_lut_channel = rgb_lut(:,3);
     output(:,:,3) = rgb_lut_channel(output(:,:,3));
+    
+%     % get icc file
+%     iccFile = iccread(InputFile);
+%     outprof = iccread('sRGB.icm');
+%     C = makecform('icc', iccFile, outprof);
+%     output = applycform(output, C);
+    
+    
     imwrite(output, OutputFile, 'tif');
     
     %The following are used to create the rgb_lut files (by hand)
