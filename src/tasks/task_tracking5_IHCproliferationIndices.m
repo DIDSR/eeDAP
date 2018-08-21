@@ -70,7 +70,16 @@ try
             handles = guidata(hObj);
             taskinfo.done2=zeros(1,12);
             taskinfo.done3=zeros(1,3);
-            handles.nnnn=0;
+            taskinfo.question1time = {};
+            taskinfo.question1checkedBox = {};
+            taskinfo.question2time = {};
+            taskinfo.question2checkedBox = {};
+            taskinfo.question3time = {};
+            taskinfo.question3checkedBox = {};
+            taskinfo.question4time = {};
+            taskinfo.question4checkedBox = {};
+            taskinfo.question5time = {};
+            taskinfo.question5checkedBox = {};
             %open pdf
             wsi_files = myData.wsi_files{taskinfo.slot};
             wsi_files = handles.myData.wsi_files;
@@ -948,9 +957,12 @@ function startTrackView_Callback(hObj, eventdata)
     
     % record stage position
     handles.recordStagePosition=[];
-    handles.recordTime = [];
-    handles.recordStagePositionX = [];
-    handles.recordStagePositionY = [];
+    %     handles.recordTime = [];
+%     handles.recordStagePositionX = [];
+%     handles.recordStagePositionY = [];
+    handles.recordTime = {};
+    handles.recordStagePositionX = {};
+    handles.recordStagePositionY = {};
     guidata(hObj, handles);
     handles.stageTimer = timer('ExecutionMode','fixedrate','Period',2,...
     'TimerFcn',{@executeStageTimer,handles.output});
@@ -988,8 +1000,130 @@ function stopTrackView_Callback(hObj, eventdata)
     systemTime= handles.recordTime;
     PositionX=handles.recordStagePositionX;
     PositionY=handles.recordStagePositionY;
-    stageTable = table(systemTime,PositionX,PositionY);
+        % insert questions answered time to csv file
+    question1List=repmat({'NA'},[length(PositionX),1]);
+    question1checkedBox = taskinfo.question1checkedBox;
+    question1time = taskinfo.question1time;
+    question2List=repmat({'NA'},[length(PositionX),1]);
+    question2checkedBox = taskinfo.question2checkedBox;
+    question2time = taskinfo.question2time;
+    question3List=repmat({'NA'},[length(PositionX),1]);
+    question3checkedBox = taskinfo.question3checkedBox;
+    question3time = taskinfo.question3time;
+    question4List=repmat({'NA'},[length(PositionX),1]);
+    question4checkedBox = taskinfo.question4checkedBox;
+    question4time = taskinfo.question4time;
+    question5List=repmat({'NA'},[length(PositionX),1]);
+    question5checkedBox = taskinfo.question5checkedBox;
+    question5time = taskinfo.question5time;
+    for i = 1 : length(systemTime)
+        tempSystemTime = systemTime{i};
+        %question 1
+        if length(question1time)>=1
+           tempQuestion1time = question1time{1}; 
+           while datetime(tempQuestion1time)<=datetime(tempSystemTime)
+              if strcmp(question1List{i},'NA')
+                  question1List{i} = question1checkedBox{1};
+              else
+                  question1List{i} = [question1List{i},';',question1checkedBox{1}];
+              end
+              question1time(1) = [];
+              question1checkedBox(1) = [];
+              if length(question1time)>=1
+                  tempQuestion1time = question1time{1}; 
+              else
+                  break;
+              end
+           end
+        end
+        %question 2
+        if length(question2time)>=1
+           tempQuestion2time = question2time{1}; 
+           while datetime(tempQuestion2time)<=datetime(tempSystemTime)
+              if strcmp(question2List{i},'NA')
+                  question2List{i} = question2checkedBox{1};
+              else
+                  question2List{i} = [question2List{i},';',question2checkedBox{1}];
+              end
+              question2time(1) = [];
+              question2checkedBox(1) = [];
+              if length(question2time)>=1
+                 tempQuestion2time = question2time{1}; 
+              else
+                  break;
+              end
+           end
+        end  
+        %question 3
+        if length(question3time)>=1
+           tempQuestion3time = question3time{1}; 
+           while datetime(tempQuestion3time)<=datetime(tempSystemTime)
+               if strcmp(question3List{i},'NA')
+                   question3List{i} = question3checkedBox{1};
+               else
+                   question3List{i} = [question3List{i},';',question3checkedBox{1}];
+               end
+              question3time(1) = [];
+              question3checkedBox(1) = [];
+              if length(question3time)>=1
+                 tempQuestion3time = question3time{1}; 
+              else
+                  break;
+              end
+           end
+        end  
+        %question 4
+        if length(question4time)>=1
+           tempQuestion4time = question4time{1}; 
+           while datetime(tempQuestion4time)<=datetime(tempSystemTime)
+               if strcmp(question4List{i},'NA')
+                   question4List{i} = question4checkedBox{1};
+               else
+                   question4List{i} = [question4List{i},';',question4checkedBox{1}];
+               end
+              question4time(1) = [];
+              question4checkedBox(1) = [];
+              if length(question4time)>=1
+                 tempQuestion4time = question4time{1}; 
+              else
+                 break;
+              end
+           end
+        end  
+        %question 5
+        if length(question5time)>=1
+           tempQuestion5time = question5time{1}; 
+           while datetime(tempQuestion5time)<=datetime(tempSystemTime)
+               if strcmp(question5List{i},'NA')
+                   question5List{i} = question5checkedBox{1};
+               else
+                   question5List{i} = [question5List{i},';',question5checkedBox{1}];
+               end          
+              question5time(1) = [];
+              question5checkedBox(1) = [];
+              if length(question5time)>=1
+                 tempQuestion5time = question5time{1}; 
+              else
+                 break;
+              end
+           end
+        end  
+    end
+    systemTime = systemTime';
+    PositionX = PositionX';
+    PositionY = PositionY';
+    stageTable = table(systemTime,PositionX,PositionY,question1List,question2List,question3List,question4List,question5List);
     writetable(stageTable,stageFileName);
+    t1 = table(taskinfo.question1time',taskinfo.question1checkedBox');
+    writetable(t1,'q1.csv');
+    t2 = table(taskinfo.question2time',taskinfo.question2checkedBox');
+    writetable(t2,'q2.csv');
+    t3 = table(taskinfo.question3time',taskinfo.question3checkedBox');
+    writetable(t3,'q3.csv');
+    t4 = table(taskinfo.question4time',taskinfo.question4checkedBox');
+    writetable(t4,'q4.csv');
+    t5 = table(taskinfo.question5time',taskinfo.question5checkedBox');
+    writetable(t5,'q5.csv');
     % audio
     audioExist = audiodevinfo;
     if (size(audioExist.input,1)>0)
@@ -1034,9 +1168,14 @@ function executeStageTimer(hObject, eventdata, hFigure)
 %    time1=clock;
     handles = guidata(hFigure);
      handles.myData.stage = stage_get_pos(handles.myData.stage);
-    handles.recordTime = [handles.recordTime;datestr(clock,30)];
-    handles.recordStagePositionX = [handles.recordStagePositionX; handles.myData.stage.Pos(1)];
-    handles.recordStagePositionY = [handles.recordStagePositionY; handles.myData.stage.Pos(2)];
+    %     handles.recordTime = [handles.recordTime;datestr(clock,30)];
+%     handles.recordStagePositionX = [handles.recordStagePositionX; handles.myData.stage.Pos(1)];
+%     handles.recordStagePositionY = [handles.recordStagePositionY; handles.myData.stage.Pos(2)];
+    
+    recordLength = length(handles.recordTime);
+    handles.recordTime{recordLength+1} = datestr(clock,30);
+    handles.recordStagePositionX{recordLength+1} = handles.myData.stage.Pos(1);
+    handles.recordStagePositionY{recordLength+1} = handles.myData.stage.Pos(2);
     %disp(currentTimeInfo);
 %     time2=clock;
 %     etime(time1,time2)
@@ -1048,10 +1187,14 @@ end
 function question1Checkbox1_Callback(hObj, eventdata)
     handles = guidata(findobj('Tag','GUI'));
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
+    recordLength = length(taskinfo.question1time);
+    taskinfo.question1time{recordLength+1} = datestr(clock,30);
     if (get(hObj,'Value') == get(hObj,'Max'))
         taskinfo.question1result(1)=1;
+        taskinfo.question1checkedBox{recordLength+1} = 'B1Check';
     else
         taskinfo.question1result(1)=0;
+        taskinfo.question1checkedBox{recordLength+1} = 'B1Uncheck';
     end
     taskinfo.done2(1)=1;
     tdone2=sum(taskinfo.done2);
@@ -1066,10 +1209,14 @@ end
 function question1Checkbox2_Callback(hObj, eventdata)
     handles = guidata(findobj('Tag','GUI'));
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
+    recordLength = length(taskinfo.question1time);
+    taskinfo.question1time{recordLength+1} = datestr(clock,30);
     if (get(hObj,'Value') == get(hObj,'Max'))
         taskinfo.question1result(2)=1;
+        taskinfo.question1checkedBox{recordLength+1} = 'B2Check';
     else
         taskinfo.question1result(2)=0;
+        taskinfo.question1checkedBox{recordLength+1} = 'B2Uncheck';
     end
     taskinfo.done2(1)=1;
     tdone2=sum(taskinfo.done2);
@@ -1084,10 +1231,14 @@ end
 function question1Checkbox3_Callback(hObj, eventdata)
     handles = guidata(findobj('Tag','GUI'));
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
+    recordLength = length(taskinfo.question1time);
+    taskinfo.question1time{recordLength+1} = datestr(clock,30);
     if (get(hObj,'Value') == get(hObj,'Max'))
         taskinfo.question1result(3)=1;
+        taskinfo.question1checkedBox{recordLength+1} = 'B3Check';
     else
         taskinfo.question1result(3)=0;
+        taskinfo.question1checkedBox{recordLength+1} = 'B3Uncheck';
     end
     taskinfo.done2(1)=1;
     tdone2=sum(taskinfo.done2);
@@ -1102,10 +1253,14 @@ end
 function question1Checkbox4_Callback(hObj, eventdata)
     handles = guidata(findobj('Tag','GUI'));
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
+    recordLength = length(taskinfo.question1time);
+    taskinfo.question1time{recordLength+1} = datestr(clock,30);
     if (get(hObj,'Value') == get(hObj,'Max'))
         taskinfo.question1result(4)=1;
+        taskinfo.question1checkedBox{recordLength+1} = 'B4Check';
     else
         taskinfo.question1result(4)=0;
+        taskinfo.question1checkedBox{recordLength+1} = 'B4Uncheck';
     end
     taskinfo.done2(1)=1;
     tdone2=sum(taskinfo.done2);
@@ -1137,10 +1292,14 @@ end
 function question2Checkbox1_Callback(hObj, eventdata)
     handles = guidata(findobj('Tag','GUI'));
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
+    recordLength = length(taskinfo.question2time);
+    taskinfo.question2time{recordLength+1} = datestr(clock,30);
     if (get(hObj,'Value') == get(hObj,'Max'))
         taskinfo.question2result(1)=1;
+        taskinfo.question2checkedBox{recordLength+1} = 'B1Check';
     else
         taskinfo.question2result(1)=0;
+        taskinfo.question2checkedBox{recordLength+1} = 'B1Uncheck';
     end
     taskinfo.done2(3)=1;
     tdone2=sum(taskinfo.done2);
@@ -1155,10 +1314,14 @@ end
 function question2Checkbox2_Callback(hObj, eventdata)
     handles = guidata(findobj('Tag','GUI'));
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
+    recordLength = length(taskinfo.question2time);
+    taskinfo.question2time{recordLength+1} = datestr(clock,30);
     if (get(hObj,'Value') == get(hObj,'Max'))
         taskinfo.question2result(2)=1;
+        taskinfo.question2checkedBox{recordLength+1} = 'B2Check';
     else
         taskinfo.question2result(2)=0;
+        taskinfo.question2checkedBox{recordLength+1} = 'B2Uncheck';
     end
     taskinfo.done2(3)=1;
     tdone2=sum(taskinfo.done2);
@@ -1173,10 +1336,14 @@ end
 function question2Checkbox3_Callback(hObj, eventdata)
     handles = guidata(findobj('Tag','GUI'));
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
+    recordLength = length(taskinfo.question2time);
+    taskinfo.question2time{recordLength+1} = datestr(clock,30);
     if (get(hObj,'Value') == get(hObj,'Max'))
         taskinfo.question2result(3)=1;
+        taskinfo.question2checkedBox{recordLength+1} = 'B3Check';
     else
         taskinfo.question2result(3)=0;
+        taskinfo.question2checkedBox{recordLength+1} = 'B3Uncheck';
     end
     taskinfo.done2(3)=1;
     tdone2=sum(taskinfo.done2);
@@ -1191,10 +1358,14 @@ end
 function question2Checkbox4_Callback(hObj, eventdata)
     handles = guidata(findobj('Tag','GUI'));
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
+    recordLength = length(taskinfo.question2time);
+    taskinfo.question2time{recordLength+1} = datestr(clock,30);
     if (get(hObj,'Value') == get(hObj,'Max'))
         taskinfo.question2result(4)=1;
+        taskinfo.question2checkedBox{recordLength+1} = 'B4Check';
     else
         taskinfo.question2result(4)=0;
+        taskinfo.question2checkedBox{recordLength+1} = 'B4Uncheck';
     end
     taskinfo.done2(3)=1;
     tdone2=sum(taskinfo.done2);
@@ -1225,6 +1396,9 @@ end
 function question3Comment_Callback(hObj, eventdata)
     handles = guidata(findobj('Tag','GUI'));
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
+    recordLength = length(taskinfo.question3time);
+    taskinfo.question3time{recordLength+1} = datestr(clock,30);
+    taskinfo.question3checkedBox{recordLength+1} = 'Edit';
     % Pack the results
     taskinfo.question3result = get(handles.question3Comment, 'String');
     taskinfo.done2(5)=1;
@@ -1257,13 +1431,16 @@ end
 function question4Radiobutton_Callback(hObj, eventdata)
     handles = guidata(findobj('Tag','GUI'));
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
-
+    recordLength = length(taskinfo.question4time);
+    taskinfo.question4time{recordLength+1} = datestr(clock,30);
     taskinfo.button_desc = get(eventdata.NewValue, 'Tag');
     switch taskinfo.button_desc
         case 'question4Radiobutton1'
             taskinfo.question4result = 'Yes';
+            taskinfo.question4checkedBox{recordLength+1} = 'Yes';
         case 'question4Radiobutton2'
             taskinfo.question4result = 'No';
+            taskinfo.question4checkedBox{recordLength+1} = 'No';
     end
     taskinfo.done2(7)=1;
     tdone2=sum(taskinfo.done2);
@@ -1295,13 +1472,16 @@ end
 function question5Radiobutton_Callback(hObj, eventdata)
     handles = guidata(findobj('Tag','GUI'));
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
-
+    recordLength = length(taskinfo.question5time);
+    taskinfo.question5time{recordLength+1} = datestr(clock,30);
     taskinfo.button_desc = get(eventdata.NewValue, 'Tag');
     switch taskinfo.button_desc
         case 'question5Radiobutton1'
             taskinfo.question5result = 'Low';
+            taskinfo.question5checkedBox{recordLength+1} = 'Low';
         case 'question5Radiobutton2'
             taskinfo.question5result = 'High';
+            taskinfo.question5checkedBox{recordLength+1} = 'High';
     end
     taskinfo.done2(9)=1;
     tdone2=sum(taskinfo.done2);
