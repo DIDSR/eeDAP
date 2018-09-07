@@ -91,7 +91,8 @@ try
             uicontrol(handles.editCount);
         case {'NextButtonPressed',...
                 'PauseButtonPressed',...
-                'Backbutton_Callback'} % Clean up the task elements
+                'Backbutton_Callback',...
+                'Refine_Register_Button_Callback'} % Clean up the task elements
             
             % Hide image and management buttons
             

@@ -588,6 +588,7 @@ try
             set(hObject_configure_camera, ...
                 'Enable', 'on', ...
                 'String', 'Configure Camera');
+            handles.myData.refineRegistration = 0;
             handles.myData.stage = stage_get_pos(handles.myData.stage); %#ok<NASGU>
             if handles.myData.stage.Pos == 0
                 return

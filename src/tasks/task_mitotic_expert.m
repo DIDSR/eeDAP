@@ -315,7 +315,8 @@ try
             
         case {'NextButtonPressed', ...
                 'PauseButtonPressed',...
-                'Backbutton_Callback'} % Clean up the task elements
+                'Backbutton_Callback',...
+                'Refine_Register_Button_Callback'} % Clean up the task elements
             taskmgt_default(handles, 'off');
             handles = guidata(hObj);
             % Hide image and management buttons

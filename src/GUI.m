@@ -430,6 +430,11 @@ try
         'BackgroundColor',myData.settings.BG_color,...
         'ForegroundColor',myData.settings.FG_color,...
         'Visible', 'off');
+    set(handles.Refine_Register_Button,...
+        'FontSize', myData.settings.FontSize,...
+        'BackgroundColor',myData.settings.BG_color,...
+        'ForegroundColor',myData.settings.FG_color,...
+        'Visible', 'off');
     set(handles.videobutton,...
         'FontSize', myData.settings.FontSize,...
         'BackgroundColor',myData.settings.BG_color,...
@@ -483,36 +488,47 @@ try
     myData=handles.myData;
     set(handles.NextButton, 'Enable', 'off');
     set(handles.Backbutton, 'Enable', 'on');
-
-    % Close out current task and record duration
-    taskinfo = myData.tasks_out{myData.iter};
-    handles.myData.EndTime = clock;
-    taskinfo.duration = etime(handles.myData.EndTime, handles.myData.StartTime)+taskinfo.duration;
-    handles.myData.tasks_out{handles.myData.iter} = taskinfo;
-    guidata(handles.GUI, handles);
-
     st = dbstack;
-    % exort output file
-     if ~strcmp(st(2).name,'Backbutton_Callback')  
-         
-         taskinfo.calling_function = st(1).name;
-         handles.myData.taskinfo = taskinfo;
-         guidata(handles.GUI, handles);
-         taskinfo.task_handle(handles.GUI);
-         handles = guidata(handles.GUI);
-         exportOutput(handles.GUI);
-         handles = guidata(handles.GUI);
     
-     end
-    % If the completed task was a 'finish' task, then return
-    switch taskinfo.id
-        case 'finish'
-            
-            close all force
-            return
-            
-    end
+    % Close out current task and record duration for all task except refine
+    % reigstration
+    if  myData.refineRegistration == 0
+        taskinfo = myData.tasks_out{myData.iter};
+        handles.myData.EndTime = clock;
+        taskinfo.duration = etime(handles.myData.EndTime, handles.myData.StartTime)+taskinfo.duration;
+        handles.myData.tasks_out{handles.myData.iter} = taskinfo;
+        guidata(handles.GUI, handles);          
+        % exort output file
+         if ~strcmp(st(2).name,'Backbutton_Callback')  
+
+             taskinfo.calling_function = st(1).name;
+             handles.myData.taskinfo = taskinfo;
+             guidata(handles.GUI, handles);
+             taskinfo.task_handle(handles.GUI);
+             handles = guidata(handles.GUI);
+             exportOutput(handles.GUI);
+             handles = guidata(handles.GUI);
+
+         end
+        % If the completed task was a 'finish' task, then return
+        switch taskinfo.id
+            case 'finish'
+
+                close all force
+                return
+
+        end
     
+    else
+        handles.myData.refineRegistration = 0;
+        taskinfo = myData.taskinfo;
+        taskinfo.calling_function = st(1).name;
+        handles.myData.taskinfo = taskinfo;
+        guidata(handles.GUI, handles);
+        taskinfo.task_handle(handles.GUI);
+        handles = guidata(handles.GUI);   
+    end 
+
     % Begin the next task
     handles.myData.iter = handles.myData.iter+1;
     guidata(handles.GUI, handles);
@@ -567,8 +583,12 @@ try
                     % offset_stage was determined during stage allignment
                     % it compensates for any misalignment between the eyepiece
                     % cener and the reticle center in stage coordinates
-                    offset = int64(myData.settings.offset_stage);
-                    stage_new = stage_new' - offset;
+                   
+                    % eyepiece offset
+                    offset_stage = int64(myData.settings.offset_stage);
+                    % registration refine offset
+                    offset_reg_refine = int64(myData.settings.offset_reg_refine{taskinfo.slot});
+                    stage_new = stage_new' - offset_stage + offset_reg_refine;
                 end
                 taskinfo.stage_x = stage_new(1);
                 taskinfo.stage_y = stage_new(2);
@@ -787,10 +807,12 @@ try
             set(handles.NextButton,'enable','off');
             set(handles.Fast_Register_Button,'enable','off');
             set(handles.Best_Register_Button,'enable','off');
+            set(handles.Refine_Register_Button,'enable','off');
             handles.myData.stage = stage_move(handles.myData.stage,target_pos,handles.myData.stage.handle);
             set(handles.NextButton,'enable',currentNextStatus);
             set(handles.Fast_Register_Button,'enable','on');
             set(handles.Best_Register_Button,'enable','on');
+            set(handles.Refine_Register_Button,'enable','on');
             
     end
     
@@ -1275,4 +1297,77 @@ try
 catch ME
     error_show(ME)
 end
+end
+
+
+% --- Executes on button press in Refine_Register_Button.
+function Refine_Register_Button_Callback(hObject, eventdata, handles)
+% hObject    handle to Refine_Register_Button (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+    
+    myData=handles.myData;
+    % clean current task elements 
+    taskinfo = myData.taskinfo;
+    st = dbstack;         
+    taskinfo.calling_function = st(1).name;
+    handles.myData.taskinfo = taskinfo;
+    guidata(handles.GUI, handles);
+    taskinfo.task_handle(handles.GUI);
+    handles = guidata(handles.GUI);
+    myData=handles.myData;
+    
+    % only keep slot ID and create new taskinfo
+    taskinfo = myData.tasks_out{myData.iter};
+    slot = taskinfo.slot;
+    taskinfo = struct;
+    taskinfo.slot = slot;
+    taskinfo.calling_function = st(1).name;
+    taskinfo.rotateback = 0;
+    taskinfo.task = 'refine registration';
+    taskinfo.task_handle = str2func('@task_refine_registration');
+    taskinfo.text = 'Refine registration for this slide';
+    taskinfo.highMag = 1; 
+    myData.taskinfo = taskinfo;
+    myData.refineRegistration = 1;
+    handles.myData = myData;
+    guidata(handles.GUI, handles);
+    
+    % load stage data for this slide
+    wsi_info = myData.wsi_files{taskinfo.slot};  
+    WSIfile=wsi_info.fullname;
+    temp = textscan(wsi_info.fullname, '%s %s', 'delimiter', '.');
+    stagedata_file = [char(temp{1}),'.mat'];
+    load(stagedata_file) 
+    % get WSI and stage position for the first anchor
+    WSIanchor1 = stagedata.wsi_positions(1,:);
+    Stageanchor1 = stagedata.stage_positions(1,:);    
+    
+    % extract high resolution WSI anchor
+    highMagName = [myData.registration_images_dir, num2str(taskinfo.slot), 'HighRes.tif'];
+    Left = WSIanchor1(1)-400;
+    Top  = WSIanchor1(2)-400;
+    success = ExtractROI_BIO(wsi_info, WSIfile, highMagName,...
+                Left, Top, 800, 800,...
+                800, 800,...
+                handles.myData.settings.RotateWSI,...
+                wsi_info.rgb_lut);
+    taskinfo.highMagName = highMagName;
+    taskinfo.ROIname = highMagName;            % default is high Mag image
+    taskinfo.Stageanchor1 = Stageanchor1;
+    
+    % use golbal registration first achor high resolution image as low resolution anchor 
+    lowMagName = [myData.registration_images_dir,'hres_s', num2str(taskinfo.slot), 'p1_thumb.tif'];
+    taskinfo.lowMagName = lowMagName;
+    
+    myData.taskinfo = taskinfo;
+    handles.myData = myData;
+    guidata(handles.GUI, handles);
+    
+    % move stage to the anchor
+    myData.stage = stage_move(myData.stage,Stageanchor1, myData.stage.handle);
+    
+    % get into refine registration task
+    taskinfo.task_handle(handles.GUI);
+    handles = guidata(handles.GUI);
 end

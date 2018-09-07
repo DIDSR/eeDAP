@@ -136,6 +136,9 @@ try
     current.cam_extract_w = 0;
     current.cam_extract_h = 0;
     
+    % Initialize offset_stage_refine
+    settings.offset_reg_refine{slot_i} = [0,0];
+    
     handles.output = hObject;
     current.load_stage_data = zeros(1,3);
     handles.current = current;
@@ -791,12 +794,12 @@ try
     if handles.current.load_stage_data(1) == 1
         display('automatically navigate to position 1')
         handles.myData.stage=stage_move(handles.myData.stage,handles.myData.stagedata.stage_positions(1,:));       
+        handles.myData.stagedata.oldStagePosition = handles.myData.stagedata.stage_positions(1,:);
         set(handles.take_stage1,'String','Take Stage Position 1');
         handles.current.load_stage_data(1) = 2;       
         guidata(handles.Stage_Allighment,handles);
         return
     end
-    
     set(handles.take_stage1,'Enable','off');
     take_stage(hObject, eventdata, handles);
     handles = guidata(handles.Stage_Allighment);
@@ -812,7 +815,9 @@ try
     set(handles.current.thumb_image_handle,...
         'HitTest','on',...
         'ButtonDownFcn', {@thumb_image_ButtonDownFcn,handles});
-    
+    if handles.current.reg_flag == 1
+        set(handles.onePointReg,'Enable','on');
+    end 
     guidata(handles.Stage_Allighment,handles);
     
 catch ME
@@ -937,6 +942,7 @@ try
     
     handles.myData.stagedata.wsi_positions(1,1) = handles.current.roi_x0;
     handles.myData.stagedata.wsi_positions(1,2) = handles.current.roi_y0;
+    handles.myData.stagedata.oldWSIPosition = handles.myData.stagedata.wsi_positions(1,:);
     set(handles.wsi_1x,'String',handles.current.roi_x0);
     set(handles.wsi_1y,'String',handles.current.roi_y0);
     
@@ -1076,8 +1082,88 @@ end
 
 end
 
+%% One point registration
+% --- Executes on button press in onePointReg.
+function onePointReg_Callback(hObject, eventdata, handles)
+% hObject    handle to onePointReg (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+try
+    if handles.take_wsi_flag==0
+        desc = 'Please click on the WSI at the location corresponding to the stage position.';
+        h_errordlg = errordlg(desc,'Take WSI Position 1','modal'); %#ok<NASGU>
+        return;
+    end
+    
+    
+    set(handles.onePointReg,'Enable','off');
+    set(handles.current.thumb_image_handle,'HitTest','off');
+    Register_ROI(handles);
+    handles = guidata(handles.Stage_Allighment);
+    
+    if handles.current.registration_good==0
+        % Refresh the image
+        handles.current.thumb_image_handle = ...
+            image(handles.current.thumb_image,'Parent',handles.thumb_axes);
+        axis(handles.thumb_axes,'image');
+        set(handles.current.thumb_image_handle,'HitTest','off');
+        
+        % Reset state to repeat registration
+        handles.take_wsi_flag = 0;
+        set(handles.take_stage1,'Enable','on');
+        set(handles.onePointReg,'Enable','off');
+        
+        guidata(handles.Stage_Allighment,handles);
+        return;
+    end
+    % calculate WSI shift
+    handles.myData.stagedata.wsi_positions(1,1) = handles.current.roi_x0;
+    handles.myData.stagedata.wsi_positions(1,2) = handles.current.roi_y0;
+    WSI_x_dif = handles.myData.stagedata.wsi_positions(1,1) - handles.myData.stagedata.oldWSIPosition(1,1);
+    WSI_y_dif = handles.myData.stagedata.wsi_positions(1,2) - handles.myData.stagedata.oldWSIPosition(1,2);
+    % calculate stage shift
+    stage_x_dif = handles.myData.stagedata.stage_positions(1,1) - handles.myData.stagedata.oldStagePosition(1,1);
+    stage_y_dif = handles.myData.stagedata.stage_positions(1,2) - handles.myData.stagedata.oldStagePosition(1,2);
+    % shift WSI second and third points postitons
+    handles.myData.stagedata.wsi_positions(2,1) = handles.myData.stagedata.wsi_positions(2,1) + WSI_x_dif;
+    handles.myData.stagedata.wsi_positions(2,2) = handles.myData.stagedata.wsi_positions(2,2) + WSI_y_dif;
+    handles.myData.stagedata.wsi_positions(3,1) = handles.myData.stagedata.wsi_positions(3,1) + WSI_x_dif;
+    handles.myData.stagedata.wsi_positions(3,2) = handles.myData.stagedata.wsi_positions(3,2) + WSI_y_dif;
+    % shift stage second and third points positions
+    handles.myData.stagedata.stage_positions(2,1) = handles.myData.stagedata.stage_positions(2,1) + stage_x_dif;
+    handles.myData.stagedata.stage_positions(2,2) = handles.myData.stagedata.stage_positions(2,2) + stage_y_dif;
+    handles.myData.stagedata.stage_positions(3,1) = handles.myData.stagedata.stage_positions(3,1) + stage_x_dif;
+    handles.myData.stagedata.stage_positions(3,2) = handles.myData.stagedata.stage_positions(3,2) + stage_y_dif;
+    stagedata = handles.myData.stagedata;
+    % update GUI
+    set(handles.wsi_1x,'String',handles.current.roi_x0);
+    set(handles.wsi_1y,'String',handles.current.roi_y0);
+    set(handles.wsi_2x,'String',handles.myData.stagedata.wsi_positions(2,1));
+    set(handles.wsi_2y,'String',handles.myData.stagedata.wsi_positions(2,2));
+    set(handles.wsi_3x,'String',handles.myData.stagedata.wsi_positions(3,1));
+    set(handles.wsi_3y,'String',handles.myData.stagedata.wsi_positions(3,2));
+    % Save the current stagedata
+    save(handles.myData.stagedata.stagedata_file,'stagedata');
+    
+    % Prepare for the next step
+   % set(handles.refine_registration,'Enable','on');
 
-
+   % Report success to Admin_Input
+   handles_old = guidata(handles.Administrator_Input_Screen);
+   handles_old.current.success(handles.current.slot_i) = 1;
+   handles_old.myData = handles.myData;
+   guidata(handles.Administrator_Input_Screen,handles_old);
+   % Close the image preview figure
+   close(handles.cam_figure)
+   delete(handles.cam)
+            
+   close(handles.Stage_Allighment);
+   return
+    
+catch ME
+    error_show(ME)
+end
+end
 
 
 %% -------- Abort button callback
@@ -1371,7 +1457,7 @@ try
         'Style', 'pushbutton',...
         'Units', 'characters',...
         'Position', position,...
-        'String', 'Feature Centered in Eyepiece',...
+        'String', 'Adjust color',...
         'Callback', @adjustColor_callback);
     adjusting_color(handles.cam);
 catch ME
