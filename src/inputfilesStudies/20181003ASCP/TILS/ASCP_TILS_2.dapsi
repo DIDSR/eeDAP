@@ -1,0 +1,110 @@
+Author: 
+Date: 
+Time: 
+
+For the Hamamatsu scanning at 20x
+    scan_scale = .4558
+For the Hamamatsu scanning at 40x
+    scan_scale = .2279
+
+Point Grey Grashopper Color (GRAS-03K2C-C)
+    cam_format = RGB24_640x480
+    cam_pixel_size = 7.4um
+Point Grey Flea2 Color (FL2G-50S5C-C): Full resolution, full format
+    cam_format = F7_RGB24_2448x2048
+    cam_pixel_size = 3.45
+Point Grey Flea2 Color (FL2G-50S5C-C): Standard format, aspect ratio = 1.33
+    cam_format = RGB24_1024x768
+    cam_pixel_size = 6.9
+
+Reminder:
+taskorder=2 user specified order
+taskorder=1 listed order
+taskorder=0 random order
+saveimages = 1  save WSI and camera images
+saveimages = 2  only save WSI image
+saveimages = 3  only save camera image
+saveimages = 4  don't save WSI and camera images
+
+
+Input File Task Formats
+taskName,taskID,taskOrder,slot,Question1,Question2,Question3,Question4,Question5
+
+SETTINGS
+NUMBER_OF_WSI    = 5
+wsi_slot_1       = C:\000_whole_slides\ASCPstudyImage\hewitt20180907_RA010-5_003_NZ2p0HT-SN0002.ndpi
+rgb_lut_slot_1   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_1     = 0.2280
+wsi_slot_2       = C:\000_whole_slides\ASCPstudyImage\hewitt20180907_RA005-13_003_NZ2p0HT-SN0002.ndpi
+rgb_lut_slot_2   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_2     = 0.2280
+wsi_slot_3       = C:\000_whole_slides\ASCPstudyImage\hewitt20180907_RA004-L1b_003_NZ2p0HT-SN0002.ndpi
+rgb_lut_slot_3   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_3     = 0.2280
+wsi_slot_4       = C:\000_whole_slides\ASCPstudyImage\hewitt20180907_RA007-L5c_003_NZ2p0HT-SN0002.ndpi
+rgb_lut_slot_4   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_4     = 0.2280
+wsi_slot_5       = C:\000_whole_slides\ASCPstudyImage\hewitt20180907_RA000-L7c_003_NZ2p0HT-SN0002.ndpi
+rgb_lut_slot_5   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_5     = 0.2280
+label_pos        = 12
+reticleID        = KR-871
+cam_kind	 = USB
+cam_format       = F7_RGB_1224x1024_Mode1
+cam_pixel_size   = 6.9
+mag_cam          = 0.5
+mag_lres         = 10
+mag_hres         = 40
+stage_label      = BioPrecision2-LE2_Ludl6000
+BG_Color_RGB     = 0.55 = 0.55 = 0.55
+FG_Color_RGB     = 0.00 = 0.00 = 0.00
+AxesBG_Color_RGB = 0.10 = 0.20 = 0.10
+FontSize         = 13
+autoreg 	 = 1
+saveimages       = 1
+taskorder        = 1
+
+BODY
+start
+finish
+evaluate_imagescope,RA010-5_003_density_roi5,1,1,61446.11162,38175.23354,877,877,What is TLIS density of the FOV,Density (%)
+mark_imagescope,RA010-5_003_mark_roi5,2,1,61446.11162,38175.23354,439,439,Please mark TLIS in this area
+evaluate_imagescope,RA010-5_003_density_roi6,3,1,62785.21152,39850.97866,877,877,What is TLIS density of the FOV,Density (%)
+mark_imagescope,RA010-5_003_mark_roi6,4,1,62785.21152,39850.97866,439,439,Please mark TLIS in this area
+evaluate_imagescope,RA010-5_003_density_roi7,5,1,55440.08212,16654.48437,877,877,What is TLIS density of the FOV,Density (%)
+mark_imagescope,RA010-5_003_mark_roi7,6,1,55440.08212,16654.48437,439,439,Please mark TLIS in this area
+evaluate_imagescope,RA010-5_003_density_roi8,7,1,53439.84959,16404.4553,877,877,What is TLIS density of the FOV,Density (%)
+mark_imagescope,RA010-5_003_mark_roi8,8,1,53439.84959,16404.4553,439,439,Please mark TLIS in this area
+evaluate_imagescope,RA005-13_003_density_roi5,9,2,32004.16692,11670.00777,877,877,What is TLIS density of the FOV,Density (%)
+mark_imagescope,RA005-13_003_mark_roi5,10,2,32004.16692,11670.00777,439,439,Please mark TLIS in this area
+evaluate_imagescope,RA005-13_003_density_roi6,11,2,32239.51907,13495.42203,877,877,What is TLIS density of the FOV,Density (%)
+mark_imagescope,RA005-13_003_mark_roi6,12,2,32239.51907,13495.42203,439,439,Please mark TLIS in this area
+evaluate_imagescope,RA005-13_003_density_roi7,13,2,27136.96792,12077.5293,877,877,What is TLIS density of the FOV,Density (%)
+mark_imagescope,RA005-13_003_mark_roi7,14,2,27136.96792,12077.5293,439,439,Please mark TLIS in this area
+evaluate_imagescope,RA005-13_003_density_roi8,15,2,26052.0519,11997.16515,877,877,What is TLIS density of the FOV,Density (%)
+mark_imagescope,RA005-13_003_mark_roi8,16,2,26052.0519,11997.16515,439,439,Please mark TLIS in this area
+evaluate_imagescope,RA004-L1b_003_density_roi5,17,3,18440.49986,14069.99991,877,877,What is TLIS density of the FOV,Density (%)
+mark_imagescope,RA004-L1b_003_mark_roi5,18,3,18440.49986,14069.99991,439,439,Please mark TLIS in this area
+evaluate_imagescope,RA004-L1b_003_density_roi6,19,3,16230.49992,13724.99995,877,877,What is TLIS density of the FOV,Density (%)
+mark_imagescope,RA004-L1b_003_mark_roi6,20,3,16230.49992,13724.99995,439,439,Please mark TLIS in this area
+evaluate_imagescope,RA004-L1b_003_density_roi7,21,3,20735.49992,12044.99994,877,877,What is TLIS density of the FOV,Density (%)
+mark_imagescope,RA004-L1b_003_mark_roi7,22,3,20735.49992,12044.99994,439,439,Please mark TLIS in this area
+evaluate_imagescope,RA004-L1b_003_density_roi8,23,3,21810.49991,12879.99992,877,877,What is TLIS density of the FOV,Density (%)
+mark_imagescope,RA004-L1b_003_mark_roi8,24,3,21810.49991,12879.99992,439,439,Please mark TLIS in this area
+evaluate_imagescope,RA007-L5c_003_density_roi5,25,4,23057.50019,14942.71441,877,877,What is TLIS density of the FOV,Density (%)
+mark_imagescope,RA007-L5c_003_mark_roi5,26,4,23057.50019,14942.71441,439,439,Please mark TLIS in this area
+evaluate_imagescope,RA007-L5c_003_density_roi6,27,4,19619.40484,16223.66683,877,877,What is TLIS density of the FOV,Density (%)
+mark_imagescope,RA007-L5c_003_mark_roi6,28,4,19619.40484,16223.66683,439,439,Please mark TLIS in this area
+evaluate_imagescope,RA007-L5c_003_density_roi7,29,4,16428.62233,20387.33848,877,877,What is TLIS density of the FOV,Density (%)
+mark_imagescope,RA007-L5c_003_mark_roi7,30,4,16428.62233,20387.33848,439,439,Please mark TLIS in this area
+evaluate_imagescope,RA007-L5c_003_density_roi8,31,4,18326.57095,21753.37793,877,877,What is TLIS density of the FOV,Density (%)
+mark_imagescope,RA007-L5c_003_mark_roi8,32,4,18326.57095,21753.37793,439,439,Please mark TLIS in this area
+evaluate_imagescope,RA000-L7c_003_density_roi5,33,5,36056.42518,15032.5677,877,877,What is TLIS density of the FOV,Density (%)
+mark_imagescope,RA000-L7c_003_mark_roi5,34,5,36056.42518,15032.5677,439,439,Please mark TLIS in this area
+evaluate_imagescope,RA000-L7c_003_density_roi6,35,5,37881.50922,14019.27183,877,877,What is TLIS density of the FOV,Density (%)
+mark_imagescope,RA000-L7c_003_mark_roi6,36,5,37881.50922,14019.27183,439,439,Please mark TLIS in this area
+evaluate_imagescope,RA000-L7c_003_density_roi7,37,5,27533.16391,27376.39745,877,877,What is TLIS density of the FOV,Density (%)
+mark_imagescope,RA000-L7c_003_mark_roi7,38,5,27533.16391,27376.39745,439,439,Please mark TLIS in this area
+evaluate_imagescope,RA000-L7c_003_density_roi8,39,5,27058.80097,28817.731,877,877,What is TLIS density of the FOV,Density (%)
+mark_imagescope,RA000-L7c_003_mark_roi8,40,5,27058.80097,28817.731,439,439,Please mark TLIS in this area
+

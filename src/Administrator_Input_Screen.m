@@ -580,7 +580,7 @@ try
             set(hObject_configure_camera, 'Enable', 'off');
             
             set(handles.StartTheTestButton, 'Enable', 'on');
-            
+            handles.myData.refineRegistration = 0;
         case 'MicroRT'
             set(hObject_configure_COM,...
                 'Enable', 'on',...

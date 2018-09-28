@@ -1,0 +1,121 @@
+Author: 
+Date: 
+Time: 
+
+For the Hamamatsu scanning at 20x
+    scan_scale = .4558
+For the Hamamatsu scanning at 40x
+    scan_scale = .2279
+
+Point Grey Grashopper Color (GRAS-03K2C-C)
+    cam_format = RGB24_640x480
+    cam_pixel_size = 7.4um
+Point Grey Flea2 Color (FL2G-50S5C-C): Full resolution, full format
+    cam_format = F7_RGB24_2448x2048
+    cam_pixel_size = 3.45
+Point Grey Flea2 Color (FL2G-50S5C-C): Standard format, aspect ratio = 1.33
+    cam_format = RGB24_1024x768
+    cam_pixel_size = 6.9
+
+Reminder:
+autoreg = 1 do local automatic registration for each task/FOV
+autoreg = 0 don't local automatic registration for each task/FOV
+taskorder=2 user specified order
+taskorder=1 listed order
+taskorder=0 random order
+saveimages = 1  save WSI and camera images
+saveimages = 2  only save WSI image
+saveimages = 3  only save camera image
+saveimages = 4  don't save WSI and camera images
+
+
+Input File Task Formats
+task_checkMof4,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_count,    TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_mark1,    TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_mark1_out,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_radio1of4,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_slider,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_mitotic_expert,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag
+task_mitotic_train, TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag,ExpertCheckBoxes1-8,Expert_Score
+task_mitotic_counts,TaskID,TaskOrder,Slot,MoveFlag,ZoomFlag
+
+SETTINGS
+NUMBER_OF_WSI    = 4 
+wsi_slot_1       = C:\000_whole_slides\mcsMSKCC\CCB050031HE.svs 
+rgb_lut_slot_1   = icc_profiles\rgb_lut_gamma_inv1p8.txt 
+scan_scale_1     = 0.2503
+wsi_slot_2       = C:\000_whole_slides\mcsMSKCC\CCB010352HE.svs 
+rgb_lut_slot_2   = icc_profiles\rgb_lut_gamma_inv1p8.txt 
+scan_scale_2     = 0.2503
+wsi_slot_3       = C:\000_whole_slides\mcsMSKCC\CCB030097HE.svs 
+rgb_lut_slot_3   = icc_profiles\rgb_lut_gamma_inv1p8.txt 
+scan_scale_3     = 0.2503
+wsi_slot_4       = C:\000_whole_slides\mcsMSKCC\CCB030179HE.svs 
+rgb_lut_slot_4   = icc_profiles\rgb_lut_gamma_inv1p8.txt 
+scan_scale_4     = 0.2503
+label_pos        = 12
+reticleID        = KR-871
+cam_kind	 = USB
+cam_format       = F7_RGB_1224x1024_Mode1
+cam_pixel_size   = 6.9
+mag_cam          = 0.5
+mag_lres         = 10
+mag_hres         = 40
+stage_label      = BioPrecision2-LE2_Ludl6000
+BG_Color_RGB     = 0.55 = 0.55 = 0.55
+FG_Color_RGB     = 0.00 = 0.00 = 0.00
+AxesBG_Color_RGB = 0.10 = 0.20 = 0.10
+FontSize         = 13
+autoreg 	 = 1
+saveimages       = 3
+taskorder        = 1
+
+BODY
+start
+finish
+count2_imagescope,CCB030097HEx7187y4876c,1,3,7187,4876,799,799,Count the mitotic figures in the fourth smallest square
+slider_imagescope,CCB030097HEx7309y4774m,2,3,7309,4774,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+slider_imagescope,CCB030097HEx7144y5156m,3,3,7144,5156,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+count2_imagescope,CCB030097HEx9787y5237c,4,3,9787,5237,799,799,Count the mitotic figures in the fourth smallest square
+slider_imagescope,CCB030097HEx9666y5211m,5,3,9666,5211,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+slider_imagescope,CCB030097HEx9690y4865m,6,3,9690,4865,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+slider_imagescope,CCB030097HEx9411y5368m,7,3,9411,5368,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+slider_imagescope,CCB030097HEx9547y5630m,8,3,9547,5630,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+count2_imagescope,CCB050031HEx4865y16406c,9,1,4865,16406,799,799,Count the mitotic figures in the fourth smallest square
+slider_imagescope,CCB050031HEx4840y16461m,10,1,4840,16461,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+slider_imagescope,CCB050031HEx4952y16764m,11,1,4952,16764,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+slider_imagescope,CCB050031HEx5019y16749m,12,1,5019,16749,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+slider_imagescope,CCB050031HEx5236y16192m,13,1,5236,16192,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+slider_imagescope,CCB050031HEx4937y16725m,14,1,4937,16725,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+count2_imagescope,CCB030097HEx9390y7873c,15,3,9390,7873,799,799,Count the mitotic figures in the fourth smallest square
+slider_imagescope,CCB030097HEx9541y7863m,16,3,9541,7863,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+slider_imagescope,CCB030097HEx9713y8163m,17,3,9713,8163,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+slider_imagescope,CCB030097HEx9750y7824m,18,3,9750,7824,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+count2_imagescope,CCB010352HEx4840y6893c,19,2,4840,6893,799,799,Count the mitotic figures in the fourth smallest square
+slider_imagescope,CCB010352HEx4702y7023m,20,2,4702,7023,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+slider_imagescope,CCB010352HEx4667y7181m,21,2,4667,7181,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+slider_imagescope,CCB010352HEx4829y7186m,22,2,4829,7186,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+count2_imagescope,CCB050031HEx3056y16286c,23,1,3056,16286,799,799,Count the mitotic figures in the fourth smallest square
+slider_imagescope,CCB050031HEx2696y16476m,24,1,2696,16476,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+slider_imagescope,CCB050031HEx3290y16311m,25,1,3290,16311,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+count2_imagescope,CCB050031HEx7761y18015c,26,1,7761,18015,799,799,Count the mitotic figures in the fourth smallest square
+slider_imagescope,CCB050031HEx7712y17811m,27,1,7712,17811,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+slider_imagescope,CCB050031HEx7924y18329m,28,1,7924,18329,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+count2_imagescope,CCB010352HEx11346y5460c,29,2,11346,5460,799,799,Count the mitotic figures in the fourth smallest square
+slider_imagescope,CCB010352HEx11266y5509m,30,2,11266,5509,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+slider_imagescope,CCB010352HEx11215y5183m,31,2,11215,5183,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+slider_imagescope,CCB010352HEx11496y5233m,32,2,11496,5233,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+slider_imagescope,CCB010352HEx11575y5312m,33,2,11575,5312,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+slider_imagescope,CCB010352HEx10983y5533m,34,2,10983,5533,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+count2_imagescope,CCB030179HEx14316y19280c,35,4,14316,19280,799,799,Count the mitotic figures in the fourth smallest square
+slider_imagescope,CCB030179HEx14159y19006m,36,4,14159,19006,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+slider_imagescope,CCB030179HEx14547y18979m,37,4,14547,18979,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+slider_imagescope,CCB030179HEx14200y19601m,38,4,14200,19601,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+count2_imagescope,CCB030179HEx10061y26460c,39,4,10061,26460,799,799,Count the mitotic figures in the fourth smallest square
+slider_imagescope,CCB030179HEx9837y26280m,40,4,9837,26280,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+slider_imagescope,CCB030179HEx10250y26231m,41,4,10250,26231,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+slider_imagescope,CCB030179HEx10360y26230m,42,4,10360,26230,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+slider_imagescope,CCB030179HEx9673y26698m,43,4,9673,26698,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+slider_imagescope,CCB030179HEx10150y26756m,44,4,10150,26756,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)
+slider_imagescope,CCB030179HEx10123y26813m,45,4,10123,26813,799,799,Confidence the cell is undergoing mitosis (0=no and 100=yes)

@@ -211,6 +211,7 @@ function nextWSI_Callback(hObject, eventdata, handles)
         display_thumb(handles.Registration_after_work);
        % set(handles.current.thumb_image_handle,'visible','on');       
         
+       % run registration video
         videoName = [workdir_eeDAPoutputFolder,'\ID-',taskinfo.id,'_iter-',num2str(taskinfo.order),'_registrationVideo.avi'];
         system(videoName);
         set(handles.nextWSI,'Enable','off');
