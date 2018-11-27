@@ -61,6 +61,8 @@ function Registration_after_work_OpeningFcn(hObject, eventdata, handles, varargi
     set(handles.upLeftReg,'Enable','off');
     set(handles.bottomLeftReg,'Enable','off');
     set(handles.bottomRightReg,'Enable','off');
+    set(handles.transfer_stage_position,'Enable','off');
+    
 % Update handles structure
  guidata(handles.Registration_after_work, handles);
 
@@ -187,6 +189,9 @@ function nextWSI_Callback(hObject, eventdata, handles)
         current.thumb_file = [myData.registration_images_dir,...
             'lres_s', num2str(slot_i), '_thumb.tif'];
         wsi_info = myData.wsi_files{slot_i};
+        wsi_name = wsi_info.fullname;
+        tempIndex = find(wsi_name=='\');
+        wsi_name = wsi_name(tempIndex(end)+1:end);
         current.wsi_info = wsi_info;
         current.thumb_image = 0;
         current.thumb_left = 1;
@@ -205,7 +210,7 @@ function nextWSI_Callback(hObject, eventdata, handles)
         handles.current = current;
         currentslot = handles.myData.currentslot;
         taskinfo = handles.myData.eedapOutFileInfo{currentslot}; 
-         workdir_eeDAPoutputFolder = handles.myData.workdir_eeDAPoutputFolder;
+        workdir_eeDAPoutputFolder = handles.myData.workdir_eeDAPoutputFolder;
         handles.myData.stagedata.stagedata_file = [workdir_eeDAPoutputFolder,'\ID-',taskinfo.id,'_iter-',num2str(taskinfo.order),'.mat'];
         guidata(handles.Registration_after_work, handles);
         display_thumb(handles.Registration_after_work);
@@ -214,8 +219,11 @@ function nextWSI_Callback(hObject, eventdata, handles)
        % run registration video
         videoName = [workdir_eeDAPoutputFolder,'\ID-',taskinfo.id,'_iter-',num2str(taskinfo.order),'_registrationVideo.avi'];
         system(videoName);
+        
+        set(handles.WSIname,'String',wsi_name);
         set(handles.nextWSI,'Enable','off');
         set(handles.upLeft,'Enable','on');
+        set(handles.transformation_equation,'String','Transformation Equation')
     else
         close all;
     end
@@ -546,6 +554,7 @@ function bottomRightReg_Callback(hObject, eventdata, handles)
     handles.myData.stagedata.wsi_positions(3,2) = handles.current.roi_y0;
     stagedata =  handles.myData.stagedata;
     save(handles.myData.stagedata.stagedata_file,'stagedata');
+    set(handles.transfer_stage_position,'Enable','on');
     guidata(handles.Registration_after_work, handles);
     % Save the current stagedata
     
@@ -794,4 +803,83 @@ catch ME
     error_show(ME)
 end
 
+end
+
+
+% --- Executes on button press in transfer_stage_position.
+function transfer_stage_position_Callback(hObject, eventdata, handles)
+% hObject    handle to transfer_stage_position (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+    stagedata = handles.myData.stagedata;
+    workdir_eeDAPoutputFolder = handles.myData.workdir_eeDAPoutputFolder;
+    currentslot = handles.myData.currentslot;
+    taskinfo = handles.myData.eedapOutFileInfo{currentslot}; 
+    stagePositionFileName = [workdir_eeDAPoutputFolder,'\ID-',taskinfo.id,'_iter-',num2str(taskinfo.order),'_recordStage.csv'];
+    [stagePosition,txt,raw] = xlsread(stagePositionFileName);
+    
+    
+    % process transformation format     
+    Calib_Point_WSI_A=transpose(stagedata.wsi_positions(1,:));
+    Calib_Point_WSI_B=transpose(stagedata.wsi_positions(2,:));
+    Calib_Point_WSI_C=transpose(stagedata.wsi_positions(3,:));
+    Calib_Point_stage_A=transpose(stagedata.stage_positions(1,:));
+    Calib_Point_stage_B=transpose(stagedata.stage_positions(2,:));
+    Calib_Point_stage_C=transpose(stagedata.stage_positions(3,:));
+
+    wsi_v1=Calib_Point_WSI_B-Calib_Point_WSI_A;
+    wsi_v2=Calib_Point_WSI_C-Calib_Point_WSI_A;
+    stage_v1=Calib_Point_stage_B-Calib_Point_stage_A;
+    stage_v2=Calib_Point_stage_C-Calib_Point_stage_A;
+
+    wsi_M = [wsi_v1, wsi_v2];
+    temp = [wsi_M, transpose([1,0]), transpose([0,1])];
+    temp=rref(temp);
+    wsi_Minv = temp(:,3:4);
+    stage_M = [stage_v1,stage_v2];
+    temp = [stage_M, transpose([1,0]), transpose([0,1])];
+    temp=rref(temp);
+    stage_Minv = temp(:,3:4);
+
+    transformedPosition = [];
+    for i = 1:size(stagePosition,1)
+        stage_new = double(transpose([stagePosition(i,1),stagePosition(i,2)]));
+        wsi_0 = transpose(stagedata.wsi_positions(1,:));                
+        stage_0 = transpose(stagedata.stage_positions(1,:));
+        temp = stage_new - stage_0;
+        temp = inv(stage_M) * temp;
+        temp = wsi_M * temp;
+        wsi_new = int64(temp + wsi_0);
+        stagePositionX(i) = stagePosition(i,1);
+        stagePositionY(i) = stagePosition(i,2);
+        wsiPositionX(i) = wsi_new(1);
+        wsiPositionY(i) = wsi_new(2);
+    end
+
+    SystemTime = txt(2:end,1);
+
+    positionFileName =[workdir_eeDAPoutputFolder,'\ID-',taskinfo.id,'_iter-',num2str(taskinfo.order),'_stageAndWSIpositions.csv'];   
+    positionTable = table(SystemTime,stagePositionX',stagePositionY',wsiPositionX',wsiPositionY');
+    writetable(positionTable,positionFileName);
+    set(handles.transfer_stage_position,'Enable','off');
+    
+    % update Transformation Equation
+    transfer_table = wsi_M*inv(stage_M);
+    m11 = transfer_table(1,1);
+    m12 = transfer_table(1,2);
+    m21 = transfer_table(2,1);
+    m22 = transfer_table(2,2);
+    
+    wsix_ax = m11;
+    wsix_ay = m12;
+    wsix_b = -m11*stagedata.stage_positions(1,1)-m12*stagedata.stage_positions(1,2)+stagedata.wsi_positions(1,1);
+       
+    wsiy_ax = m21;
+    wsiy_ay = m22;
+    wsiy_b = -m21*stagedata.stage_positions(1,1)-m22*stagedata.stage_positions(1,2)+stagedata.wsi_positions(1,2);
+    
+    wsix_function = ['WSI_X = (',num2str(wsix_ax,6),') x Stage_X + (',num2str(wsix_ay,6),') x Stage_Y + (',num2str(round(wsix_b)),')'];
+    wsiy_function = ['WSI_Y = (',num2str(wsiy_ax,6),') x Stage_X + (',num2str(wsiy_ay,6),') x Stage_Y + (',num2str(round(wsiy_b)),')'];
+    set(handles.transformation_equation,'String',{'Transformation Equation';wsix_function;wsiy_function});
+    guidata(handles.Registration_after_work, handles);
 end

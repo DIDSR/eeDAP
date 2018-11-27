@@ -67,45 +67,43 @@ taskorder        = 1
 BODY
 start
 finish
-evaluate_imagescope,RA010-5_003_density_roi1,1,1,39291.04548,43295.00002,877,877,What is TLIS density of the FOV,Density (%)
-mark_imagescope,RA010-5_003_mark_roi1,2,1,39291.04548,43295.00002,439,439,Please mark TLIS in this area
-evaluate_imagescope,RA010-5_003_density_roi2,3,1,41791.04549,42199.54547,877,877,What is TLIS density of the FOV,Density (%)
-mark_imagescope,RA010-5_003_mark_roi3,4,1,41791.04549,42199.54547,439,439,Please mark TLIS in this area
-evaluate_imagescope,RA010-5_003_density_roi3,5,1,43409.22732,43463.18184,877,877,What is TLIS density of the FOV,Density (%)
-mark_imagescope,RA010-5_003_mark_roi3,6,1,43409.22732,43463.18184,439,439,Please mark TLIS in this area
-evaluate_imagescope,RA010-5_003_density_roi4,7,1,59688.07545,36334.90631,877,877,What is TLIS density of the FOV,Density (%)
-mark_imagescope,RA010-5_003_mark_roi4,8,1,59688.07545,36334.90631,439,439,Please mark TLIS in this area
-evaluate_imagescope,RA005-13_003_density_roi1,9,2,27532.80277,18265.81018,877,877,What is TLIS density of the FOV,Density (%)
-mark_imagescope,RA005-13_003_mark_roi1,10,2,27532.80277,18265.81018,439,439,Please mark TLIS in this area
-evaluate_imagescope,RA005-13_003_density_roi2,11,2,28388.10693,19442.57094,877,877,What is TLIS density of the FOV,Density (%)
-mark_imagescope,RA005-13_003_mark_roi2,12,2,28388.10693,19442.57094,439,439,Please mark TLIS in this area
-evaluate_imagescope,RA005-13_003_density_roi3,13,2,29191.74843,17353.10305,877,877,What is TLIS density of the FOV,Density (%)
-mark_imagescope,RA005-13_003_mark_roi3,14,2,29191.74843,17353.10305,439,439,Please mark TLIS in this area
-evaluate_imagescope,RA005-13_003_density_roi4,15,2,33192.40827,12554.01342,877,877,What is TLIS density of the FOV,Density (%)
-mark_imagescope,RA005-13_003_mark_roi4,16,2,33192.40827,12554.01342,439,439,Please mark TLIS in this area
-evaluate_imagescope,RA004-L1b_003_density_roi1,17,3,19671.91228,10545.76316,877,877,What is TLIS density of the FOV,Density (%)
-mark_imagescope,RA004-L1b_003_mark_roi1,18,3,19671.91228,10545.76316,439,439,Please mark TLIS in this area
-evaluate_imagescope,RA004-L1b_003_density_roi2,19,3,18664.5,9924,877,877,What is TLIS density of the FOV,Density (%)
-mark_imagescope,RA004-L1b_003_mark_roi2,20,3,18664.5,9924,439,439,Please mark TLIS in this area
-evaluate_imagescope,RA004-L1b_003_density_roi3,21,3,20076.5,9004,877,877,What is TLIS density of the FOV,Density (%)
-mark_imagescope,RA004-L1b_003_mark_roi3,22,3,20076.5,9004,439,439,Please mark TLIS in this area
-evaluate_imagescope,RA004-L1b_003_density_roi4,23,3,17325.49988,13234.99992,877,877,What is TLIS density of the FOV,Density (%)
-mark_imagescope,RA004-L1b_003_mark_roi4,24,3,17325.49988,13234.99992,439,439,Please mark TLIS in this area
-evaluate_imagescope,RA007-L5c_003_density_roi1,25,4,22376.54779,13628.42865,877,877,What is TLIS density of the FOV,Density (%)
-mark_imagescope,RA007-L5c_003_mark_roi1,26,4,22376.54779,13628.42865,439,439,Please mark TLIS in this area
-evaluate_imagescope,RA007-L5c_003_density_roi2,27,4,23571.78592,12666.52386,877,877,What is TLIS density of the FOV,Density (%)
-mark_imagescope,RA007-L5c_003_mark_roi1,28,4,23571.78592,12666.52386,439,439,Please mark TLIS in this area
-evaluate_imagescope,RA007-L5c_003_density_roi3,29,4,19724.16675,13114.14292,877,877,What is TLIS density of the FOV,Density (%)
-mark_imagescope,RA007-L5c_003_mark_roi3,30,4,19724.16675,13114.14292,439,439,Please mark TLIS in this area
-evaluate_imagescope,RA007-L5c_003_density_roi4,31,4,21814.64301,15614.143,877,877,What is TLIS density of the FOV,Density (%)
-mark_imagescope,RA007-L5c_003_mark_roi4,32,4,21814.64301,15614.143,439,439,Please mark TLIS in this area
-evaluate_imagescope,RA000-L7c_003_density_roi1,33,5,15777.11361,25676.66365,877,877,What is TLIS density of the FOV,Density (%)
-mark_imagescope,RA000-L7c_003_mark_roi1,34,5,15777.11361,25676.66365,439,439,Please mark TLIS in this area
-evaluate_imagescope,RA000-L7c_003_density_roi2,35,5,16765.31477,22581.74073,877,877,What is TLIS density of the FOV,Density (%)
-mark_imagescope,RA000-L7c_003_mark_roi2,36,5,16765.31477,22581.74073,439,439,Please mark TLIS in this area
-evaluate_imagescope,RA000-L7c_003_density_roi3,37,5,16341.42587,24490.88883,877,877,What is TLIS density of the FOV,Density (%)
-mark_imagescope,RA000-L7c_003_mark_roi3,38,5,16341.42587,24490.88883,439,439,Please mark TLIS in this area
-evaluate_imagescope,RA000-L7c_003_density_roi4,39,5,35423.11527,13541.41071,877,877,What is TLIS density of the FOV,Density (%)
-mark_imagescope,RA000-L7c_003_mark_roi4,40,5,35423.11527,13541.41071,439,439,Please mark TLIS in this area
-
-
+evaluate_imagescope,RA010-5-003_densityInsideROI1_x58470y28190,1,1,58470,28190,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA010-5-003_markInsideROI1_x58470y28190,2,1,58470,28190,219,219,Please mark TILS in this area
+evaluate_imagescope,RA010-5-003_densityInsideROI2_x44642y30991,3,1,44642,30991,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA010-5-003_markInsideROI2_x44642y30991,4,1,44642,30991,219,219,Please mark TILS in this area
+evaluate_imagescope,RA010-5-003_densityBoundaryROI3_x42205y41817,5,1,42205,41817,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA010-5-003_markBoundaryROI3_x42205y41817,6,1,42205,41817,219,219,Please mark TILS in this area
+evaluate_imagescope,RA010-5-003_densityBoundaryROI4_x33168y47874,7,1,33168,47874,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA010-5-003_markBoundaryROI4_x33168y47874,8,1,33168,47874,219,219,Please mark TILS in this area
+evaluate_imagescope,RA007-L5c-003_densityInsideROI1_x26485y16955,9,4,26485,16955,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA007-L5c-003_markInsideROI1_x26485y16955,10,4,26485,16955,219,219,Please mark TILS in this area
+evaluate_imagescope,RA007-L5c-003_densityInsideROI2_x19379y14225,11,4,19379,14225,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA007-L5c-003_markInsideROI2_x19379y14225,12,4,19379,14225,219,219,Please mark TILS in this area
+evaluate_imagescope,RA007-L5c-003_densityBoundaryROI3_x17193y20374,13,4,17193,20374,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA007-L5c-003_markBoundaryROI3_x17193y20374,14,4,17193,20374,219,219,Please mark TILS in this area
+evaluate_imagescope,RA007-L5c-003_densityBoundaryROI4_x17932y22855,15,4,17932,22855,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA007-L5c-003_markBoundaryROI4_x17932y22855,16,4,17932,22855,219,219,Please mark TILS in this area
+evaluate_imagescope,RA005-13-003_densityInsideROI1_x33974y14048,17,2,33974,14048,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA005-13-003_markInsideROI1_x33974y14048,18,2,33974,14048,219,219,Please mark TILS in this area
+evaluate_imagescope,RA005-13-003_densityInsideROI2_x24764y11859,19,2,24764,11859,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA005-13-003_markInsideROI2_x24764y11859,20,2,24764,11859,219,219,Please mark TILS in this area
+evaluate_imagescope,RA005-13-003_densityBoundaryROI3_x14042y12873,21,2,14042,12873,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA005-13-003_markBoundaryROI3_x14042y12873,22,2,14042,12873,219,219,Please mark TILS in this area
+evaluate_imagescope,RA005-13-003_densityBoundaryROI4_x15128y12509,23,2,15128,12509,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA005-13-003_markBoundaryROI4_x15128y12509,24,2,15128,12509,219,219,Please mark TILS in this area
+evaluate_imagescope,RA004-L1b-003_densityInsideROI1_x20167y14622,25,3,20167,14622,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA004-L1b-003_markInsideROI1_x20167y14622,26,3,20167,14622,219,219,Please mark TILS in this area
+evaluate_imagescope,RA004-L1b-003_densityInsideROI2_x21558y12250,27,3,21558,12250,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA004-L1b-003_markInsideROI2_x21558y12250,28,3,21558,12250,219,219,Please mark TILS in this area
+evaluate_imagescope,RA004-L1b-003_densityBoundaryROI3_x16314y20070,29,3,16314,20070,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA004-L1b-003_markBoundaryROI3_x16314y20070,30,3,16314,20070,219,219,Please mark TILS in this area
+evaluate_imagescope,RA004-L1b-003_densityBoundaryROI4_x21133y19022,31,3,21133,19022,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA004-L1b-003_markBoundaryROI4_x21133y19022,32,3,21133,19022,219,219,Please mark TILS in this area
+evaluate_imagescope,RA000-L7c-003_densityInsideROI1_x18501y26330,33,5,18501,26330,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA000-L7c-003_markInsideROI1_x18501y26330,34,5,18501,26330,219,219,Please mark TILS in this area
+evaluate_imagescope,RA000-L7c-003_densityInsideROI2_x20558y27391,35,5,20558,27391,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA000-L7c-003_markInsideROI2_x20558y27391,36,5,20558,27391,219,219,Please mark TILS in this area
+evaluate_imagescope,RA000-L7c-003_densityBoundaryROI3_x19705y35975,37,5,19705,35975,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA000-L7c-003_markBoundaryROI3_x19705y35975,38,5,19705,35975,219,219,Please mark TILS in this area
+evaluate_imagescope,RA000-L7c-003_densityBoundaryROI4_x26028y32677,39,5,26028,32677,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA000-L7c-003_markBoundaryROI4_x26028y32677,40,5,26028,32677,219,219,Please mark TILS in this area
