@@ -22,7 +22,7 @@ function varargout = WSIregistration(varargin)
 
 % Edit the above text to modify the response to help WSIregistration
 
-% Last Modified by GUIDE v2.5 25-Sep-2018 16:55:36
+% Last Modified by GUIDE v2.5 12-Mar-2019 15:21:38
 
 % Begin initialization code - DO NOT EDIT
     gui_Singleton = 1;
@@ -59,6 +59,7 @@ function WSIregistration_OpeningFcn(hObject, eventdata, handles, varargin)
     figuresz=getpixelposition(gcf);
     setpixelposition(gcf,[scrsz(3)/2-figuresz(3)/2 ...
         scrsz(4)/2-figuresz(4)/2 figuresz(3) figuresz(4)]);
+    handles.finished_onepoint = [0,0];
     % Update handles structure
     set(handles.load_WSI_A,'Enable','on');
     set(handles.load_WSI_B,'Enable','off');
@@ -919,6 +920,8 @@ function position_3_Callback(hObject, eventdata, handles)
     
     set(handles.transformationEquationText,'String',{'Transformation Equation';wsix_function;wsiy_function});
     set(handles.loadBasedPosition,'Enable','on');
+    set(handles.WSIA_X_Input,'Enable','on');
+    set(handles.WSIA_Y_Input,'Enable','on');
        
     display_thumb_A(handles.WSIregistration)
     display_thumb_B(handles.WSIregistration)
@@ -1013,4 +1016,127 @@ function Generate_Transformation_Matrix(handles)
     guidata(handles.WSIregistration, handles);
     
 
+end
+
+
+% --- Executes on button press in TransformOnePoint.
+function TransformOnePoint_Callback(hObject, eventdata, handles)
+% hObject    handle to TransformOnePoint (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+    handles = guidata(handles.WSIregistration);
+    result = handles.result;
+    WSI_A_onepoint = handles.WSI_A_onepoint;
+    
+    temp_A_position = double(transpose([WSI_A_onepoint(1), WSI_A_onepoint(2)]));
+    wsi_A_Minv = result.wsi_A_Minv;
+    wsi_A_p1 = transpose(result.wsi_A_positions(1,:));
+    % stage_M maps standard coordinate plane to stage coordinates
+    % given reference point stage_0 = [stage_x0, stage_y0]
+    wsi_B_M = result.wsi_B_M;
+    wsi_B_p1 = transpose(result.wsi_B_positions(1,:));
+                    
+    % Shift to set wsi reference as origin
+    temp = temp_A_position - wsi_A_p1;
+    % Map to standard coordinate plane
+    temp = wsi_A_Minv * temp;
+    % Map to stage coordinates
+    temp = wsi_B_M * temp;
+    % Shift to unset stage reference as origin
+    temp_B_position = int64(temp + wsi_B_p1);
+    
+    xPos = temp_B_position(1);
+    yPos = temp_B_position(2);
+    set(handles.WSIB_X_transformed,'String',['X: ',num2str(xPos)]);
+    set(handles.WSIB_Y_transformed,'String',['Y: ',num2str(yPos)]);
+    handles.finished_onepoint = [0,0];
+    set(handles.ExportOnePointResult,'Enable','on');
+    set(handles.TransformOnePoint,'Enable','off');
+    handles.B_position_onepint = temp_B_position;
+    guidata(handles.WSIregistration,handles);
+end
+
+% --- Executes on button press in ExportOnePointResult.
+function ExportOnePointResult_Callback(hObject, eventdata, handles)
+% hObject    handle to ExportOnePointResult (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+    handles = guidata(handles.WSIregistration);
+    B_position_onepint = handles.B_position_onepint;
+    xPos = B_position_onepint(1);
+    yPos = B_position_onepint(2);
+    WSI_B_position = table(xPos,yPos);
+    writetable(WSI_B_position,[pwd, '\Register_Two_WSI\',handles.WSI_B.name,'_onePoint_positions.csv']);
+    set(handles.ExportOnePointResult,'Enable','off');
+    guidata(handles.WSIregistration,handles);
+end
+
+
+function WSIA_X_Input_Callback(hObject, eventdata, handles)
+% hObject    handle to WSIA_X_Input (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of WSIA_X_Input as text
+%        str2double(get(hObject,'String')) returns contents of WSIA_X_Input as a double
+    handles = guidata(handles.WSIregistration);
+    %[WSI_A_position_file, workdir] = uigetfile('*.csv', 'Select based WSI file position');  
+    tempX= str2num(get(handles.WSIA_X_Input, 'String'));
+    set(handles.WSIB_X_transformed,'String','X:');
+    set(handles.WSIB_Y_transformed,'String','Y:');
+    handles.WSI_A_onepoint(1) = tempX;
+    handles.finished_onepoint(1) = 1; 
+    if (sum(handles.finished_onepoint)==2)
+        set(handles.TransformOnePoint,'Enable','on');
+    
+    end
+    guidata(handles.WSIregistration,handles);
+end
+
+% --- Executes during object creation, after setting all properties.
+function WSIA_X_Input_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to WSIA_X_Input (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+end
+
+
+function WSIA_Y_Input_Callback(hObject, eventdata, handles)
+% hObject    handle to WSIA_Y_Input (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of WSIA_Y_Input as text
+%        str2double(get(hObject,'String')) returns contents of WSIA_Y_Input as a double
+    handles = guidata(handles.WSIregistration);
+    %[WSI_A_position_file, workdir] = uigetfile('*.csv', 'Select based WSI file position');  
+    tempY = str2num(get(handles.WSIA_Y_Input, 'String'));
+    set(handles.WSIB_X_transformed,'String','X:');
+    set(handles.WSIB_Y_transformed,'String','Y:');
+    handles.WSI_A_onepoint(2) = tempY;
+    handles.finished_onepoint(2) = 1; 
+    if (sum(handles.finished_onepoint)==2)
+        set(handles.TransformOnePoint,'Enable','on');
+    
+    end
+    guidata(handles.WSIregistration,handles);
+end
+
+% --- Executes during object creation, after setting all properties.
+function WSIA_Y_Input_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to WSIA_Y_Input (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
 end
