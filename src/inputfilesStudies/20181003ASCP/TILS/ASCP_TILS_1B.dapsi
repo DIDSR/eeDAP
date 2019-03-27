@@ -1,0 +1,93 @@
+Author: 
+Date: 
+Time: 
+
+For the Hamamatsu scanning at 20x
+    scan_scale = .4558
+For the Hamamatsu scanning at 40x
+    scan_scale = .2279
+
+Point Grey Grashopper Color (GRAS-03K2C-C)
+    cam_format = RGB24_640x480
+    cam_pixel_size = 7.4um
+Point Grey Flea2 Color (FL2G-50S5C-C): Full resolution, full format
+    cam_format = F7_RGB24_2448x2048
+    cam_pixel_size = 3.45
+Point Grey Flea2 Color (FL2G-50S5C-C): Standard format, aspect ratio = 1.33
+    cam_format = RGB24_1024x768
+    cam_pixel_size = 6.9
+
+Reminder:
+taskorder=2 user specified order
+taskorder=1 listed order
+taskorder=0 random order
+saveimages = 1  save WSI and camera images
+saveimages = 2  only save WSI image
+saveimages = 3  only save camera image
+saveimages = 4  don't save WSI and camera images
+
+
+Input File Task Formats
+taskName,taskID,taskOrder,slot,Question1,Question2,Question3,Question4,Question5
+
+SETTINGS
+NUMBER_OF_WSI    = 5
+wsi_slot_1       = C:\000_whole_slides\ASCPstudyImage\hewitt20180907_RA010-5_003_NZ2p0HT-SN0002.ndpi
+rgb_lut_slot_1   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_1     = 0.2280
+wsi_slot_2       = C:\000_whole_slides\ASCPstudyImage\hewitt20180907_RA005-13_003_NZ2p0HT-SN0002.ndpi
+rgb_lut_slot_2   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_2     = 0.2280
+wsi_slot_3       = C:\000_whole_slides\ASCPstudyImage\hewitt20180907_RA004-L1b_003_NZ2p0HT-SN0002.ndpi
+rgb_lut_slot_3   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_3     = 0.2280
+wsi_slot_4       = C:\000_whole_slides\ASCPstudyImage\hewitt20180907_RA007-L5c_003_NZ2p0HT-SN0002.ndpi
+rgb_lut_slot_4   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_4     = 0.2280
+wsi_slot_5       = C:\000_whole_slides\ASCPstudyImage\hewitt20180907_RA000-L7c_003_NZ2p0HT-SN0002.ndpi
+rgb_lut_slot_5   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_5     = 0.2280
+label_pos        = 12
+reticleID        = KR-871
+cam_kind	 = USB
+cam_format       = F7_RGB_1224x1024_Mode1
+cam_pixel_size   = 6.9
+mag_cam          = 0.5
+mag_lres         = 10
+mag_hres         = 40
+stage_label      = BioPrecision2-LE2_Ludl6000
+BG_Color_RGB     = 0.55 = 0.55 = 0.55
+FG_Color_RGB     = 0.00 = 0.00 = 0.00
+AxesBG_Color_RGB = 0.10 = 0.20 = 0.10
+FontSize         = 13
+autoreg 	 = 1
+saveimages       = 1
+taskorder        = 1
+
+BODY
+start
+finish
+evaluate_imagescope,RA010-5-003_densityInsideROI2_x44642y30991,1,1,44642,30991,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA010-5-003_markInsideROI2_x44642y30991,2,1,44642,30991,219,219,Please mark TILS in this area
+evaluate_imagescope,RA010-5-003_densityBoundaryROI4_x33168y47874,3,1,33168,47874,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA010-5-003_markBoundaryROI4_x33168y47874,4,1,33168,47874,219,219,Please mark TILS in this area
+evaluate_imagescope,RA007-L5c-003_densityInsideROI2_x19379y14225,5,4,19379,14225,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA007-L5c-003_markInsideROI2_x19379y14225,6,4,19379,14225,219,219,Please mark TILS in this area
+evaluate_imagescope,RA007-L5c-003_densityBoundaryROI4_x17932y22855,7,4,17932,22855,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA007-L5c-003_markBoundaryROI4_x17932y22855,8,4,17932,22855,219,219,Please mark TILS in this area
+evaluate_imagescope,RA005-13-003_densityInsideROI2_x24764y11859,9,2,24764,11859,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA005-13-003_markInsideROI2_x24764y11859,10,2,24764,11859,219,219,Please mark TILS in this area
+evaluate_imagescope,RA005-13-003_densityBoundaryROI4_x15128y12509,11,2,15128,12509,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA005-13-003_markBoundaryROI4_x15128y12509,12,2,15128,12509,219,219,Please mark TILS in this area
+evaluate_imagescope,RA004-L1b-003_densityInsideROI2_x21558y12250,13,3,21558,12250,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA004-L1b-003_markInsideROI2_x21558y12250,14,3,21558,12250,219,219,Please mark TILS in this area
+evaluate_imagescope,RA004-L1b-003_densityBoundaryROI4_x21133y19022,15,3,21133,19022,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA004-L1b-003_markBoundaryROI4_x21133y19022,16,3,21133,19022,219,219,Please mark TILS in this area
+evaluate_imagescope,RA000-L7c-003_densityInsideROI2_x20558y27391,17,5,20558,27391,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA000-L7c-003_markInsideROI2_x20558y27391,18,5,20558,27391,219,219,Please mark TILS in this area
+evaluate_imagescope,RA000-L7c-003_densityBoundaryROI4_x26028y32677,19,5,26028,32677,877,877,What is TILS density of the FOV,Density (%)
+mark_imagescope,RA000-L7c-003_markBoundaryROI4_x26028y32677,20,5,26028,32677,219,219,Please mark TILS in this area
+
+
+
+

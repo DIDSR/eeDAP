@@ -63,10 +63,18 @@ AxesBG_Color_RGB=0.1=0.2=0.1
 FontSize=13
 autoreg=0
 saveimages=3
-taskorder=0
+taskorder=2
 
 BODY
-start,MicroRT,komforti
+start
 finish
-globalAndBestRegPhoto,6,-1,1,64302,24482,799,799
-globalAndBestRegPhoto,5,-1,1,23276,37030,799,799
+globalAndBestRegPhoto,4,1,1,30813,22441,799,799
+globalAndBestRegPhoto,9,2,1,81000,17586,799,799
+globalAndBestRegPhoto,5,3,1,23276,37030,799,799
+globalAndBestRegPhoto,10,4,1,79324,35528,799,799
+globalAndBestRegPhoto,1,5,1,12167,28165,799,799
+globalAndBestRegPhoto,2,6,1,14300,33358,799,799
+globalAndBestRegPhoto,8,7,1,79367,20929,799,799
+globalAndBestRegPhoto,3,8,1,18832,34758,799,799
+globalAndBestRegPhoto,6,9,1,64302,24482,799,799
+globalAndBestRegPhoto,7,10,1,64330,29717,799,799

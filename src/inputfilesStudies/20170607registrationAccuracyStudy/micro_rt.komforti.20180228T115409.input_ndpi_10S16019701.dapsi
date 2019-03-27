@@ -45,7 +45,7 @@ task_mitotic_counts,TaskID,TaskOrder,Slot,MoveFlag,ZoomFlag
 
 SETTINGS
 NUMBER_OF_WSI=1 
-wsi_slot_1=C:\000_whole_slides\CSHL\10S15001503.ndpi 
+wsi_slot_1=C:\000_whole_slides\CSHL\10S16019701.ndpi 
 rgb_lut_slot_1=icc_profiles\rgb_lut_gamma_inv1p8.txt 
 scan_scale_1=0.4513 
 label_pos=9
@@ -63,10 +63,18 @@ AxesBG_Color_RGB=0.1=0.2=0.1
 FontSize=13
 autoreg=0
 saveimages=3
-taskorder=0
+taskorder=2
 
 BODY
 start,MicroRT,komforti
 finish
-globalAndBestRegPhoto,6,-1,1,64302,24482,799,799
-globalAndBestRegPhoto,5,-1,1,23276,37030,799,799
+globalAndBestRegPhoto,2,1,1,14979,36101,799,799
+globalAndBestRegPhoto,9,2,1,45591,30281,799,799
+globalAndBestRegPhoto,7,3,1,45891,22825,799,799
+globalAndBestRegPhoto,4,4,1,17801,23735,799,799
+globalAndBestRegPhoto,6,5,1,32502,27790,799,799
+globalAndBestRegPhoto,1,6,1,10152,39330,799,799
+globalAndBestRegPhoto,10,7,1,67766,25415,799,799
+globalAndBestRegPhoto,5,8,1,30832,16208,799,799
+globalAndBestRegPhoto,8,9,1,29915,43798,799,799
+globalAndBestRegPhoto,3,10,1,17860,32464,799,799

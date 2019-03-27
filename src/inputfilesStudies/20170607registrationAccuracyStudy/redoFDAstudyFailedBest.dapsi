@@ -34,7 +34,7 @@ http://openslide.cs.cmu.edu/download/openslide-testdata/Hamamatsu/CMU-1.ndpi
 
 Input File Task Formats
 task_checkMof4,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-task_count,    TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_globalAndBestRegPhoto,    TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
 task_mark1,    TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
 task_mark1_out,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
 task_radio1of4,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
@@ -44,11 +44,14 @@ task_mitotic_train, TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Mo
 task_mitotic_counts,TaskID,TaskOrder,Slot,MoveFlag,ZoomFlag
 
 SETTINGS
-NUMBER_OF_WSI=1 
-wsi_slot_1=C:\000_whole_slides\CSHL\10S15001503.ndpi 
+NUMBER_OF_WSI=2 
+wsi_slot_1=C:\000_whole_slides\Halsey\CCB030148pHH3.svs 
 rgb_lut_slot_1=icc_profiles\rgb_lut_gamma_inv1p8.txt 
-scan_scale_1=0.4513 
-label_pos=9
+scan_scale_1=0.2503 
+wsi_slot_2=C:\000_whole_slides\registrationStudy\group2\S06-10842_B5-ER.svs 
+rgb_lut_slot_2=icc_profiles\rgb_lut_gamma_inv1p8.txt 
+scan_scale_2=0.4957 
+label_pos=6
 reticleID=KR-871
 cam_kind=USB
 cam_format=F7_RGB_1224x1024_Mode1
@@ -66,7 +69,25 @@ saveimages=3
 taskorder=0
 
 BODY
-start,MicroRT,komforti
+start
 finish
-globalAndBestRegPhoto,6,-1,1,64302,24482,799,799
-globalAndBestRegPhoto,5,-1,1,23276,37030,799,799
+globalAndBestRegPhoto,1s1,-1,1,8154.7728,4084.6818,799,799
+globalAndBestRegPhoto,1s2,-1,1,7574.2273,8239.0455,799,799
+globalAndBestRegPhoto,1s3,-1,1,9473.7728,9559.1364,799,799
+globalAndBestRegPhoto,1f1,-1,1,6982.7728,10451.1364,799,799
+globalAndBestRegPhoto,1f2,-1,1,8097.4091,11818.6818,799,799
+globalAndBestRegPhoto,1s4,-1,1,10240.8056,12914.7177,799,799
+globalAndBestRegPhoto,1s5,-1,1,5527.2273,9587.0455,799,799
+globalAndBestRegPhoto,1s6,-1,1,9605.1364,10888.2273,799,799
+globalAndBestRegPhoto,1f3,-1,1,4927.9546,11348.4091,799,799
+globalAndBestRegPhoto,1s7,-1,1,7638.0779,13591.5807,799,799
+globalAndBestRegPhoto,2s1,-1,2,14118.5,12995.5,799,799
+globalAndBestRegPhoto,2s2,-1,2,20787.5,14676.5,799,799
+globalAndBestRegPhoto,2s3,-1,2,14104.5,18852.5,799,799
+globalAndBestRegPhoto,2s4,-1,2,18778.5,10657.5,799,799
+globalAndBestRegPhoto,2s5,-1,2,49490.5,15238.5,799,799
+globalAndBestRegPhoto,2s6,-1,2,44917.5,32903.5,799,799
+globalAndBestRegPhoto,2s7,-1,2,28590.5,30340.5,799,799
+globalAndBestRegPhoto,2f1,-1,2,12145.5,33857.5,799,799
+globalAndBestRegPhoto,2s8,-1,2,8064.5,26965.5,799,799
+globalAndBestRegPhoto,2s9,-1,2,20895.5,3787.5,799,799
