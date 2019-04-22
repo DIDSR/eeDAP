@@ -69,6 +69,7 @@ function Camera_stage_review_OpeningFcn(hObject, eventdata, handles, varargin)
     handles.cameraflag = 0;
     handles.firsttime = 1;
     handles.output=hObject;
+    addpath('stages/Prior','stages/Ludl');
     % Update handles structure
     guidata(hObject, handles);
 end
@@ -460,9 +461,12 @@ try
     handles.cam.FramesPerTrigger = Inf;
     start(handles.cam);
     % record audio
-    wavObject = audiorecorder;
-    record(wavObject);
-    handles.audio = wavObject;
+    audioExist = audiodevinfo;
+    if (size(audioExist.input,1)>0)
+        wavObject = audiorecorder;
+        record(wavObject);
+        handles.audio = wavObject;
+    end
     % record stage position
     handles.recordStagePosition=[];
     guidata(hObject, handles);
@@ -498,11 +502,13 @@ function Stop_video_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
     % audio
-    wavObject = handles.audio;
-    stop(wavObject);
-    audioData = getaudiodata(wavObject);
-    audiowrite('myAudio.wav',audioData,wavObject.SampleRate)
-    
+    audioExist = audiodevinfo;
+    if (size(audioExist.input,1)>0)
+        wavObject = handles.audio;
+        stop(wavObject);
+        audioData = getaudiodata(wavObject);
+        audiowrite('myAudio.wav',audioData,wavObject.SampleRate)
+    end
     % video
     video= handles.cam;
     stop(video);
