@@ -222,6 +222,7 @@ function nextWSI_Callback(hObject, eventdata, handles)
         
         set(handles.WSIname,'String',wsi_name);
         set(handles.nextWSI,'Enable','off');
+        set(handles.LoadPreviousTransformation,'Enable','on');
         set(handles.upLeft,'Enable','on');
         set(handles.transformation_equation,'String','Transformation Equation')
     else
@@ -882,4 +883,175 @@ function transfer_stage_position_Callback(hObject, eventdata, handles)
     wsiy_function = ['WSI_Y = (',num2str(wsiy_ax,6),') x Stage_X + (',num2str(wsiy_ay,6),') x Stage_Y + (',num2str(round(wsiy_b)),')'];
     set(handles.transformation_equation,'String',{'Transformation Equation';wsix_function;wsiy_function});
     guidata(handles.Registration_after_work, handles);
+end
+
+
+% --- Executes on button press in LoadPreviousTransformation.
+
+function LoadPreviousTransformation_Callback(hObject, eventdata, handles)
+
+% hObject    handle to LoadPreviousTransformation (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+     
+    handles = guidata(handles.Registration_after_work);
+    set(handles.LoadPreviousTransformation,'Enable','off');
+    guidata(handles.Registration_after_work, handles);
+    [stagedata_file, workdir] = ...
+        uigetfile('*.mat', 'Select a question set file');
+    stagedata_file_full = [workdir, stagedata_file];  
+    load(stagedata_file_full)
+    handles.myData.stagedata = stagedata;
+    settings =  handles.myData.settings;
+
+    current = handles.current;
+    workdir_eeDAPoutputFolder = handles.myData.workdir_eeDAPoutputFolder;
+    currentslot = handles.myData.currentslot;
+    taskinfo = handles.myData.eedapOutFileInfo{currentslot};
+ 
+%     imageNameBottomRight = [workdir_eeDAPoutputFolder,'\ID',taskinfo.id,'_Slot',num2str(taskinfo.slot),'_Order',num2str(taskinfo.order),'_x',num2str(taskinfo.bottomrightX),'_y',num2str(taskinfo.bottomrightY),'_3bottomRight.tif'];
+%     imageNameBottomLeft = [workdir_eeDAPoutputFolder,'\ID',taskinfo.id,'_Slot',num2str(taskinfo.slot),'_Order',num2str(taskinfo.order),'_x',num2str(taskinfo.bottomleftX),'_y',num2str(taskinfo.bottomleftY),'_2bottomLeft.tif'];
+%     imageNameUpLeft = [workdir_eeDAPoutputFolder,'\ID',taskinfo.id,'_Slot',num2str(taskinfo.slot),'_Order',num2str(taskinfo.order),'_x',num2str(taskinfo.upleftX),'_y',num2str(taskinfo.upleftY),'_1upLeft.tif'];   
+    
+%     stagePositionBottomRight = [taskinfo.bottomrightX, taskinfo.bottomrightY];
+%     stagePositionBottomLeft = [taskinfo.bottomleftX, taskinfo.bottomleftY];
+%     stagePositionUpLeft = [taskinfo.upleftX, taskinfo.upleftY];
+% 
+%     wsiPositionBottomRight = stageToWSI(taskinfo.bottomrightX, taskinfo.bottomrightY, stagedata_file);
+%     wsiPositionBottomRight = stageToWSI(taskinfo.bottomleftX, taskinfo. bottomleftY, stagedata_file);
+%     wsiPositionBottomRight = stageToWSI(taskinfo.upleftX, taskinfo.upleftY, stagedata_file);
+    
+    
+    current.roi_file = [handles.myData.registration_images_dir,'temp_roi.tif'];
+
+
+    cam_image{1} = [workdir_eeDAPoutputFolder,'\ID',taskinfo.id,'_Slot',num2str(taskinfo.slot),'_Order',num2str(taskinfo.order),'_x',num2str(taskinfo.bottomrightX),'_y',num2str(taskinfo.bottomrightY),'_3bottomRight.tif'];
+    cam_image{2} = [workdir_eeDAPoutputFolder,'\ID',taskinfo.id,'_Slot',num2str(taskinfo.slot),'_Order',num2str(taskinfo.order),'_x',num2str(taskinfo.bottomleftX),'_y',num2str(taskinfo.bottomleftY),'_2bottomLeft.tif'];
+    cam_image{3} = [workdir_eeDAPoutputFolder,'\ID',taskinfo.id,'_Slot',num2str(taskinfo.slot),'_Order',num2str(taskinfo.order),'_x',num2str(taskinfo.upleftX),'_y',num2str(taskinfo.upleftY),'_1upLeft.tif'];   
+    imageSize = size(imread(cam_image{1}));
+    current.cam_w = imageSize(2);
+    current.cam_h = imageSize(1);
+    
+    stagePosition(1,:) = [taskinfo.bottomrightX, taskinfo.bottomrightY];
+    stagePosition(2,:) = [taskinfo.bottomleftX, taskinfo.bottomleftY];
+    stagePosition(3,:) = [taskinfo.upleftX, taskinfo.upleftY];
+
+    % process transformation format     
+    Calib_Point_WSI_A=transpose(stagedata.wsi_positions(1,:));
+    Calib_Point_WSI_B=transpose(stagedata.wsi_positions(2,:));
+    Calib_Point_WSI_C=transpose(stagedata.wsi_positions(3,:));
+    Calib_Point_stage_A=transpose(stagedata.stage_positions(1,:));
+    Calib_Point_stage_B=transpose(stagedata.stage_positions(2,:));
+    Calib_Point_stage_C=transpose(stagedata.stage_positions(3,:));
+
+    wsi_v1=Calib_Point_WSI_B-Calib_Point_WSI_A;
+    wsi_v2=Calib_Point_WSI_C-Calib_Point_WSI_A;
+    stage_v1=Calib_Point_stage_B-Calib_Point_stage_A;
+    stage_v2=Calib_Point_stage_C-Calib_Point_stage_A;
+
+    wsi_M = [wsi_v1, wsi_v2];
+    temp = [wsi_M, transpose([1,0]), transpose([0,1])];
+    temp=rref(temp);
+    wsi_Minv = temp(:,3:4);
+    stage_M = [stage_v1,stage_v2];
+    temp = [stage_M, transpose([1,0]), transpose([0,1])];
+    temp=rref(temp);
+    stage_Minv = temp(:,3:4);
+    
+    for i=1:3
+        stage_new = double(transpose(stagePosition(i,:)));
+        wsi_0 = transpose(stagedata.wsi_positions(1,:));               
+        stage_0 = transpose(stagedata.stage_positions(1,:));
+        temp = stage_new - stage_0;
+        temp = inv(stage_M) * temp;
+        temp = wsi_M * temp;
+        wsiPosition(i,:) = double(temp + wsi_0)';
+    end
+    
+%     wsiPosition(1,:) = stageToWSI(stagePosition(1,:), stagedata)';
+%     wsiPosition(2,:) = stageToWSI(stagePosition(2,:), stagedata)';
+%     wsiPosition(3,:) = stageToWSI(stagePosition(3,:), stagedata)';
+     
+% stage
+       
+ %WSI
+    slot_i = handles.myData.currentslot;
+    cam_hres2scan = settings.cam_hres2scan(slot_i);
+    scan2cam_hres = settings.scan2cam_hres(slot_i);
+    roi_w = 2.0*settings.cam_roi_w;
+    roi_h = 2.0*settings.cam_roi_h;
+    roi_extract_h = roi_w*cam_hres2scan;
+    roi_extract_w = roi_h*cam_hres2scan;
+    current.roi_w = roi_w;
+    current.roi_h = roi_h;
+    current.roi_extract_h = roi_extract_h;
+    current.roi_extract_w = roi_extract_w;
+    for i = 1:3
+               
+        roi_x0 = wsiPosition(i,1);
+        roi_y0 = wsiPosition(i,2);
+        current.roi_left = roi_x0 - roi_extract_w/2;
+        current.roi_top  = roi_y0 - roi_extract_h/2;
+        current.roi_x0 = roi_x0;
+        current.roi_y0 = roi_y0;
+        current.roi_extract_w = roi_extract_w;
+        current.roi_extract_h = roi_extract_h;
+        current.cam_image = imread(cam_image{i});
+        current.position_i = i;
+        handles.current = current;
+        guidata(handles.Registration_after_work, handles);
+        Register_ROI(handles);
+        handles = guidata(handles.Registration_after_work);
+        if handles.current.registration_good==0
+            return;
+        end
+        handles.myData.stagedata.wsi_positions(i,1) = handles.current.roi_x0;
+        handles.myData.stagedata.wsi_positions(i,2) = handles.current.roi_y0;
+        handles.myData.stagedata.stage_positions(i,:) = stagePosition(i,:);
+        guidata(handles.Registration_after_work, handles);
+        
+    end   
+
+    stagedata =  handles.myData.stagedata;
+    save(handles.myData.stagedata.stagedata_file,'stagedata');
+    set(handles.nextWSI,'Enable','on'); 
+    set(handles.transfer_stage_position,'Enable','on');
+    guidata(handles.Registration_after_work, handles);
+
+end
+
+ 
+
+function wsi_new=stageToWSI(stagePostion,stagedata)
+
+                % process transformation format     
+        Calib_Point_WSI_A=transpose(stagedata.wsi_positions(1,:));
+        Calib_Point_WSI_B=transpose(stagedata.wsi_positions(2,:));
+        Calib_Point_WSI_C=transpose(stagedata.wsi_positions(3,:));
+        Calib_Point_stage_A=transpose(stagedata.stage_positions(1,:));
+        Calib_Point_stage_B=transpose(stagedata.stage_positions(2,:));
+        Calib_Point_stage_C=transpose(stagedata.stage_positions(3,:));
+
+        wsi_v1=Calib_Point_WSI_B-Calib_Point_WSI_A;
+        wsi_v2=Calib_Point_WSI_C-Calib_Point_WSI_A;
+        stage_v1=Calib_Point_stage_B-Calib_Point_stage_A;
+        stage_v2=Calib_Point_stage_C-Calib_Point_stage_A;
+
+        wsi_M = [wsi_v1, wsi_v2];
+        temp = [wsi_M, transpose([1,0]), transpose([0,1])];
+        temp=rref(temp);
+        wsi_Minv = temp(:,3:4);
+        stage_M = [stage_v1,stage_v2];
+        temp = [stage_M, transpose([1,0]), transpose([0,1])];
+        temp=rref(temp);
+        stage_Minv = temp(:,3:4);
+
+        stage_new = double(transpose(stagePostion));
+        wsi_0 = transpose(stagedata.wsi_positions(1,:));               
+        stage_0 = transpose(stagedata.stage_positions(1,:));
+        temp = stage_new - stage_0;
+        temp = inv(stage_M) * temp;
+        temp = wsi_M * temp;
+        wsi_new = double(temp + wsi_0);
+
 end
