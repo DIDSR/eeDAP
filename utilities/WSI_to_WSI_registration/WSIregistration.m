@@ -129,6 +129,7 @@ function load_WSI_A_Callback(hObject, eventdata, handles)
     wsi_w(1)= WSI_data.getSizeX();
     wsi_h(1)= WSI_data.getSizeY();
     numberOfImages = WSI_data.getSeriesCount();
+
     for j = 1 : numberOfImages - 3
         WSI_data.setSeries(j);
         wsi_w(j+1)= WSI_data.getSizeX();
@@ -234,6 +235,31 @@ function display_thumb_A(WSIregistration_handle)
     WSI_A.thumb_image_handle = image(WSI_A.thumb_image, 'Parent', handles.axes_WSIA);
     
     axis(handles.axes_WSIA,'image');
+   
+    % add label 
+   
+    yMax = WSI_A.wsi_w(1);
+    yLabel = handles.axes_WSIA.YTickLabel;
+    for i = 1:length(yLabel)
+        yLabel{i} = num2str(round(yMax/length(yLabel)*i));
+    end
+    handles.axes_WSIA.YTickLabel = yLabel;
+    handles.axes_WSIA.YLabel.String = 'X';
+    
+    
+    xMax = WSI_A.wsi_h(1);    
+
+    xLabel = handles.axes_WSIA.XTickLabel;
+    for i = 1:length(xLabel) 
+        xLabel{i} = num2str(round(xMax/length(xLabel)*i));
+    end
+    handles.axes_WSIA.XTickLabel = xLabel;
+    handles.axes_WSIA.YLabel.String = 'Y';
+    
+    
+   
+   
+   
    
    set(WSI_A.thumb_image_handle,...
             'HitTest','on',...
@@ -527,9 +553,28 @@ function display_thumb_B(WSIregistration_handle)
         WSI_B.thumb_h = floor(temp);
     end
     
-    
     WSI_B.thumb_image = imread(WSI_B.thumb_file);
     WSI_B.thumb_image_handle = image(WSI_B.thumb_image, 'Parent', handles.axes_WSIB);
+    
+    
+    yMax = WSI_B.wsi_w(1);
+    yLabel = handles.axes_WSIB.YTickLabel;
+    for i = 1:length(yLabel)
+        yLabel{i} = num2str(round(yMax/length(yLabel)*i));
+    end
+    handles.axes_WSIB.YTickLabel = yLabel;
+    handles.axes_WSIB.YLabel.String = 'X';
+    
+    
+    xMax = WSI_B.wsi_h(1);    
+
+    xLabel = handles.axes_WSIB.XTickLabel;
+    for i = 1:length(xLabel) 
+        xLabel{i} = num2str(round(xMax/length(xLabel)*i));
+    end
+    handles.axes_WSIB.XTickLabel = xLabel;
+    handles.axes_WSIB.YLabel.String = 'Y';
+    
     
     axis(handles.axes_WSIB,'image');
     set(WSI_B.thumb_image_handle,...
@@ -973,7 +1018,7 @@ function getNewPositions_Callback(hObject, eventdata, handles)
     xPos = temp_B_position(:,1);
     yPos = temp_B_position(:,2);
     WSI_B_position = table(xPos,yPos);
-    writetable(WSI_B_position,[pwd, '\Register_Two_WSI\',handles.WSI_B.name,'_positions.csv']);
+    writetable(WSI_B_position,[pwd, '\Register_Two_WSI\',handles.WSI_A.name,'_to_',handles.WSI_B.name,'_positions.csv']);
     set(handles.getNewPositions,'Enable','off');
     set(handles.loadBasedPosition,'Enable','on');
 end
