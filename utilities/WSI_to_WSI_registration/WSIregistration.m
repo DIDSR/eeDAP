@@ -135,6 +135,9 @@ function load_WSI_A_Callback(hObject, eventdata, handles)
         wsi_w(j+1)= WSI_data.getSizeX();
         wsi_h(j+1)= WSI_data.getSizeY();
     end
+    
+    set(handles.WSIA_name, 'String',workdir_WSI_A_file);
+    
     dotindex = find(WSI_A_file=='.');
     WSI_A_file = WSI_A_file(1:dotindex(end)-1);
     omeMeta = WSI_data.getMetadataStore();
@@ -179,6 +182,7 @@ function load_WSI_A_Callback(hObject, eventdata, handles)
     
     
     set(handles.load_WSI_B,'Enable','on');
+    
     guidata(handles.WSIregistration, handles);
     display_thumb_A(handles.WSIregistration);
     
@@ -458,6 +462,9 @@ function load_WSI_B_Callback(hObject, eventdata, handles)
         wsi_w(j+1)= WSI_data.getSizeX();
         wsi_h(j+1)= WSI_data.getSizeY();
     end
+    
+     set(handles.WSIB_name, 'String',workdir_WSI_B_file);
+    
     dotindex = find(WSI_B_file=='.');
     WSI_B_file = WSI_B_file(1:dotindex(end)-1);
     omeMeta = WSI_data.getMetadataStore();
