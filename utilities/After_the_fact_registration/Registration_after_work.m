@@ -861,6 +861,8 @@ function transfer_stage_position_Callback(hObject, eventdata, handles)
 
     positionFileName =[workdir_eeDAPoutputFolder,'\ID-',taskinfo.id,'_iter-',num2str(taskinfo.order),'_stageAndWSIpositions.csv'];   
     positionTable = table(SystemTime,stagePositionX',stagePositionY',wsiPositionX',wsiPositionY');
+    header={'systemTime','stagePosition_x','stagePosition_y','wsiPosition_x','wsiPosition_y'};
+    positionTable.Properties.VariableNames = header;
     writetable(positionTable,positionFileName);
     set(handles.transfer_stage_position,'Enable','off');
     
