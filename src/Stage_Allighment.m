@@ -43,7 +43,7 @@ try
     % Initiate the camera preview window
     % handles.cam = camera object
     if myData.yesno_micro==1
-        handles.cam = camera_open(settings.cam_kind,settings.cam_format);
+        handles.cam = camera_open(settings.cam_kind,settings.cam_format,settings.defaultR,settings.defaultB);
         handles.cam_figure = camera_preview(handles.cam, settings);
         myData.stage = stage_set_origin(myData.stage);       
     end
@@ -1459,7 +1459,10 @@ try
         'Position', position,...
         'String', 'Adjust color',...
         'Callback', @adjustColor_callback);
-    adjusting_color(handles.cam);
+    [defaultR defaultB] = adjusting_color(handles.cam);
+    handles.myData.settings.defaultR = defaultR;
+    handles.myData.settings.defaultB = defaultB;
+    guidata(handles.Stage_Allighment, handles);
 catch ME
     error_show(ME)
 end
@@ -1492,13 +1495,16 @@ end
 
 function start_adjusting(hObject, eventdata, handles)
     handles = guidata(findobj('Tag','Stage_Allighment'));
-    adjusting_color(handles.cam);
+    [defaultR defaultB] = adjusting_color(handles.cam);
+    handles.myData.settings.defaultR = defaultR;
+    handles.myData.settings.defaultB = defaultB;
+    guidata(handles.Stage_Allighment, handles);
     close gcf
 
 end
 
 
-function adjusting_color(cam)
+function [defaultR defaultB]=adjusting_color(cam)
      cam_src = getselectedsource(cam);
      colorDone = 0;
      waitingBar = waitbar (0.5,'Adjusting color');
