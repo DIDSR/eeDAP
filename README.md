@@ -21,3 +21,5 @@ Please check out a statement of the licenses related to our software [here](LICE
 [Click to go to the list of resources and references.](https://github.com/DIDSR/eeDAP/blob/master/000_docs/README.md)
 
 This list includes appropriate means by which you can reference our work.
+
+[![Github All Releases](https://img.shields.io/github/downloads/DIDSR/eeDAP/total)]()
