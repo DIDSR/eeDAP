@@ -39,7 +39,9 @@ try
     reg_flag = current.reg_flag; %#ok<NASGU>
     slot_i = current.slot_i;
     wsi_info = myData.wsi_files{slot_i};
-    addpath('stages/Prior','stages/Ludl');
+    if (~isdeployed)
+        addpath('stages/Prior','stages/Ludl');
+    end
     % Initiate the camera preview window
     % handles.cam = camera object
     if myData.yesno_micro==1

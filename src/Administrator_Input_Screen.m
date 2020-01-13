@@ -53,8 +53,9 @@ try
     handles.myData.graphics = struct;
 
     %addpath('gui_graphics', 'icc_profiles', 'tasks','stages/Prior','stages/Ludl');
-    addpath('icc_profiles', 'tasks','stages/Prior','stages/Ludl');
-
+    if (~isdeployed)
+        addpath('icc_profiles', 'tasks','stages/Prior','stages/Ludl');
+    end
     handles.myData.sourcedir = [cd, '\'];
 
     % Create this variable to identify whether microscope and video is

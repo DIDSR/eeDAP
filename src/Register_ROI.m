@@ -37,32 +37,32 @@ try
     [cam_h, cam_w] = size(cam_image(:,:,1));
     
     % sample code for treating coordinates of normxcorr2 result
-    if 0
-        onion = imread('onion.png');
-        peppers = imread('peppers.png');
-        figure('Name','onion'), imshow(onion)
-        figure('Name','peppers'), imshow(peppers)
-        c = normxcorr2(onion(:,:,1),peppers(:,:,1));
-        
-        % offset found by correlation
-        [max_c, imax] = max(abs(c(:)));
-        [ypeak, xpeak] = ind2sub(size(c),imax(1));
-        % extract the highest correlation patch
-        % we subtract size(onion)/2 to account for padding from normxcorr2
-        % and another size(onion)/2 to account for the patch (center -> corner)
-        xbegin = xpeak-size(onion,2) + 1;
-        ybegin = ypeak-size(onion,1) + 1;
-        xend   = xpeak;
-        yend   = ypeak;
-        extracted_onion = peppers(ybegin:yend, xbegin:xend, :);
-        figure('Name','extracted_onion'), imshow(extracted_onion);
-        
-        % extract region from peppers and compare to onion
-        extracted_onion = peppers(ybegin:yend,xbegin:xend,:);
-        if isequal(onion,extracted_onion)
-            disp('onion.png was extracted from peppers.png')
-        end
-    end
+%     if 0
+%         onion = imread('onion.png');
+%         peppers = imread('peppers.png');
+%         figure('Name','onion'), imshow(onion)
+%         figure('Name','peppers'), imshow(peppers)
+%         c = normxcorr2(onion(:,:,1),peppers(:,:,1));
+%         
+%         % offset found by correlation
+%         [max_c, imax] = max(abs(c(:)));
+%         [ypeak, xpeak] = ind2sub(size(c),imax(1));
+%         % extract the highest correlation patch
+%         % we subtract size(onion)/2 to account for padding from normxcorr2
+%         % and another size(onion)/2 to account for the patch (center -> corner)
+%         xbegin = xpeak-size(onion,2) + 1;
+%         ybegin = ypeak-size(onion,1) + 1;
+%         xend   = xpeak;
+%         yend   = ypeak;
+%         extracted_onion = peppers(ybegin:yend, xbegin:xend, :);
+%         figure('Name','extracted_onion'), imshow(extracted_onion);
+%         
+%         % extract region from peppers and compare to onion
+%         extracted_onion = peppers(ybegin:yend,xbegin:xend,:);
+%         if isequal(onion,extracted_onion)
+%             disp('onion.png was extracted from peppers.png')
+%         end
+%     end
 
     % Cross correlate the stage and wsi images
     channel=2;
