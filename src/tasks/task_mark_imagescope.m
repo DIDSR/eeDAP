@@ -1,4 +1,13 @@
-function task_count2_imagescope(hObj)
+function task_mark_imagescope(hObj)
+%description
+%mark out target in imagescope, 
+
+%task input column
+%mark_imagescope,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,Qtext
+
+%task output column
+%mark_imagescope,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,Qtext
+%task duration, "Done"
 try
     
     handles = guidata(hObj);

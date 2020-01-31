@@ -307,6 +307,8 @@ try
         case 'Digital'
             guidata(handles.Administrator_Input_Screen, handles);
         case 'MicroRT'
+            % set default white balance
+            % based on study experience: 587 and 710 are good white balance  
              handles.myData.settings.defaultR = 587;
              handles.myData.settings.defaultB = 710;
             for slot_i=1:settings.n_wsi
@@ -582,7 +584,8 @@ try
             set(handles.StartTheTestButton, 'Enable', 'on');
             handles.myData.refineRegistration = 0;
         case 'MicroRT'
-            
+            % set default white balance
+            % based on study experience: 587 and 710 are good white balance
             settings.defaultR = 587;
             settings.defaultB = 710;
             set(hObject_configure_COM,...

@@ -1,4 +1,21 @@
-function task_get_WSI_position(hObj)
+function task_Mic_to_WSI_registration(hObj)
+%description
+%evaluate Mic to WSI registration accuarcy
+%collect: 
+%global registration wsi x and y position
+%local registration wsi x and y position
+%manually selected wsi x and y truth position by imagescope
+
+%task input column
+%Mic_to_WSI_registration,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,Qtext
+
+%task output column
+%Mic_to_WSI_registration,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,Qtext
+%task duration,wsi file name
+%global registration wsi x, global registration wsi y
+%local registration wsi x, local registration wsi y
+%manually select wsi x truth, wsi y truth
+
 try
     
     handles = guidata(hObj);

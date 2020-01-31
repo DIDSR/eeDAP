@@ -1,6 +1,22 @@
-function task_mitotic_counts( hObj )
-%TASK_MITOTIC_COUNTS Summary of this function goes here
-%   Detailed explanation goes here
+function task_tracking_view( hObj )
+%description
+%pathologist drive study
+%do global registration after study
+
+%task input column
+%tracking_view,taskID,taskOrder,slot,Question1,Question2,Question3,Question4,Question5
+
+%task output column
+%tracking5_IHCproliferationIndices,TaskID,TaskOrder,Slot
+%'track_veiw',study duration, slide name
+%start Record Time,stop Record Time
+%question1 result, question1 confidence 
+%question2 result, question2 confidence 
+%question3 result, question3 confidence 
+%question4 result, question4 confidence 
+%question5 result, question5 confidence 
+%free text
+%registration 3 stage positions
 try
     
     handles = guidata(hObj);

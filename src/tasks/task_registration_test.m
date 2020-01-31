@@ -1,4 +1,20 @@
 function task_registration_test(hObj)
+%description
+%collect auto, fast and best registration distance
+
+%task column
+%registration_test,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H
+
+%task output column
+%registration_test,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H
+%'Measure registration distance'
+%stage moving duration,auto registration duration, study duration,
+%auto registration distance,
+%auto registration stage x position,global registration stage y
+%fast registration distance,
+%fast registration stage x position,global registration stage y
+%best registration distance,
+%best registration stage x position,best registration stage y
 try
     
     handles = guidata(hObj);

@@ -1,4 +1,14 @@
 function task_evaluate_imagescope(hObj)
+%description
+%evaluate ROI with one number
+%task opens imagescope with ROI annotation
+
+%task input column
+%evaluate_imagescope,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,Qtext,evaluateText
+
+%task input column
+%evaluate_imagescope,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,Qtext,evaluateText
+%task duration,evaluate result
 try
     
     handles = guidata(hObj);

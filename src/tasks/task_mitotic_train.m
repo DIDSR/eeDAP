@@ -1,6 +1,13 @@
 function  task_mitotic_train( hObj )
-%MITOTIC_EXPERT Summary of this function goes here
-%   Detailed explanation goes here
+%description
+%collect training study result, 8 check boxes, and 1 score
+
+%task column
+%mitotic_expert,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,8 check boxes truth,scoreTruth
+
+%task output column
+%mitotic_expert,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H
+%'mitotic_train',task duration, 8 check boxes result, score
 try
     
     handles = guidata(hObj);

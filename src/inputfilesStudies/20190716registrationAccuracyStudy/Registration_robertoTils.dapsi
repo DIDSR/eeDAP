@@ -18,6 +18,8 @@ Point Grey Flea2 Color (FL2G-50S5C-C): Standard format, aspect ratio = 1.33
     cam_pixel_size = 6.9
 
 Reminder:
+autoreg = 0 do not do auto registration
+autoreg = 1 do auto registration
 taskorder=2 user specified order
 taskorder=1 listed order
 taskorder=0 random order
@@ -26,21 +28,8 @@ saveimages = 2  only save WSI image
 saveimages = 3  only save camera image
 saveimages = 4  don't save WSI and camera images
 
-
 Input File Task Formats
-task_checkMof4,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-task_count,    TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-task_mark1,    TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-task_mark1_out,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-task_radio1of4,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-task_slider,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
-task_mitotic_expert,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag
-task_mitotic_train, TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag,ExpertCheckBoxes1-8,Expert_Score
-task_mitotic_counts,TaskID,TaskOrder,Slot,MoveFlag,ZoomFlag
 Mic_to_WSI_registration,TaskID,TaskOrder,ROI_X,ROI_Y,text
-
-Output File Task Formats
-Mic_to_WSI_registration,TaskID,TaskOrder,ROI_X,ROI_Y,text,study_time,WSI_name,global_x,global_y,local_x,local_y,target_x,target_y
 
 SETTINGS
 NUMBER_OF_WSI    = 5

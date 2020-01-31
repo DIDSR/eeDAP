@@ -1,4 +1,17 @@
-function task_globalAndBestRegPhoto(hObj)
+function task_globalAndBestReg(hObj)
+%description
+%collect global and best registration distance
+
+%task input column
+%globalAndBestReg,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H
+
+%task output column
+%globalAndBestReg,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H
+%stage moving duration,auto registration duration, study duration,
+%global registration distance,
+%global registration stage x position,global registration stage y
+%best registration distance,
+%best registration stage x position,best registration stage y
 try
     
     handles = guidata(hObj);

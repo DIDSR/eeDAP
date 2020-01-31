@@ -1,4 +1,14 @@
 function task_get_WSI_position(hObj)
+%description
+%microscope drive task, return corresponding WSI position
+
+%task input column
+%get_WSI_position,TaskID,TaskOrder,ROI_W,ROI_H,Qtext
+
+%task output column
+%get_WSI_position,TaskID,TaskOrder,ROI_W,ROI_H,Qtext,task duration,wsi name,
+%wsi_x_position,wsi_y_position
+
 try
     
     handles = guidata(hObj);

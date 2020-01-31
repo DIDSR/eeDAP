@@ -1,6 +1,22 @@
 function task_tracking3_LN_micromets( hObj )
-%TASK_MITOTIC_COUNTS Summary of this function goes here
-%   Detailed explanation goes here
+%description
+%pathologist drive LN_micromets study
+%do global registration after study
+
+%task column
+%tracking3_LN_micromets,TaskID,TaskOrder,Slot
+
+%task output column
+%tracking3_LN_micromets,TaskID,TaskOrder,Slot
+%'track_veiw',study duration, slide name
+%start Record Time,stop Record Time
+%question1 result, question1 confidence 
+%question2 4 check boxes result, question2 confidence 
+%question3 4 check boxes result, question3 confidence 
+%question4 4 check boxes result, question4 confidence 
+%question5 result, question5 confidence 
+%free text
+%registration 3 stage positions 
 try
     
     handles = guidata(hObj);

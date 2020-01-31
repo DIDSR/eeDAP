@@ -1,6 +1,14 @@
 function  task_mitotic_expert( hObj )
-%MITOTIC_EXPERT Summary of this function goes here
-%   Detailed explanation goes here
+%description
+%collect expert study result, 8 check boxes, and 1 score
+%output can be used as input for task_mitotic_train
+
+%task input column
+%mitotic_expert,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H
+
+%task output column
+%mitotic_expert,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H
+%'mitotic_expert',task duration, 8 check boxes result, score
 try
     
     handles = guidata(hObj);
