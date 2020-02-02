@@ -1,6 +1,23 @@
 function task_tracking1_Breast_ADH_DCIS_ICA( hObj )
-%TASK_MITOTIC_COUNTS Summary of this function goes here
-%   Detailed explanation goes here
+%description
+%pathologist drive Breast_ADH_DCIS_ICA study
+%do global registration after study
+
+%task input column
+%tracking1_Breast_ADH_DCIS_ICA,TaskID,TaskOrder,Slot
+
+%task output column
+%tracking1_Breast_ADH_DCIS_ICA,TaskID,TaskOrder,Slot
+%'track_veiw',study duration, slide name
+%start Record Time,stop Record Time
+%question1 4 check boxes result, question1 confidence 
+%question2 4 check boxes result, question2 confidence 
+%question3 4 check boxes result, question3 confidence 
+%question4 result, question4 confidence 
+%question5 result, question5 confidence 
+%free text
+%registration 3 stage positions
+
 try
     
     handles = guidata(hObj);

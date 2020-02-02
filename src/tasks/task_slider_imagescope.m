@@ -1,4 +1,14 @@
-function task_slider(hObj)
+function task_slider_imagescope(hObj)
+%description
+%use slider collect one number
+%in digital mode, task opens imagescope with ROI annotation
+
+%task input column
+%slider_imagescope,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,Qtext
+
+%task output column
+%slider_imagescope,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,Qtext
+%task duration,evaluate result
 try
     
     handles = guidata(hObj);

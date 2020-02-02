@@ -1,4 +1,14 @@
 function task_globalReg_test(hObj)
+%description
+%collect global registration distance and task camera picture
+
+%task input column
+%globalReg_test,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H
+
+%task output column
+%globalReg_test,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,
+%global registration distance,
+%global registration stage x position,global registration stage y
 try
     
     handles = guidata(hObj);

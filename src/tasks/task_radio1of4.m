@@ -1,4 +1,13 @@
 function task_radio1of4(hObj)
+%description
+%choose 1 of out 4 check box
+
+%task input column
+%radio1of4,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,Qtext,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+
+%task output column
+%radio1of4,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,Qtext,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+%study duration), chosen button id, chosen button description
 try
     
     handles = guidata(hObj);

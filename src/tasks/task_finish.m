@@ -1,4 +1,6 @@
 function task_finish(hObj)
+%description
+%finish study
 try
     
     handles = guidata(hObj);

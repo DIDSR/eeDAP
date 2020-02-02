@@ -1,4 +1,14 @@
 function task_mark1(hObj)
+%description
+%mark out a target in eeDAP
+%this task avaiable for all 4 slide positions
+
+%task input column
+%mark1,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,Qtext
+
+%task output column
+%mark1,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,Qtext,
+%task duration, WSI x position, WSI y position
 try
     
     handles = guidata(hObj);

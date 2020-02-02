@@ -1,0 +1,121 @@
+Author: 
+Date: 
+Time: 
+
+For the Hamamatsu scanning at 20x
+    scan_scale = .4558
+For the Hamamatsu scanning at 40x
+    scan_scale = .2279
+
+Point Grey Grashopper Color (GRAS-03K2C-C)
+    cam_format = RGB24_640x480
+    cam_pixel_size = 7.4um
+Point Grey Flea2 Color (FL2G-50S5C-C): Full resolution, full format
+    cam_format = F7_RGB24_2448x2048
+    cam_pixel_size = 3.45
+Point Grey Flea2 Color (FL2G-50S5C-C): Standard format, aspect ratio = 1.33
+    cam_format = RGB24_1024x768
+    cam_pixel_size = 6.9
+
+Reminder:
+autoreg = 0 do not do auto registration
+autoreg = 1 do auto registration
+taskorder=2 user specified order
+taskorder=1 listed order
+taskorder=0 random order
+saveimages = 1  save WSI and camera images
+saveimages = 2  only save WSI image
+saveimages = 3  only save camera image
+saveimages = 4  don't save WSI and camera images
+
+Input File Task Formats
+Mic_to_WSI_registration,TaskID,TaskOrder,ROI_X,ROI_Y,text
+
+SETTINGS
+NUMBER_OF_WSI    = 5
+wsi_slot_1       = C:\000_whole_slides\registrationStudy\TilsRoberto\17BregistrationTILs.ndpi
+rgb_lut_slot_1   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_1     = 0.2283
+wsi_slot_2       = C:\000_whole_slides\registrationStudy\TilsRoberto\62SregistrationTILs.ndpi
+rgb_lut_slot_2   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_2     = 0.2283
+wsi_slot_3       = C:\000_whole_slides\registrationStudy\TilsRoberto\31SregistrationTILs.ndpi
+rgb_lut_slot_3   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_3     = 0.2283
+wsi_slot_4       = C:\000_whole_slides\registrationStudy\TilsRoberto\34SregistrationTILs.ndpi
+rgb_lut_slot_4   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_4     = 0.2283
+wsi_slot_5       = C:\000_whole_slides\registrationStudy\TilsRoberto\25SregistrationTILs.ndpi
+rgb_lut_slot_5   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_5     = 0.2283
+label_pos        = 12
+reticleID        = KR-871
+cam_kind	 = USB
+cam_format       = F7_RGB_1224x1024_Mode1
+cam_pixel_size   = 6.9
+mag_cam          = 0.5
+mag_lres         = 10
+mag_hres         = 20
+stage_label      = BioPrecision2-LE2_Ludl6000
+BG_Color_RGB     = 0.55 = 0.55 = 0.55
+FG_Color_RGB     = 0.00 = 0.00 = 0.00
+AxesBG_Color_RGB = 0.10 = 0.20 = 0.10
+FontSize         = 13
+autoreg 	 = 0
+saveimages       = 3
+taskorder        = 1
+
+BODY
+start
+finish
+Mic_to_WSI_registration,1st0001,-1,799,799,Registration_first_slide_ROI1
+Mic_to_WSI_registration,2nd0002,-1,799,799,Registration_first_slide_ROI2
+Mic_to_WSI_registration,3rd0003,-1,799,799,Registration_first_slide_ROI3
+Mic_to_WSI_registration,4th0004,-1,799,799,Registration_first_slide_ROI4
+Mic_to_WSI_registration,5th0005,-1,799,799,Registration_first_slide_ROI5
+Mic_to_WSI_registration,6th0006,-1,799,799,Registration_first_slide_ROI6
+Mic_to_WSI_registration,7th0007,-1,799,799,Registration_first_slide_ROI7
+Mic_to_WSI_registration,8th0008,-1,799,799,Registration_first_slide_ROI8
+Mic_to_WSI_registration,9th0009,-1,799,799,Registration_first_slide_ROI9
+Mic_to_WSI_registration,10th0010,-1,799,799,Registration_first_slide_ROI10
+Mic_to_WSI_registration,11th0011,-1,799,799,Registration_second_slide_ROI1
+Mic_to_WSI_registration,12th0012,-1,799,799,Registration_second_slide_ROI2
+Mic_to_WSI_registration,13th0013,-1,799,799,Registration_second_slide_ROI3
+Mic_to_WSI_registration,14th0014,-1,799,799,Registration_second_slide_ROI4
+Mic_to_WSI_registration,15th0015,-1,799,799,Registration_second_slide_ROI5
+Mic_to_WSI_registration,16th0016,-1,799,799,Registration_second_slide_ROI6
+Mic_to_WSI_registration,17th0017,-1,799,799,Registration_second_slide_ROI7
+Mic_to_WSI_registration,18th0018,-1,799,799,Registration_second_slide_ROI8
+Mic_to_WSI_registration,19th0019,-1,799,799,Registration_second_slide_ROI9
+Mic_to_WSI_registration,20th0020,-1,799,799,Registration_second_slide_ROI10
+Mic_to_WSI_registration,21st0021,-1,799,799,Registration_third_slide_ROI1
+Mic_to_WSI_registration,22nd0022,-1,799,799,Registration_third_slide_ROI2
+Mic_to_WSI_registration,23rd0023,-1,799,799,Registration_third_slide_ROI3
+Mic_to_WSI_registration,24th0024,-1,799,799,Registration_third_slide_ROI4
+Mic_to_WSI_registration,25th0025,-1,799,799,Registration_third_slide_ROI5
+Mic_to_WSI_registration,26th0026,-1,799,799,Registration_third_slide_ROI6
+Mic_to_WSI_registration,27th0027,-1,799,799,Registration_third_slide_ROI7
+Mic_to_WSI_registration,28th0028,-1,799,799,Registration_third_slide_ROI8
+Mic_to_WSI_registration,29th0029,-1,799,799,Registration_third_slide_ROI9
+Mic_to_WSI_registration,30th0030,-1,799,799,Registration_third_slide_ROI10
+Mic_to_WSI_registration,31st0031,-1,799,799,Registration_fourth_slide_ROI1
+Mic_to_WSI_registration,32nd0032,-1,799,799,Registration_fourth_slide_ROI2
+Mic_to_WSI_registration,33rd0033,-1,799,799,Registration_fourth_slide_ROI3
+Mic_to_WSI_registration,34th0034,-1,799,799,Registration_fourth_slide_ROI4
+Mic_to_WSI_registration,35th0035,-1,799,799,Registration_fourth_slide_ROI5
+Mic_to_WSI_registration,36th0036,-1,799,799,Registration_fourth_slide_ROI6
+Mic_to_WSI_registration,37th0037,-1,799,799,Registration_fourth_slide_ROI7
+Mic_to_WSI_registration,38th0038,-1,799,799,Registration_fourth_slide_ROI8
+Mic_to_WSI_registration,39th0039,-1,799,799,Registration_fourth_slide_ROI9
+Mic_to_WSI_registration,40th0040,-1,799,799,Registration_fourth_slide_ROI10
+Mic_to_WSI_registration,41st0041,-1,799,799,Registration_fifth_slide_ROI1
+Mic_to_WSI_registration,42nd0042,-1,799,799,Registration_fifth_slide_ROI2
+Mic_to_WSI_registration,43rd0043,-1,799,799,Registration_fifth_slide_ROI3
+Mic_to_WSI_registration,44th0044,-1,799,799,Registration_fifth_slide_ROI4
+Mic_to_WSI_registration,45th0045,-1,799,799,Registration_fifth_slide_ROI5
+Mic_to_WSI_registration,46th0046,-1,799,799,Registration_fifth_slide_ROI6
+Mic_to_WSI_registration,47th0047,-1,799,799,Registration_fifth_slide_ROI7
+Mic_to_WSI_registration,48th0048,-1,799,799,Registration_fifth_slide_ROI8
+Mic_to_WSI_registration,49th0049,-1,799,799,Registration_fifth_slide_ROI9
+Mic_to_WSI_registration,50th0050,-1,799,799,Registration_fifth_slide_ROI10
+
