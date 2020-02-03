@@ -181,7 +181,9 @@ try
     % cell structure varargin. varargin stores the input arguments for the
     % whole Matlab application
     %addpath('gui_graphics', 'icc_profiles', 'tasks','stages/Prior','stages/Ludl');
-    addpath('icc_profiles', 'tasks','stages/Prior','stages/Ludl');
+    if (~isdeployed)
+        addpath('icc_profiles', 'tasks','stages/Prior','stages/Ludl');
+    end
     handles_old = varargin{1};
     handles.Administrator_Input_Screen = handles_old.Administrator_Input_Screen;
     myData = handles_old.myData;
@@ -207,7 +209,7 @@ try
         case 'MicroRT'
             if myData.yesno_micro==1
                 % Open communications to camera and begin preview
-                handles.cam=camera_open(settings.cam_kind,settings.cam_format);
+                handles.cam=camera_open(settings.cam_kind,settings.cam_format,settings.defaultR,settings.defaultB);
                 handles.cam_figure = ...
                     camera_preview(handles.cam, settings);
                 % To close:
@@ -233,7 +235,7 @@ try
             Generate_Transformation_Matrix(handles);
             handles = guidata(handles.GUI);
          case 'TrackingView'
-            handles.cam=camera_open(settings.cam_kind,settings.cam_format);
+            handles.cam=camera_open(settings.cam_kind,settings.cam_format,settings.defaultR,settings.defaultB);
             handles.cam_figure = camera_preview(handles.cam, settings);
             handles.myData.stage = stage_set_origin(handles.myData.stage);
             guidata(handles.GUI, handles);

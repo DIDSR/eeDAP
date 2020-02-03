@@ -1,4 +1,7 @@
 function task_refine_registration(hObj)
+%description
+%This task is used to refine global registration during study.
+%It cannot be called in input file. 
 try
     
     handles = guidata(hObj);

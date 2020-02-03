@@ -1,4 +1,13 @@
 function task_count(hObj)
+%description
+%collect one number
+
+%task input column
+%count,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,Qtext
+
+%task output column
+%count,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,Qtext,
+%task duration,count result
 try
     
     handles = guidata(hObj);

@@ -71,9 +71,9 @@ try
         return
     end
 
-    
-    addpath('bfmatlab');
-    
+    if (~isdeployed)
+        addpath('bfmatlab');
+    end
     
     % ExtractROI is only being used to link to get WSI information
     if strcmp(OutputFile,'none')

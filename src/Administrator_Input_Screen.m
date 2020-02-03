@@ -53,8 +53,9 @@ try
     handles.myData.graphics = struct;
 
     %addpath('gui_graphics', 'icc_profiles', 'tasks','stages/Prior','stages/Ludl');
-    addpath('icc_profiles', 'tasks','stages/Prior','stages/Ludl');
-
+    if (~isdeployed)
+        addpath('icc_profiles', 'tasks','stages/Prior','stages/Ludl');
+    end
     handles.myData.sourcedir = [cd, '\'];
 
     % Create this variable to identify whether microscope and video is
@@ -307,7 +308,10 @@ try
         case 'Digital'
             guidata(handles.Administrator_Input_Screen, handles);
         case 'MicroRT'
-            
+            % set default white balance
+            % based on study experience: 587 and 710 are good white balance  
+             handles.myData.settings.defaultR = 587;
+             handles.myData.settings.defaultB = 710;
             for slot_i=1:settings.n_wsi
                 handles.current.reg_flag = 0;
                 handles.current.slot_i = slot_i;
@@ -346,9 +350,8 @@ end
 %% ############# Align the eyepiece and the camera #################
 function align_eye_cam(handles) %#ok<*INUSD>
 try
-    
     settings = handles.myData.settings;
-    handles.cam = camera_open(settings.cam_kind,settings.cam_format);
+    handles.cam = camera_open(settings.cam_kind,settings.cam_format,settings.defaultR,settings.defaultB);
     handles.cam_figure = camera_preview(handles.cam, settings);
     pos_eye = [0,0];
     pos_cam = [0,0];
@@ -582,6 +585,10 @@ try
             set(handles.StartTheTestButton, 'Enable', 'on');
             handles.myData.refineRegistration = 0;
         case 'MicroRT'
+            % set default white balance
+            % based on study experience: 587 and 710 are good white balance
+            settings.defaultR = 587;
+            settings.defaultB = 710;
             set(hObject_configure_COM,...
                 'Enable', 'on',...
                 'String', 'Change Working Stage COM');
@@ -605,7 +612,7 @@ try
             
             % Determine and derive additional camera settings
             if handles.myData.yesno_micro==1
-                cam=camera_open(settings.cam_kind,settings.cam_format);
+                cam=camera_open(settings.cam_kind,settings.cam_format,settings.defaultR,settings.defaultB);
                 if cam == 0
                     return
                 end

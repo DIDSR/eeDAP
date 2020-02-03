@@ -1,4 +1,14 @@
-function task_count(hObj)
+function task_count_imagescope(hObj)
+%description
+%collect one number
+%task opens imagescope with ROI annotation
+
+%task input column
+%count_imagescope,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,Qtext
+
+%task output column
+%count_imagescope,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,Qtext
+%task duration,count result
 try
     
     handles = guidata(hObj);

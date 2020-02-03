@@ -1,4 +1,15 @@
 function task_count2_imagescope(hObj)
+%description
+%collect one number and mark out counting in imagescope 
+%task opens imagescope with ROI annotation, and saves reader's annotation
+%xml file
+
+%task input column
+%count2_imagescope,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,Qtext
+
+%task output column
+%count2_imagescope,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,Qtext
+%task duration,count result
 try
     
     handles = guidata(hObj);

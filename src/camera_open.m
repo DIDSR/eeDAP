@@ -1,5 +1,5 @@
 
-function cam=camera_open(cam_kind,cam_format)
+function cam=camera_open(cam_kind,cam_format,defaultR,defaultB)
 try
 
     % imaqtool: launches an interactive GUI to allow you to explore,
@@ -63,8 +63,8 @@ try
     cam_src.Tag = 'Microscope Camera Source';
     if strcmp( cam_kind,'USB')
        cam_src.WhiteBalanceRBMode = 'Off';
-       defaultR = 587;
-       defaultB = 710;
+%        defaultR = 587;
+%        defaultB = 710;
        cam_src.WhiteBalanceRB = [defaultR defaultB];
 %        colorDone = 0;
 %        waitingBar = waitbar (0.5,'Adjusting color');

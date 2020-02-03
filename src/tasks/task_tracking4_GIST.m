@@ -1,6 +1,22 @@
 function task_tracking4_GIST( hObj )
-%TASK_MITOTIC_COUNTS Summary of this function goes here
-%   Detailed explanation goes here
+%description
+%pathologist drive GIST study
+%do global registration after study
+
+%task input column
+%tracking4_GIST,TaskID,TaskOrder,Slot
+
+%task output column
+%tracking4_GIST,TaskID,TaskOrder,Slot
+%'track_veiw',study duration, slide name
+%start Record Time,stop Record Time
+%question1 4 check boxes result, question1 confidence 
+%question2 4 check boxes result, question2 confidence 
+%question3 result, question3 confidence 
+%question4 result, question4 confidence 
+%question5 3 check boxes result, question5 confidence 
+%free text
+%registration 3 stage positions
 try
     
     handles = guidata(hObj);

@@ -1,13 +1,20 @@
-function task_get_WSI_position(hObj)
+function task_Mic_to_WSI_registration(hObj)
 %description
-%microscope drive task, return corresponding WSI position
+%evaluate Mic to WSI registration accuarcy
+%collect: 
+%global registration wsi x and y position
+%local registration wsi x and y position
+%manually selected wsi x and y truth position by imagescope
 
 %task input column
-%get_WSI_position,TaskID,TaskOrder,ROI_W,ROI_H,Qtext
+%Mic_to_WSI_registration,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,Qtext
 
 %task output column
-%get_WSI_position,TaskID,TaskOrder,ROI_W,ROI_H,Qtext,task duration,wsi name,
-%wsi_x_position,wsi_y_position
+%Mic_to_WSI_registration,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,Qtext
+%task duration,wsi file name
+%global registration wsi x, global registration wsi y
+%local registration wsi x, local registration wsi y
+%manually select wsi x truth, wsi y truth
 
 try
     
@@ -32,6 +39,8 @@ try
             taskinfo.img_w = taskinfo.roi_w;
             taskinfo.img_h = taskinfo.roi_h;
             taskinfo.text  = char(desc{6});
+            taskinfo.wsi_target_x = 'NA';
+            taskinfo.wsi_target_y = 'NA';
 %             taskinfo.slot = str2double(desc{4});
 %             taskinfo.roi_w = str2double(desc{5});
 %             taskinfo.roi_h = str2double(desc{6});
@@ -65,32 +74,57 @@ try
                 set (handles.Reticlebutton, 'Enable', 'off');
                 set (handles.PauseButton, 'Enable', 'off');
                   % Static text question for count task
-                 handles.getPosition = uicontrol(...
+                 handles.getGlobalROI = uicontrol(...
                     'Parent', handles.task_panel, ...
                     'FontSize', 16, ...
                     'Units', 'normalized', ...
                     'ForegroundColor',  handles.myData.settings.FG_color, ...
                     'BackgroundColor',  handles.myData.settings.BG_color, ...
-                    'Position',[0.4, 0.4, .2, .2], ...
+                    'Position',[0.2, 0.5, .2, .2], ...
                     'Style', 'pushbutton', ...
-                    'Tag', 'editvalue', ...
+                    'Tag', 'getGlobalROI', ...
                     'enable','on',...
-                    'String', 'Get WSI ROI Position',...
-                    'Callback',@WSI_Position_Callback);  
-
-                  handles.registerAndReextract = uicontrol(...
+                    'String', 'Get Global Registration WSI ROI',...
+                    'Callback',@getGlobalROI_Callback);  
+                
+                handles.saveGlobalTarget = uicontrol(...
                     'Parent', handles.task_panel, ...
                     'FontSize', 16, ...
                     'Units', 'normalized', ...
                     'ForegroundColor',  handles.myData.settings.FG_color, ...
                     'BackgroundColor',  handles.myData.settings.BG_color, ...
-                    'Position',[0.8,0.8,0.2,0.2], ...
+                    'Position',[0.6,0.5,0.2,0.2], ...
                     'Style', 'pushbutton', ...
-                    'Tag', 'editvalue', ...
+                    'Tag', 'getGlobalTarget', ...
                     'enable','off',...
-                    'String', 'Refine Registation',...
-                    'Callback',@RegisterAndReextract_Callback);
-
+                    'String', 'Save Global Registration Result',...
+                    'Callback',@saveGlobalTarget_Callback);
+                
+                handles.getLocalROI = uicontrol(...
+                    'Parent', handles.task_panel, ...
+                    'FontSize', 16, ...
+                    'Units', 'normalized', ...
+                    'ForegroundColor',  handles.myData.settings.FG_color, ...
+                    'BackgroundColor',  handles.myData.settings.BG_color, ...
+                    'Position',[0.2,0.2,0.2,0.2], ...
+                    'Style', 'pushbutton', ...
+                    'Tag', 'getLocalROI', ...
+                    'enable','off',...
+                    'String', 'Get Local Registration WSI ROI',...
+                    'Callback',@getLocalROI_Callback);
+                
+                handles.saveLocalTarget = uicontrol(...
+                    'Parent', handles.task_panel, ...
+                    'FontSize', 16, ...
+                    'Units', 'normalized', ...
+                    'ForegroundColor',  handles.myData.settings.FG_color, ...
+                    'BackgroundColor',  handles.myData.settings.BG_color, ...
+                    'Position',[0.6,0.2,0.2,0.2], ...
+                    'Style', 'pushbutton', ...
+                    'Tag', 'getGlobalTarget', ...
+                    'enable','off',...
+                    'String', 'Save Local Registration Result',...
+                    'Callback',@saveLocalTarget_Callback);
 
                 handles.textWSI = uicontrol(...
                     'Parent', handles.task_panel, ...
@@ -99,34 +133,21 @@ try
                     'HorizontalAlignment', 'left', ...
                     'ForegroundColor', handles.myData.settings.FG_color, ...
                     'BackgroundColor', handles.myData.settings.BG_color, ...
-                    'Position', [0.4,0.25,0.4,0.1], ...
+                    'Position', [0.4,0.85,0.4,0.05], ...
                     'Style', 'Text', ...
                     'String', 'WSI:', ...
                     'Tag', 'textWSI');
-
-                handles.textWSIX = uicontrol(...
+                
+                handles.processingstatus = uicontrol(...
                     'Parent', handles.task_panel, ...
                     'FontSize', handles.myData.settings.FontSize, ...
                     'Units', 'normalized', ...
                     'HorizontalAlignment', 'left', ...
                     'ForegroundColor', handles.myData.settings.FG_color, ...
                     'BackgroundColor', handles.myData.settings.BG_color, ...
-                    'Position', [0.4,0.15,0.2,0.1], ...
+                    'Position', [0.4,0.8,0.4,0.05], ...
                     'Style', 'Text', ...
-                    'String', 'not set', ...
-                    'Tag', 'textWSIX');
-
-                handles.textWSIY = uicontrol(...
-                    'Parent', handles.task_panel, ...
-                    'FontSize', handles.myData.settings.FontSize, ...
-                    'Units', 'normalized', ...
-                    'HorizontalAlignment', 'left', ...
-                    'ForegroundColor', handles.myData.settings.FG_color, ...
-                    'BackgroundColor', handles.myData.settings.BG_color, ...
-                    'Position', [0.6,0.15,0.2,0.1], ...
-                    'Style', 'Text', ...
-                    'String', 'not set', ...
-                    'Tag', 'textWSIY');
+                    'Tag', 'textWSI');
             
             end 
         case {'NextButtonPressed', ...
@@ -136,20 +157,23 @@ try
             if strcmp(myData.mode_desc,'Digital')
                 taskmgt_default(handles, 'off');
             else
+                %update interface
                 taskmgt_default(handles, 'off');
                 handles = guidata(hObj);
                 set(handles.iH,'visible','off');
                 set(handles.ImageAxes,'visible','off');
-                delete(handles.getPosition);
-                delete(handles.registerAndReextract);
+                delete(handles.getGlobalROI);
+                delete(handles.saveGlobalTarget);
+                delete(handles.getLocalROI);
+                delete(handles.saveLocalTarget);
                 delete(handles.textWSI);
-                delete(handles.textWSIX);
-                delete(handles.textWSIY);
-                handles = rmfield(handles, 'getPosition');
-                handles = rmfield(handles, 'registerAndReextract');
+                delete(handles.processingstatus);
+                handles = rmfield(handles, 'getGlobalROI');
+                handles = rmfield(handles, 'saveGlobalTarget');
+                handles = rmfield(handles, 'getLocalROI');
+                handles = rmfield(handles, 'saveLocalTarget');
                 handles = rmfield(handles, 'textWSI');
-                handles = rmfield(handles, 'textWSIX');
-                handles = rmfield(handles, 'textWSIY');
+                handles = rmfield(handles, 'processingstatus');
                 set(handles.Fast_Register_Button, 'Enable', 'on');
                 set(handles.Best_Register_Button, 'Enable', 'on');
                 set(handles.ResetViewButton, 'Enable', 'on');
@@ -164,16 +188,18 @@ try
             else
                 taskmgt_default(handles, 'off');
                 handles = guidata(hObj);
-                delete(handles.getPosition);
-                delete(handles.registerAndReextract);
+                delete(handles.getGlobalROI);
+                delete(handles.saveGlobalTarget);
+                delete(handles.getLocalROI);
+                delete(handles.saveLocalTarget);
                 delete(handles.textWSI);
-                delete(handles.textWSIX);
-                delete(handles.textWSIY);
-                handles = rmfield(handles, 'getPosition');
-                handles = rmfield(handles, 'registerAndReextract');
+                delete(handles.processingstatus);
+                handles = rmfield(handles, 'getGlobalROI');
+                handles = rmfield(handles, 'saveGlobalTarget');
+                handles = rmfield(handles, 'getLocalROI');
+                handles = rmfield(handles, 'saveLocalTarget');
                 handles = rmfield(handles, 'textWSI');
-                handles = rmfield(handles, 'textWSIX');
-                handles = rmfield(handles, 'textWSIY');
+                handles = rmfield(handles, 'processingstatus');
                 set(handles.Fast_Register_Button, 'Enable', 'on');
                 set(handles.Best_Register_Button, 'Enable', 'on');
                 set(handles.ResetViewButton, 'Enable', 'on');
@@ -192,8 +218,12 @@ try
                     taskinfo.text, ',', ...
                     num2str(taskinfo.duration), ',', ...
                     taskinfo.wsi_name,',', ...
-                    num2str(taskinfo.wsi_roi_position_x), ',', ...
-                    num2str(taskinfo.wsi_roi_position_y)]);
+                    num2str(taskinfo.wsi_global_x), ',', ...
+                    num2str(taskinfo.wsi_global_y), ',', ...
+                    num2str(taskinfo.wsi_local_x), ',', ...
+                    num2str(taskinfo.wsi_local_y), ',', ...
+                    num2str(taskinfo.wsi_target_x), ',', ...
+                    num2str(taskinfo.wsi_target_y)]);
             elseif taskinfo.currentWorking ==0 % write undone task
                 fprintf(myData.fid, [...
                     taskinfo.task, ',', ...
@@ -225,10 +255,10 @@ catch ME
 end
 end
 
-function WSI_Position_Callback (hObj, eventdata)
+function getGlobalROI_Callback (hObj, eventdata)
     handles = guidata(hObj);
     myData = handles.myData;
-    taskinfo = myData.taskinfo;
+    taskinfo = myData.tasks_out{myData.iter};
     handles.myData.stage = stage_get_pos(handles.myData.stage,myData.stage.handle); 
     temp = handles.myData.stage.Pos;
     stage_x0 = temp(1);
@@ -272,8 +302,6 @@ function WSI_Position_Callback (hObj, eventdata)
                 handles.myData.settings.RotateWSI,...
                 wsi_info.rgb_lut);
             set(handles.textWSI,'String',fileName);
-            set(handles.textWSIX,'String',num2str(wsi_new(1)));
-            set(handles.textWSIY,'String',num2str(wsi_new(2)));
             taskinfo.wsi_name = fileName;
             taskinfo.wsi_roi_position_x = wsi_new(1);
             taskinfo.wsi_roi_position_y = wsi_new(2);
@@ -283,13 +311,16 @@ function WSI_Position_Callback (hObj, eventdata)
             myData.taskinfo.slot = i;
             handles.myData = myData;
             guidata(hObj, handles);
-            taskimage_load(hObj);
+            taskimage_load(hObj);      
             handles = guidata(hObj);
-            set(handles.registerAndReextract,'Enable', 'on');
+            set(handles.saveGlobalTarget,'Enable', 'on');
             set(handles.Reticlebutton, 'Enable', 'on');
-            set(handles.NextButton, 'Enable', 'on');
+            %set(handles.getGlobalROI, 'Enable', 'off');
             set(handles.PauseButton, 'Enable', 'on');
             guidata(hObj, handles);
+            %open Imagescope with FOV and ROI annotation
+            %exportXML_ROIandCircle(wsi_info.fullname,wsi_info.scan_scale, taskinfo.id,handles.myData.workdir,...
+            %Left, Top, taskinfo.roi_w, taskinfo.roi_h);        
             find = 1;
         end
         
@@ -299,10 +330,49 @@ function WSI_Position_Callback (hObj, eventdata)
     end
 end
 
-function RegisterAndReextract_Callback (hObj, eventdata)
+
+function saveGlobalTarget_Callback(hObj, eventdata)
     handles = guidata(hObj);
     myData = handles.myData;
-    taskinfo = myData.taskinfo;
+    taskinfo = handles.myData.tasks_out{handles.myData.iter};
+%     %save xml
+%     FolderName=[myData.output_files_dir,...
+%     strrep(myData.outputfile,'.dapso','xmlAnnotation')];
+%     if ~exist(FolderName,'file')
+%         mkdir(FolderName);
+%     end
+%     fullInputimage = myData.wsi_files{taskinfo.slot}.fullname;
+%     dotIndex = strfind(fullInputimage,'.');
+%     fullInputimage = fullInputimage(1:dotIndex(end));
+%     fullInputxml = [fullInputimage,'xml'];
+%     slashIndex = strfind(fullInputimage,'\');
+%     inputimage = fullInputimage(slashIndex(end)+1:end-1);
+%     fullOutputxml = [FolderName,'/',inputimage,'_',taskinfo.id,'_global_target.xml'];
+%     copyfile (fullInputxml, fullOutputxml);
+    taskinfo.wsi_global_x = taskinfo.wsi_roi_position_x;
+    taskinfo.wsi_global_y = taskinfo.wsi_roi_position_y;
+    FolderName=[myData.output_files_dir,...
+            strrep(myData.outputfile,'.dapso','RegPhoto')];
+    if ~exist(FolderName,'file')
+       mkdir(FolderName);
+    end
+    img=imread(taskinfo.ROIname);
+    imwrite(img,strcat(FolderName,'\',...
+            'ID-',taskinfo.id,...
+            '_iter-',num2str(taskinfo.order),...
+            '_wsiGlobal.tif'));
+    handles.myData.taskinfo = taskinfo;
+    handles.myData.tasks_out{handles.myData.iter} = taskinfo;
+    guidata(handles.GUI, handles);
+    set(handles.getLocalROI,'Enable', 'on');
+    set(handles.saveGlobalTarget,'Enable', 'off');
+end
+
+
+function getLocalROI_Callback (hObj, eventdata)
+    handles = guidata(hObj);
+    myData = handles.myData;
+    taskinfo = myData.tasks_out{myData.iter};
     wsi_current = [taskinfo.wsi_roi_position_x;taskinfo.wsi_roi_position_y];
     settings = myData.settings;
     cam_w = myData.settings.cam_w;
@@ -414,13 +484,87 @@ function RegisterAndReextract_Callback (hObj, eventdata)
                 handles.myData.settings.RotateWSI,...
                 wsi_info.rgb_lut);
     set(handles.textWSI,'String',taskinfo.wsi_name);
-    set(handles.textWSIX,'String',num2str(wsi_new(1)));
-    set(handles.textWSIY,'String',num2str(wsi_new(2)));
     taskinfo.wsi_roi_position = wsi_new;
+    
     myData.taskinfo = taskinfo;
     myData.tasks_out{myData.iter} = taskinfo;
     handles.myData = myData;
     guidata(hObj, handles);
     taskimage_load(hObj);
+    %open Imagescope with FOV and ROI annotation
+    exportXML_ROIandCircle(wsi_info.fullname,wsi_info.scan_scale, taskinfo.id,handles.myData.workdir,...
+    Left, Top, taskinfo.roi_w, taskinfo.roi_h);      
+    
+    set(handles.processingstatus,'String','Please mark target in imagescope and close image to save annotation');
+    set(handles.saveLocalTarget,'Enable', 'on');
+    set(handles.getLocalROI,'Enable', 'off');
 end
 
+function saveLocalTarget_Callback(hObj, eventdata)
+    handles = guidata(hObj);
+    myData = handles.myData;
+    taskinfo = handles.myData.tasks_out{handles.myData.iter};
+    
+    fullInputimage = myData.wsi_files{taskinfo.slot}.fullname;
+    dotIndex = strfind(fullInputimage,'.');
+    fullInputimage = fullInputimage(1:dotIndex(end));
+    fullInputxml = [fullInputimage,'xml'];
+    slashIndex = strfind(fullInputimage,'\');
+    inputimage = fullInputimage(slashIndex(end)+1:end-1);
+    
+    %load xml
+    [tree, RootName, DOMnode] = xml_read(fullInputxml);       
+    annotation = tree.Annotation;
+    if length(annotation)>=2
+        regions = annotation(2).Regions;
+        region = regions.Region;
+        tempVertices = region(1).Vertices;
+
+        %save ROI center and target positions
+        taskinfo.wsi_target_x = round(tempVertices.Vertex.ATTRIBUTE.X);
+        taskinfo.wsi_target_y = round(tempVertices.Vertex.ATTRIBUTE.Y);
+
+        taskinfo.wsi_local_x = taskinfo.wsi_roi_position(1);
+        taskinfo.wsi_local_y = taskinfo.wsi_roi_position(2);
+
+        %copy xml
+        FolderName=[myData.output_files_dir,...
+        strrep(myData.outputfile,'.dapso','xmlAnnotation')];
+        if ~exist(FolderName,'file')
+            mkdir(FolderName);
+        end
+        
+        fullOutputxml = [FolderName,'/',inputimage,'_',taskinfo.id,'_local_target.xml'];
+        copyfile (fullInputxml, fullOutputxml);
+
+
+        % save WSI image
+        FolderName=[myData.output_files_dir,...
+                strrep(myData.outputfile,'.dapso','RegPhoto')];
+        if ~exist(FolderName,'file')
+           mkdir(FolderName);
+        end    
+        img=imread(taskinfo.ROIname);
+        imwrite(img,strcat(FolderName,'\',...
+                'ID-',taskinfo.id,...
+                '_iter-',num2str(taskinfo.order),...
+                '_wsiLocal.tif'));
+
+        % save camera image
+        cam_image = camera_take_image(handles.cam);
+        imwrite(cam_image,strcat(FolderName,'\',...
+            'ID',taskinfo.id,...
+            '_Slot',num2str(taskinfo.slot),...
+            '_Order',num2str(taskinfo.order),...
+            '_camera.tif'));
+
+        handles.myData.taskinfo = taskinfo;
+        handles.myData.tasks_out{handles.myData.iter} = taskinfo;
+        guidata(hObj, handles);
+
+        set(handles.NextButton, 'Enable', 'on');
+        set(handles.saveLocalTarget,'Enable', 'off');
+    else
+        errordlg('Please mark target in imagescope and save annotation','Missing target annotation','modal');
+    end
+end

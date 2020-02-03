@@ -1,4 +1,13 @@
 function task_checkMof4(hObj)
+%description
+%choose M of out 4 check box
+
+%task input column
+%checkMof4,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,Qtext,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+
+%task output column
+%checkMof4,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,Qtext,Q_Op1,Q_Op2,Q_Op3,Q_Op4,
+%task duration,Q1_result,Q2_result,Q3_result,Q4_result
 try
     
     handles = guidata(hObj);
