@@ -432,7 +432,12 @@ try
         'BackgroundColor',myData.settings.BG_color,...
         'ForegroundColor',myData.settings.FG_color,...
         'Visible', 'off');
-    set(handles.Refine_Register_Button,...
+    set(handles.refine_global_reg,...
+        'FontSize', myData.settings.FontSize,...
+        'BackgroundColor',myData.settings.BG_color,...
+        'ForegroundColor',myData.settings.FG_color,...
+        'Visible', 'off');
+    set(handles.refine_eyepiece_reg,...
         'FontSize', myData.settings.FontSize,...
         'BackgroundColor',myData.settings.BG_color,...
         'ForegroundColor',myData.settings.FG_color,...
@@ -809,12 +814,14 @@ try
             set(handles.NextButton,'enable','off');
             set(handles.Fast_Register_Button,'enable','off');
             set(handles.Best_Register_Button,'enable','off');
-            set(handles.Refine_Register_Button,'enable','off');
+            set(handles.refine_global_reg,'enable','off');
+            set(handles.refine_eyepiece_reg,'enable','off');
             handles.myData.stage = stage_move(handles.myData.stage,target_pos,handles.myData.stage.handle);
             set(handles.NextButton,'enable',currentNextStatus);
             set(handles.Fast_Register_Button,'enable','on');
             set(handles.Best_Register_Button,'enable','on');
-            set(handles.Refine_Register_Button,'enable','on');
+            set(handles.refine_global_reg,'enable','on');
+            set(handles.refine_eyepiece_reg,'enable','on');
             
     end
     
@@ -1302,9 +1309,9 @@ end
 end
 
 
-% --- Executes on button press in Refine_Register_Button.
-function Refine_Register_Button_Callback(hObject, eventdata, handles)
-% hObject    handle to Refine_Register_Button (see GCBO)
+% --- Executes on button press in refine_global_reg.
+function refine_global_reg_Callback(hObject, eventdata, handles)
+% hObject    handle to refine_global_reg (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
     
@@ -1372,4 +1379,25 @@ function Refine_Register_Button_Callback(hObject, eventdata, handles)
     % get into refine registration task
     taskinfo.task_handle(handles.GUI);
     handles = guidata(handles.GUI);
+end
+
+
+% --- Executes on button press in refine_eyepiece_reg.
+function refine_eyepiece_reg_Callback(hObject, eventdata, handles)
+% hObject    handle to refine_eyepiece_reg (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+    close(handles.cam_figure)
+    delete(handles.cam)
+    clear handles.cam
+    clear handles.cam_figure
+    align_eye_cam(handles);
+    handles = guidata(handles.GUI);
+    myData = handles.myData;
+    handles.reticle = 1;
+    settings = myData.settings; 
+    handles.cam=camera_open(settings.cam_kind,settings.cam_format,settings.defaultR,settings.defaultB);
+    handles.cam_figure = camera_preview(handles.cam, settings);
+    handles.myData.stage = stage_open(handles.myData.stage.label);
+    guidata(handles.GUI,handles );
 end

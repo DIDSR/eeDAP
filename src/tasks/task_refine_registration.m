@@ -12,7 +12,7 @@ try
     display([taskinfo.task, ' called from ', calling_function])
     
     switch calling_function
-        case {'Refine_Register_Button_Callback', ...
+        case {'refine_global_reg_Callback', ...
                 'ResumeButtonPressed'} % Initialize task elements
                 
             % Load the image
@@ -26,7 +26,7 @@ try
             
             set(handles.Fast_Register_Button, 'Enable', 'off');
             set(handles.Best_Register_Button, 'Enable', 'off');
-            set(handles.Refine_Register_Button, 'Enable', 'off');
+            set(handles.refine_global_reg, 'Enable', 'off');
             % Guide text 
             handles.guideText = uicontrol(...
                 'Parent', handles.task_panel, ...
@@ -91,7 +91,7 @@ try
             handles.myData.iter = handles.myData.iter-1;    %go back to previous task
             set(handles.Fast_Register_Button, 'Enable', 'on');
             set(handles.Best_Register_Button, 'Enable', 'on');
-            set(handles.Refine_Register_Button, 'Enable', 'on');
+            set(handles.refine_global_reg, 'Enable', 'on');
             guidata(handles.GUI, handles); 
 
     end
