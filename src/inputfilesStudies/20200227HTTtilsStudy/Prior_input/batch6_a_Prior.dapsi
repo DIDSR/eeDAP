@@ -1,0 +1,111 @@
+Author: 
+Date: 
+Time: 
+
+For the Hamamatsu scanning at 20x
+    scan_scale = .4558
+For the Hamamatsu scanning at 40x
+    scan_scale = .2279
+
+Point Grey Grashopper Color (GRAS-03K2C-C)
+    cam_format = RGB24_640x480
+    cam_pixel_size = 7.4um
+Point Grey Flea2 Color (FL2G-50S5C-C): Full resolution, full format
+    cam_format = F7_RGB24_2448x2048
+    cam_pixel_size = 3.45
+Point Grey Flea2 Color (FL2G-50S5C-C): Standard format, aspect ratio = 1.33
+    cam_format = RGB24_1024x768
+    cam_pixel_size = 6.9
+
+Reminder:
+autoreg = 1 do local automatic registration for each task/FOV
+autoreg = 0 don't local automatic registration for each task/FOV
+taskorder=2 user specified order
+taskorder=1 listed order
+taskorder=0 random order
+saveimages = 1  save WSI and camera images
+saveimages = 2  only save WSI image
+saveimages = 3  only save camera image
+saveimages = 4  don't save WSI and camera images
+
+
+Input File Task Formats
+HTT_TILS_20x,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,Qtext
+
+
+
+SETTINGS
+NUMBER_OF_WSI    = 4
+wsi_slot_1       = C:\000_whole_slides\2020HTT_Study\Prior_stage\HTT-TILS-001-52B.ndpi
+rgb_lut_slot_1   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_1     = 0.2283
+wsi_slot_2       = C:\000_whole_slides\2020HTT_Study\Prior_stage\HTT-TILS-001-53B.ndpi
+rgb_lut_slot_2   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_2     = 0.2283
+wsi_slot_3       = C:\000_whole_slides\2020HTT_Study\Prior_stage\HTT-TILS-001-54B.ndpi
+rgb_lut_slot_3   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_3     = 0.2283
+wsi_slot_4       = C:\000_whole_slides\2020HTT_Study\Prior_stage\HTT-TILS-001-56B.ndpi
+rgb_lut_slot_4   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_4     = 0.2283
+label_pos        = 12
+reticleID        = KR-871
+cam_kind	 = USB
+cam_format       = F7_RGB_1224x1024_Mode1
+cam_pixel_size   = 6.9
+mag_cam          = 0.5
+mag_lres         = 10
+mag_hres         = 20
+stage_label      = H101-Prior
+BG_Color_RGB     = 0.55 = 0.55 = 0.55
+FG_Color_RGB     = 0.00 = 0.00 = 0.00
+AxesBG_Color_RGB = 0.10 = 0.20 = 0.10
+FontSize         = 13
+autoreg 	 = 0
+saveimages       = 1
+taskorder        = 0
+
+BODY
+start
+finish
+HTT_TILS_20x,HTT-TILS-001-52B_left_59328_top_14848,-1,1,60423,15943,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-52B_left_77292_top_19850,-1,1,78387,20945,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-52B_left_57110_top_50014,-1,1,58205,51109,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-52B_left_22110_top_13641,-1,1,23205,14736,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-52B_left_71829_top_49452,-1,1,72924,50547,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-52B_left_67933_top_47867,-1,1,69028,48962,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-52B_left_61799_top_13338,-1,1,62894,14433,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-52B_left_80180_top_17427,-1,1,81275,18522,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-52B_left_49573_top_49246,-1,1,50668,50341,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-52B_left_24761_top_13563,-1,1,25856,14658,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-53B_left_13921_top_12223,-1,2,15016,13318,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-53B_left_25605_top_17849,-1,2,26700,18944,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-53B_left_23223_top_14905,-1,2,24318,16000,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-53B_left_19772_top_11529,-1,2,20867,12624,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-53B_left_28231_top_19968,-1,2,29326,21063,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-53B_left_9799_top_10981,-1,2,10894,12076,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-53B_left_7342_top_10913,-1,2,8437,12008,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-53B_left_25699_top_20250,-1,2,26794,21345,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-53B_left_28888_top_28271,-1,2,29983,29366,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-53B_left_36842_top_33506,-1,2,37937,34601,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-54B_left_33086_top_53427,-1,3,34181,54522,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-54B_left_28901_top_51555,-1,3,29996,52650,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-54B_left_42178_top_31946,-1,3,43273,33041,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-54B_left_57756_top_28260,-1,3,58851,29355,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-54B_left_49483_top_31997,-1,3,50578,33092,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-54B_left_51614_top_49123,-1,3,52709,50218,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-54B_left_42466_top_18409,-1,3,43561,19504,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-54B_left_37357_top_31412,-1,3,38452,32507,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-54B_left_26314_top_31263,-1,3,27409,32358,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-54B_left_50660_top_46223,-1,3,51755,47318,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-56B_left_5903_top_41303,-1,4,6998,42398,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-56B_left_14143_top_54899,-1,4,15238,55994,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-56B_left_111873_top_48972,-1,4,112968,50067,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-56B_left_60135_top_59162,-1,4,61230,60257,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-56B_left_36111_top_71249,-1,4,37206,72344,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-56B_left_33954_top_65231,-1,4,35049,66326,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-56B_left_104525_top_48314,-1,4,105620,49409,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-56B_left_7914_top_38451,-1,4,9009,39546,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-56B_left_5241_top_34999,-1,4,6336,36094,2190,2190,HTT study
+HTT_TILS_20x,HTT-TILS-001-56B_left_8062_top_35347,-1,4,9157,36442,2190,2190,HTT study
+
