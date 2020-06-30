@@ -1,4 +1,5 @@
 WSI A: Basic WSI. We have positions for this WSI.
+
 WSI B: Target WSI. We want position for this WSI.
 
 Procedure:
