@@ -53,4 +53,5 @@
  * Error immediately after "Start Test" during Camera Preview and Adjusting Color (after stage moves)
     * Make sure the illumination path to the camera is not blocked by stage or slide
     * Confirm Camera is connected and receiving input, restart the program
+    
  
