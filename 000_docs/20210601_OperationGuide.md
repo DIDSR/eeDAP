@@ -37,7 +37,7 @@
 ## Quick Start Guide - 2021-07-15
 
  * Assemble Microscope Hardware
-   * Packing/Unpacking List for 2021 Shipment: https://github.com/kate-elfer/eeDAP/blob/master/000_docs/eeDAPContents_20210715.pdf
+   * Packing/Unpacking List for 2021 Shipment: 000_docs/eeDAPContents_20210715.pdf
    * eeDAP Manual Unpacking Guide: http://didsr.github.io/eeDAP/000_EEDAP/manualHTML/package_and_unpackage.htm?ms=AAA%3D&st=MA%3D%3D&sct=ODM3&mw=MjQw 
  * Connect Stage and Camera to laptop via docking station
  * Connect Laptop, Microscope, and Stage Controller to power source.
