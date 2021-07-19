@@ -1,6 +1,6 @@
 ## Contents List
 
-Visual Depiction of 2021-07-15 Shipment: https://github.com/kate-elfer/eeDAP/blob/master/000_docs/eeDAPContents_20210715.pdf
+Visual Depiction of 2021-07-15 Shipment: 00_docs/eeDAPContents_20210715.pdf
 
  * Olympus BX43 Microscope
    * Disassembled: Frame, Head, Eyepieces
@@ -27,5 +27,54 @@ Visual Depiction of 2021-07-15 Shipment: https://github.com/kate-elfer/eeDAP/blo
  * 1 Mini Pliers
  * 1 boxKimwipes
  * 1 Power Strip
+ * Mousepad
  * 1 Scissors
+ * Pens
+---
+
+## Contents by Box
+
+#### Box: Microscope Frame
+ * Olympus BX43 Microscope
+ * Eyepieces + rubber protector
+ * 3 surface docking stations
+ * 2 spare surface chargers
+ * 6 - TILs "Cheat Sheets) 
+ * Zeiss Hex Key Set
+ * Phillips Mini Screwdriver Set
+
+#### Box: Stage
+ * Prior Microscope Stage
+ * Cable to connect stage to controller
+ * Cable for controller power
+
+#### Box: Microscope Head + Camera
+ * Microscope Head
+ * Camera (Pink antistatic wrap)
+ * Camera Cable (blue extra long USB connector cable)
+ * Microscope Objectives (Thorlabs Box): 2.5x, 4x, 10x, 20x, 40x (and mousepad)
+ 
+ 
+ #### Box: Controller & Slides
+ * Stage Controller
+ * HTT TILs Study Microscope Slides
+
+#### Box: Microsoft Surface TAblets (repurposed Dell Box)
+ * 2 Microsoft Surface Tablets
+ * 2 Power Cables
+ * 2 Stylus for tablets
+
+#### Box: Dell Laptops
+ * 2 Dell Research Laptops
+ * Power Cables for laptops
+
+#### Loose
+ * Joystick
+ * Kimwipes
+ * Power Strip
+ * Extra Power Cables
+ * Monitor Connectors (Bag): HDMI-HDMI, HDMI-Display Port, Mini display port, multi-port hub
+ * 2 Dell Docking Stations + Power cables
+ * Scissors
+ * Masking Tape
  * Pens
