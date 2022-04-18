@@ -11,11 +11,15 @@ Visual Depiction of 2021-07-15 Shipment: 00_docs/eeDAPContents_20210715.pdf
  * Joystick for Motorized Stage
  * Digital Camera for Microscope + cable
  * 2 Dell Research Laptops + cables
+    * Dell Scientific Laptop #0209592
+    * Dell Scientific Laptop #0209590
     * 2 Docking Stations + cables
     * Installed with software and WSIs
- * 2 Microsoft Surface Tablets
+ * 3 Microsoft Surface Tablets
     * 3 Docking Stations + 2 Power Cables
-
+    * Surface Tablet Property #5137421
+    * Surface Tablet Property # 5137431
+    * Surface Tablet Property # 5137430 (From research assistant. It was not packed with the rest)
  * TILs Reference Sheets
  * 1 Zeiss Hex Key Set
  * 1 Phillips Screwdriver Set
