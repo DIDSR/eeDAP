@@ -1,0 +1,102 @@
+Author: Kate Elfer
+Date: July 2022
+Time: 
+
+For the Hamamatsu scanning at 20x
+    scan_scale = .4558
+For the Hamamatsu scanning at 40x
+    scan_scale = .2279
+
+Point Grey Grashopper Color (GS3-U3-51S5C-C)
+    cam_format = F7_RGB_1224x1024_Mode1
+    cam_pixel_size = 3.45
+Point Grey Grashopper Color (GRAS-03K2C-C)
+    cam_format = RGB24_640x480
+    cam_pixel_size = 7.4um
+Point Grey Flea2 Color (FL2G-50S5C-C): Full resolution, full format
+    cam_format = F7_RGB24_2448x2048
+    cam_pixel_size = 3.45
+Point Grey Flea2 Color (FL2G-50S5C-C): Standard format, aspect ratio = 1.33
+    cam_format = RGB24_1024x768
+    cam_pixel_size = 6.9
+
+Reminder:
+autoreg = 0 do not do auto registration
+autoreg = 1 do auto registration
+taskorder=2 user specified order
+taskorder=1 listed order
+taskorder=0 random order
+saveimages = 1  save WSI and camera images
+saveimages = 2  only save WSI image
+saveimages = 3  only save camera image
+saveimages = 4  don't save WSI and camera images
+
+
+Input File Task Formats
+registration_test,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H
+
+
+SETTINGS
+NUMBER_OF_WSI    = 4
+wsi_slot_1       = C:\000_whole_slides\2020HTT_Study\Prior_stage\HTT-TILS-001-09B.ndpi
+rgb_lut_slot_1   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_1     = 0.2283
+wsi_slot_2       = C:\000_whole_slides\2020HTT_Study\Prior_stage\HTT-TILS-001-11B.ndpi
+rgb_lut_slot_2   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_2     = 0.2283
+wsi_slot_3       = C:\000_whole_slides\2020HTT_Study\Prior_stage\HTT-TILS-001-12B.ndpi
+rgb_lut_slot_3   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_3     = 0.2283
+wsi_slot_4       = C:\000_whole_slides\2020HTT_Study\Prior_stage\HTT-TILS-001-13B.ndpi
+rgb_lut_slot_4   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_4	 = 0.2283
+label_pos        = 12
+reticleID        = KR-871
+cam_kind	 = USB
+cam_format       = F7_RGB_1224x1024_Mode1
+cam_pixel_size   = 3.45
+mag_cam          = 0.5
+mag_lres         = 10
+mag_hres         = 40
+stage_label      = Thorlabs_MLS203
+BG_Color_RGB     = 0.55 = 0.55 = 0.55
+FG_Color_RGB     = 0.00 = 0.00 = 0.00
+AxesBG_Color_RGB = 0.10 = 0.20 = 0.10
+FontSize         = 13
+autoreg 	 = 0
+saveimages       = 3
+taskorder        = 1
+
+BODY
+start
+finish
+egistration_test,1st0001,1,1,4466.5,6236.5,799,799
+registration_test,2nd0001,1,1,4275.5,9244.5,799,799
+registration_test,3rd0001,1,1,6905.5,9218.5,799,799
+registration_test,4th0001,1,1,4038.5,11756.5,799,799
+registration_test,5th0001,1,1,6981.5,11923.5,799,799
+registration_test,6th0001,1,1,5426.5,7946.5,799,799
+registration_test,7th0001,1,1,5463.5,10219.5,799,799
+registration_test,8th0001,1,1,3042.5,10978.5,799,799
+registration_test,9th0001,1,1,5987.5,13156.5,799,799
+registration_test,10th0001,1,1,7474.5,10386.5,799,799
+registration_test,11st0001,1,2,8154.7728,4084.6818,799,799
+registration_test,12nd0001,1,2,7574.2273,8239.0455,799,799
+registration_test,13rd0001,1,2,9473.7728,9559.1364,799,799
+registration_test,14th0001,1,2,6982.7728,10451.1364,799,799
+registration_test,15th0001,1,2,8097.4091,11818.6818,799,799
+registration_test,16th0001,1,2,10240.8056,12914.7177,799,799
+registration_test,17th0001,1,2,5527.2273,9587.0455,799,799
+registration_test,18th0001,1,2,9605.1364,10888.2273,799,799
+registration_test,19th0001,1,2,4927.9546,11348.4091,799,799
+registration_test,20th0001,1,2,7638.0779,13591.5807,799,799
+registration_test,21st0001,1,3,59766.5,49782.5,799,799
+registration_test,22nd0001,1,3,59952.5,38024.5,799,799
+registration_test,23rd0001,1,3,54948.5,23776.5,799,799
+registration_test,24th0001,1,3,60250.5,11085.5,799,799
+registration_test,25th0001,1,3,91487.5,66815.5,799,799
+registration_test,26th0001,1,3,95972.5,52741.5,799,799
+registration_test,27th0001,1,3,103020.5,30807.5,799,799
+registration_test,28th0001,1,3,113905.5,55022.5,799,799
+registration_test,29th0001,1,3,125063.5,61189.5,799,799
+registration_test,30th0001,1,3,145107.5,72024.5,799,799
