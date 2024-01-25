@@ -32,6 +32,9 @@
 -----
 
 ### Terminology Notes
+
+We are examining the registration accuracy of two different modes of registration, Global and Best. Global may also be referred to as the “uncorrected” registration and applies to all ROIs. Best registration is ROI-specific correction.
+
  * Global Registration – the initial 3-point registra4tion sequence. Measure distance from target without any correction (except z-focus as necessary)
  * Best Registration – after global registration, fine-tune correction. Measure distance after completing Best Registration correction.
 
