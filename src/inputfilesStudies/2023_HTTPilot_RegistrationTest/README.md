@@ -31,6 +31,12 @@
 
 -----
 
+### Terminology Notes
+ * Global Registration – the initial 3-point registra4tion sequence. Measure distance from target without any correction (except z-focus as necessary)
+ * Best Registration – after global registration, fine-tune correction. Measure distance after completing Best Registration correction.
+
+-----
+
 ### Protocol  
 
 Please report any issues to Brandon.Gallas@fda.hhs.gov and kate.elfer@gmail.com
