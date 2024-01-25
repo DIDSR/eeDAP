@@ -1,4 +1,4 @@
-## Registration Test Documents for 2023 HTT Pilot Study Registration Materials
+## Registration Test Documents for 2023 HTT Pilot Study 
 **Objective:**  Our objectives were to measure and compare the registration accuracy of the eeDAP system with two stages (Prior H101 and Thorlabs MLS203). The reader uses rotatable eyepiece reticle to measure the distance from target to center of the eyepiece field of view. Reticle ruler length is 10mm with 100 small ticks. Under 40X, the length of one small tick is 2.5um (5um on the glass at 20X).
 
 -----
