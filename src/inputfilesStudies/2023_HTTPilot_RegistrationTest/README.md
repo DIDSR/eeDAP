@@ -14,7 +14,7 @@
 **Camera:** Point Grey Grashopper Color (GS3-U3-51S5C-C)
 **Stage:** Prior H101 and Thorlabs MLS203
 
-**Matlab Task:** globalAndBestReg
+**Matlab Task:** [globalAndBestReg.m](https://github.com/kate-elfer/eeDAP/blob/master/src/tasks/task_globalAndBestReg.m)
 
 **task input column:**
  * globalAndBestReg,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H
