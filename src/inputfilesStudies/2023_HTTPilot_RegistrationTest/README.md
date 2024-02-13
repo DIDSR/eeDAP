@@ -1,5 +1,5 @@
-## Registration Test Documents for 2023 HTT Pilot Study 
-**Objective:**  Our objectives were to measure and compare the registration accuracy of the eeDAP system with two stages (Prior H101 and Thorlabs MLS203). The reader uses rotatable eyepiece reticle to measure the distance from target to center of the eyepiece field of view. Reticle ruler length is 10mm with 100 small ticks. Under 40X, the length of one small tick is 2.5um (5um on the glass at 20X).
+## Registration Test Documents for 2024 HTT Pilot Study 
+**Objective:**  Our objectives were to measure and compare the registration accuracy of the eeDAP system with two stages (Prior H101 and Thorlabs MLS203). The reader uses a rotatable eyepiece reticle to measure the distance from target to center of the eyepiece field of view. Reticle ruler length is 10mm with 100 small ticks. Under 40X, the length of one small tick is 2.5um on the glass (5um at 20X).
 
 -----
 
@@ -33,10 +33,15 @@
 
 ### Terminology Notes
 
-We are examining the registration accuracy of two different modes of registration, Global and Best. Global may also be referred to as the “uncorrected” registration and applies to all ROIs. Best registration is ROI-specific correction.
+We are examining the registration accuracy of two different modes of registration, Global and Best. Global registration happens once, at the beginning of the experiment. Global may also be referred to as the “uncorrected” registration as it applies to all ROIs without any adjustments. Best registration is a local ROI-specific correction.
 
- * Global Registration – the initial 3-point registra4tion sequence. Measure distance from target without any correction (except z-focus as necessary)
- * Best Registration – after global registration, fine-tune correction. Measure distance after completing Best Registration correction.
+* FOV - field of view in the microscope is the area that can be seen through the microscope eyepiece.
+* ROI - region of interest is a square outline that can be seen on the computer screen.
+* Registration accuracy - the distance from target to the center of the field of view. The target for each field of view can be seen at the center of the digital image.
+* Global Registration – the initial 3-point registration sequence. During the study, you measure registration accuracy after the stage navigates to the new location and you focus the microscope. Do not apply any local registration or correction.
+* Best Registration – after measuring the global registration accuracy and the microscope is in focus, press the "Best Registration" button to performan a local registration, a fine-tune correction. Then measure the registration accuracy.
+
+Global registration data is saved in a ".mat" file next to and with the same name as the corresponding whole slide image. The Global registration data are stage dependent. As such, some manual management of these files is expected and encouraged to save time with Global registration. Without existing Global registration data, Global registration takes significantly longer. With Global registration data, you can skip the low-magnification registration process (Step 1 of Global registration) and just do the high-magnificiation registration process (Step 2 of Global registration).
 
 -----
 
@@ -52,30 +57,36 @@ Please report any issues to Brandon.Gallas@fda.hhs.gov and kate.elfer@gmail.com
 
 2. Launch eeDAP software. Select input file RegAcc_HTT-7a_Prior.dapsi and load ROIs. Select MicroRT mode.
 
-3. The eeDAP program *should* take in the pre-registered Global registration files from other studies. If not, then make sure the input files were saved to the same folder as previous registraiton studies. If Global Registration is still not loading, the Reader will need to complete a Global Registration run on these slides.
+3. The eeDAP program will load existing Global registration data if it exists and is next to the whole slide image. In this case, you can skip the low-magnification registration process (Step 1 of Global registration). Otherwise, the Reader will need to complete the low-magnification registration process before the high-magnification process (Step 2 of Global Registration).
 
 4. The globalAndBestReg.m task will show the reader ROIs in random order of this 1/2 batch.
    
-5. The first image and count box will be with global (uncorrected) registration. The Reader will note the center of the ROI on the computer screen and then examine the center feature in the microscope's FOV. Using the ruler-reticle, the Reader will count the number of notches from center that the center feature of the ROI differs from the center of the FOV.
+5. The first image and count box in the eeDAP GUI will corresond to global (uncorrected) registration.
 
-6. Input the number of counts/notches between the center feature of the ROI and the center of the FOV. These may range from 0 to over 40.
+6. Identify the target: The Reader will note a target at the exact center of the computer screen ROI.
 
-7. Submit the count number and proceed to "Best Registration".
+7. Find the target: The Reader will then search for the target in the microscope FOV.
 
-8. Complete Best Registration by manually correcting where the center of the FOV is on the ROI by clicking the FOV center on the eeDAP program. Save Best Registration.
+8. Measure: On the microscope, the Reader will measure the distance between the FOV center and the target (the number of ruler tick marks). Note that the ruler reticle can be rotated to facilitate the measurement. If the target is not in the microscope FOV, enter "-1" in the next step.
 
-9. Repeat step 6 by inputting the reticle notch count difference between the *corrected* center of the ROI and the center of the FOV.
+9. Record: Enter the number of ruler tick marks between the FOV center and the target into the eeDAP GUI. The expected range is 0 to over 40. Click the "Submit" button and proceed to Best registration.
 
-10. Continue this process through all 40 ROIs of the half batch. Save and end the program.
+10. Focus the microscope and click the "Best Registration" button. This will perform a local registration, correction.
 
-11. Repeat steps 1-11 with modifications for the second half of Batch 7: Slides 77B, 78B, 79B, and 80B and input file RegAcc_HTT-7b_Prior.dapsi 
+12. Identify the target at the exact center of the computer screen ROI, find the target in the microscope FOV, measure the distance between the FOV center and the target, and record the measurement (steps 6-9 above).
+
+13. Continue this process through all 40 ROIs of the half batch. Save and end the program.
+
+Repeat the steps above for HTT Pilot Study Slides 7b: Slides 77B, 78B, 79B, and 80B and input file RegAcc_HTT-7b_Prior.dapsi 
 
 
 **Phase 2 - Thorlabs Stage**
 
-1. The HTT Pilot Study has NOT been registered with the Thorlabs MLS203 stage and you will need to complete full registration of all study slides prior to starting Phase 2. There is the possiblity of an error with the Stage Com on the Administrator Input Screen - using device manager on your computer please verify that Thorlabs is connected to the expected Stage Com in the Admin Input Screen.
+1. The HTT Pilot Study has NOT been registered with the Thorlabs MLS203 stage. Global registration data (results from low-magnification registration) can be created ahead of time. Remember Global registration data (.mat files) are stage dependent. As such, some manual management of these files is expected and encouraged to save time with Global registration.
 
-2. Repeat all steps of Phase 1 with the exception of selecting the Thorlabs' input files.
+2. There is the possiblity of an error with the Stage Com on the Administrator Input Screen - using device manager on your computer please verify that Thorlabs is connected to the expected Stage Com in the Admin Input Screen.
+
+3. Repeat all steps of Phase 1 with the exception of selecting the Thorlabs' input files.
 
 
    
