@@ -1,30 +1,13 @@
 ## eeDAP Work Log
 
 ### Work List
-REMINDER: PUSH COMMITS
-   * Technial: Coding Updates 
-     * Task: Update Tasks for the HTT TILs Study: add Stroma Density Estimate; Remove ROI type, keep evaluable and non-evaluable
-        * To-Do: Send updated tasks to Kim, walk through to ensure working 
-     * Set-up: Update eeDAP Input File to allow skipping high magnification registration
-       * To-Do: Should be incorporated already, need to verify.  
-     * Study:  Button to re-do offset at any point in the study 
-     * Study: Automatic Focus "best register" for HTT study
-     * Operational: Automatic Registration "load slides and walk away at start of global registration"
-     * Study: Button to re-do global registration within study (student task)
-     * Operational: Save registration images to output fodler as well as temporary registration
-     * Operational: Disable white-balance button -> disable the feature that prevents auto-w/b correction by camera
-     * Task: Stage integration, debugging, --> pull to main
-   
-   * Documentation
-     * Need: Improve error documentation
+REMINDER: 
+   * Stage-Driver Connection issue
+   * Documentation: DIDSR/eeDAPAnalysis
+   * Documentation: eeDAP-Wiki
+       
 
 Registration Accuracy Study: Need to complete documentation on sarahndudgeon/eeDAP
-
-### Current Activities
-  * 9/15-ongoing: taking screenshots of each stage of multiple task types for documentation
-  * 9/22: Identifying location of specific technical needs within the code (button creation for study changes)
-  * 9/22-9/27: Map out code, priortize to-do list, test changes to tasks & button creation for skipping registration
-
 
 ### Complete List
 
@@ -33,9 +16,14 @@ Registration Accuracy Study: Need to complete documentation on sarahndudgeon/eeD
 3. Complete: Run Prior Stage in MicroRT
 4. In-Progress: Documentation of eeDAP operation from technician viewpoint + minor troubleshooting
 5. Complete: Documentation of Java-Bioformats Version Matching
-6. Complete: Test eeDAP with Sarah
-7. Complete: Obtain Shipping Label, Prepare all Components for 1st Shipment: Packing List https://github.com/kate-elfer/Notebook/blob/main/K-B%20Meetings/eeDAP_Logs/PackingLIst.md#packing-list 
-8. Complete: Ship to Yale
+6. Create running log of common problems and solutions (see end of document)
+7. Complete: New Bioformats (BF) update
+8. Complete: Create new matlab script for task_HTT_Pivotal_20x.m
+9.  Complete: Shipped Thorlabs stage to Yale 6/1/23; received by Yale 6/8/23; received by Kim Fall 2023(?)
+10. Complete: Create inputfiles for Pivotal Study Batches 1-5
+11. Complete: Error in image_load_halfscale
+12. In-Progress: Run through eedap Pivotal study with Emma G.
+13. In-Progress: Stage driver issue - com not recognized by device manager
 
 ---
 ## 1. Complete: Run eeDAP in Digital Mode
@@ -91,12 +79,49 @@ Currently the "Camera Preview" is so washed out (completely white) that the sect
 
 Adding to the current Development/User Guide: https://github.com/kate-elfer/Notebook/blob/main/K-B%20Meetings/eeDAP_Hardware-Software.md 
 
-Editing and Adding to Word Document brought to Feb 2020 Conference 
+Editing and Adding any feedback from Yale;Emma G.
 
 ---
 
  ## 5.Complete: Documentation of Bioformats Issue Resolution
  
  https://github.com/kate-elfer/Notebook/blob/main/K-B%20Meetings/eeDAP_MATLAB-Bioformats.md
- ---
 
+---
+
+ ## 7. New Biomformats Update
+
+ If #5 does not resolve the BF issue, double check that the image is readalbe by bioformats by opening it in ImageJ/Fiji. If the image cannot be read by ImageJ/Fiji, it cannot be read by Matlab. Recommendation: download new WSI from source and delete previous image (no other steps have been needed to resolve this issue).
+
+---
+
+## 8. Create new matlab script for task_HTT_Pivotal_20x.m
+
+Using the Pilot study task as a template, a new task for the Pivotal study has been created for eeDAP-Develop.
+
+---
+
+## 10. Error in image_load_halfscale
+
+As of August 2023: the function "image_load_halfscale" has thrown an error in both digital and micrort mode for all tasks, both in eeDAP-Develop and the 2019 eeDAP (thus error with matlab and not with new programming).
+
+__Knowns:__ taskimage_load.m is a function file that Qi grabbed from the "Imageviewer" app of the Image Processing Toolbox. the '_halfscale' addition seems to be the primary issue.
+
+Try 1: Activate Imageviewer by typing "**Use the imageViewer function**" in the command prompt then running the task. Result: Same error.
+
+Solution 1: In the code for the eeDAP Task, activate image viewer by calling the app with the function:
+"Imageviewer(image_load_halfscale(hjob))" - this appears to work but may not be giving the intended result (the image looks off but unsure if function issue or operator issue).
+
+Solution 2: 
+---
+
+### Common Errors:
+
+1. "Not in Working Path"/Active folders: Kate's folders are eeDAP-Develop; Qi's - which haven't been modified since 2019 is eeDAP.
+     * If launching pivotal study, registration study, etc. make sure Kate's folers (eeDAP-Develop) are in the working path of matlab. Also make sure that all WSI's are in the working path.
+
+2. Com-port connections. Double check that all devices are connected to the computer (camera, stage controller) via the computer's "Device Manager". Use the device manager to verify the com port connections in the Admin Input Screen.
+
+3. Global Registration Screen - Camera Failure. You will get an error "Camera not connected" on the first part of the Global Registration Screen if the camera is not receiving enough light. Make sure that there is no obstruction of the camera's light path by the stage or opaque parts of the slide at the start of registration. You will need to terminate and re-start the program if you receive this error.
+
+4. 
