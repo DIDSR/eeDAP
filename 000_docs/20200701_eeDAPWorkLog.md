@@ -110,9 +110,25 @@ __Knowns:__ taskimage_load.m is a function file that Qi grabbed from the "Imagev
 Try 1: Activate Imageviewer by typing "**Use the imageViewer function**" in the command prompt then running the task. Result: Same error.
 
 Solution 1: In the code for the eeDAP Task, activate image viewer by calling the app with the function:
-"Imageviewer(image_load_halfscale(hjob))" - this appears to work but may not be giving the intended result (the image looks off but unsure if function issue or operator issue).
+"Imageviewer( taskimage_load_halfscale(hObj))" - this appears to work but may not be giving the intended result (the image looks off but unsure if function issue or operator issue).
 
 Solution 2: 
+If we're looking to simply half the scale of the image:
+
+ imresize(taskimage_load(hObj),0.5);
+
+---
+
+## 13. Stage Driver Issues
+
+November 2023: Stage driver of KNOWN WORKING Stage, Ludl, suddenly not being recognized by computer/eeDAP.
+
+Last Computer OS Windows Update: September 2023. 
+
+LUDL stage should be "plug and play" without needing a specific downloaded driver. Plug and Play not recognizing driver in Device Manager. We (Emma & K) downloaded the driver from Ludl and deleted previous drivers to see if overriding prior drivers may work. Did not work. 
+
+January 2024: Unplugged all components. Turned off Computer. Plugged components in. Turned on compmuter. We verify we can see A driver connecting stage controller to computer, but Device Manager provides error "This OS does not recognize this driver."
+
 ---
 
 ### Common Errors:
