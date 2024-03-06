@@ -34,7 +34,7 @@ Task,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,Zo
 
 SETTINGS
 NUMBER_OF_WSI    = 1
-wsi_slot_1       = C:\000_whole_slides\tissue40x-8B.ndpi
+wsi_slot_1       = C:\WSIs\tissue40x-8B.ndpi
 rgb_lut_slot_1   = icc_profiles\rgb_lut_gamma_inv1p8.txt
 scan_scale_1     = 0.2279
 label_pos        = 12
