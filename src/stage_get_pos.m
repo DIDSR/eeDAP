@@ -15,11 +15,17 @@ try
         else
             stage = stage_get_pos_prior(stage,h_stage);
         end        
-    else
+    elseif
         if exist('h_stage', 'var') == 0
             stage = stage_get_pos_Ludl(stage);
         else
             stage = stage_get_pos_Ludl(stage,h_stage);
+        end
+    elseif
+        if exist('h_stage', 'var') == 0
+            stage = stage_get_pos_thorlabs(stage);
+        else
+            stage = stage_get_pos_thorlabs(stage,h_stage);
         end
     end
     
