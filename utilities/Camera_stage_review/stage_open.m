@@ -7,6 +7,8 @@ try
         stage = stage_open_prior(label);
     elseif strcmp(label(end-4:end),'Ludl')
         stage = stage_open_Ludl(label);
+    else 
+        stage = stage_open_prior(label);
     end
     
 catch ME
