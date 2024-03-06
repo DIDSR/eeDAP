@@ -36,16 +36,16 @@ HTT_TILS_20x,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,Qtext
 
 SETTINGS
 NUMBER_OF_WSI    = 4
-wsi_slot_1       = C:\000_whole_slides\2020HTT_Study\Ludl_stage\HTT-TILS-001-03B.ndpi
+wsi_slot_1       = C:\WSIs\HTT_Pilot\HTT-TILS-001-03B.ndpi
 rgb_lut_slot_1   = icc_profiles\rgb_lut_gamma_inv1p8.txt
 scan_scale_1     = 0.2283
-wsi_slot_2       = C:\000_whole_slides\2020HTT_Study\Ludl_stage\HTT-TILS-001-04B.ndpi
+wsi_slot_2       = C:\WSIs\HTT_Pilot\HTT-TILS-001-04B.ndpi
 rgb_lut_slot_2   = icc_profiles\rgb_lut_gamma_inv1p8.txt
 scan_scale_2     = 0.2283
-wsi_slot_3       = C:\000_whole_slides\2020HTT_Study\Ludl_stage\HTT-TILS-001-07B.ndpi
+wsi_slot_3       = C:\WSIs\HTT_Pilot\HTT-TILS-001-07B.ndpi
 rgb_lut_slot_3   = icc_profiles\rgb_lut_gamma_inv1p8.txt
 scan_scale_3     = 0.2283
-wsi_slot_4       = C:\000_whole_slides\2020HTT_Study\Ludl_stage\HTT-TILS-001-08B.ndpi
+wsi_slot_4       = C:\WSIs\HTT_Pilot\HTT-TILS-001-08B.ndpi
 rgb_lut_slot_4   = icc_profiles\rgb_lut_gamma_inv1p8.txt
 scan_scale_4     = 0.2283
 label_pos        = 12
