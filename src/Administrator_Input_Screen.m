@@ -538,7 +538,7 @@ try
     vid = videoinput(cam_adaptor,1) %#ok<NOPRT>
 
     
-    imaqtool
+    imageAcquisitionExplorer
     
 catch ME
     error_show(ME)

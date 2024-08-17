@@ -18,6 +18,8 @@ try
             desc = taskinfo.desc;  
             taskinfo.rotateback = 0;
             taskinfo.showingROI = 1;
+            taskinfo.img_w = taskinfo.roi_w / 2;
+            taskinfo.img_h = taskinfo.roi_h / 2;
             if length(taskinfo.desc)>9
                 myData.finshedTask = myData.finshedTask + 1;
             end
@@ -30,7 +32,7 @@ try
             taskinfo.showingROI = 1;
             handles.myData.taskinfo = taskinfo;
             guidata(hObj, handles);
-            %taskimage_load_halfscale(hObj);
+            taskimage_load(hObj);
             handles = guidata(hObj);
 
             % Show management buttons
@@ -533,7 +535,7 @@ function switchROI_Callback(hObj, eventdata) %#ok<DEFNU>
         myData.tasks_out{myData.iter} = taskinfo;
         handles.myData = myData;
         guidata(hObj, handles);
-        taskimage_load_halfscale(hObj);
+        taskimage_load(hObj);
     else
         wsi_info = myData.wsi_files{taskinfo.slot};
         WSIfile=wsi_info.fullname;

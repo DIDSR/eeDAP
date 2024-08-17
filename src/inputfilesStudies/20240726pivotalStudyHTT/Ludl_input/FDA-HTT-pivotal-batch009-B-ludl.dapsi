@@ -1,0 +1,122 @@
+Study: HTT Pivotal Study
+Batch: FDA-HTT-pivotal-batch009-A-ludl.dapsi
+Date: 07/25/2024
+
+
+
+For the Hamamatsu scanning at 20x (.ndpi)
+    scan_scale = .4558
+For the Hamamatsu scanning at 40x (.ndpi)
+    scan_scale = .2279
+For the Aperio AT2 Dx scanning at 20x (.svs)
+    scan_scale = .505
+For the Aperio AT2 Dx scanning at 40x (.svs)
+    scan_scale = .2525
+
+
+
+Point Grey Grashopper Color (GRAS-03K2C-C)
+    cam_format = RGB24_640x480
+    cam_pixel_size = 7.4um
+Point Grey Flea2 Color (FL2G-50S5C-C): Full resolution, full format
+    cam_format = F7_RGB24_2448x2048
+    cam_pixel_size = 3.45
+Point Grey Flea2 Color (FL2G-50S5C-C): Standard format, aspect ratio = 1.33
+    cam_format = RGB24_1024x768
+    cam_pixel_size = 6.9
+
+
+
+Reminder:
+autoreg = 1 do local automatic registration for each task/FOV
+autoreg = 0 don't local automatic registration for each task/FOV
+taskorder= 2 user specified order
+taskorder= 1 listed order
+taskorder= 0 random order
+saveimages = 1  save WSI and camera images
+saveimages = 2  only save WSI image
+saveimages = 3  only save camera image
+saveimages = 4  don't save WSI and camera images
+
+
+
+Input File Task Formats
+HTT_TILS_20x:
+TaskName,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,width,height,TaskDesc
+
+
+
+SETTINGS
+NUMBER_OF_WSI    = 4
+wsi_slot_1 = C:\000_whole_slides\HTT_Ludl\HTT-TILS-004-032.svs
+rgb_lut_slot_1   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_1     = 0.2525
+wsi_slot_2 = C:\000_whole_slides\HTT_Ludl\HTT-TILS-004-038.svs
+rgb_lut_slot_2   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_2     = 0.2525
+wsi_slot_3 = C:\000_whole_slides\HTT_Ludl\HTT-TILS-004-040.svs
+rgb_lut_slot_3   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_3     = 0.2525
+wsi_slot_4 = C:\000_whole_slides\HTT_Ludl\HTT-TILS-004-045.svs
+rgb_lut_slot_4   = icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_4     = 0.2525
+label_pos        = 12
+reticleID        = KR-871
+cam_kind	 = USB
+cam_format       = F7_RGB_1224x1024_Mode1
+cam_pixel_size   = 6.9
+mag_cam          = 0.5
+mag_lres         = 10
+mag_hres         = 20
+stage_label      = BioPrecision2-LE2_Ludl6000
+BG_Color_RGB     = 0.55 = 0.55 = 0.55
+FG_Color_RGB     = 0.00 = 0.00 = 0.00
+AxesBG_Color_RGB = 0.10 = 0.20 = 0.10
+FontSize         = 13
+autoreg 	 = 0
+saveimages       = 1
+taskorder        = 1
+
+BODY
+start
+finish
+HTT_TILS_20x,HTT-TILS-004-032.svs_x120736.1980_y25329.1980,-1,1,121726,26319,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-032.svs_x95050.1980_y21104.1980,-1,1,96040,22094,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-032.svs_x128985.1980_y21632.1980,-1,1,129975,22622,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-032.svs_x118188.1980_y30793.1980,-1,1,119178,31783,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-032.svs_x116559.1980_y34255.1980,-1,1,117549,35245,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-032.svs_x108339.1980_y37493.1980,-1,1,109329,38483,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-032.svs_x35418.1980_y26812.1980,-1,1,36408,27802,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-032.svs_x25249.1980_y18927.1980,-1,1,26239,19917,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-032.svs_x11475.1980_y42864.1980,-1,1,12465,43854,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-032.svs_x20800.1980_y40556.1980,-1,1,21790,41546,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-038.svs_x54618.1980_y28699.1980,-1,2,55608,29689,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-038.svs_x43607.1980_y42902.1980,-1,2,44597,43892,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-038.svs_x42608.1980_y28613.1980,-1,2,43598,29603,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-038.svs_x22853.1980_y48055.1980,-1,2,23843,49045,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-038.svs_x25251.1980_y25644.1980,-1,2,26241,26634,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-038.svs_x15970.1980_y29048.1980,-1,2,16960,30038,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-038.svs_x14174.1980_y21204.1980,-1,2,15164,22194,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-038.svs_x16222.1980_y6389.1980,-1,2,17212,7379,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-038.svs_x23129.1980_y8381.1980,-1,2,24119,9371,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-038.svs_x33667.1980_y43181.1980,-1,2,34657,44171,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-040.svs_x39726.1980_y44471.1980,-1,3,40716,45461,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-040.svs_x35841.1980_y47213.1980,-1,3,36831,48203,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-040.svs_x48136.1980_y42864.1980,-1,3,49126,43854,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-040.svs_x23858.1980_y37244.1980,-1,3,24848,38234,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-040.svs_x31963.1980_y35636.1980,-1,3,32953,36626,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-040.svs_x42513.1980_y34938.1980,-1,3,43503,35928,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-040.svs_x24172.1980_y30459.1980,-1,3,25162,31449,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-040.svs_x37153.1980_y24478.1980,-1,3,38143,25468,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-040.svs_x6933.1980_y26149.1980,-1,3,7923,27139,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-040.svs_x20006.1980_y16249.1980,-1,3,20996,17239,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-045.svs_x88530.1980_y17290.1980,-1,4,89520,18280,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-045.svs_x92620.1980_y30477.1980,-1,4,93610,31467,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-045.svs_x71828.1980_y29296.1980,-1,4,72818,30286,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-045.svs_x94263.1980_y33460.1980,-1,4,95253,34450,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-045.svs_x102053.1980_y13546.1980,-1,4,103043,14536,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-045.svs_x20684.1980_y37485.1980,-1,4,21674,38475,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-045.svs_x25181.1980_y14897.1980,-1,4,26171,15887,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-045.svs_x14047.1980_y13976.1980,-1,4,15037,14966,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-045.svs_x37691.1980_y41056.1980,-1,4,38681,42046,1980,1980,HTT Pivotal Study
+HTT_TILS_20x,HTT-TILS-004-045.svs_x21427.1980_y22828.1980,-1,4,22417,23818,1980,1980,HTT Pivotal Study
