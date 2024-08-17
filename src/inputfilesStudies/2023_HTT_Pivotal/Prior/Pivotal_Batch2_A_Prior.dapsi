@@ -1,0 +1,112 @@
+Author: 
+Date: 
+Time: 
+
+For the Hamamatsu scanning at 20x
+    scan_scale = .4558
+For the Hamamatsu scanning at 40x
+    scan_scale = .2279
+
+
+
+Point Grey Flea2 Color (GS3-U3-51S5C-C): Full resolution, full format
+    cam_format = F7_RGB24_2448x2048
+    cam_pixel_size = 3.45
+Point Grey Grashopper Color (GRAS-03K2C-C)
+    cam_format = RGB24_640x480
+    cam_pixel_size = 7.4um
+Point Grey Flea2 Color (FL2G-50S5C-C): Standard format, aspect ratio = 1.33
+    cam_format = RGB24_1024x768
+    cam_pixel_size = 6.9
+
+Reminder:
+autoreg = 1 do local automatic registration for each task/FOV
+autoreg = 0 don't local automatic registration for each task/FOV
+taskorder=2 user specified order
+taskorder=1 listed order
+taskorder=0 random order
+saveimages = 1  save WSI and camera images
+saveimages = 2  only save WSI image
+saveimages = 3  only save camera image
+saveimages = 4  don't save WSI and camera images
+
+
+Input File Task Formats
+HTT_TILS_Pivotal_20x,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,Qtext
+
+
+
+SETTINGS
+NUMBER_OF_WSI    = 4
+wsi_slot_1       = C:\WSIs\HTT_Pivotal\Batch2\HTT-TILS-003-004.svs
+rgb_lut_slot_1   = C:\eeDAP-develop\src\icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_1     = 0.2283
+wsi_slot_2       = C:\WSIs\HTT_Pivotal\Batch2\HTT-TILS-003-007.svs
+rgb_lut_slot_2   = C:\eeDAP-develop\src\icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_2     = 0.2283
+wsi_slot_3       = C:\WSIs\HTT_Pivotal\Batch2\HTT-TILS-003-008.svs
+rgb_lut_slot_3   = C:\eeDAP-develop\src\icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_3     = 0.2283
+wsi_slot_4       = CC:\WSIs\HTT_Pivotal\Batch2\HTT-TILS-003-011.svs
+rgb_lut_slot_4   = C:\eeDAP-develop\src\icc_profiles\rgb_lut_gamma_inv1p8.txt
+scan_scale_4     = 0.2283
+label_pos        = 12
+reticleID        = KR-871
+cam_kind	     = USB
+cam_format       = F7_RGB_1224x1024_Mode1
+cam_pixel_size   = 6.9
+mag_cam          = 0.5
+mag_lres         = 10
+mag_hres         = 20
+stage_label      = H101-Prior
+BG_Color_RGB     = 0.55 = 0.55 = 0.55
+FG_Color_RGB     = 0.00 = 0.00 = 0.00
+AxesBG_Color_RGB = 0.10 = 0.20 = 0.10
+FontSize         = 13
+autoreg 	     = 0
+saveimages       = 1
+taskorder        = 0
+
+BODY
+start
+finish
+HTT_TILS_Pivotal_20x,HTT-TILS-003-004_left_30852_top_61575,-1,1,30852,61575,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-004_left_31018_top_56393,-1,1,31018,56393,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-004_left_32920_top_60731,-1,1,32920,60731,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-004_left_35568_top_67432,-1,1,35568,67432,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-004_left_36312_top_71445,-1,1,36312,71445,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-004_left_38078_top_50884,-1,1,38078,50884,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-004_left_38327_top_53663,-1,1,38327,53663,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-004_left_40742_top_55492,-1,1,40742,55492,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-004_left_40895_top_59068,-1,1,40895,59068,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-004_left_44351_top_59543,-1,1,44351,59543,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-007_left_116993_top_30727,-1,1,116993,30727,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-007_left_118233_top_14534,-1,1,118233,14534,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-007_left_126645_top_11300,-1,1,126645,11300,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-007_left_133433_top_9570,-1,1,133433,9570,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-007_left_133541_top_20220,-1,1,133541,20220,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-007_left_138432_top_4165,-1,1,138432,4165,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-007_left_141322_top_5447,-1,1,141322,5447,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-007_left_53767_top_20676,-1,1,53767,20676,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-007_left_90571_top_27687,-1,1,90571,27687,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-007_left_95426_top_21734,-1,1,95426,21734,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-008_left_100065_top_51987,-1,1,100065,51987,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-008_left_103935_top_38615,-1,1,103935,38615,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-008_left_106752_top_24935,-1,1,106752,24935,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-008_left_107380_top_27896,-1,1,107380,27896,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-008_left_107887_top_45067,-1,1,107887,45067,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-008_left_109142_top_22493,-1,1,109142,22493,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-008_left_112731_top_20172,-1,1,112731,20172,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-008_left_95738_top_37511,-1,1,95738,37511,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-008_left_98037_top_44719,-1,1,98037,44719,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-008_left_98514_top_15557,-1,1,98514,15557,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-011_left_100244_top_45943,-1,1,100244,45943,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-011_left_101721_top_53261,-1,1,101721,53261,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-011_left_101882_top_48725,-1,1,101882,48725,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-011_left_104654_top_54457,-1,1,104654,54457,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-011_left_73815_top_27989,-1,1,73815,27989,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-011_left_80248_top_22444,-1,1,80248,22444,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-011_left_82971_top_38685,-1,1,82971,38685,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-011_left_85522_top_29308,-1,1,85522,29308,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-011_left_93725_top_57708,-1,1,93725,57708,2190,2190,HTT study
+HTT_TILS_Pivotal_20x,HTT-TILS-003-011_left_94907_top_40235,-1,1,94907,40235,2190,2190,HTT study
