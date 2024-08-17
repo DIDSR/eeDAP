@@ -40,7 +40,7 @@ try
     slot_i = current.slot_i;
     wsi_info = myData.wsi_files{slot_i};
     if (~isdeployed)
-        addpath('stages/Prior','stages/Ludl');
+        addpath('stages/Prior','stages/Ludl','stages/Thorlabs');
     end
     % Initiate the camera preview window
     % handles.cam = camera object

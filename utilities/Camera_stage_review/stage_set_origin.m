@@ -10,13 +10,18 @@ try
         else
             stage = stage_set_origin_prior(stage,h_stage);
         end
-    else
+    elseif strcmp(stage_label(end-4:end),'Ludl')
         if exist('h_stage', 'var') == 0
             stage = stage_set_origin_Ludl(stage);
         else
             stage = stage_set_origin_Ludl(stage,h_stage);
         end
-        
+    else
+        if exist('h_stage', 'var') == 0
+            stage = stage_set_origin_thorlabs(stage);
+        else
+            stage = stage_set_origin_thorlabs(stage,h_stage);
+        end
     end
 
 catch ME

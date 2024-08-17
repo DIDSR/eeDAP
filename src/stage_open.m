@@ -5,8 +5,10 @@ try
     
     if strcmp(label(end-4:end),'Prior')
         stage = stage_open_prior(label);
-    else
+    elseif strcmp(label(end-4:end),'Ludl')
         stage = stage_open_Ludl(label);
+    else
+        stage = stage_open_thorlabs(label);
     end
     
 catch ME

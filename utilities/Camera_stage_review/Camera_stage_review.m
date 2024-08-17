@@ -69,7 +69,7 @@ function Camera_stage_review_OpeningFcn(hObject, eventdata, handles, varargin)
     handles.cameraflag = 0;
     handles.firsttime = 1;
     handles.output=hObject;
-    addpath('stages/Prior','stages/Ludl');
+    addpath('stages/Prior','stages/Ludl','stages/Thorlabs');
     % Update handles structure
     guidata(hObject, handles);
 end
@@ -267,7 +267,7 @@ mode_index = get(handles.Choose_System, 'Value');
 mode_desc = deblank(modes{mode_index});
 handles.mode_desc = mode_desc;
 if mode_index ~= 1  
-    addpath('stages/Prior','stages/Ludl');
+    addpath('stages/Prior','stages/Ludl','stages/Thorlabs');
     handles.stage=stage_open(mode_desc);
     handles.stage = stage_set_origin(handles.stage);
     set(handles.Get_position,'Enable','on');
