@@ -77,7 +77,7 @@ function task_HTT_TILS_pivotal_20x(hObj)
                     'BackgroundColor',  handles.myData.settings.BG_color, ...
                     'Position',[0.85,0.85,0.15,0.15], ...
                     'Style', 'pushbutton', ...
-                    'Tag', 'editvalue', ...
+                    'Tag', 'switchROI', ...
                     'Enable','on',...
                     'visible','on',...
                     'String', 'Switch to WSI thumbnail',...
@@ -94,7 +94,7 @@ function task_HTT_TILS_pivotal_20x(hObj)
                 set(handles.iH,'visible','off');
                 set(handles.ImageAxes,'visible','off');
 
-                % Find all uicontrols created above
+                % Find and close all uicontrols created above
                 %     Tags 'Q1', 'Q2', 'Q3', 'switchROI'
                 objectsToRemove = [
                     findobj(handles.task_panel, 'Tag', 'Q1');
@@ -103,79 +103,15 @@ function task_HTT_TILS_pivotal_20x(hObj)
                     findobj(handles.task_panel, 'Tag', 'switchROI');
                     ];
 
-                % Initialize a list to store field names to remove
-                fieldsToRemove = {};
-
-                % Iterate over the fields of the handles structure
-                fieldNames = fieldnames(handles);
-                for i = 1:length(fieldNames)
-                    field = fieldNames{i};
-                    % Check if the field's value is in the list of objects to remove
-                    if ismember(handles.(field), objectsToRemove)
-                        % Add field name to the list
-                        fieldsToRemove{end+1} = field;
-                    end
-                end
-
-                % Remove the fields from handles
-                for i = 1:length(fieldsToRemove)
-                    handles = rmfield(handles, fieldsToRemove{i});
-                end
-
-                % Delete Q1 objects from GUI and from handles
-                for i = 1:length(objectsToRemove)
-                    delete(objectsToRemove(i));
-                end
-
-
-
-                % Delete Q1 objects from GUI and from handles
-                tagQ1 = findobj(handles.task_panel, 'Tag', 'Q1');
-                for i = 1:length(tagQ1)
-                    delete(tagQ1(i));
-                    handles = rmfield(handles, tag);
-                end
-
-                % Delete Q2 objects
-                tagQ2 = findobj(handles.task_panel, 'Tag', 'Q2');
-                for i = 1:length(tagQ2); delete(tagQ2(i)); end
-
-                % Delete Q3 objects
-                tagQ3 = findobj(handles.task_panel, 'Tag', 'Q3');
-                for i = 1:length(tagQ3); delete(tagQ3(i)); end
-
-                % Delete switchROI object
-                delete(handles.switchROI);
-
-
-                handles = rmfield(handles, 'question2text');
-                handles = rmfield(handles, 'question1panel');
-                handles = rmfield(handles, 'radiobutton1A');
-                handles = rmfield(handles, 'radiobutton1B');
-                handles = rmfield(handles, 'radiobutton1C');
-                handles = rmfield(handles, 'radiobutton1D');
-
-                handles = rmfield(handles, 'question1text');
-                handles = rmfield(handles, 'question2panel');
-                handles = rmfield(handles, 'radiobutton2T');
-                handles = rmfield(handles, 'radiobutton2F');
-
-                handles = rmfield(handles, 'question3text');
-                handles = rmfield(handles, 'slider');
-                handles = rmfield(handles, 'editvalue');
-                handles = rmfield(handles, 'textleft');
-                handles = rmfield(handles, 'textcenter');
-                handles = rmfield(handles, 'textright');
-                handles = rmfield(handles, 'textscore');
-
-                handles = rmfield(handles, 'switchROI');
+                closeObjects(hObj, objectsToRemove)
 
                 taskimage_archive(handles);
 
             case 'exportOutput' % export current task information and reuslt
 
-                % If 1, write task output
                 if taskinfo.currentWorking == 1
+
+                    % If 1, write task output
                     fprintf(myData.fid, [...
                         taskinfo.task, ',', ...
                         taskinfo.id, ',', ...
@@ -191,8 +127,9 @@ function task_HTT_TILS_pivotal_20x(hObj)
                         taskinfo.question2result, ',', ...
                         taskinfo.question3result]);
 
-                    % If 0, write incomplete task
                 elseif taskinfo.currentWorking == 0
+
+                    % If 0, write incomplete task
                     fprintf(myData.fid, [...
                         taskinfo.task, ',', ...
                         taskinfo.id, ',', ...
@@ -204,8 +141,9 @@ function task_HTT_TILS_pivotal_20x(hObj)
                         num2str(taskinfo.roi_h), ',', ...
                         taskinfo.text]);
 
-                    % write tasks completed from previous session
                 else
+
+                    % write tasks completed from previous session
                     desc = taskinfo.desc;
                     for i = 1 : length(desc)-1
                         fprintf(myData.fid,[desc{i},',']);
@@ -293,20 +231,6 @@ function initializeQ2(hObj)
     % Initialize handles
     handles = guidata(hObj);
 
-    % Initialize text for Q2
-    handles.textQ2 = uicontrol(...
-        'Parent', handles.task_panel, ...
-        'FontSize', handles.myData.settings.FontSize, ...
-        'Units', 'normalized', ...
-        'HorizontalAlignment', 'left', ...
-        'ForegroundColor', handles.myData.settings.FG_color, ...
-        'BackgroundColor', handles.myData.settings.BG_color, ...
-        'Position', [.1, .6, .8, .1], ...
-        'Style', 'text', ...
-        'Visible','off',...
-        'Tag', 'Q2', ...
-        'String', 'What is % Tumor-Associated Stroma?');
-
     % Initialize the slider position, size, and init value
     initvalue = -1;
     slider_x = .1;
@@ -334,6 +258,39 @@ function initializeQ2(hObj)
         'Visible','off', ...
         'Tag','Q2', ...
         'Callback', @sliderStroma_Callback);
+
+    % Initialize input box for number that is "linked" to slider
+    position = [slider_x+slider_w+.05, slider_y, .1, slider_h];
+    handles.editStroma = uicontrol(...
+        'Parent', handles.task_panel, ...
+        'FontSize', handles.myData.settings.FontSize, ...
+        'Units', 'normalized', ...
+        'HorizontalAlignment', 'center', ...
+        'ForegroundColor', handles.myData.settings.FG_color, ...
+        'BackgroundColor', [.95, .95, .95], ...
+        'Position', position, ...
+        'Style', 'edit', ...
+        'Visible','off',...
+        'Tag','Q2', ...
+        'String', num2str(initvalue), ...
+        'Callback', @editStroma_Callback);
+
+
+
+
+    % Initialize text for Q2
+    handles.textQ2 = uicontrol(...
+        'Parent', handles.task_panel, ...
+        'FontSize', handles.myData.settings.FontSize, ...
+        'Units', 'normalized', ...
+        'HorizontalAlignment', 'left', ...
+        'ForegroundColor', handles.myData.settings.FG_color, ...
+        'BackgroundColor', handles.myData.settings.BG_color, ...
+        'Position', [.1, .6, .8, .1], ...
+        'Style', 'text', ...
+        'Visible','off',...
+        'Tag', 'Q2', ...
+        'String', 'What is % Tumor-Associated Stroma?');
 
     % Initialize text label at 0
     position = [slider_x, slider_y+slider_h, .1, .1];
@@ -379,22 +336,6 @@ function initializeQ2(hObj)
         'Visible','off', ...
         'Tag','Q2', ...
         'String', '100');
-
-    % Initialize input box for number that is "linked" to slider
-    position = [slider_x+slider_w+.05, slider_y, .1, slider_h];
-    handles.editStroma = uicontrol(...
-        'Parent', handles.task_panel, ...
-        'FontSize', handles.myData.settings.FontSize, ...
-        'Units', 'normalized', ...
-        'HorizontalAlignment', 'center', ...
-        'ForegroundColor', handles.myData.settings.FG_color, ...
-        'BackgroundColor', [.95, .95, .95], ...
-        'Position', position, ...
-        'Style', 'edit', ...
-        'Visible','off',...
-        'Tag','Q2', ...
-        'String', num2str(initvalue), ...
-        'Callback', @editvalue_Callback);
 
     % Initialize text for numeric input box
     position = [slider_x+slider_w+.05, slider_y+slider_h, .1, .1];
@@ -522,7 +463,7 @@ function initializeQ3(hObj)
         'Visible','off', ...
         'Tag', 'Q3', ...
         'String', num2str(initvalue), ...
-        'Callback', @valueTILs_Callback);
+        'Callback', @editTILs_Callback);
 
     % Initialize text for numeric input box
     position = [slider_x+slider_w+.05, slider_y+slider_h, .1, .1];
@@ -590,14 +531,14 @@ function radiobutton1_Callback(hObj, eventdata)
         % Initialize handles
         handles = guidata(hObj);
 
-        % Find and close all objects from Q2 and Q3 objects
+        % Find and close all Q2 and Q3 objects
         objectsToRemove =[
             findobj(handles.task_panel, 'Tag', 'Q2');
             findobj(handles.task_panel, 'Tag', 'Q3');
             ];
         closeObjects(hObj, objectsToRemove)
 
-        % Initialize Q2 and Q3
+        % Initialize Q2 and Q3 objects
         initializeQ2(hObj)
         initializeQ3(hObj)
 
@@ -605,6 +546,9 @@ function radiobutton1_Callback(hObj, eventdata)
         % handles = guidata(findobj('Tag','GUI'));
         handles = guidata(hObj);
         taskinfo = handles.myData.tasks_out{handles.myData.iter};
+
+        % Disable Next button
+        set(handles.NextButton, 'Enable', 'off')
 
         % Get the result for the selected button
         % 'Evaluable for sTILs' or 'Not Evaluable for sTILs'
@@ -617,9 +561,12 @@ function radiobutton1_Callback(hObj, eventdata)
             tagQ2 = findobj(handles.task_panel, 'Tag', 'Q2');
             for i = 1:length(tagQ2); tagQ2(i).Visible = 'on'; end
 
+            % Give  focus to the stroma edit box
+            uicontrol(handles.editStroma);
+
         else
 
-            % Set output data
+            % Set output for Q1
             taskinfo.question2result = 'NA';
             taskinfo.question3result = 'NA';
 
@@ -641,47 +588,24 @@ function radiobutton1_Callback(hObj, eventdata)
 
 end
 
-function radiobutton2_Callback(hObj, eventdata)
+function sliderStroma_Callback(hObj, ~)
     try
 
-        handles = guidata(findobj('Tag','GUI'));
+        % Initialize handles and taskinfo
+        handles = guidata(hObj);
         taskinfo = handles.myData.tasks_out{handles.myData.iter};
 
-        taskinfo.button_desc = get(eventdata.NewValue, 'Tag');
-        switch taskinfo.button_desc
-            case 'radiobutton2T'
-                taskinfo.question2result = 'T';
-            case 'radiobutton2F'
-                taskinfo.question2result = 'F';
-        end
+        % Get the slider value
+        score = round(get(handles.sliderStroma, 'Value'));
 
-        % Change the ui based on the  button
-        if strcmp(taskinfo.question2result, 'T')
-            set(handles.question3text,'Enable','on');
-            set(handles.slider,'Enable','on');
-            set(handles.textleft,'Enable','on');
-            set(handles.textcenter,'Enable','on');
-            set(handles.textright,'Enable','on');
-            set(handles.editvalue,'Enable','on');
-            set(handles.textscore,'Enable','on');
-            set(handles.NextButton,'Enable','off');
-        else
-            set(handles.NextButton,'Enable','on');
-            set(handles.question3text,'Enable','off');
-            set(handles.slider,'Enable','off');
-            set(handles.textleft,'Enable','off');
-            set(handles.textcenter,'Enable','off');
-            set(handles.textright,'Enable','off');
-            set(handles.editvalue,'Enable','off');
-            set(handles.textscore,'Enable','off');
-            taskinfo.question3result = 'NA';
-            uicontrol(handles.NextButton);
-        end
-
+        % Set the score value in the stroma text input box
+        set(handles.editStroma, 'String', num2str(score));
 
         % Pack the results
         handles.myData.tasks_out{handles.myData.iter} = taskinfo;
-        guidata(handles.GUI, handles);
+        guidata(hObj, handles);
+
+        editStroma_Callback(hObj)
 
     catch ME
         error_show(ME)
@@ -689,25 +613,79 @@ function radiobutton2_Callback(hObj, eventdata)
 
 end
 
-
-
-
-function slider_Callback(hObj, eventdata)
+function editStroma_Callback(hObj, ~)
     try
 
+        % Initialize handles and taskinfo
         handles = guidata(findobj('Tag','GUI'));
         taskinfo = handles.myData.tasks_out{handles.myData.iter};
 
-        set(handles.slider, 'BackgroundColor', [.95, .95, .95]);
+        % Get the score from the stroma text input box
+        score = str2double(get(handles.editStroma, 'String'));
 
-        score = round(get(hObj, 'Value'));
-        set(handles.editvalue, 'String', num2str(score));
-        set(handles.NextButton, 'Enable', 'on');
-        uicontrol(handles.NextButton);
+        % Manage special cases
+        if isnan(score)
 
-        taskinfo.question3result = num2str(score);
-        handles.myData.tasks_out{handles.myData.iter} = taskinfo;
-        guidata(handles.GUI, handles);
+            % If stroma text box is not a number, clear it
+            set(handles.editStroma, 'String', '-1');
+            score = -1;
+
+        elseif score < -1
+
+            % If stroma text box is a number less than -1, set to -1
+            score = -1;
+            set(handles.editStroma, 'String', '-1');
+
+        elseif score > 100
+
+            % If stroma greater than 100, set to 100
+            score = 100;
+            set(handles.editStroma, 'String', '100');
+
+        end
+
+        % Set the slider to the score
+        set(handles.sliderStroma, 'Value', score);
+
+        % If stroma == -1, reset Q3 objects.
+        % Otherwise, save data and make Q3 objects visible
+        if score == -1
+
+            % Disable Next button
+            set(handles.NextButton, 'Enable', 'off')
+
+            % Pack the results
+            handles.myData.tasks_out{handles.myData.iter} = taskinfo;
+            guidata(handles.GUI, handles);
+
+            % Find and close all Q3 objects
+            objectsToRemove = findobj(handles.task_panel, 'Tag', 'Q3');
+            closeObjects(hObj, objectsToRemove)
+
+            % Initialize Q3 objects
+            initializeQ3(hObj)
+
+            % Give  focus to the stroma edit box
+            uicontrol(handles.editStroma);
+
+        else
+
+            % Set the output for Q2, converting number to a string
+            taskinfo.question2result = num2str(score);
+
+            % Make Q3 objects visible
+            tagQ3 = findobj(handles.task_panel, 'Tag', 'Q3');
+            for i = 1:length(tagQ3); tagQ3(i).Visible = 'on'; end
+
+            % Pack the results
+            handles.myData.tasks_out{handles.myData.iter} = taskinfo;
+            guidata(hObj, handles);
+
+            % Give  focus to the TILs edit box
+            uicontrol(handles.editTILs);
+
+        end
+
 
     catch ME
         error_show(ME)
@@ -715,33 +693,93 @@ function slider_Callback(hObj, eventdata)
 
 end
 
+function sliderTILs_Callback(hObj, ~)
+    try
 
-function editvalue_Callback(hObj, eventdata)
-    handles = guidata(findobj('Tag','GUI'));
-    taskinfo = handles.myData.tasks_out{handles.myData.iter};
+        % Initialize handles and taskinfo
+        handles = guidata(hObj);
+        taskinfo = handles.myData.tasks_out{handles.myData.iter};
 
-    score = str2double(get(handles.editvalue, 'String'));
+        % Get the slider value
+        score = round(get(handles.sliderTILs, 'Value'));
 
-    if score > 100
-        score = 100;
-        set(handles.editvalue, 'String', '100');
-        set(handles.slider, 'Value', 100);
-    elseif score < 0
-        score = 0;
-        set(handles.editvalue, 'String', '0');
-        set(handles.slider, 'Value', 0);
+        % Set the score value in the TILs text input box
+        set(handles.editTILs, 'String', num2str(score));
+
+        % Pack the results
+        handles.myData.tasks_out{handles.myData.iter} = taskinfo;
+        guidata(hObj, handles);
+
+        editTILs_Callback(hObj)
+
+    catch ME
+        error_show(ME)
     end
 
-    set(handles.slider, ...
-        'BackgroundColor', [.95, .95, .95], ...
-        'Value', score);
-    set(handles.NextButton,'Enable','on');
-    uicontrol(handles.NextButton);
+end
 
-    % Pack the results
-    taskinfo.question3result = num2str(score);
-    handles.myData.tasks_out{handles.myData.iter} = taskinfo;
-    guidata(handles.GUI, handles);
+function editTILs_Callback(hObj, ~)
+    try
+
+        % Initialize handles and taskinfo
+        handles = guidata(findobj('Tag','GUI'));
+        taskinfo = handles.myData.tasks_out{handles.myData.iter};
+
+        % Get the score from the stroma text input box
+        score = str2double(get(handles.editTILs, 'String'));
+
+        % Manage special cases
+        if isnan(score)
+
+            % If stroma text box is not a number, clear it
+            set(handles.editTILs, 'String', '-1');
+            score = -1;
+
+        elseif score < -1
+
+            % If TILs less than -1, set to -1
+            score = -1;
+            set(handles.editTILs, 'String', '-1');
+
+        elseif score > 100
+
+            % If TILs greater than 100, set to 100
+            score = 100;
+            set(handles.editTILs, 'String', '100');
+
+        end
+
+        % Set the slider to the score
+        set(handles.sliderTILs, 'Value', score);
+
+        % If TILs == -1 disable the Next button
+        % Otherwise, save data and enable Next button
+        if score == -1
+
+            % Disable Next button
+            set(handles.NextButton, 'Enable', 'off')
+
+        else
+
+            % Set the output for Q2, converting number to a string
+            taskinfo.question3result = num2str(score);
+
+            % Not Evaluable, enable next button
+            set(handles.NextButton,'Enable','on');
+
+            % Enable and give focus to the Next button
+            set(handles.NextButton, 'Enable', 'on')
+            uicontrol(handles.NextButton);
+
+        end
+
+        % Pack the results
+        handles.myData.tasks_out{handles.myData.iter} = taskinfo;
+        guidata(hObj, handles);
+
+    catch ME
+        error_show(ME)
+    end
 
 end
 
