@@ -6,6 +6,9 @@
 
 %% ############# ADMINISTRATOR INPUT SCREEN ########################
 function varargout = Administrator_Input_Screen(varargin)
+
+    addpath(genpath(pwd))
+    
 try
     
     gui_Singleton = 1;
@@ -596,7 +599,8 @@ try
                 'Enable', 'on', ...
                 'String', 'Configure Camera');
             handles.myData.refineRegistration = 0;
-            handles.myData.stage = stage_get_pos(handles.myData.stage); %#ok<NASGU>
+            handles.myData.stage = stage_open(handles.myData.stage);
+            handles.myData.stage = stage_get_pos(handles.myData.stage); 
             if handles.myData.stage.Pos == 0
                 return
             end
