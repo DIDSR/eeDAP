@@ -178,7 +178,7 @@ function takePhoto_Callback(hObject, eventdata)
                 '_Slot',num2str(taskinfo.slot),...
                 '_Order',num2str(taskinfo.order),...
                 '_FOV.tif'));
-    stage = stage_get_pos(myData.stage,myData.stage.handle);
+    stage = stage_get_pos(myData.stage);
     x = stage.Pos(1);
     y = stage.Pos(2);
     taskinfo.stagePosition = [int2str(x),',',int2str(y)];

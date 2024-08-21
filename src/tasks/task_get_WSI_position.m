@@ -229,7 +229,7 @@ function WSI_Position_Callback (hObj, eventdata)
     handles = guidata(hObj);
     myData = handles.myData;
     taskinfo = myData.taskinfo;
-    handles.myData.stage = stage_get_pos(handles.myData.stage,myData.stage.handle); 
+    handles.myData.stage = stage_get_pos(handles.myData.stage); 
     temp = handles.myData.stage.Pos;
     stage_x0 = temp(1);
     stage_y0 = temp(2);

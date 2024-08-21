@@ -1,5 +1,5 @@
 %% ################# GET STAGE POSITION SEQUENCE FOR THORLABS ##########################
-function stage=stage_get_pos_thorlabs(stage,h_stage)
+function stage=stage_get_pos_thorlabs(stage)
 % instrfind returns the instrument object array
 % objects = instrfind
 % each entry includes the type, status, and name as follows

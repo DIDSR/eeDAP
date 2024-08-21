@@ -378,7 +378,7 @@ function autoFocusPhoto_Callback(hObject, eventdata)
         '_Slot',num2str(taskinfo.slot),...
         '_Order',num2str(taskinfo.order),...
         '_2autoFocus.tif'));
-    stage = stage_get_pos(myData.stage,myData.stage.handle);
+    stage = stage_get_pos(myData.stage);
     x = stage.Pos(1);
     y = stage.Pos(2);
     taskinfo.stagePosition{1} = [int2str(x),',',int2str(y)];
@@ -406,7 +406,7 @@ function fastPhoto_Callback(hObject, eventdata)
         '_Slot',num2str(taskinfo.slot),...
         '_Order',num2str(taskinfo.order),...
         '_3fast.tif'));    
-    stage = stage_get_pos(myData.stage,myData.stage.handle);
+    stage = stage_get_pos(myData.stage);
     x = stage.Pos(1);
     y = stage.Pos(2);
     taskinfo.stagePosition{2} = [int2str(x),',',int2str(y)];
@@ -435,7 +435,7 @@ function bestPhoto_Callback(hObject, eventdata)
         '_Order',num2str(taskinfo.order),...
         '_4best.tif'));
     
-    stage = stage_get_pos(myData.stage,myData.stage.handle);
+    stage = stage_get_pos(myData.stage);
     x = stage.Pos(1);
     y = stage.Pos(2);
     taskinfo.stagePosition{3} = [int2str(x),',',int2str(y)];

@@ -40,7 +40,7 @@ try
     target_pos = int64(target_pos);
     
     % Get current poistion
-    stage=stage_get_pos_prior(stage,stage.handle);
+    stage=stage_get_pos_prior(stage);
     Initial_Pos = stage.Pos;
     % Start moving to the desired position  
 %     command_str_speed = ['SPEED',...
@@ -64,7 +64,7 @@ try
     wtb=waitbar(0,'Moving the stage...', 'WindowStyle', 'modal');
     % Keep updating the waitbar
     while stage_check_busy_prior(stage.handle)
-        stage=stage_get_pos_prior(stage,stage.handle) ;
+        stage=stage_get_pos_prior(stage) ;
         current_pos=stage.Pos;
         pause(.5)
 %        test for delete stat toolbox

@@ -1,4 +1,4 @@
-function stage=stage_get_pos_Ludl(stage,h_stage)
+function stage=stage_get_joy_speed_Ludl(stage)
 % instrfind returns the instrument object array
 % objects = instrfind
 % each entry includes the type, status, and name as follows

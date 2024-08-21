@@ -270,7 +270,7 @@ function globalPhoto_Callback(hObject, eventdata)
         '_Slot',num2str(taskinfo.slot),...
         '_Order',num2str(taskinfo.order),...
         '_1global.tif'));
-    stage = stage_get_pos(myData.stage,myData.stage.handle);
+    stage = stage_get_pos(myData.stage);
     x = stage.Pos(1);
     y = stage.Pos(2);
     taskinfo.done(3)=1;
@@ -302,7 +302,7 @@ function bestPhoto_Callback(hObject, eventdata)
         '_Slot',num2str(taskinfo.slot),...
         '_Order',num2str(taskinfo.order),...
         '_2best.tif'));
-    stage = stage_get_pos(myData.stage,myData.stage.handle);
+    stage = stage_get_pos(myData.stage);
     x = stage.Pos(1);
     y = stage.Pos(2);
     taskinfo.done(4)=1;

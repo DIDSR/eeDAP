@@ -860,7 +860,7 @@ function Fast_Register_Button_Callback(hObject, eventdata, handles) %#ok<DEFNU>
         [roi_h, roi_w] = size(roi_image);
 
         % Get the stage position
-        handles.myData.stage = stage_get_pos(handles.myData.stage,myData.stage.handle);
+        handles.myData.stage = stage_get_pos(handles.myData.stage);
         stage_current = int64(handles.myData.stage.Pos);
 
         % Cross correlate the stage and wsi images
@@ -1153,12 +1153,12 @@ function Best_Register_Button_Callback(hObject, eventdata, handles)
         [roi_h, roi_w] = size(roi_image);
 
         % Get the stage position and snap a picture: cam_image
-        handles.myData.stage = stage_get_pos(handles.myData.stage,handles.myData.stage.handle);
+        handles.myData.stage = stage_get_pos(handles.myData.stage);
         stage_current = int64(handles.myData.stage.Pos);
         offset_stage = int64(myData.settings.offset_stage);
         stage_new = stage_current + offset_stage;
         handles.myData.stage = stage_move(handles.myData.stage,stage_new);
-        handles.myData.stage = stage_get_pos(handles.myData.stage,handles.myData.stage.handle);
+        handles.myData.stage = stage_get_pos(handles.myData.stage);
         stage_current = int64(handles.myData.stage.Pos);
         cam_image = camera_take_image(handles.cam);
 

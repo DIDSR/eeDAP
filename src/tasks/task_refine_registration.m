@@ -158,7 +158,7 @@ function refineReg_Callback (hObj, eventdata)
     yoffset = cam2stage*(roi_h/2 + cam_roi_h/2 - ypeak);
     offset_roi = order*int64([xoffset, yoffset]);
     %get current stage position
-    handles.myData.stage = stage_get_pos(handles.myData.stage,myData.stage.handle); 
+    handles.myData.stage = stage_get_pos(handles.myData.stage); 
     stage_current = int64(handles.myData.stage.Pos);
     stage_current = stage_current + offset_roi;
     % move stage to registed position

@@ -197,7 +197,7 @@ function globalReg_Callback(hObj, eventdata)
     end
     taskinfo.regResult{1} = get(handles.globalReg, 'String');
     % get stage position
-    stage = stage_get_pos(myData.stage,myData.stage.handle);
+    stage = stage_get_pos(myData.stage);
     x = stage.Pos(1);
     y = stage.Pos(2);
     taskinfo.stagePosition{1} = [int2str(x),',',int2str(y)];
@@ -217,7 +217,7 @@ function bestReg_Callback(hObj, eventdata)
     end
     taskinfo.regResult{2} = get(handles.bestReg, 'String');
     % get stage position
-    stage = stage_get_pos(myData.stage,myData.stage.handle);
+    stage = stage_get_pos(myData.stage);
     x = stage.Pos(1);
     y = stage.Pos(2);
     taskinfo.stagePosition{2} = [int2str(x),',',int2str(y)];
