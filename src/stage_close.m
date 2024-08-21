@@ -4,11 +4,10 @@
 function status=stage_close(S)
 
     %--------------------------------------------------------------------------
-    % This function closes the serial port of the stage. Reference to the serial 
+    % This function closes the serial port of the stage. Reference to the serial
     % port is passed to it as the argument S.
     %--------------------------------------------------------------------------
-    fclose(S);
-    delete(S);
-    clear S;
+    delete(handle)
     status=0;
+    
 end
