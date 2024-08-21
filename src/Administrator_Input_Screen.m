@@ -337,6 +337,9 @@ try
          case 'TrackingView'
              guidata(handles.Administrator_Input_Screen, handles);
     end
+
+    % Save handles to a file.
+    % Then we can run GUI by reading the file
     save('GUI.mat','handles');
     handles_GUI=  GUI(handles);
 
@@ -599,8 +602,12 @@ try
                 'Enable', 'on', ...
                 'String', 'Configure Camera');
             handles.myData.refineRegistration = 0;
+
+            % Open stage and set origin
             handles.myData.stage = stage_open(handles.myData.stage);
-            handles.myData.stage = stage_get_pos(handles.myData.stage); 
+            handles.myData.stage = stage_set_origin(handles.myData.stage);
+            handles.myData.stage = stage_get_pos(handles.myData.stage);
+
             if handles.myData.stage.Pos == 0
                 return
             end
