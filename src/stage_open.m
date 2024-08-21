@@ -15,8 +15,11 @@ function stage = stage_open(stage)
         catch ME
             % If the last port used is unknown, set it
             stage.status = SerialPortSetUp();
+            load('PortNames.mat', 'SerialPortStage');
         end
 
+        % Add SerialPortStage to the stage object
+        stage.port = SerialPortStage;
 
 
         % stage.handle = serial(SerialPortStage,...
