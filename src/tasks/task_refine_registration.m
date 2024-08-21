@@ -164,7 +164,7 @@ function refineReg_Callback (hObj, eventdata)
     % move stage to registed position
     offset_stage = int64(myData.settings.offset_stage);
     stage_new = stage_current - offset_stage;
-    handles.myData.stage = stage_move(handles.myData.stage,stage_new, handles.myData.stage.handle);
+    handles.myData.stage = stage_move(handles.myData.stage,stage_new);
     % calculate stage offset vs the stage position of the first anchor from
     % global positionm and save the offset in myData.settings.offset_reg_refine
     slot = myData.taskinfo.slot;

@@ -327,14 +327,6 @@ function RegisterAndReextract_Callback (hObj, eventdata)
     roi_image = imresize(roi_image, scan2cam);
     [roi_h, roi_w] = size(roi_image);
     
-%     % Get the stage position and snap a picture: cam_image
-%     handles.myData.stage = stage_get_pos(handles.myData.stage,handles.myData.stage.handle); 
-%     stage_current = int64(handles.myData.stage.Pos);
-%     offset_stage = int64(myData.settings.offset_stage);
-%     stage_new = stage_current + offset_stage;
-%     handles.myData.stage = stage_move(handles.myData.stage,stage_new,handles.myData.stage.handle);
-%     handles.myData.stage = stage_get_pos(handles.myData.stage,handles.myData.stage.handle); 
-%     stage_current = int64(handles.myData.stage.Pos);
     cam_image = camera_take_image(handles.cam);
     
 
