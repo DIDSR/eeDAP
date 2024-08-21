@@ -1,39 +1,48 @@
 %  ##########################################################################
 %% ###################### MOVE STAGE SEQUENCE ###############################
 %  ##########################################################################
-function stage=stage_move(stage, target_pos, h_stage)
-%--------------------------------------------------------------------------
-% Move_Stage_Seq starts a []sequence that moves the stage from position A
-% to position B. THe function displays a waitbar and also adjusts
-% the acceleration and the speed of the stage. Target position is
-% specified as a horizontal vector of size 2.
-%--------------------------------------------------------------------------
-% instrfind returns the instrument object array
-% objects = instrfind
-% each entry includes the type, status, and name as follows
-% Index:    Type:     Status:   Name:
-% 1         serial    closed    Serial-COM4
-%
-% objects can be cleared from memory with
-% delete(objects)
-try
-    
-    stage_label = stage.label;
-    if strcmp(stage_label(end-4:end),'Prior')
-        if exist('h_stage', 'var') == 0
-            stage = stage_move_prior(stage, target_pos);
-        else
-            stage = stage_move_prior(stage, target_pos,h_stage);
+function stage=stage_move(stage, target_pos)
+    %--------------------------------------------------------------------------
+    % Move_Stage_Seq starts a []sequence that moves the stage from position A
+    % to position B. THe function displays a waitbar and also adjusts
+    % the acceleration and the speed of the stage. Target position is
+    % specified as a horizontal vector of size 2.
+    %--------------------------------------------------------------------------
+
+    try
+
+        % If stage is not open, open it
+        if (~strcmp(stage.handle.Status, 'open'))
+            stage = stage_open(stage);
         end
-    else
-        if exist('h_stage', 'var') == 0
-            stage = stage_move_Ludl(stage, target_pos);
-        else
-            stage = stage_move_Ludl(stage, target_pos,h_stage);
+
+        % Move stage
+        switch stage.label
+
+            case 'H101-Prior'
+                stage = stage_move_prior(stage, target_pos);
+
+            case 'SCAN8Praparate_Ludl5000'
+                stage = stage_move_Ludl(stage, target_pos);
+
+            case 'SCAN8Praparate_Ludl6000'
+                stage = stage_move_Ludl(stage, target_pos);
+
+            case 'BioPrecision2-LE2_Ludl5000'
+                stage = stage_move_Ludl(stage, target_pos);
+
+            case 'BioPrecision2-LE2_Ludl6000'
+                stage = stage_move_Ludl(stage, target_pos);
+
+            case 'MLS203-ThorLabs'
+                stage = stage_move_thorlabs(stage, target_pos);
+
+            otherwise
+                error('The stage label is not recognized')
         end
+
+    catch ME
+        error_show(ME)
     end
-catch ME
-    error_show(ME)
-end
 
 end
