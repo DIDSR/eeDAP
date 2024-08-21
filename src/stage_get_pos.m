@@ -1,48 +1,46 @@
-function stage=stage_get_pos(stage,h_stage)
-% instrfind returns the instrument object array
-% objects = instrfind
-% each entry includes the type, status, and name as follows
-% Index:    Type:     Status:   Name:
-% 1         serial    closed    Serial-COM4
-%
-% objects can be cleared from memory with
-% delete(objects)
+function stage=stage_get_pos(stage)
+    % instrfind returns the instrument object array
+    % objects = instrfind
+    % each entry includes the type, status, and name as follows
+    % Index:    Type:     Status:   Name:
+    % 1         serial    closed    Serial-COM4
+    %
+    % objects can be cleared from memory with
+    % delete(objects)
 
-try
-    stage_label = stage.label;
-    if strcmp(stage_label,'H101-Prior')
-        if exist('h_stage', 'var') == 0
-            stage = stage_get_pos_prior(stage);
-        else
-            stage = stage_get_pos_prior(stage,h_stage);
+    try
+
+        % If stage is not open, open it
+        if (~strcmp(stage.handle.Status, 'open'))
+            stage = stage_open(stage);
         end
-        
-    elseif strcmp(stage_label,'SCAN8Praparate_Ludl5000')
-        if exist('h_stage', 'var') == 0
-            stage = stage_get_pos_Ludl(stage);
-        else
-            stage = stage_get_pos_Ludl(stage,h_stage);
+
+        % Initialize properties of the stage and open the stage
+        switch stage.label
+
+            case 'H101-Prior'
+                stage = stage_get_pos_prior(stage);
+
+            case 'SCAN8Praparate_Ludl5000'
+                stage = stage_get_pos_Ludl(stage);
+
+            case 'SCAN8Praparate_Ludl6000'
+                stage = stage_get_pos_Ludl(stage);
+
+            case 'BioPrecision2-LE2_Ludl5000'
+                stage = stage_get_pos_Ludl(stage);
+
+            case 'BioPrecision2-LE2_Ludl6000'
+                stage = stage_get_pos_Ludl(stage);
+                
+            case 'MLS203-ThorLabs'
+                stage = stage_get_pos_thorlabs(stage);
+
+            otherwise
+                error('The stage label is not recognized')
         end
-        
-    elseif strcmp(stage_label,'BioPrecision2-LE2_Ludl6000')
-        if exist('h_stage', 'var') == 0
-            stage = stage_get_pos_Ludl(stage);
-        else
-            stage = stage_get_pos_Ludl(stage,h_stage);
-        end
-        
-    elseif strcmp(stage_label,'MLS203-ThorLabs')
-        if exist('h_stage', 'var') == 0
-            stage = stage_get_pos_thorlabs(stage);
-        else
-            stage = stage_get_pos_thorlabs(stage,h_stage);
-        end
-        
-    else
+
+    catch ME
         error_show(ME)
     end
-    
-catch ME
-    error_show(ME)
-end
 end
