@@ -1,12 +1,4 @@
 function stage=stage_get_pos(stage)
-    % instrfind returns the instrument object array
-    % objects = instrfind
-    % each entry includes the type, status, and name as follows
-    % Index:    Type:     Status:   Name:
-    % 1         serial    closed    Serial-COM4
-    %
-    % objects can be cleared from memory with
-    % delete(objects)
 
     try
 
@@ -15,7 +7,7 @@ function stage=stage_get_pos(stage)
             stage = stage_open(stage);
         end
 
-        % Initialize properties of the stage and open the stage
+        % Get position
         switch stage.label
 
             case 'H101-Prior'
