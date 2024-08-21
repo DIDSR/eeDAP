@@ -11,9 +11,7 @@
 % handles {
 %
 %   myData{
-%       mode_index --the number received as input argument from the program
-%       Administrator_Input_Screen. Indicates whether the application is in
-%       LCD
+%       mode_desc -- data collection mode (Digital, MicroRT, TrackingView)
 %
 %       iter --used to indicate the task being executed iter=1,...,ntasks
 %
@@ -149,6 +147,11 @@
 
 function varargout = GUI(varargin)
 
+    % We save the input parameters in GUI.mat
+    % We can read this file to run GUI with these commands
+    %     load('GUI.mat');
+    %     GUI(handles);
+
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
     'gui_Singleton',  gui_Singleton, ...
@@ -176,39 +179,33 @@ try
     % two separate variables.
     %--------------------------------------------------------------------------
     
-    
-    % The mode_index and the filename for the test are extracted from the
-    % cell structure varargin. varargin stores the input arguments for the
-    % whole Matlab application
-    %addpath('gui_graphics', 'icc_profiles', 'tasks','stages/Prior','stages/Ludl');
-    if (~isdeployed)
-        addpath('icc_profiles', 'tasks','stages/Prior','stages/Ludl');
-    end
+
+    % Make sure path is set
+    path_set()
+
+    % Get myData from previous input arguments
     handles_old = varargin{1};
-    handles.Administrator_Input_Screen = handles_old.Administrator_Input_Screen;
     myData = handles_old.myData;
-    % myData = varargin{1};
-    % handles.current will hold info related to the current task and ROI
-    handles.current = struct;
-    % The images used in the GUI are loaded into the memory and into the
-    % structure myData
-%     myData.graphics.zooming_allowed=imread('zooming_allowed.bmp');
-%     myData.graphics.zooming_not_allowed=imread('zooming_not_allowed.bmp');
-%     myData.graphics.moving_allowed=imread('moving_allowed.bmp');
-%     myData.graphics.moving_not_allowed=imread('moving_not_allowed.bmp');
-    
-    % save myData
-    handles.myData = myData;
-    handles.reticle = 1;
     settings = myData.settings;
+
+    % Initialize elements of handles and save to handles.GUI
+    % handles.current as a structure
+    % handles.current will hold info related to the current task and ROI
+    handles.Administrator_Input_Screen = handles_old.Administrator_Input_Screen;
+    handles.current = struct;
+    handles.reticle = 1;
+    handles.myData = myData;
     handles.output = hObj;
     guidata(handles.GUI, handles)
+    
     % Open communications to camera and begin preview
     % Open communications to stage
     switch myData.mode_desc
         case 'MicroRT'
             if myData.yesno_micro==1
+
                 % Open communications to camera and begin preview
+                % Why is handles.cam not in myData?
                 handles.cam=camera_open(settings.cam_kind,settings.cam_format,settings.defaultR,settings.defaultB);
                 handles.cam_figure = ...
                     camera_preview(handles.cam, settings);
@@ -217,32 +214,28 @@ try
                 % close(cam_figure)
                 
                 % Open communications to stage
-                    handles.myData.stage = stage_open(handles.myData.stage.label);
+                    handles.myData.stage = stage_open(handles.myData.stage);
                 % To close:
                 % delete(handles.stage)
-                % If communications with the stage cannot be established,
-                % eeDAP is closing.
-                if  handles.myData.stage.status == 0
-                    desc = ['Communications with the stage is not established.',...
-                        'eeDAP is closing.'] %#ok<NOPRT>
-                    h_errordlg = errordlg(desc,'Application error','modal');
-                    uiwait(h_errordlg)
-                    close all force;
-                    return
-                end
             end
+
+            % Generate transformation matrix
+            % Apparently, we need to save handles before and retrieve after
             guidata(handles.GUI, handles);
             Generate_Transformation_Matrix(handles);
             handles = guidata(handles.GUI);
+
          case 'TrackingView'
+
             handles.cam=camera_open(settings.cam_kind,settings.cam_format,settings.defaultR,settings.defaultB);
             handles.cam_figure = camera_preview(handles.cam, settings);
             handles.myData.stage = stage_set_origin(handles.myData.stage);
             guidata(handles.GUI, handles);
+
     end
     
             
-    % The GUI objects are initiated
+    % Initiate GUI object
     Initiate_GUI_Elements(handles);
     
     handles = guidata(handles.GUI);
@@ -594,7 +587,7 @@ try
                 end
                 taskinfo.stage_x = stage_new(1);
                 taskinfo.stage_y = stage_new(2);
-                myData.stage = stage_move(myData.stage,stage_new, myData.stage.handle);
+                myData.stage = stage_move(myData.stage,stage_new);
                 taskimage_load(hObj);
                 handles = guidata(handles.GUI);
                 set(handles.iH,'visible','off');
@@ -810,7 +803,7 @@ try
             set(handles.Fast_Register_Button,'enable','off');
             set(handles.Best_Register_Button,'enable','off');
             set(handles.Refine_Register_Button,'enable','off');
-            handles.myData.stage = stage_move(handles.myData.stage,target_pos,handles.myData.stage.handle);
+            handles.myData.stage = stage_move(handles.myData.stage,target_pos);
             set(handles.NextButton,'enable',currentNextStatus);
             set(handles.Fast_Register_Button,'enable','on');
             set(handles.Best_Register_Button,'enable','on');
@@ -896,7 +889,7 @@ try
     stage_new = stage_current + offset_roi;
     offset_stage = int64(myData.settings.offset_stage);
     stage_new = stage_new - offset_stage;
-    handles.myData.stage = stage_move(handles.myData.stage,stage_new, handles.myData.stage.handle);
+    handles.myData.stage = stage_move(handles.myData.stage,stage_new);
 catch ME
     error_show(ME)
 end
@@ -1164,7 +1157,7 @@ try
     stage_current = int64(handles.myData.stage.Pos);
     offset_stage = int64(myData.settings.offset_stage);
     stage_new = stage_current + offset_stage;
-    handles.myData.stage = stage_move(handles.myData.stage,stage_new,handles.myData.stage.handle);
+    handles.myData.stage = stage_move(handles.myData.stage,stage_new);
     handles.myData.stage = stage_get_pos(handles.myData.stage,handles.myData.stage.handle); 
     stage_current = int64(handles.myData.stage.Pos);
     cam_image = camera_take_image(handles.cam);
@@ -1219,7 +1212,7 @@ try
     stage_new = stage_current + offset_roi;
     offset_stage = int64(myData.settings.offset_stage);
     stage_new = stage_new - offset_stage;
-    handles.myData.stage = stage_move(handles.myData.stage,stage_new, handles.myData.stage.handle);
+    handles.myData.stage = stage_move(handles.myData.stage,stage_new);
 catch ME
     error_show(ME)
 end
@@ -1367,7 +1360,7 @@ function Refine_Register_Button_Callback(hObject, eventdata, handles)
     guidata(handles.GUI, handles);
     
     % move stage to the anchor
-    myData.stage = stage_move(myData.stage,Stageanchor1, myData.stage.handle);
+    myData.stage = stage_move(myData.stage,Stageanchor1);
     
     % get into refine registration task
     taskinfo.task_handle(handles.GUI);
