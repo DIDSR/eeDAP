@@ -419,10 +419,10 @@ function align_eye_cam(handles) %#ok<*INUSD>
             'Enable', 'on',...
             'Callback', @joystick_speed_callback,...
             'UserData', joystickInfo);
-        set(handles.cam_figure, 'WindowStyle', 'modal');
-        if exist('offset_stage.mat')
+        if exist('offset_stage.mat', 'file')
             set(skip,'Enable','on');
         end
+        set(handles.cam_figure, 'WindowStyle', 'modal');
         while(choose_skip == 0 && (pos_eye(1) == 0 || pos_eye(2) == 0 || ...
                 pos_cam(1) == 0 || pos_cam(2) == 0))
             pause(.2);
@@ -434,7 +434,7 @@ function align_eye_cam(handles) %#ok<*INUSD>
 
         if choose_skip==1
             stage_information = load('offset_stage');
-            offset_stage = getfield(stage_information,'offset_stage');
+            offset_stage = stage_information.offset_stage;
         else
             offset_stage = pos_eye - pos_cam;
         end
