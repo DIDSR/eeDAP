@@ -146,6 +146,10 @@ function Stage_Allighment_OpeningFcn(hObject, eventdata, handles, varargin) %#ok
         % Initialize offset_stage_refine
         settings.offset_reg_refine{slot_i} = [0,0];
 
+        % Set the origin to support running this function stand alone.
+        myData.stage = stage_set_origin(myData.stage);
+
+        % Pack everything
         handles.output = hObject;
         current.load_stage_data = zeros(1,3);
         handles.current = current;
@@ -160,6 +164,7 @@ function Stage_Allighment_OpeningFcn(hObject, eventdata, handles, varargin) %#ok
         slideID = strfind(wsi_info.fullname, '\');
         filename = wsi_info.fullname(slideID(end)+1:end);
         set(handles.text710,'String',filename,'FontSize',15);
+
     catch ME
         error_show(ME)
     end
