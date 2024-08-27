@@ -43,6 +43,7 @@ function stage = stage_open(stage)
             % Create an error dialogboxto display the error message
             h_errordlg = errordlg(desc,'Application error','modal');
             uiwait(h_errordlg)
+            stage = stage_open(stage);
 
         end
 
