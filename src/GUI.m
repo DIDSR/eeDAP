@@ -1142,7 +1142,8 @@ function Best_Register_Button_Callback(~, ~, handles)
         % Map roi_image into gray values
         roi_image = rgb2gray(handles.ImX);
 
-        % Reformat task image to be a square. Shouldn't it be a square.
+        % Reformat task image to be a square.
+        % Shouldn't it be a square already?
         [temp_h,temp_w] = size(roi_image);
         if temp_h>temp_w
             square_h = ceil(temp_h/2)-ceil(temp_w/2-1):ceil(temp_h/2)+floor(temp_w/2-1);
@@ -1152,9 +1153,16 @@ function Best_Register_Button_Callback(~, ~, handles)
             roi_image = roi_image(:,square_w);
         end
 
+        % Get the scanner to camera scaling parameter
+        scan2cam = myData.settings.scan2cam_hres;
+
+        % If taskinfo.img2roi exists, account for downsampling task images
+        % Task images need to be downsampled so they fit in the GUI
+        if isfield(myData.taskinfo, 'img2roi')
+            scan2cam = scan2cam * myData.taskinfo.img2roi;
+        end
+
         % Rescale roi_image to cam_image
-        cam2scan = handles.myData.settings.cam_hres2scan(myData.taskinfo.slot);
-        scan2cam = 1.0/cam2scan;
         roi_image = imresize(roi_image, scan2cam);
         [roi_h, roi_w] = size(roi_image);
 
