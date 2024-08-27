@@ -180,7 +180,7 @@ try
     % The header part of the input file is written into the output file
     % first
     fprintf(fid,'Comments from the input file:\r\n');
-    for i=1:1:size(myData.InputFileHeader)
+    for i=1:1:length(myData.InputFileHeader)
         fprintf(fid,myData.InputFileHeader{i,:});
     end
     
