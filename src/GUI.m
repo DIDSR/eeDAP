@@ -188,6 +188,10 @@ function GUI_OpeningFcn(hObj, eventdata, handles, varargin)
         myData = handles_old.myData;
         settings = myData.settings;
 
+        % Set the origin to support running this function stand alone.
+        myData.stage = stage_open(myData.stage);
+        myData.stage = stage_set_origin(myData.stage);
+
         % Initialize elements of handles and save to handles.GUI
         % handles.current as a structure
         % handles.current will hold info related to the current task and ROI
@@ -234,7 +238,6 @@ function GUI_OpeningFcn(hObj, eventdata, handles, varargin)
 
         end
 
-
         % Initiate GUI object
         Initiate_GUI_Elements(handles);
 
@@ -246,6 +249,8 @@ function GUI_OpeningFcn(hObj, eventdata, handles, varargin)
     end
 
 end
+
+
 function Initiate_GUI_Elements(handles)
     try
         %--------------------------------------------------------------------------
@@ -1119,23 +1124,25 @@ end
 
 
 % --- Executes on button press in Best_Register_Button.
-function Best_Register_Button_Callback(hObject, eventdata, handles)
+function Best_Register_Button_Callback(~, ~, handles)
     % hObject    handle to Best_Register_Button (see GCBO)
     % eventdata  reserved - to be defined in a future version of MATLAB
     % handles    structure with handles and user data (see GUIDATA)
     try
-        % hObject    handle to registerbutton (see GCBO)
-        % eventdata  reserved - to be defined in a future version of MATLAB
+        % hObject    handle to registerbutton (see GCBO), set to ~
+        % eventdata  reserved - to be defined in a future version of
+        %               MATLAB, set to ~
         % handles    structure with handles and user data (see GUIDATA)
 
         myData = handles.myData;
         settings = myData.settings;
         cam_w = myData.settings.cam_w;
         cam_h = myData.settings.cam_h;
-        %     cam_roi_w = 300 + max(abs(offset_cam));
-        %     cam_roi_h = 300 + max(abs(offset_cam));
+
         % Map roi_image into gray values
         roi_image = rgb2gray(handles.ImX);
+
+        % Reformat task image to be a square. Shouldn't it be a square.
         [temp_h,temp_w] = size(roi_image);
         if temp_h>temp_w
             square_h = ceil(temp_h/2)-ceil(temp_w/2-1):ceil(temp_h/2)+floor(temp_w/2-1);
@@ -1143,9 +1150,8 @@ function Best_Register_Button_Callback(hObject, eventdata, handles)
         elseif temp_h<temp_w
             square_w = ceil(temp_w/2)-ceil(temp_h/2-1):ceil(temp_w/2)+floor(temp_h/2-1);
             roi_image = roi_image(:,square_w);
-        else
-            roi_image = roi_image;
         end
+
         % Rescale roi_image to cam_image
         cam2scan = handles.myData.settings.cam_hres2scan(myData.taskinfo.slot);
         scan2cam = 1.0/cam2scan;
