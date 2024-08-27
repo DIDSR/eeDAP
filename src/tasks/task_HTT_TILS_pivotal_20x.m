@@ -35,8 +35,11 @@ function task_HTT_TILS_pivotal_20x(hObj)
                 taskinfo.showingROI = 1;
 
                 % Downsample the task image by 1/2
-                taskinfo.img_w = taskinfo.roi_w / 2;
-                taskinfo.img_h = taskinfo.roi_h / 2;
+                taskinfo.scan_scale = handles.myData.wsi_files{taskinfo.slot}.scan_scale;
+                taskinfo.roi2img = 1/2;
+                taskinfo.img2roi = 1/taskinfo.roi2img;
+                taskinfo.img_w = taskinfo.roi_w * taskinfo.roi2img;
+                taskinfo.img_h = taskinfo.roi_h * taskinfo.roi2img;
 
                 % Check if there is output data
                 if length(taskinfo.desc)>9
