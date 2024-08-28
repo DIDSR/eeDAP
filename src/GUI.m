@@ -826,11 +826,8 @@ function ResetViewButtonPressed(hObj, eventdata, handles) %#ok<DEFNU>
 end
 
 
-function Fast_Register_Button_Callback(hObject, eventdata, handles) %#ok<DEFNU>
+function Fast_Register_Button_Callback(~, ~, handles)
     try
-        % hObject    handle to Fast_Register_Button (see GCBO)
-        % eventdata  reserved - to be defined in a future version of MATLAB
-        % handles    structure with handles and user data (see GUIDATA)
 
         myData = handles.myData;
         settings = myData.settings;
@@ -841,6 +838,7 @@ function Fast_Register_Button_Callback(hObject, eventdata, handles) %#ok<DEFNU>
         cam_h = myData.settings.cam_h;
         cam_roi_w = 300;
         cam_roi_h = 300;
+
         % Extract a central ROI of the camera image and map to gray levels
         x = cam_w/2 - ceil(cam_roi_w/2-1) : cam_w/2 + floor(cam_roi_w/2);
         y = cam_h/2 - ceil(cam_roi_h/2-1):cam_h/2 + floor(cam_roi_h/2);
@@ -858,9 +856,17 @@ function Fast_Register_Button_Callback(hObject, eventdata, handles) %#ok<DEFNU>
         else
             roi_image = roi_image;
         end
+
+        % Get the scanner to camera scaling parameter
+        scan2cam = myData.settings.scan2cam_hres;
+
+        % If taskinfo.img2roi exists, account for downsampling task images
+        % Task images need to be downsampled so they fit in the GUI
+        if isfield(myData.taskinfo, 'img2roi')
+            scan2cam = scan2cam * myData.taskinfo.img2roi;
+        end
+
         % Rescale roi_image to cam_image
-        cam2scan = handles.myData.settings.cam_hres2scan(myData.taskinfo.slot);
-        scan2cam = 1.0/cam2scan;
         roi_image = imresize(roi_image, scan2cam);
         [roi_h, roi_w] = size(roi_image);
 
@@ -1125,14 +1131,7 @@ end
 
 % --- Executes on button press in Best_Register_Button.
 function Best_Register_Button_Callback(~, ~, handles)
-    % hObject    handle to Best_Register_Button (see GCBO)
-    % eventdata  reserved - to be defined in a future version of MATLAB
-    % handles    structure with handles and user data (see GUIDATA)
     try
-        % hObject    handle to registerbutton (see GCBO), set to ~
-        % eventdata  reserved - to be defined in a future version of
-        %               MATLAB, set to ~
-        % handles    structure with handles and user data (see GUIDATA)
 
         myData = handles.myData;
         settings = myData.settings;
