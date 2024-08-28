@@ -56,13 +56,13 @@ function task_HTT_TILS_pivotal_20x(hObj)
                 %         reticle_make_mask(settings.reticleID, pixel_size, [0,0]);
                 % end
 
-                % i = handles.myData.taskinfo.slot;
-                % pixel_size = ...
-                %     handles.myData.wsi_files{i}.scan_scale * ...
-                %     handles.myData.settings.mag_hres * ...
-                %     handles.myData.taskinfo.img2roi;
-                % handles.myData.settings.scan_mask{i} = reticle_make_mask(...
-                %     handles.myData.settings.reticleID, pixel_size, [0,0]);
+                i = handles.myData.taskinfo.slot;
+                pixel_size = ...
+                    handles.myData.wsi_files{i}.scan_scale * ...
+                    handles.myData.settings.mag_hres * ...
+                    handles.myData.taskinfo.img2roi;
+                handles.myData.settings.scan_mask{i} = reticle_make_mask(...
+                    handles.myData.settings.reticleID, pixel_size, [0,0]);
 
 
 
@@ -72,8 +72,8 @@ function task_HTT_TILS_pivotal_20x(hObj)
                 taskinfo.showingROI = 1;
                 handles.myData.taskinfo = taskinfo;
 
-                
-                
+
+
                 guidata(hObj, handles);
                 taskimage_load(hObj);
                 handles = guidata(hObj);
