@@ -3,7 +3,7 @@ try
     %--------------------------------------------------------------------------
     % This function loads the stimulus image and displayes it on the
     % ImageAxes. It also modifies the axes properties so that the stimulus
-    % image fits.
+    % image fits (not sure this modification is active and good).
     % This function is the part of the imageviewer Matlab
     % application and was not written by me.
     %--------------------------------------------------------------------------
@@ -16,10 +16,11 @@ try
 
     % Read the image
     [handles.ImX, map] = imread(taskinfo.ROIname);
-    % [handles.ImX, panning_Zooming_Tool.iminfo] = readImageFileFcn(filename);
     if myData.taskinfo.rotateback==1
         handles.ImX = imrotate(handles.ImX, -handles.myData.settings.RotateWSI);
     end
+
+    % Test for success
     if ~isnan(handles.ImX)
 
         % Apply reticle mask

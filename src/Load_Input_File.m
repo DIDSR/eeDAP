@@ -374,36 +374,47 @@ try
     st = dbstack;
     calling_function = st(1).name;
 
+
+
+    % task_start
     % Read and store the task_start description
     tline = fgets(fid);
     temp = textscan(tline, '%s', 'delimiter', ',');
     temp = temp{1};
     taskinfo = struct;
     taskinfo.desc = temp;
+
     % Read the task_type and create the task_handle
     % The task_handle points to the task_type.m file
     taskinfo.task = char(temp{1});
     taskinfo.task_handle = str2func(['@task_',taskinfo.task]);
+
     % Call the task_type function. Here we read in the taskinfo.
     taskinfo.calling_function = calling_function;
     handles.myData.taskinfo = taskinfo;
     handles.myData.taskinfo.duration = 0;
     guidata(handles.Administrator_Input_Screen, handles);
     taskinfo.task_handle(handles.Administrator_Input_Screen);
+
     % Update the handles and task_start structure
     handles = guidata(handles.Administrator_Input_Screen);
     task_start = handles.myData.taskinfo;
     
+
+
+    % task_finish
     % Read and store the task_finish description
     tline = fgets(fid);
     temp = textscan(tline, '%s', 'delimiter', ',');
     temp = temp{1};
     taskinfo = struct;
     taskinfo.desc = temp;
+
     % Read the task_type and create the task_handle
     % The task_handle points to the task_type.m file
     taskinfo.task = char(temp{1});
     taskinfo.task_handle = str2func(['@task_',taskinfo.task]);
+
     % Call the task_type function. Here we read in the taskinfo.
     taskinfo.calling_function = calling_function;
     handles.myData.taskinfo = taskinfo;
@@ -411,10 +422,14 @@ try
     handles.myData.settings = settings;
     guidata(handles.Administrator_Input_Screen, handles);
     taskinfo.task_handle(handles.Administrator_Input_Screen);
+
     % Update the handles and task_finish structure
     handles = guidata(handles.Administrator_Input_Screen);
     task_finish = handles.myData.taskinfo;
 
+
+
+    % All tasks except task_start and task_finish
     % tasks_in structure will hold all the input tasks
     tasks_in = [];
     ntasks = 0;
@@ -433,27 +448,35 @@ try
         temp = temp{1};
         taskinfo = struct;
         taskinfo.desc = temp;
+
         % Read the task_type and create the task_handle
         taskinfo.task = char(temp{1});
         taskinfo.task_handle = str2func(['@task_',taskinfo.task]);
+
         % Call the task_type function. Here we read in the taskinfo.
         taskinfo.calling_function = calling_function;
         handles.myData.taskinfo = taskinfo;
         guidata(handles.Administrator_Input_Screen, handles);
         taskinfo.task_handle(handles.Administrator_Input_Screen);
+
         % Update the handles and taskinfo structure
         handles = guidata(handles.Administrator_Input_Screen);
         handles.myData.taskinfo.duration = 0;
         tasks_in{ntasks} = handles.myData.taskinfo; %#ok<AGROW>
         
     end
+
     % The file is closed
     fclose(fid);
+
+
+    
     % if some tasks are done, use given order. 
     myData.finshedTask = handles.myData.finshedTask;
     if handles.myData.finshedTask >0
         settings.taskorder = 2;
     end
+
     % Create a random order
     if settings.taskorder == 0
         rng('shuffle');
@@ -464,6 +487,7 @@ try
         end
         display('random order')
     end
+
     % Create the listed order
     if settings.taskorder == 1
         for i=1:ntasks
@@ -471,6 +495,7 @@ try
         end
         display('list order')
     end
+
     % Use/check the order given in the input file
     if settings.taskorder == 2
         order_vector = zeros(ntasks);
@@ -493,6 +518,7 @@ try
     % therefore it has ntasks+2 elements
     ntasks_out = ntasks+2;
     tasks_out = cell(1,ntasks_out); %#ok<NASGU>
+
     % Sort the tasks in order
     tasks_out = tasks_in;
     for i=1:ntasks
@@ -523,6 +549,7 @@ try
     handles.myData=myData;
     guidata(handles.Administrator_Input_Screen,handles);
     succeed = 1;
+
 catch ME
     error_show(ME);
 end

@@ -9,7 +9,7 @@ function stage = stage_set_origin_Ludl(stage)
 try
     
     % Speed to stage limits
-    success = stage_send_com_Ludl (stage.handle, 'SPEED X=2000000 Y=2000000'); %#ok<*NASGU>
+    success = stage_send_com_Ludl (stage.handle, 'SPEED X=200000 Y=200000'); %#ok<*NASGU>
     success = stage_send_com_Ludl (stage.handle, 'ACCEL X=1 Y=1');
     success = stage_send_com_Ludl(stage.handle, 'HOME X Y');
 
