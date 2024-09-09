@@ -9,7 +9,7 @@ Visual Depiction of 2021-07-15 Shipment: 00_docs/eeDAPContents_20210715.pdf
  * Motorized XY Stage + Cable Stage-Controller
  * Motorized XY Stage Controller + Cable Controller-Computer (USB port)
  * Joystick for Motorized Stage
- * Digital Camera for Microscope + cable
+ * Digital Camera for Microscope GS3-U3-51S5C-C + cable
  * 2 Dell Research Laptops + cables
     * Dell Scientific Laptop #0209592
     * Dell Scientific Laptop #0209590
