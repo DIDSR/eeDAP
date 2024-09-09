@@ -1,3 +1,7 @@
+This document is being updated as a word document here. We consider it the current working version: https://yaleedu.sharepoint.com/:f:/r/sites/BreastCancerUnit-KimBlenman/Shared%20Documents/Kim%20Blenman/Yale%20FDA%20HTT%20Collaboration/CERSI%20documents/Registration%20Test%202024?csf=1&web=1&e=aNdN6V
+
+Some harmonization should be done between this document and that current working version.
+
 ## Registration Test Documents for 2024 HTT Pilot Study 
 **Objective:**  Our objectives were to measure and compare the registration accuracy of the eeDAP system with two stages (Prior H101 and Thorlabs MLS203). The reader uses a rotatable eyepiece reticle to measure the distance from target to center of the eyepiece field of view. Reticle ruler length is 10mm with 100 small ticks. Under 40X, the length of one small tick is 2.5um on the glass (5um at 20X).
 
