@@ -2,51 +2,6 @@
 function stage = stage_open(stage)
     try
 
-        % Delete existing serial ports connections to the stage
-        handle = serialportfind(Tag='Stage');
-        delete(handle)
-
-        % Test whether COM port is set in the file PortNames.mat
-        % If not, set it with the SerialPortSetUp function
-        try
-            % PortNames.mat contains SerialPortStage,
-            %   the last port used and saved
-            load('PortNames.mat', 'SerialPortStage');
-        catch ME
-            % If the last port used is unknown, set it
-            stage.status = SerialPortSetUp();
-            load('PortNames.mat', 'SerialPortStage');
-        end
-
-        % Add SerialPortStage to the stage object
-        stage.port = SerialPortStage;
-
-
-        % stage.handle = serial(SerialPortStage,...
-        %     'RequestToSend','off',...
-        %     'Timeout',3,...
-        %     'Baudrate',9600,...
-        %     'Parity', 'none',...
-        %     'Stopbits', 2);
-
-        % Connect to the serialport device
-        try
-            stage.handle = serialport(SerialPortStage, 9600,...
-                'Timeout',3,...
-                'Parity', 'none',...
-                'Stopbits', 2,...
-                'Tag','Stage');
-        catch ME
-
-            % Select the first line of the error message
-            desc = "The stage failed to connect. Try turing the stage off and on.";
-            % Create an error dialogboxto display the error message
-            h_errordlg = errordlg(desc,'Application error','modal');
-            uiwait(h_errordlg)
-            stage = stage_open(stage);
-
-        end
-
 
 
         % Initialize properties of the stage and open the stage
@@ -82,10 +37,7 @@ function stage = stage_open(stage)
                 stage.scale=0.05;
                 stage = stage_open_Ludl(stage);
 
-            case 'MLS203-ThorLabs'
-                stage.speed=50000;
-                stage.accel=100;
-                stage.scale=0.1;
+            case 'thorlabs_MLS203_BBD302'
                 stage = stage_open_thorlabs(stage);
 
             otherwise
