@@ -58,13 +58,20 @@ DeviceManagerCLI.BuildDeviceList();
 % How many devices were detected
 nDevices = DeviceManagerCLI.GetDeviceListSize();
 % This list can be used to check that a BBD30X stage controller exists
-% 103 is the prefix for the controller
+% 103 is the prefix for the controller serial number
 deviceList = DeviceManagerCLI.GetDeviceList(103);
+
+% What methods are available for deviceList
+methods(deviceList)
 
 % Is a real or simulated stage connected?
 if nDevices > 0
     disp("There is at least one thorlabs device.");
 end
+
+% What are the serial numbers found in deviceList (index starts at 0)
+deviceSN = deviceList.Item(0);
+disp(deviceSN)
 
 % Is our serial number in the list of devices
 if deviceList.Contains(serialNumber) == 1

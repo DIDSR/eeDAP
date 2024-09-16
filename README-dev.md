@@ -1,48 +1,73 @@
 # Cleanup Notes
 
-# To do list
-
 ## thorlabs stage doesn't work
 
 Download and install Kinesis software
+
 * Kinesis 64-Bit Software for 64-Bit Windows
-* https://www.thorlabs.com/software_pages/ViewSoftwarePage.cfm?Code=Motion_Control&viewtab=0
+* <https://www.thorlabs.com/software_pages/ViewSoftwarePage.cfm?Code=Motion_Control&viewtab=0>
+
+
 
 After installing Kinesis software, you can find documentation for .Net programming the stage here:
-* C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Thorlabs\Kinesis\.Net API Help.lnk
+
+* C:\Program Files\Thorlabs\Kinesis\Thorlabs.MotionControl.DotNet_API.chm
 * "Namespaces" sections provide the methods to interact with the stage
 
+
+
 Also useful but limited is the example for the BBD303 using the DDR100 stage
-* https://github.com/Thorlabs/Motion_Control_Examples
+
+* <https://github.com/Thorlabs/Motion_Control_Examples>
 * License is MIT
 
+
+
 I tried and failed to program the stage using the legacy Matlab serial port connection. The corresponding user manual can be downloaded from the same page as the Kinesis software.
+
 * Original: APT_Communications_Protocol_v38.pdf
 
-Run thorlabs SDK:
+
+
+Update hardware firmware:
+
+* "C:\Program Files\Thorlabs\Kinesis\Firmware Update Utility\FirmwareUpdateUtility.exe"
+
+
+
+Run thorlabs SDK and determine serial number:
+
 * "C:\Program Files\Thorlabs\Kinesis\Thorlabs.MotionControl.Kinesis.TestClient.exe"
 * The SDK starts up and the command log shows the following actions:
-    * Settings searched, not found, general settings used
-    * Loading / storing device settings for these serial numbers (not in order)
-    * 103205074
-    * 103205074-0
-    * 103205074-1 (appears to be x-channel)
-    * 103205074-2 (appears to be y-channel)
-    * 103205074-3
-    * Reading Settings (Device - BBD30XMotherboard)
+  * Settings searched, not found, general settings used
+  * Loading / storing device settings for these serial numbers (not in order)
+  * 103205074
+  * 103205074-0
+  * 103205074-1 (appears to be x-channel)
+  * 103205074-2 (appears to be y-channel)
+  * 103205074-3
+  * Reading Settings (Device - BBD30XMotherboard)
+
+
+
+Code development is facilitated with the thorlabs simulator:
+
+* "C:\Program Files\Thorlabs\Kinesis\Thorlabs.MotionControl.KinesisSimulator.exe"
+
+
 
 ## Early Notes
 
 Had to change the serialNumber to 103205075 in stage_open_thorlabs
 
-https://www.mathworks.com/matlabcentral/fileexchange/102234-driver-for-thorlabs-bbd302-prm1z8-k10cr1-motorized-stages
+<https://www.mathworks.com/matlabcentral/fileexchange/102234-driver-for-thorlabs-bbd302-prm1z8-k10cr1-motorized-stages>
 
 When developing a custom application using the Kinesis API, there are help files and example applications that can be
 referenced. Some stand-alone help files
 C:\Program Files\Thorlabs\Kinesis\Thorlabs.MotionControl.C_API.chm
 C:\Program Files\Thorlabs\Kinesis\Thorlabs.MotionControl.DotNet_API.chm
 
-This document https://www.thorlabs.com/Software/Motion%20Control/APT_Communications_Protocol_v38.pdf
+This document <https://www.thorlabs.com/Software/Motion%20Control/APT_Communications_Protocol_v38.pdf>
 says this on page 31
 The electrical interface within the Thorlabs controllers uses a Future Technology Devices
 International (FTDI), type FT232BM USB peripheral chip to communicate with the host PC.
@@ -59,15 +84,22 @@ port settings used to communicate to the Thorlabs controller embedded system. Wi
 Thorlabs software itself the following FTDI library calls are made to set up the USB chip serial
 port for each Thorlabs USB device enumerated on the bus.
 
-https://ftdichip.com/drivers/vcp-drivers/
+<https://ftdichip.com/drivers/vcp-drivers/>
 
 I don't know if I needed the vcp-drivers from ftdi, but I was reading the related installation guide. It told me to look in the "Universal Serial Bus controllers" for a "USB Serial Converter". I didn't find that, but I did find "APT USB Device"! I right-clicked the entry to look at the properties. Under Advanced, there was a check box to "Load VCP"! When I did that, the device showed up in the Device Manager under "Ports (COM & LPT)" with the "COM6" port.
-* https://ftdichip.com/wp-content/uploads/2023/11/AN_396_FTDI_Drivers_Installation_Guide_for_Windows_10_11.pdf
 
-## stage_open 
+* <https://ftdichip.com/wp-content/uploads/2023/11/AN_396_FTDI_Drivers_Installation_Guide_for_Windows_10_11.pdf>
+
+
+
+## stage_open
+
 Move stage speed and other parameters to stage-specific stage_open functions
 
+
+
 ## stage serial port settings
+
 chatGPT recommended this code
 % Create a serial port object
 serialObj = serial('COMx'); % Replace 'COMx' with the actual COM port number
@@ -80,39 +112,37 @@ set(serialObj, 'StopBits', 1); % Number of stop bits
 set(serialObj, 'Terminator', 'LF'); % Terminator character (line feed)
 
 
+
 ## update stage labels
+
 Rename stage labels to this format
 MFR_stageMODEL_controllerMODEL
 
 ## thorlabs install/init
-Possible notes for first time use or power up: 
+
+Possible notes for first time use or power up:
 
 Enable each channel
+
 * press channel button on controller to select channel
 * press top-left button on controller to enable channel
-* press second-to-top-left button on controller to home channel 
+* press second-to-top-left button on controller to home channel
 
 
 
+## Quickly run the GUI GUI
 
-
-
-
-
-
-
-
-# Quickly run the GUI GUI
 load('GUI.mat');
 GUI(handles);
 
-# Quickly run the Stage_Allighment GUI
+## Quickly run the Stage_Allighment GUI
+
 load('Stage_Allighment.mat');
 Stage_Allighment(handles);
 
 
 
-# handles
+## handles
 
   struct with fields:
 
@@ -175,7 +205,7 @@ Stage_Allighment(handles);
          refineRegistration: 0
 
 
-### handles.myData.tasks_in 
+### handles.myData.tasks_in
 
   1×3 cell array
 
@@ -377,13 +407,13 @@ Stage_Allighment(handles);
 
 
 
-# handles.reticle
+## handles.reticle
 
 Very strange place for this variable
 
 
 
-# Notes on error with stage_get_pos_Ludl
+## Notes on error with stage_get_pos_Ludl
 
 In stage_get_pos_Ludl (line 57)
 In stage_get_pos (line 29)
@@ -394,7 +424,7 @@ In matlab.graphics.internal.figfile.FigFile/read>@(hObject,eventdata)Administrat
 
 
 
-# Stages
+## Stages
 
 * case 'H101-Prior'
 * case 'SCAN8Praparate_Ludl5000'
