@@ -8,12 +8,30 @@ Download and install Kinesis software
 * Kinesis 64-Bit Software for 64-Bit Windows
 * https://www.thorlabs.com/software_pages/ViewSoftwarePage.cfm?Code=Motion_Control&viewtab=0
 
-Documentation for programming Thorlabs stage comes with Kinesis software
+After installing Kinesis software, you can find documentation for .Net programming the stage here:
 * C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Thorlabs\Kinesis\.Net API Help.lnk
+* "Namespaces" sections provide the methods to interact with the stage
 
 Also useful but limited is the example for the BBD303 using the DDR100 stage
 * https://github.com/Thorlabs/Motion_Control_Examples
 * License is MIT
+
+I tried and failed to program the stage using the legacy Matlab serial port connection. The corresponding user manual can be downloaded from the same page as the Kinesis software.
+* Original: APT_Communications_Protocol_v38.pdf
+
+Run thorlabs SDK:
+* "C:\Program Files\Thorlabs\Kinesis\Thorlabs.MotionControl.Kinesis.TestClient.exe"
+* The SDK starts up and the command log shows the following actions:
+    * Settings searched, not found, general settings used
+    * Loading / storing device settings for these serial numbers (not in order)
+    * 103205074
+    * 103205074-0
+    * 103205074-1 (appears to be x-channel)
+    * 103205074-2 (appears to be y-channel)
+    * 103205074-3
+    * Reading Settings (Device - BBD30XMotherboard)
+
+## Early Notes
 
 Had to change the serialNumber to 103205075 in stage_open_thorlabs
 
