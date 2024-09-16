@@ -25,7 +25,7 @@ function stage=stage_get_pos(stage)
             case 'BioPrecision2-LE2_Ludl6000'
                 stage = stage_get_pos_Ludl(stage);
                 
-            case 'MLS203-ThorLabs'
+            case 'thorlabs_MLS203_BBD302'
                 stage = stage_get_pos_thorlabs(stage);
 
             otherwise

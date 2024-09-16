@@ -34,7 +34,7 @@ function stage=stage_move(stage, target_pos)
             case 'BioPrecision2-LE2_Ludl6000'
                 stage = stage_move_Ludl(stage, target_pos);
 
-            case 'MLS203-ThorLabs'
+            case 'thorlabs_MLS203_BBD302'
                 stage = stage_move_thorlabs(stage, target_pos);
 
             otherwise

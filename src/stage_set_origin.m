@@ -22,7 +22,7 @@ try
             case 'BioPrecision2-LE2_Ludl6000'
                 stage = stage_set_origin_Ludl(stage);
                 
-            case 'MLS203-ThorLabs'
+            case 'thorlabs_MLS203_BBD302'
                 stage = stage_set_origin_thorlabs(stage);
 
             otherwise
