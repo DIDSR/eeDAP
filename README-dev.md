@@ -12,8 +12,15 @@ Download and install Kinesis software
 After installing Kinesis software, you can find documentation for .Net programming the stage here:
 
 * C:\Program Files\Thorlabs\Kinesis\Thorlabs.MotionControl.DotNet_API.chm
-* "Namespaces" sections provide the methods to interact with the stage
+* Chapter, "Benchtop Brushless Motor (BBD1xx BBD2xx BBD3xx)"
+  * Example shows how to create and setup an instance of a BenchtopBrushlessMotor class, and perform 'homing' and 'move' operations on one channel. Homing moves a device to its datum position.
 
+* Examples link to corresponding "Namespaces"
+* "Namespaces" provide the methods to interact with the stage
+* BenchtopBrushlessMotor is the primary device class with key methods:
+  * .Connect and .Disconnect
+  * .GetChannel
+* 
 
 
 Also useful but limited is the example for the BBD303 using the DDR100 stage

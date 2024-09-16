@@ -18,6 +18,7 @@
 %
 % Also refer to the Kinesis documentation (and "Namespaces")
 % C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Thorlabs\Kinesis\.Net API Help.lnk
+% 
 %
 % Kinesis software
 % https://www.thorlabs.com/software_pages/ViewSoftwarePage.cfm?Code=Motion_Control&viewtab=0
@@ -28,10 +29,12 @@
 % Matlab Version: R2023b
 % Thorlabs DLL version: Kinesis 1.14.44
 %
-%% Notes
+% Notes
 %
-%%
-%% Start of code
+%
+
+
+% Clear environment
 clear all; close all; clc
 
 %% Add and Import Assemblies
@@ -43,16 +46,12 @@ import Thorlabs.MotionControl.DeviceManagerCLI.*
 import Thorlabs.MotionControl.GenericMotorCLI.*
 import Thorlabs.MotionControl.Benchtop.BrushlessMotorCLI.*
 
-%% Create Simulation (Comment out for real device)
+% Create Simulation (Comment out for real device)
 SimulationManager.Instance.InitializeSimulations(); 
 
-% Input Parameters
-% serialNumber = '103205074'; % BBD302 controller serial number
-serialNumber = '103000001'; % BBD30X controller serial number
-timeout= 60000;
-position = 10; % mm
 
-%% Connect to device
+
+%% Discover devices
 % Build Device list must create some kind of internal list of devices
 DeviceManagerCLI.BuildDeviceList();
 % How many devices were detected
@@ -64,78 +63,136 @@ deviceList = DeviceManagerCLI.GetDeviceList(103);
 % What methods are available for deviceList
 methods(deviceList)
 
-% Is a real or simulated stage connected?
-if nDevices > 0
-    disp("There is at least one thorlabs device.");
+% How many devices are in the deviceList
+if nDevices == 0
+    error('There are no Thorlabs stages in the deviceList.')
+elseif nDevices == 1
+    disp('There is one Thorlabs stage in the deviceList.');
+else
+    error('There is more than one Thorlabs stage in the deviceList.')
 end
 
-% What are the serial numbers found in deviceList (index starts at 0)
+% What is the stage serial number found in deviceList (index starts at 0)
+% serialNumber = '103205074'; % BBD302 controller serial number
+% serialNumber = '103000001'; % Simulated BBD30X controller serial number
 deviceSN = deviceList.Item(0);
 disp(deviceSN)
 
-% Is our serial number in the list of devices
-if deviceList.Contains(serialNumber) == 1
-    disp("Our device appears in the device list.")
-end
 
 
+% Input Parameters
+timeout= 60000; % 6000 msec = 60 seconds
+position = 10; % mm
 
 % Connect to device
-device = BenchtopBrushlessMotor.CreateBenchtopBrushlessMotor(serialNumber); %;The output of this line must be suppressed
-device.Connect(serialNumber)
+% The output of this line must be suppressed
+device = BenchtopBrushlessMotor.CreateBenchtopBrushlessMotor(deviceSN);
+device.Connect(deviceSN)
+
+
+
 try
     % Try/Catch statement used to disconnect correctly after an error
 
-    % Channels are connected using the same serial number
-    % Connect to the channel
-    channel = device.GetChannel(1); % Get Channel 1
-    channel.WaitForSettingsInitialized(10000);
-    channel.StartPolling(250);
-    
-    % Enable device on channel 1
-    channel.EnableDevice();
-    pause(3);
-    
+    % Connect to channels 1 and 2 (x and y)
+    xChannel = device.GetChannel(1);
+    yChannel = device.GetChannel(2);
+    xChannel.WaitForSettingsInitialized(10000);
+    yChannel.WaitForSettingsInitialized(10000);
+    xChannel.StartPolling(250);
+    yChannel.StartPolling(250);
+
+    % Give stage time to initialize
+    % 40 * 0.25 msec == 10 sec
+    i = 1;
+    while device.IsDeviceBusy
+        pause(0.25)
+        i = i + 1;
+
+        if i > 40
+            break;
+        end
+    end
+
+    % Enable channels
+    xChannel.EnableDevice();
+    yChannel.EnableDevice();
+
     % The return variable tells us about the channel config
-    motorSettings = channel.LoadMotorConfiguration(channel.DeviceID);
+    motorSettings = xChannel.LoadMotorConfiguration(xChannel.DeviceID);
 
     % Display info about the channel
-    channel.GetDeviceInfo()
+    xChannel.GetDeviceInfo()
 
+    % From .NET API documentation
+    % There are 3 ways of executing Move / Home methods using the Kinesis .NET API
+    %   1. Wait for completion with timeout.
+    %       Use device.Home(60000) or device.Move(position, 60000).
+    %       These functions will execute the command and will wait for completion.
+    %       The function will fail if the command is not completed before the defined timeout (in ms).
+    %   2. Wait for completition with callback.
+    %       Use device.Home(callback) or device.Move(position, callback).
+    %       These functions will execute the command and continue.
+    %       The callback function will be called when the Home / Move has completed.
+    %       This allows the program to process status etc. whilst waiting for completion.
+    % 3. Fire and forget. Use device.Home() or device.Move(position).
+    %       These functions will execute the command but will not wait for completion.
 
-    pause(1);
-    % Home Motor
+    % Home Motor - channel 1
     fprintf("Homing...\n")
-    channel.Home(timeout);
+    xChannel.Home(timeout);
     fprintf("Homed\n")
-    pause(2);
-    
-    %% Move to position
+
+    % Move to position - channel 1
     fprintf("Moving...\n")
-    channel.MoveTo(position, timeout);
+    xChannel.MoveTo(position, timeout);
     fprintf("Moved\n")
-    pause(1);
 
-    %% Get position
-    channel.GetPositionCounter
+    % Get position
+    xChannel.GetPositionCounter
 
-    %% Move in a specific direction
-    channel.MoveRelative_DeviceUnit(MotorDirection.Forward, 20000/2, 6000)
-    channel.MoveTo_DeviceUnit(20000, 6000)
-    
-    temp struct MotorDirection
+    % Move to a stage coordinate
+    xChannel.MoveTo_DeviceUnit(20000, timeout)
+
+    % % Create x and y MultiChannelMoveTarget objects
+    % xDestination = MultiChannelMoveTarget;
+    % xDestination.ChannelNumber = 1;
+    % xDestination.TargetPosition = 30000;
+    % yDestination = MultiChannelMoveTarget;
+    % yDestination.ChannelNumber = 1;
+    % yDestination.TargetPosition = 30000;
+    % 
+    % % Combine x and y destinations
+    % targetsList = Collections.Generic.IEnumerable.MuliChannelMoveTarget
+    % 
+    % destination(1) = xDestination;
+    % destination(2) = yDestination;
+    % 
+    % 
+    % myList = System.Collections.Generic.List<MultiChannelMoveTarget>();
+    % 
+    % 
+    % % Move to x,y stage coordinates
+    % fprintf("Moving...\n")
+    % device.MoveTo_DeviceUnits(xDestination, timeout);
+    % fprintf("Moved\n")
+    % pause(1);
 
 catch e
     fprintf("Error has caused the program to stop, disconnecting..\n")
+
+    % Disconnect
+    xChannel.StopPolling();
+    yChannel.StopPolling();
+    xChannel.DisableDevice();
+    yChannel.DisableDevice();
+
+    device.Disconnect();
+
     fprintf(e.identifier);
     fprintf("\n");
     fprintf(e.message);
 end
 
-% %% Disconnect
-% channel.StopPolling();
-% channel.DisableDevice();
-% device.Disconnect();
-
-%% Close Simulations (Comment out if using a real device)
-SimulationManager.Instance.UninitializeSimulations(); %Close Simulations
+% Close simulation
+SimulationManager.Instance.UninitializeSimulations();
