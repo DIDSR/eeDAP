@@ -41,12 +41,10 @@ clear all; close all; clc
 devCLI = NET.addAssembly('C:\Program Files\Thorlabs\Kinesis\Thorlabs.MotionControl.DeviceManagerCLI.dll');
 genCLI = NET.addAssembly('C:\Program Files\Thorlabs\Kinesis\Thorlabs.MotionControl.GenericMotorCLI.dll');
 motCLI = NET.addAssembly('C:\Program Files\Thorlabs\Kinesis\Thorlabs.MotionControl.Benchtop.BrushlessMotorCLI.dll');
-NET.addAssembly('System.Collections')
 
 import Thorlabs.MotionControl.DeviceManagerCLI.*
 import Thorlabs.MotionControl.GenericMotorCLI.*
 import Thorlabs.MotionControl.Benchtop.BrushlessMotorCLI.*
-import System.Collections.Generic.*
 
 % Create Simulation (Comment out for real device)
 SimulationManager.Instance.InitializeSimulations();
@@ -156,46 +154,7 @@ try
     % Move to a stage coordinate
     xChannel.MoveTo_DeviceUnit(20000, timeout)
 
-    % Create x and y MultiChannelMoveTarget objects
-    xDestination = MultiChannelMoveTarget;
-    xDestination.ChannelNumber = 1;
-    xDestination.TargetPosition = 30000;
-    yDestination = MultiChannelMoveTarget;
-    yDestination.ChannelNumber = 2;
-    yDestination.TargetPosition = 30000;
 
-    destination = NET.createGeneric('Collections.Generic.IEnumerable', )
-    listType = {'MotionControl.DeviceManagerCLI.MultiChannelMoveTarget'};
-    channelTargets = NET.createGeneric('System.Collections.Generic.IEnumerable', listType);
-
-    temp = NET.createGeneric('System.Collections.Generic.List',{'System.String'},2);
-    temp = NET.createGeneric('System.Collections.Generic.IEnumerable',{'System.String'},2);
-    temp = NET.createGeneric('System.Collections.Generic.IEnumerable',{'MultiDeviceChannel'});
-
-    IEnumerable = NET.explicitCast(temp,'System.Collections.Generic.IEnumerable');
-
-    destination = NET.createGeneric('System.Collections.Generic.List',{'System.String'},2);
-
-    device.MoveTo_DeviceUnits(xDestination, timeout);
-
-    temp = Thorlabs.MotionControl.GenericMotorCLI.
-
-    %
-    % % Combine x and y destinations
-    % targetsList = Collections.Generic.IEnumerable.MuliChannelMoveTarget
-    %
-    % destination(1) = xDestination;
-    % destination(2) = yDestination;
-    %
-    %
-    % myList = System.Collections.Generic.List<MultiChannelMoveTarget>();
-    %
-    %
-    % % Move to x,y stage coordinates
-    % fprintf("Moving...\n")
-    % device.MoveTo_DeviceUnits(xDestination, timeout);
-    % fprintf("Moved\n")
-    % pause(1);
 
 catch e
     fprintf("Error has caused the program to stop, disconnecting..\n")
