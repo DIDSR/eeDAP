@@ -38,6 +38,9 @@ function stage = stage_open(stage)
                 stage = stage_open_Ludl(stage);
 
             case 'thorlabs_MLS203_BBD302'
+                stage.speed=250000; % um/sec
+                stage.accel=2000000; % um/sec
+                stage.scale=0.05; % um/device unit
                 stage = stage_open_thorlabs(stage);
 
             otherwise
