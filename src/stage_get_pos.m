@@ -2,10 +2,10 @@ function stage=stage_get_pos(stage)
 
     try
 
-        % If stage is not open, open it
-        if (~strcmp(stage.handle.Status, 'open'))
-            stage = stage_open(stage);
-        end
+        % % If stage is not open, open it
+        % if (~strcmp(stage.handle.Status, 'open'))
+        %     stage = stage_open(stage);
+        % end
 
         % Get position
         switch stage.label
