@@ -102,6 +102,9 @@ try
     xChannel.StartPolling(250);
     yChannel.StartPolling(250);
 
+    % What does this command do
+    % DoWeWantToStopYet(); 
+    
     % Give stage time to initialize
     % 40 * 0.25 msec == 10 sec
     i = 1;
@@ -154,6 +157,38 @@ try
     % Move to a stage coordinate
     xChannel.MoveTo_DeviceUnit(20000, timeout)
 
+    % Working fields
+    xChannel.IsConnected
+    xChannel.IsEnabled
+    xChannel.NeedsHoming
+    xChannel.State
+    xChannel.Initializing
+    xChannel.IsDeviceBusy
+    xChannel.Terminated
+    xChannel.DeviceName
+    xChannel.CommsStatus
+    xChannel.TargetPosition_DeviceUnit
+    xChannel.Status % This contains
+    xChannel.Status.Position
+    xChannel.Status.IsPositionError
+    xChannel.SerialNo
+
+    % Not working fields
+    xChannel.Position_DeviceUnit
+    xChannel.DevicePosition
+    xChannel.TargetPosition
+    xChannel.UnitConverter
+
+    xChannel.Disconnect(false)
+    xChannel.Disconnect(true)
+    yChannel.Discoon
+    xChannel.DisconnectTidyUp
+    xChannel.Dispose
+    
+
+    
+    
+    
 
 
 catch e
