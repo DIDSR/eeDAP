@@ -1,5 +1,16 @@
 # Cleanup Notes
 
+## Don't home the stage when we start the data collection
+
+## Save stage data in the base environment to facilitate recovery
+
+% Save the stage data to the base workspace
+assignin('base', 'savedStage', stage);
+
+% Recover stage data from the base wokspace
+data = evalin('base', 'savedStage');
+
+
 ## thorlabs stage doesn't work
 
 Download and install Kinesis software
@@ -62,6 +73,59 @@ Code development is facilitated with the thorlabs simulator:
 * "C:\Program Files\Thorlabs\Kinesis\Thorlabs.MotionControl.KinesisSimulator.exe"
 
 
+
+## Methods for thorlabs channel object
+
+Brushless30XMotorChannel                 GetListenToStatus                        RequestDevParams                         SetJoystickParams                        
+CanRestorePreSequenceState               GetMasks                                 RequestDigitalOutputs                    SetJoystickParams_DeviceUnit             
+ClearDeviceExceptions                    GetMotorConfiguration                    RequestElectricOutputParams              SetLCDMoveParams                         
+Connect                                  GetMoveAbsolutePosition                  RequestEncoderCounter                    SetLCDMoveParams_DeviceUnits             
+ConnectDevice                            GetMoveAbsolutePosition_DeviceUnit       RequestHomingParams                      SetLEDSwitches                           
+CreateConnectionToDevice                 GetMoveRelativeDistance                  RequestJogParams                         SetLimitSwitchParams                     
+DefaultRestorePreSequenceState           GetMoveRelativeDistance_DeviceUnit       RequestJoystickParams                    SetLimitSwitchParams_DeviceUnit          
+DisableDevice                            GetNextMonitorBlock                      RequestLCDMoveParams                     SetLimitsSoftwareApproachPolicy          
+Disconnect                               GetPosLoopParams                         RequestLEDSwitches                       SetListenToStatus                        
+DisconnectTidyUp                         GetPositionCounter                       RequestLimitSwitchParams                 SetMasks                                 
+Dispose                                  GetPositionTriggerState                  RequestMoveAbsolutePosition              SetMonitorParams                         
+EnableCommsListener                      GetSettings                              RequestMoveRelativeDistance              SetMoveAbsolutePosition                  
+EnableDevice                             GetSettingsByID                          RequestPosLoopParams                     SetMoveAbsolutePosition_DeviceUnit       
+Equals                                   GetSettledCurrentLoopParams              RequestPosition                          SetMoveRelativeDistance                  
+ForwardException                         GetStageAxisParams                       RequestPositionTriggerState              SetMoveRelativeDistance_DeviceUnit       
+GetBacklash                              GetStageAxisParams_DeviceUnit            RequestSettledCurrentLoopParams          SetMovementSettings                      
+GetBacklash_DeviceUnit                   GetStageDefinition                       RequestStageAxisParams                   SetPosLoopParams                         
+GetCalibrationFile                       GetStatusBits                            RequestStatus                            SetPositionCounter                       
+GetConnectionState                       GetTrackSettleParams                     RequestStatusBits                        SetPositionTriggerState                  
+GetCurrentLoopParams                     GetTrackSettleParams_DeviceUnit          RequestTrackSettleParams                 SetRotationModes                         
+GetDevParams                             GetTriggerIOConfigParameters             RequestTriggerIOConfigParameters         SetSettings                              
+GetDeviceInfo                            GetTriggerIOConfigParameters_DeviceUnit  RequestTriggerSwitches                   SetSettledCurrentLoopParams              
+GetDeviceName                            GetTriggerSwitches                       RequestVelocityParams                    SetTrackSettleParams                     
+GetDigitalOutputs                        GetType                                  RequestVelocityProfileParams             SetTrackSettleParams_DeviceUnit          
+GetElectricOutputParams                  GetVelocityParams                        Reset                                    SetTriggerIOConfigParams                 
+GetEncoderCounter                        GetVelocityParams_DeviceUnit             ResetConnection                          SetTriggerIOConfigParams_DeviceUnit      
+GetFunctionActor                         GetVelocityProfileParams                 ResetMovementSettings                    SetTriggerSwitches                       
+GetFunctionCollection                    Home                                     ResetRotationModes                       SetUSBConnectionState                    
+GetFunctionNames                         IdentifyDevice                           ResetStageToDefaults                     SetVelocityParams                        
+GetFunctionParameters                    InitializeUSBConnectionState             RestorePreSequenceState                  SetVelocityParams_DeviceUnit             
+GetFunctionParametersDefinitions         InitializeWaitHandler                    ResumeMoveMessages                       SetVelocityProfileParams                 
+GetHashCode                              IsBayValid                               SetBacklash                              ShutDown                                 
+GetHomingParams                          IsCalibrationActive                      SetBacklash_DeviceUnit                   StartMonitoring                          
+GetHomingParams_DeviceUnit               IsDeviceAvailable                        SetCalibrationFile                       StartPolling                             
+GetHomingVelocity                        IsSettingsInitialized                    SetCurrentLoopParams                     Stop                                     
+GetHomingVelocity_DeviceUnit             JogContinuous                            SetDevParams                             StopImmediate                            
+GetJogParams                             LoadMotorConfiguration                   SetDigitalOutput                         StopMonitoring                           
+GetJogParams_DeviceUnit                  MessageProcessedFnCallback               SetDigitalOutputs                        StopPolling                              
+GetJogStepSize                           MoveAbsolute                             SetElectricOutputParams                  StorePreSequenceState                    
+GetJogStepSize_DeviceUnit                MoveContinuous                           SetEncoderCounter                        SuspendMoveMessages                      
+GetJogVelocityParams                     MoveContinuousAtVelocity                 SetHomingParams                          TestClientWrite                          
+GetJogVelocityParams_DeviceUnit          MoveJog                                  SetHomingParams_DeviceUnit               ThrowLastDeviceException                 
+GetJoystickParams                        MoveRelative                             SetHomingVelocity                        ToString                                 
+GetJoystickParams_DeviceUnit             MoveRelative_DeviceUnit                  SetHomingVelocity_DeviceUnit             UpdateActors                             
+GetLCDMoveParams                         MoveTo                                   SetJogParams                             UpdateDeviceUnitConverter                
+GetLCDMoveParams_DeviceUnits             MoveTo_DeviceUnit                        SetJogParams_DeviceUnit                  Wait                                     
+GetLEDSwitches                           PersistSettings                          SetJogStepSize                           WaitForSettingsInitialized               
+GetLimitSwitchParams                     PollingDuration                          SetJogStepSize_DeviceUnit                keyHash                                  
+GetLimitSwitchParams_DeviceUnit          RequestBacklash                          SetJogVelocityParams                     keyMatch                                 
+GetLimitsSoftwareApproachPolicy          RequestCurrentLoopParams                 SetJogVelocityParams_DeviceUnit          
 
 ## Early Notes
 
