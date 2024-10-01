@@ -11,7 +11,8 @@ function stage = stage_open_thorlabs(stage)
     %   The function is based on an exmaple provided by Thorlabs here:
     %   https://github.com/Thorlabs/Motion_Control_Examples/blob/main/Matlab/Benchtop/BBD30X/BBD30X.m
     %
-    %   
+    %   You can also refer to the script stage_thorlabs_dev.m
+    %   for more information on the thorlabs objects and methods
     %
     % Inputs:
     %
@@ -19,52 +20,161 @@ function stage = stage_open_thorlabs(stage)
     %
     % Example:
 
-    %% Import Assemblies
+    %% Initialize
+
+    % If stage.device exists, check if it is connected.
+    % Else try to recover from base environment.
+    disp('Check if stage.device object exists and is connected.')
+    if(isfield(stage, 'device'))
+
+        % If stage.device is already connected, return.
+        if(stage.device.IsConnected)
+            disp('Stage is already connected. Return.')
+            return;
+        end
+
+        % stage.device is not connected, clear it from the environment.
+        disp('stage.device is not connected, remove the field and continue.')
+        stage = rmfield(stage, 'device');
+        evalin('base', ['clear ', varName]);
+
+    else
+
+        % Try to recover stage from base environment
+        disp('stage.device object does not exist.')
+        disp('Check if stage object exists in base environment.')
+        if(evalin('base', 'exist(''savedStage'', ''var'')'))
+            stage = evalin('base', 'savedStage');
+            disp('Stage recovered from base environment.')
+
+            % If stage is already connected, return.
+            if(stage.device.IsConnected)
+                disp('Stage is already connected. Return.')
+                return;
+            end
+
+            % Stage is not connected, clear it from the base environment.
+            disp('Stage is not connected, clear it from the base environment.')
+            evalin('base', ['clear ', varName]);
+
+        end
+        
+        disp('Stage object does not exist in base environment.')
+    end
+
+
+
+    % Initialize stage.status to 0 = fail
+    stage.status = 0;
+
+
+
+    % Add Assemblies
+    NET.addAssembly('C:\Program Files\Thorlabs\Kinesis\Thorlabs.MotionControl.DeviceManagerCLI.dll');
+    NET.addAssembly('C:\Program Files\Thorlabs\Kinesis\Thorlabs.MotionControl.GenericMotorCLI.dll');
+    NET.addAssembly('C:\Program Files\Thorlabs\Kinesis\Thorlabs.MotionControl.Benchtop.BrushlessMotorCLI.dll');
+
+    % Import Assemblies
     import Thorlabs.MotionControl.DeviceManagerCLI.*
     import Thorlabs.MotionControl.GenericMotorCLI.*
     import Thorlabs.MotionControl.Benchtop.BrushlessMotorCLI.*
 
+
+
+    %% Connect to device
+    % Build Device list
+    DeviceManagerCLI.BuildDeviceList();
+    nDevices = DeviceManagerCLI.GetDeviceListSize();
+    deviceList = DeviceManagerCLI.GetDeviceList();
+
+
+
+    % How many devices are in the deviceList
+    if nDevices == 0
+        error('There are no Thorlabs stages in the deviceList.')
+    elseif nDevices == 1
+        disp('Connect to the Thorlabs stage in the deviceList.');
+        deviceSN = deviceList.Item(0);
+        disp(['The serial number of the Thorlabs stage is ', char(deviceSN.ToString)])
+
+    else
+        error('There is more than one Thorlabs stage in the deviceList. Continue.')
+    end
+
+
+
+    % Find the stage
+    device = BenchtopBrushlessMotor.CreateBenchtopBrushlessMotor(deviceSN);
+
+    % Connect stage
+    disp('Connecting ...')
+    device.Connect(deviceSN)
+    disp('Stage connected!')
+
+    % timeout = 30000 msec = 30 seconds
+    timeout= 30000;
+
+
+
     try
 
-        %% Import Assemblies
-        % Notice that original code return the assembly into variables
-        % named for the assembly
+        %% Connect channels 1 and 2 (x and y)
+        disp('Connect x and y channels')
+        xChannel = device.GetChannel(1);
+        yChannel = device.GetChannel(2);
 
-        % devCLI =
-        NET.addAssembly('C:\Program Files\Thorlabs\Kinesis\Thorlabs.MotionControl.DeviceManagerCLI.dll');
-        % genCLI =
-        NET.addAssembly('C:\Program Files\Thorlabs\Kinesis\Thorlabs.MotionControl.GenericMotorCLI.dll');
-        % motCLI =
-        NET.addAssembly('C:\Program Files\Thorlabs\Kinesis\Thorlabs.MotionControl.Benchtop.BrushlessMotorCLI.dll');
+        xChannel.WaitForSettingsInitialized(timeout);
+        yChannel.WaitForSettingsInitialized(timeout);
 
-        % Initialize stage.status to 0 = fail
-        stage.status = 0;
+        disp('Start polling x and y channels')
+        xChannel.StartPolling(250);
+        yChannel.StartPolling(250);
 
-        %% Connect to device
-        % Build Device list
-        DeviceManagerCLI.BuildDeviceList();
-        DeviceManagerCLI.GetDeviceListSize();
-        DeviceManagerCLI.GetDeviceList();
+        % Give stage time to initialize
+        elapsed = 0;
+        while device.IsDeviceBusy
+            pause(0.25)
+            elapsed = elapsed + .25;
 
-        % Input Parameters
-        % BBD302 controller serial number (or Kinesis Simulator)
-        % This needs to be an input variable,
-        % maybe it should be encoded into the stage name
-        serialNumber = '103205074'; % Device
-        serialNumber = '103000001'; % Simulator
+            if elapsed > timeout
+                break;
+            end
+        end
 
-        % Connect to device
-        % The output of this line must be suppressed. Not sure why?
-        device = BenchtopBrushlessMotor.CreateBenchtopBrushlessMotor(serialNumber);
-        device.Connect(serialNumber)
+        % Enable channels
+        disp('Enable x and y channels')
+        xChannel.EnableDevice();
+        yChannel.EnableDevice();
 
-        % Enable device on channel 1
-        channel.EnableDevice();
-        pause(3);
 
-        stage.status = 1;
 
     catch ME
+
+        % Disconnect device
+        xChannel.StopPolling();
+        yChannel.StopPolling();
+        xChannel.DisableDevice();
+        yChannel.DisableDevice();
+
+        device.Disconnect();
+
         error_show(ME)
     end
+
+
+
+    %% Wrap up and return
+    disp('Stage is ready.')
+    stage.deviceSN = deviceSN;
+    stage.device = device;
+    stage.xChannel = xChannel;
+    stage.yChannel = yChannel;
+    stage.timeout = timeout;
+    stage.status = 1;
+
+    % Save stage information in base environment for error recovery
+    assignin('base', 'savedStage', stage)
+
+
+
 end
