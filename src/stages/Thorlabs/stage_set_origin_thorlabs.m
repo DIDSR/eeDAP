@@ -1,6 +1,6 @@
 
-function stage = stage_set_origin_thorlabs(stage)
-    % stage_open_thorlabs opens a connection to a thorlabs stage.
+    % stage_set_origin_thorlabs_script opens a connection to a thorlabs stage.
+%   This script is meant to be run in the base environment.
     %   stage.status = 1 if the stage is opened successfully and 0 if not
     %
     %   Commands to manage the thorlabs stage depend on Thorlabs Kenesis

@@ -146,9 +146,9 @@ function Stage_Allighment_OpeningFcn(hObject, eventdata, handles, varargin) %#ok
         % Initialize offset_stage_refine
         settings.offset_reg_refine{slot_i} = [0,0];
 
-        % Set the origin to support running this function stand alone.
-        myData.stage = stage_open(myData.stage);
-        myData.stage = stage_set_origin(myData.stage);
+        % % Set the origin to support running this function stand alone.
+        % myData.stage = stage_open(myData.stage);
+        % myData.stage = stage_set_origin(myData.stage);
 
         % Pack everything
         handles.output = hObject;

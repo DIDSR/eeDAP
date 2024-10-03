@@ -188,9 +188,9 @@ function GUI_OpeningFcn(hObj, eventdata, handles, varargin)
         myData = handles_old.myData;
         settings = myData.settings;
 
-        % Set the origin to support running this function stand alone.
-        myData.stage = stage_open(myData.stage);
-        myData.stage = stage_set_origin(myData.stage);
+        % % Set the origin to support running this function stand alone.
+        % myData.stage = stage_open(myData.stage);
+        % myData.stage = stage_set_origin(myData.stage);
 
         % Initialize elements of handles and save to handles.GUI
         % handles.current as a structure
@@ -587,8 +587,8 @@ function NextButtonPressed(hObj, eventdata, handles) %#ok<DEFNU>
                         % eyepiece offset
                         offset_stage = int64(myData.settings.offset_stage);
                         % registration refine offset
-                        offset_reg_refine = int64(myData.settings.offset_reg_refine{taskinfo.slot});
-                        stage_new = stage_new' - offset_stage + offset_reg_refine;
+                        offset_reg_refine = transpose(int64(myData.settings.offset_reg_refine{taskinfo.slot}));
+                        stage_new = transpose(stage_new - offset_stage + offset_reg_refine);
                     end
                     taskinfo.stage_x = stage_new(1);
                     taskinfo.stage_y = stage_new(2);

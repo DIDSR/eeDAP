@@ -23,45 +23,31 @@ function stage = stage_open_thorlabs(stage)
     %% Initialize
 
     % If stage.device exists, check if it is connected.
-    % Else try to recover from base environment.
-    disp('Check if stage.device object exists and is connected.')
-    if(isfield(stage, 'device'))
+    disp('Check if stage object is saved in the base environment.')
+    if(evalin('base', 'exist(''savedStage'', ''var'')'))
 
-        % If stage.device is already connected, return.
-        if(stage.device.IsConnected)
-            disp('Stage is already connected. Return.')
-            return;
-        end
+        disp('Stage object exists in the base environment.')
+        savedStage = evalin('base', 'savedStage');
 
-        % stage.device is not connected, clear it from the environment.
-        disp('stage.device is not connected, remove the field and continue.')
-        stage = rmfield(stage, 'device');
-        clear stage
+        disp('Check if stage.device exists.')
+        if(isfield(savedStage ,"device"))
 
-    else
-
-        % Try to recover stage from base environment
-        disp('stage.device object does not exist.')
-        disp('Check if stage object exists in base environment.')
-        if(evalin('base', 'exist(''savedStage'', ''var'')'))
-            stage = evalin('base', 'savedStage');
-            disp('Stage recovered from base environment.')
-
-            % If stage is already connected, return.
-            if(stage.device.IsConnected)
-                disp('Stage is already connected. Return.')
+            disp("stage.device exists. Check if it is connected.")
+            if(savedStage.device.IsConnected)
+                disp('stage.device is already connected. Return.')
                 return;
             end
 
-            % Stage is not connected, clear it from the base environment.
-            disp('Stage is not connected, clear it from the base environment.')
-            evalin('base', ['clear ', 'savedStage']);
+            disp("stage.device is not connected. Remove and continue.")
+            savedStage = rmfield(savedStage, "device");
 
         end
-        
-        disp('Stage object does not exist in base environment.')
-    end
 
+        clear stage
+
+    else
+        disp('Stage object is not saved in the base environment. Continue.')
+    end
 
 
     % Initialize stage.status to 0 = fail

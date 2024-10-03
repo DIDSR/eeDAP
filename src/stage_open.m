@@ -41,7 +41,8 @@ function stage = stage_open(stage)
                 stage.speed=250000; % um/sec
                 stage.accel=2000000; % um/sec
                 stage.scale=0.05; % um/device unit
-                stage = stage_open_thorlabs(stage);
+                % stage = stage_open_thorlabs(stage);
+                evalin("base", "stage_open_thorlabs_script")
 
             otherwise
                 error('The stage label is not recognized')

@@ -23,7 +23,8 @@ try
                 stage = stage_set_origin_Ludl(stage);
                 
             case 'thorlabs_MLS203_BBD302'
-                stage = stage_set_origin_thorlabs(stage);
+                % stage = stage_set_origin_thorlabs(stage);
+                evalin("base", "stage_set_origin_thorlabs_script")
 
             otherwise
                 error('The stage label is not recognized')

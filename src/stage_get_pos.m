@@ -26,7 +26,9 @@ function stage=stage_get_pos(stage)
                 stage = stage_get_pos_Ludl(stage);
                 
             case 'thorlabs_MLS203_BBD302'
-                stage = stage_get_pos_thorlabs(stage);
+                % stage = stage_get_pos_thorlabs(stage);
+                evalin("base", "stage_get_pos_thorlabs_script")
+                stage.Pos = evalin("base", "stagePosition");
 
             otherwise
                 error('The stage label is not recognized')
