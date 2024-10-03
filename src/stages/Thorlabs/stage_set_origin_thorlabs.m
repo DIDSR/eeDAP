@@ -1,5 +1,5 @@
 
-function stage = stage_set_origin_thorlabs(stage, ~)
+function stage = stage_set_origin_thorlabs(stage)
     % stage_open_thorlabs opens a connection to a thorlabs stage.
     %   stage.status = 1 if the stage is opened successfully and 0 if not
     %
@@ -21,6 +21,9 @@ function stage = stage_set_origin_thorlabs(stage, ~)
     % Example:
 
     try
+
+        disp('Is stage busy?')
+        disp(stage.device.IsDeviceBusy)
 
         fprintf("Homing x channel ...\n")
         stage.xChannel.Home(stage.timeout);

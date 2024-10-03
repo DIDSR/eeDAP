@@ -36,7 +36,7 @@ function stage = stage_open_thorlabs(stage)
         % stage.device is not connected, clear it from the environment.
         disp('stage.device is not connected, remove the field and continue.')
         stage = rmfield(stage, 'device');
-        evalin('base', ['clear ', varName]);
+        clear stage
 
     else
 
@@ -55,7 +55,7 @@ function stage = stage_open_thorlabs(stage)
 
             % Stage is not connected, clear it from the base environment.
             disp('Stage is not connected, clear it from the base environment.')
-            evalin('base', ['clear ', varName]);
+            evalin('base', ['clear ', 'savedStage']);
 
         end
         
@@ -146,6 +146,17 @@ function stage = stage_open_thorlabs(stage)
         xChannel.EnableDevice();
         yChannel.EnableDevice();
 
+        % Give stage time to initialize
+        elapsed = 0;
+        while device.IsDeviceBusy
+            pause(0.25)
+            elapsed = elapsed + .25;
+
+            if elapsed > timeout
+                break;
+            end
+        end
+
 
 
     catch ME
@@ -172,7 +183,7 @@ function stage = stage_open_thorlabs(stage)
     stage.timeout = timeout;
     stage.status = 1;
 
-    % Save stage information in base environment for error recovery
+    % % Save stage information in base environment for error recovery
     assignin('base', 'savedStage', stage)
 
 
