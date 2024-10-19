@@ -38,12 +38,7 @@ try
             'Tag','Stage');
     catch ME
 
-        % Select the first line of the error message
-        desc = "The stage failed to connect. Try turing the stage off and on.";
-        % Create an error dialogboxto display the error message
-        h_errordlg = errordlg(desc,'Application error','modal');
-        uiwait(h_errordlg)
-        stage = stage_open(stage);
+        error_show(ME);
 
     end
 
