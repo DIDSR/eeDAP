@@ -437,6 +437,31 @@ function align_eye_cam(handles) %#ok<*INUSD>
         end
         save('offset_stage.mat','offset_stage');
         offset_cam = offset_stage * settings.stage2cam_hres;
+
+        % Adjust offset_cam for the slide label position
+        RotateWSI = handles.myData.settings.RotateWSI;
+        switch RotateWSI
+            % Notes:
+            % eeDAP images are WSI images rotated 90 degree clockwise
+            case 180        % 9 o'clock
+                error('debug this code');
+            case 270      % 6 o'clock
+                offset_cam(1) = offset_cam(1);
+                offset_cam(2) = - offset_cam(2);
+            case 90       % 12 o'clock
+                offset_cam(1) = offset_cam(1);
+                offset_cam(2) = offset_cam(2);
+            case 0      % 3 o'clock
+                error('debug this code');
+        end
+
+        % Recalculate the reticle mask for the camera
+        % adjusting for the offset between camera and eyepiece
+        settings.cam_mask = reticle_make_mask(...
+            settings.reticleID,...
+            settings.cam_pixel_size/settings.mag_cam,...
+            offset_cam);
+
         settings.offset_stage = offset_stage;
         settings.offset_cam = offset_cam;
 
@@ -445,26 +470,6 @@ function align_eye_cam(handles) %#ok<*INUSD>
         if joystickInfo(1) == 1
             handles.myData.stage = stage_set_joy_speed(handles.myData.stage,joystickInfo(2));
         end
-        % Recalculate the mask
-        % adjusting for the offset between camera and eyepiece
-        settings.cam_mask = reticle_make_mask(...
-            settings.reticleID,...
-            settings.cam_pixel_size/settings.mag_cam,...
-            settings.offset_cam);
-
-        %     % Recalculate the mask
-        %     % adjusting for the offset between camera and eyepiece
-        %     settings.cam_mask = reticle_make_mask(...
-        %         settings.reticleID,...
-        %         settings.cam_pixel_size/settings.mag_cam,...
-        %         [0,0]);
-
-        %     % Recalculate the mask
-        %     % adjusting for the offset between camera and eyepiece
-        %     settings.cam_mask = reticle_make_mask(...
-        %         settings.reticleID,...
-        %         settings.cam_pixel_size/settings.mag_cam,...
-        %         -settings.offset_cam);
 
         handles.myData.settings = settings;
         guidata(handles.Administrator_Input_Screen, handles);

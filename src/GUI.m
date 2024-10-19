@@ -587,8 +587,9 @@ function NextButtonPressed(hObj, eventdata, handles) %#ok<DEFNU>
                         % eyepiece offset
                         offset_stage = int64(myData.settings.offset_stage);
                         % registration refine offset
-                        offset_reg_refine = transpose(int64(myData.settings.offset_reg_refine{taskinfo.slot}));
-                        stage_new = transpose(stage_new - offset_stage + offset_reg_refine);
+                        offset_reg_refine = int64(myData.settings.offset_reg_refine{taskinfo.slot});
+                        stage_new = stage_new' - offset_stage + offset_reg_refine;
+
                     end
                     taskinfo.stage_x = stage_new(1);
                     taskinfo.stage_y = stage_new(2);
@@ -897,8 +898,25 @@ function Fast_Register_Button_Callback(~, ~, handles)
         xoffset = cam2stage*(roi_w/2 + cam_roi_w/2 - xpeak);
         yoffset = cam2stage*(roi_h/2 + cam_roi_h/2 - ypeak);
         offset_roi = order*int64([xoffset, yoffset]);
-        stage_new = stage_current + offset_roi;
         offset_stage = int64(myData.settings.offset_stage);
+
+        % Implement offset accounting for the slide label position
+        RotateWSI = handles.myData.settings.RotateWSI;
+        switch RotateWSI
+            % Notes:
+            % eeDAP images are WSI images rotated 90 degree clockwise
+            case 180        % 9 o'clock
+                error('debug this code');
+            case 270      % 6 o'clock
+                stage_new(1) = stage_current(1) + offset_roi(1);
+                stage_new(2) = stage_current(2) - offset_roi(2);
+            case 90       % 12 o'clock
+                stage_new(1) = stage_current(1) + offset_roi(1);
+                stage_new(2) = stage_current(2) + offset_roi(2);
+            case 0      % 3 o'clock
+                error('debug this code');
+        end
+
         stage_new = stage_new - offset_stage;
         handles.myData.stage = stage_move(handles.myData.stage,stage_new);
     catch ME
@@ -1175,6 +1193,18 @@ function Best_Register_Button_Callback(~, ~, handles)
         stage_current = int64(handles.myData.stage.Pos);
         cam_image = camera_take_image(handles.cam);
 
+        % % Get the stage position and snap a picture: cam_image
+        % handles.myData.stage = stage_get_pos(handles.myData.stage);
+        % stage_current = int64(handles.myData.stage.Pos);
+        % cam_image = camera_take_image(handles.cam);
+
+        % % Reset the stage position and snap a picture
+        % stage_current = int64([ ...
+        %     handles.myData.taskinfo.stage_x, ...
+        %     handles.myData.taskinfo.stage_y]);
+        % handles.myData.stage = stage_move(handles.myData.stage, stage_current);
+        % cam_image = camera_take_image(handles.cam);
+
 
 
         %    'GET THE ROI SIZE FROM SETTINGS cam_roi_w, cam_roi_h'
@@ -1222,8 +1252,25 @@ function Best_Register_Button_Callback(~, ~, handles)
         xoffset = cam2stage*(search_w/2 - xpeak);
         yoffset = cam2stage*(search_h/2 - ypeak);
         offset_roi = order*int64([xoffset, yoffset]);
-        stage_new = stage_current + offset_roi;
         offset_stage = int64(myData.settings.offset_stage);
+
+        % Implement offset accounting for the slide label position
+        RotateWSI = handles.myData.settings.RotateWSI;
+        switch RotateWSI
+            % Notes:
+            % eeDAP images are WSI images rotated 90 degree clockwise
+            case 180        % 9 o'clock
+                error('debug this code');
+            case 270      % 6 o'clock
+                stage_new(1) = stage_current(1) + offset_roi(1);
+                stage_new(2) = stage_current(2) - offset_roi(2);
+            case 90       % 12 o'clock
+                stage_new(1) = stage_current(1) + offset_roi(1);
+                stage_new(2) = stage_current(2) + offset_roi(2);
+            case 0      % 3 o'clock
+                error('debug this code');
+        end
+
         stage_new = stage_new - offset_stage;
         handles.myData.stage = stage_move(handles.myData.stage,stage_new);
     catch ME
