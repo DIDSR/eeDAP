@@ -2,6 +2,9 @@
 function stage = stage_open_prior(label)
 try
     
+    % Initialize stage.status to 0 = fail
+    stage.status = 0;
+
     % Delete existing serial ports connections to the stage
     handle = serialportfind(Tag='Stage');
     delete(handle)
@@ -21,7 +24,6 @@ try
     % Add SerialPortStage to the stage object
     stage.port = SerialPortStage;
 
-
     % stage.handle = serial(SerialPortStage,...
     %     'RequestToSend','off',...
     %     'Timeout',3,...
@@ -29,46 +31,6 @@ try
     %     'Parity', 'none',...
     %     'Stopbits', 2);
 
-    % Connect to the serialport device
-    try
-        stage.handle = serialport(SerialPortStage, 9600,...
-            'Timeout',3,...
-            'Parity', 'none',...
-            'Stopbits', 2,...
-            'Tag','Stage');
-    catch ME
-
-        error_show(ME);
-
-    end
-
-    % instrfind returns the instrument object array
-    % objects = instrfind
-    % each entry includes the type, status, and name as follows
-    % Index:    Type:     Status:   Name:
-    % 1         serial    closed    Serial-COM4
-    % 
-    % objects can be cleared from memory with
-    % delete(objects)
-
-    objects = instrfind;
-    delete(objects);
-
-    
-    % Test to see if the COM port is set in the file PortNames.mat
-    try
-        % PortNames.mat contains SerialPortStage, the last port used and
-        % saved
-        load('PortNames.mat');
-    catch ME
-        stage.status = SerialPortSetUp();
-        if stage.status == 1
-            stage = stage_open_prior(label);
-        end
-        return
-    end
-    stage.scale=1;
-    stage.label=label;
     stage.handle = serial(SerialPortStage,...
           'RequestToSend','off',...
           'Timeout',3,...
@@ -86,17 +48,8 @@ try
 
         delete(stage.handle);
         stage.handle = '';
-        desc = textscan(ME.message,'%s','delimiter','\n');
-        desc = desc{1};
-        desc = desc(1,:)
-        h_errordlg = errordlg(desc,'Application error','modal');
-        uiwait(h_errordlg)
 
-        stage.status = SerialPortSetUp();
-        if stage.status == 1 
-            stage = stage_open_prior(label);
-        end
-        return
+        error("Failed to connect stage.")
     end
 
     % Test to see if the COM port is attached to the stage
@@ -105,15 +58,8 @@ try
         
         delete(stage.handle);
         stage.handle = '';
-        desc = 'The selected COM port is not connected to the stage.'
-        h_errordlg = errordlg(desc,'Application error','modal');
-        uiwait(h_errordlg)
 
-        stage.status = SerialPortSetUp();
-        if stage.status == 1 
-            stage = stage_open_prior(label);
-        end
-        return
+        error("Failed to connect stage.")
     end
 
     stage.status = 1;
